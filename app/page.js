@@ -16,6 +16,7 @@ import FeaturesComponent from "@/components/FeaturesComponent";
 import FeatureCards from "@/components/FeatureCards";
 import LogoLoop from "@/components/LogoLoop";
 import ChatFold11 from "@/screens/ChatFold11";
+import ChatFold12 from "@/screens/ChatFold12";
 
 export default function Home() {
 
@@ -88,8 +89,8 @@ export default function Home() {
         <div className="section" data-text="dark">
           <ChatFold11 />
         </div>
-        <div className="section h-screen" data-text="dark">
-          
+        <div className="section" data-text="dark">
+          <ChatFold12 />
         </div>
         {/* <div className="section" data-text="light">
           <FAQsection />
