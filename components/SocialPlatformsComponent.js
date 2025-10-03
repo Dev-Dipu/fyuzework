@@ -31,7 +31,7 @@ export default function SocialPlatformsComponent() {
     <div className="relative w-full h-screen bg-beige-800 flex items-center pt-[10vh] flex-col gap-6">
       <div className="relative w-5/12 text-center flex-center flex-col">
         <div className="relative w-full z-80">
-          <h2 className="text-[3.5vw] leading-[4.2vw] mb-2 font-[700] text-dark-black z-50">
+          <h2 className="text-[3.5vw] font-archivo leading-[4.2vw] mb-2 font-[700] text-dark-black z-50">
             Supported Social Platforms
           </h2>
           <p className="text-gray-500 font-[300] w-11/12 mx-auto leading-[120%] text-xs z-50">

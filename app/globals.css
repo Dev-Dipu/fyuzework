@@ -53,6 +53,14 @@ body {
   overflow-x: hidden;
 }
 
+/* Theme configuration */
+@theme {
+  --font-sans: var(--font-inter), sans-serif;
+  --font-archivo: var(--font-archivo), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+/* 
 @font-face {
   font-family: "Inter";
   src: url("/fonts/inter/static/Inter_18pt-Black.ttf") format("ttf");
@@ -131,7 +139,7 @@ body {
 }
 .font-inter {
   font-family: "Inter", sans-serif;
-}
+} */
 @layer base {
   .flex-center {
     @apply flex justify-center items-center;

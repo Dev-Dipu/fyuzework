@@ -1,8 +1,11 @@
+// app/layout.tsx
 import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import ThemeProvider from "@/lib/hooks/ThemeContext";
 
+// Google Fonts
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -11,6 +14,20 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"], // pick the weights you need
+});
+
+const archivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "400", "500", "600", "700"], // adjust to your needs
 });
 
 export const metadata = {
@@ -22,7 +39,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full relative font-inter`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${archivo.variable} antialiased w-full relative`}
       >
         <ThemeProvider>
           <Navbar />

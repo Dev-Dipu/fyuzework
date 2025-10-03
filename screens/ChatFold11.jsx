@@ -94,7 +94,7 @@ const ChatFold11 = () => {
     <div ref={containerRef} className="h-screen flex items-center justify-center gap-20">
       {/* Left Side */}
       <div className="w-[26%]">
-        <h1 ref={headingRef} className="text-5xl font-[Archivo] font-semibold leading-auto">
+        <h1 ref={headingRef} className="text-5xl font-archivo font-semibold leading-auto">
           The World’s Most Powerful Platform Features
         </h1>
         <p ref={paraRef} className="text-sm mt-6 leading-relaxed">
