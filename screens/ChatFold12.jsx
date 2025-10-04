@@ -75,7 +75,7 @@ const ChatFold12 = () => {
     return (
         <div
             ref={containerRef}
-            className="h-screen flex flex-col justify-center items-center gap-8"
+            className="h-[120vh] flex flex-col justify-center items-center gap-8"
         >
             {" "}
             <div className="flex justify-center gap-16">
@@ -97,7 +97,7 @@ const ChatFold12 = () => {
                     influencers and content creators who already promote
                     products similar to yours.        {" "}
                 </p>
-                     {" "}
+                {" "}
             </div>
             <div className="w-full flex justify-center">
                 <div
@@ -116,6 +116,8 @@ const ChatFold12 = () => {
                             textColor="#ffffff"
                             borderRadius={0.05}
                             scrollEase={0.02}
+                            headingRef={headingRef}    // <-- pass refs
+                            paraRef={paraRef}
                         />
                     </div>
                 </div>

@@ -42,7 +42,7 @@ export default function SparkleSvg() {
   }, []);
   return (
     <div
-      className="relative w-[42px] h-[42px] sparkle-cont cursor-pointer z-[100]"
+      className="relative w-[42px] h-[42px] sparkle-cont cursor-pointer z-100"
       ref={sparkleCont}
       onMouseEnter={() => tl.current.restart()}
     >

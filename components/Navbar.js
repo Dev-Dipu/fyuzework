@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <nav
       className={`w-full fixed p-9 flex-between z-100 ${
-        darkText ? "text-black bg-[linear-gradient(180deg,#E2E1DC_73.25%,rgba(226,225,220,0)_100%)]" : "text-white"
+        darkText ? "text-gray-500 bg-[linear-gradient(180deg,#E2E1DC_73.25%,rgba(226,225,220,0)_100%)]" : "text-white"
       }`}
     >
       <div className="relative flex-center gap-12">
