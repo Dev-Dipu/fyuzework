@@ -106,7 +106,7 @@ export default function HeroComponent() {
               <div className="relative w-full h-full pointer-events-auto" style={{ willChange: "opacity, transform" }}>
                 <input
                   type="text"
-                  className="w-full h-full absolute bg-transparent outline-none text-white placeholder:text-white pl-20"
+                  className="w-full h-full absolute z-90  outline-none text-white  placeholder:text-white pl-20 pr-36"
                   style={{ willChange: "opacity, transform" }}
                 />
                 <div className="relative w-full flex-between p-5 h-full input-gradient rounded-[28px] backdrop-blur-[120px] z-80" style={{ willChange: "opacity, filter, transform" }}>
