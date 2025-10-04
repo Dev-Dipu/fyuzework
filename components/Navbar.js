@@ -63,14 +63,8 @@ export default function Navbar() {
 
   return (
     <nav
-<<<<<<< HEAD
       className="w-full fixed p-9 flex-between z-100 transition-colors duration-300"
       style={{ color: textColor }}
-=======
-      className={`w-full fixed p-9 flex-between z-100 ${
-        darkText ? "text-gray-500 bg-[linear-gradient(180deg,#E2E1DC_73.25%,rgba(226,225,220,0)_100%)]" : "text-white"
-      }`}
->>>>>>> baa2b3345fb5c479dc1f39d2d52457861aecbc67
     >
       {/* Gradient overlay with opacity transition */}
       <div 
