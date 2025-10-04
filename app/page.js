@@ -37,35 +37,41 @@ export default function Home() {
     ];
 
     const { setDarkText } = useContext(ThemeContext);
-    // const {lenis} = useLenis();
-    useLenis()
+    useLenis();
 
     useEffect(() => {
-        const sections = document.querySelectorAll(".section");
-        const observer = new IntersectionObserver(
-            (entries) => {
-              console.dir(entries)
-                entries.forEach((entry) => {
-                  
-                    if (entry.isIntersecting) {
-                        setDarkText(entry.target.dataset.text === "dark");
-                    }
-                });
-            },
-            { threshold: 0.5 }
-        );
-
-        sections.forEach((sec) => observer.observe(sec));
-        return () => observer.disconnect();
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            
+            const documentHeight = document.documentElement.scrollHeight;
+            const lastSectionStart = documentHeight - (windowHeight * 2);
+            
+            if (scrollY < windowHeight) {
+                setDarkText(false);
+            } else if (scrollY >= windowHeight && scrollY < lastSectionStart) {
+                setDarkText(true);
+            } else {
+                setDarkText(false);
+            }
+        };
+        
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, [setDarkText]);
 
     return (
         <>
-            {/* <SplashCursor /> */}
             <div className="section bg-beige-800" data-text="light">
                 <HeroComponent />
             </div>
-            <div className="relative w-full z-50 bg-[#E2E1DC]" data-text="dark">
+            
+            <div className="section relative w-full z-50 bg-[#E2E1DC]" data-text="dark">
                 <div className="flex-between w-full px-10 sticky top-[92vh] z-100">
                     <div className="rounded-full px-8 py-[10px] text-xs leading-[100%] left-10 border-gray-500 border font-medium text-gray-500">
                         FIND YOUR NEXT INFLUENCER
@@ -78,16 +84,10 @@ export default function Home() {
                         <div className="w-[0.5px] h-[5px] relative bg-gray-500 line2"></div>
                     </div>
                 </div>
-                <div
-                    className="section h-[800vh] bg-beige-800"
-                    data-text="dark"
-                >
+                <div className="h-[800vh] bg-beige-800">
                     <AboutComponent />
                 </div>
-                <div
-                    className="section bg-[#E2E1DC] h-[220vh]"
-                    data-text="dark"
-                >
+                <div className="bg-[#E2E1DC] h-[220vh]">
                     <FeaturesComponent />
                     <FeatureCards />
                     <div className="h-[40vh] flex-center">
@@ -105,18 +105,19 @@ export default function Home() {
                         />
                     </div>
                 </div>
-                <div className="section" data-text="dark">
+                <div>
                     <SocialPlatformsComponent />
                 </div>
-                <div className="section" data-text="dark">
+                <div>
                     <ChatFold11 />
                 </div>
-                <div className="section" data-text="dark">
+                <div>
                     <ChatFold12 />
                 </div>
-                <div className="section" data-text="light">
-          <FAQsection />
-        </div>
+            </div>
+            
+            <div className="section" data-text="light">
+                <FAQsection />
             </div>
         </>
     );
