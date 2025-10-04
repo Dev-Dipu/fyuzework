@@ -54,7 +54,7 @@ const ChatFold11 = () => {
     let tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 40%",
+        start: "top 70%",
         scrub: true
       }
     })
@@ -66,7 +66,7 @@ const ChatFold11 = () => {
       stagger: 0.05,
       duration: 0.6,
       ease: "power3.out"
-    }, "a")
+    }, "a-=0.6")
 
     // Animate paragraph lines
     tl.from(splitPara.lines, {
@@ -82,7 +82,7 @@ const ChatFold11 = () => {
       y: 40,
       opacity: 0,
       scale: 0.95,
-      stagger: 0.015,
+      stagger: 0.025,
       duration: 0.2,
       ease: "power3.out"
     }, "a")

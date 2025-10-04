@@ -104,15 +104,15 @@ export default function HeroComponent() {
                 </p>
               </div>
               <div className="relative w-full h-full pointer-events-auto" style={{ willChange: "opacity, transform" }}>
-                <div className="relative w-full flex-between p-5 h-full input-gradient rounded-[28px] backdrop-blur-[120px] z-80" style={{ willChange: "opacity, filter, transform" }}>
-                  <SparkleSvg />
-                  <input
+                <input
                   type="text"
-                  className=" h-full absolute z-50 w-4/5 outline-none text-white  placeholder:text-white pl-20 pr-4"
+                  className="w-full h-full absolute z-90  outline-none text-white  placeholder:text-white pl-20 pr-36"
                   style={{ willChange: "opacity, transform" }}
                 />
+                <div className="relative w-full flex-between p-5 h-full input-gradient rounded-[28px] backdrop-blur-[120px] z-80" style={{ willChange: "opacity, filter, transform" }}>
+                  <SparkleSvg />
                   <div className="flex-center relative gap-3" style={{ willChange: "opacity, transform" }}>
-                    <div className="relative z-[100] flex-center p-3 rounded-2xl icon-gradient cursor-pointer hover:scale-105 transition" style={{ willChange: "opacity, transform" }}>
+                    <div className="relative flex-center p-3 rounded-2xl icon-gradient cursor-pointer hover:scale-105 transition" style={{ willChange: "opacity, transform" }}>
                       <div className="relative w-5 h-5" style={{ willChange: "opacity, transform" }}>
                         <Image
                           src="/assets/clip.svg"

@@ -1,10 +1,21 @@
 "use client";
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from "ogl";
 import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 /* ----------------- Data Array ----------------- */
 const defaultFeatures = [
   // New features from the uploaded images
+  {
+    icon: "/CubeFocus.svg", 
+    title: "AI Visual Detection",
+    desc: "Our advanced AI-powered algorithm identifies products visually in content videos, even when not explicitly mentioned."
+  },
+  {
+    icon: "/Barcode.svg", 
+    title: "AI Voice Recognition",
+    desc: "Our advanced AI-powered algorithm detects precise product mentions and brand names in creator content with 99% accuracy."
+  },
   {
     icon: "/Microscope.svg", 
     title: "Micro-Niche Targeting",
@@ -24,18 +35,19 @@ const defaultFeatures = [
     icon: "/MagnifyingGlass.svg", // Changed to UserMinus for contrast
     title: "Competitor Analysis",
     desc: "Our advanced AI-powered algorithm finds creators who promote competing products in your specific niche, by detecting specific product mentions, brand names, and visual appearances."
-  },
-  {
-    icon: "/CubeFocus.svg", 
-    title: "AI Visual Detection",
-    desc: "Our advanced AI-powered algorithm identifies products visually in content videos, even when not explicitly mentioned."
-  },
-  {
-    icon: "/Barcode.svg", 
-    title: "AI Voice Recognition",
-    desc: "Our advanced AI-powered algorithm detects precise product mentions and brand names in creator content with 99% accuracy."
   }
 ];
+
+const slideTexts = [
+  {
+    heading: "Find	Creators	Who	Promote	Products	Like	Yours",
+    paragraph: "Our	Ai-powered	platform analyzes	hundreds	of	millions	of	online	videos	in	 order	to	match	your	brand with	influencers	and	content	creators	who	already	promote	 products	similar	to	yours."
+  },
+  {
+    heading: "Find	the Perfect	Influencers	with	Hyper-Specific	Targeting",
+    paragraph: "Discover	exactly	the	right	creators	using	our	proprietary filtering	system	with	 120K+	micro-categories	that	go	far	beyond	standard	influencer	platforms."
+  },
+]
 
 /* ----------------- Helpers ----------------- */
 function debounce(func, wait) {
@@ -435,9 +447,12 @@ class App {
       bend = 3,
       borderRadius = 0.05,
       scrollSpeed = 2,
-      scrollEase = 0.05
+      scrollEase = 0.05,
+      headingRef, paraRef
     } = {}
   ) {
+    this.headingRef = headingRef;
+  this.paraRef = paraRef;
     autoBind(this);
     this.container = container;
     this.items = items || [];
@@ -494,7 +509,7 @@ class App {
       // Logic for alternating up/down: 
       // index % 2 === 0 (even) -> 1 * offset
       // index % 2 === 1 (odd) -> -1 * offset
-      const offsetSign = (index % 2 === 0) ? 1 : -1;
+      const offsetSign = (index % 2 === 0) ? -1 : 1;
       const offsetY = offsetSign * verticalOffsetValue;
 
       return new Media({
@@ -523,7 +538,7 @@ class App {
   onTouchMove(e) {
     if (!this.isDown) return;
     const x = e.touches ? e.touches[0].clientX : e.clientX;
-    const distance = (this.start - x) * (this.scrollSpeed * 0.025);
+    const distance = (this.start - x) * (this.scrollSpeed * 0.08);
     this.scroll.target = this.scroll.position + distance;
   }
   onTouchUp() {
@@ -538,12 +553,90 @@ class App {
   }
 
   onCheck() {
-    if (!this.medias || !this.medias[0]) return;
-    const width = this.medias[0].width;
-    const itemIndex = Math.round(Math.abs(this.scroll.target) / width);
-    const item = width * itemIndex;
-    this.scroll.target = this.scroll.target < 0 ? -item : item;
+  if (!this.medias || !this.medias[0]) return;
+
+  const cardWidth = this.medias[0].width;
+  const groupSize = 3;
+  const snapWidth = cardWidth * groupSize;
+
+  // Calculate nearest group index
+  const groupIndex = Math.round(Math.abs(this.scroll.target) / snapWidth);
+  const snapTarget = snapWidth * groupIndex;
+  this.scroll.target = this.scroll.target < 0 ? -snapTarget : snapTarget;
+
+  // --- Update heading/paragraph dynamically ---
+  const slideIndex = groupIndex % slideTexts.length;
+  const nextHeading = slideTexts[slideIndex].heading;
+  const nextParagraph = slideTexts[slideIndex].paragraph;
+
+  if (this.headingRef?.current && this.paraRef?.current) {
+    const headingEl = this.headingRef.current;
+    const paraEl = this.paraRef.current;
+
+    // Clear any previous SplitText instances
+    if (headingEl.split) headingEl.split.revert();
+    if (paraEl.split) paraEl.split.revert();
+
+    const tl = gsap.timeline();
+
+    // Fade & blur out existing text
+    tl.to([headingEl, paraEl], {
+      opacity: 0,
+      filter: "blur(6px)",
+      y: 10,
+      duration: 0.4,
+      ease: "power2.out",
+      onComplete: () => {
+        headingEl.textContent = nextHeading;
+        paraEl.textContent = nextParagraph;
+
+        // Split new text
+        headingEl.split = new SplitText(headingEl, { type: "words" });
+        paraEl.split = new SplitText(paraEl, { type: "lines" });
+
+        // Set initial states for new split parts
+        gsap.set(headingEl.split.words, {
+          opacity: 0,
+          y: 50,
+          filter: "blur(4px)",
+        });
+        gsap.set(paraEl.split.lines, {
+          opacity: 0,
+          y: 40,
+          filter: "blur(4px)",
+        });
+      },
+    });
+
+    // Animate new text in with word & line staggering
+    tl.to(
+      headingEl.split?.words || headingEl,
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.6,
+        ease: "power3.out",
+        stagger: 0.2,
+      },
+      "+=0.1"
+    ).to(
+      paraEl.split?.lines || paraEl,
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.2,
+      },
+      "-=0.3"
+    );
   }
+}
+
+
+
 
   onResize() {
     this.screen = {
@@ -582,7 +675,7 @@ class App {
     this.boundOnTouchUp = this.onTouchUp.bind(this);
 
     window.addEventListener("resize", this.boundOnResize);
-    window.addEventListener("wheel", this.boundOnWheel);
+    // window.addEventListener("wheel", this.boundOnWheel);
     window.addEventListener("mousedown", this.boundOnTouchDown);
     window.addEventListener("mousemove", this.boundOnTouchMove);
     window.addEventListener("mouseup", this.boundOnTouchUp);
@@ -613,18 +706,29 @@ export default function CircularGalleryCardsOgl({
   bend = 0,
   borderRadius = 0.05,
   scrollSpeed = 2,
-  scrollEase = 0.05
+  scrollEase = 0.05,
+  headingRef,
+  paraRef
 }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const feed = items && items.length ? items : defaultFeatures;
-    const app = new App(containerRef.current, { items: feed, bend, borderRadius, scrollSpeed, scrollEase });
-    return () => {
-      app.destroy();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items, bend, borderRadius, scrollSpeed, scrollEase]);
+  const feed = items && items.length ? items : defaultFeatures;
+  const app = new App(containerRef.current, { 
+    items: feed, 
+    bend, 
+    borderRadius, 
+    scrollSpeed, 
+    scrollEase, 
+    headingRef,      // ✅ forward the refs
+    paraRef          // ✅ forward the refs
+  });
+
+  return () => {
+    app.destroy();
+  };
+}, [items, bend, borderRadius, scrollSpeed, scrollEase, headingRef, paraRef]);
+
 
   // IMPORTANT: Ensure the parent div of this component gives it a defined width and height (e.g., h-screen w-full)
   return <div ref={containerRef} className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing scale-125" />;

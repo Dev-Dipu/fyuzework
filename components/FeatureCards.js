@@ -1,40 +1,21 @@
 "use client";
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const cardData = [
-  {
-    icon: "/sealCheck.svg",
-    iconHover: "/sealHover.svg",
-    title: "100M + Verified Creators",
-    desc: "Ai-powered	discovery	systems	that	continuously	identify	new	creators."
-  },
-  {
-    icon: "/userFocuswhite.svg",
-    iconHover: "/UserFocusHover.svg",
-    title: "30+	Metrics	for	Creator	Vetting",
-    desc: "Ai-powered	subcategorization	for	hyper-specific	targeting."
-  },
-  {
-    icon: "/crossHair.svg",
-    iconHover: "/crossHairHover.svg",
-    title: "99% Match Accuracy",
-    desc: "Ai-powered	creator	matching and	cutting-edge	fraud detection."
-  }
-];
-
 const FeatureCards = () => {
   const cardRefs = useRef([]);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const iconRefs = useRef([]);
 
   useEffect(() => {
     const cardElements = cardRefs.current;
+
+    // Set initial states for fade-up animation
     gsap.set(cardElements, { y: 50, opacity: 0 });
+
+    // Fade-up animations for cards
     cardElements.forEach((card, index) => {
       gsap.to(card, {
         y: 0,
@@ -55,34 +36,14 @@ const FeatureCards = () => {
     };
   }, []);
 
-  useEffect(() => {
-    cardData.forEach((_, idx) => {
-      const iconWrap = iconRefs.current[idx];
-      if (!iconWrap) return;
-      const [defaultIcon, hoverIcon] = iconWrap.children;
-      if (hoveredIndex === idx) {
-        gsap.to(defaultIcon, { opacity: 0, scale: 0.95, duration: 0.35, ease: "power2.out" });
-        gsap.to(hoverIcon, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" });
-      } else {
-        gsap.to(defaultIcon, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" });
-        gsap.to(hoverIcon, { opacity: 0, scale: 1.05, duration: 0.35, ease: "power2.out" });
-      }
-    });
-  }, [hoveredIndex]);
-
   const addToRefs = (el) => {
     if (el && !cardRefs.current.includes(el)) {
       cardRefs.current.push(el);
     }
   };
 
-  const addToIconRefs = (el, idx) => {
-    if (el) {
-      iconRefs.current[idx] = el;
-    }
-  };
-
   return (
+<<<<<<< HEAD
     <div className="h-[40vh] w-[80%] mx-auto flex justify-between">
       {cardData.map((card, idx) => (
         <div
@@ -136,8 +97,54 @@ const FeatureCards = () => {
               {card.desc}
             </p>
           </div>
+=======
+    <div className='h-[44vh] w-[80%] mx-auto flex justify-between'>
+      <div ref={addToRefs} className='relative group'>
+        <div className='h-80 w-96 bg-[#FF6B3A] absolute -top-8 -left-8 blur-[7vw] z-0 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100'>
+>>>>>>> baa2b3345fb5c479dc1f39d2d52457861aecbc67
         </div>
-      ))}
+        <div className='h-[20vw] w-[25vw] rounded-4xl cards-gradient p-5 flex flex-col gap-8 relative z-10'>
+          <div className='relative z-10'>
+            <Image src="/sealCheck.svg" alt="feature-card-1" width={35} height={35} />
+            <h1 className='text-white pt-6 text-3xl font-bold'>
+              100M + Verified Creators
+            </h1>
+          </div>
+          <p className='text-white text-sm relative z-10'>
+            Ai-powered	discovery	systems	that	continuously	identify	new	creators.
+          </p>
+        </div>
+      </div>
+      <div ref={addToRefs} className='relative group'>
+        <div className='h-80 w-96 bg-[#FF6B3A] absolute -top-8 -left-8 blur-[7vw] z-0 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100'>
+        </div>
+        <div className='h-[20vw] w-[25vw] rounded-4xl cards-gradient p-5 flex flex-col gap-8 relative z-10'>
+          <div className='relative z-10'>
+            <Image src="/userFocus.svg" alt="feature-card-1" width={35} height={35} />
+            <h1 className='text-white text-3xl font-bold pt-6'>
+              30+	Metrics	for	Creator	Vetting
+            </h1>
+          </div>
+          <p className='text-white text-sm relative z-10'>
+            Ai-powered	subcategorization	for	hyper-specific	targeting.
+          </p>
+        </div>
+      </div>
+      <div ref={addToRefs} className='relative group'>
+        <div className='h-80 w-96 bg-[#FF6B3A] absolute -top-8 -left-8 blur-[7vw] z-0 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100'>
+        </div>
+        <div className='h-[20vw] w-[25vw] rounded-4xl cards-gradient p-5 flex flex-col gap-8 relative z-10'>
+          <div className='relative z-10'>
+            <Image src="/crossHair.svg" alt="feature-card-1" width={35} height={35} />
+            <h1 className='text-white text-3xl font-bold pt-6 w-[80%]'>
+              99% Match Accuracy
+            </h1>
+          </div>
+          <p className='text-white text-sm relative z-10'>
+            Ai-powered	creator	matching and	cutting-edge	fraud detection.
+          </p>
+        </div>
+      </div>
     </div>
   )
 }
