@@ -2,6 +2,41 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from "ogl";
 import { useEffect, useRef } from "react";
 
+/* ----------------- Data Array ----------------- */
+const defaultFeatures = [
+  // New features from the uploaded images
+  {
+    icon: "/Microscope.svg", 
+    title: "Micro-Niche Targeting",
+    desc: "Filter by ultra-specific categories like ‘vegan keto fitness coaches’ or ‘sustainable luxury travel’."
+  },
+  {
+    icon: "/MathOperations.svg", 
+    title: "Engagement Quality Score",
+    desc: "Our proprietary algorithm measures genuine engagement vs fake followers and comments."
+  },
+  {
+    icon: "/UserFocus.svg", 
+    title: "Audience Overlap Finder",
+    desc: "Identify creators whose audiences match your ideal customer profile."
+  },
+  {
+    icon: "/MagnifyingGlass.svg", // Changed to UserMinus for contrast
+    title: "Competitor Analysis",
+    desc: "Our advanced AI-powered algorithm finds creators who promote competing products in your specific niche, by detecting specific product mentions, brand names, and visual appearances."
+  },
+  {
+    icon: "/CubeFocus.svg", 
+    title: "AI Visual Detection",
+    desc: "Our advanced AI-powered algorithm identifies products visually in content videos, even when not explicitly mentioned."
+  },
+  {
+    icon: "/Barcode.svg", 
+    title: "AI Voice Recognition",
+    desc: "Our advanced AI-powered algorithm detects precise product mentions and brand names in creator content with 99% accuracy."
+  }
+];
+
 /* ----------------- Helpers ----------------- */
 function debounce(func, wait) {
   let timeout;
@@ -44,17 +79,17 @@ function createCardCanvas({ iconSrc, title, desc, width = 800, height = 1000 }) 
 
   // --- REFINED STYLES AND LAYOUT TO MATCH THE IMAGE ---
 
-  const cardPadding = 70;
+  const cardPadding = 20;
   const cardX = cardPadding;
   const cardY = cardPadding;
   const cardW = width - 2 * cardPadding;
   const cardH = height - 2 * cardPadding;
-  const cardRadius = 40;
+  const cardRadius = 160;
 
   // 1. Card Background: Set to the light beige/grey color from your image
   ctx.clearRect(0, 0, width, height); 
   ctx.save();
-  ctx.fillStyle = "#F5F3ED"; // Light beige/off-white background, slightly different from EBE8E0 to match the image better
+  ctx.fillStyle = "#E2E1DC"; // Light beige/off-white background
   ctx.globalAlpha = 1.0;
   roundRect(ctx, cardX, cardY, cardW, cardH, cardRadius);
   ctx.fill();
@@ -62,31 +97,31 @@ function createCardCanvas({ iconSrc, title, desc, width = 800, height = 1000 }) 
 
   // Border (Kept from previous style, slightly adjusted color for contrast)
   ctx.save();
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 5;
   ctx.strokeStyle = "#D1CDC4"; // Light, subtle border color
   roundRect(ctx, cardX, cardY, cardW, cardH, cardRadius);
   ctx.stroke();
   ctx.restore();
 
   // Content positioning relative to the inner card space
-  const contentInnerPadding = 30;
+  const contentInnerPadding = 100;
   const contentStartX = cardX + contentInnerPadding;
   const contentStartY = cardY + contentInnerPadding; // Top content starting Y
   const contentMaxW = cardW - 2 * contentInnerPadding;
 
   // Icon area (TOP ALIGNED)
-  const iconSize = Math.floor(width * 0.10); // Significantly larger icon (was 0.07)
-  const iconX = contentStartX;
-  const iconY = contentStartY;
+  const iconSize = Math.floor(width * 0.10); // Significantly larger icon
+  const iconX = contentStartX + 10;
+  const iconY = contentStartY + 10;
 
   // Title and Desc (BOTTOM ALIGNED)
 
   // Setup text styles to calculate required height
-  const titleFontSize = Math.floor(width * 0.05); // Slightly larger title font (was 0.045)
-  const descFontSize = Math.floor(width * 0.035); // Slightly larger description font (was 0.032)
-  const lineHeight = Math.floor(width * 0.045); // Adjusted line height (was 0.042)
-  const titleSpacing = 20; 
-  const textBlockBottomPadding = 30; 
+  const titleFontSize = Math.floor(width * 0.061); 
+  const descFontSize = Math.floor(width * 0.052); 
+  const lineHeight = Math.floor(width * 0.058); 
+  const titleSpacing = 50; 
+  const textBlockBottomPadding = 70; 
 
   // --- 1. Calculate Description Height (Needed for total block position) ---
   ctx.font = `${descFontSize}px Arial`;
@@ -150,10 +185,9 @@ function createCardCanvas({ iconSrc, title, desc, width = 800, height = 1000 }) 
   ctx.fillText(line, contentStartX, drawDescY);
   ctx.restore();
 
-  // Small branding / footer - removed as it clutters the bottom space
-
   // Return canvas
-  canvas.__iconArea = { x: iconX, y: iconY, w: iconSize, h: iconSize };
+  // Store the icon drawing area on the canvas object for Media.createCanvasTexture to use
+  canvas.__iconArea = { x: iconX, y: iconY, w: iconSize, h: iconSize }; 
   return canvas;
 }
 
@@ -171,7 +205,8 @@ class Media {
     viewport,
     bend,
     cardData,
-    borderRadius = 0.05
+    borderRadius = 0.05,
+    offsetY = 0
   }) {
     autoBind(this);
     this.extra = 0;
@@ -186,6 +221,7 @@ class Media {
     this.bend = bend;
     this.cardData = cardData;
     this.borderRadius = borderRadius;
+    this.offsetY = offsetY; 
 
     this.createCanvasTexture();
     this.createShader();
@@ -199,8 +235,8 @@ class Media {
       iconSrc: this.cardData.icon,
       title: this.cardData.title,
       desc: this.cardData.desc,
-      width: 900,
-      height: 1200
+      width: 1560,
+      height: 1950
     });
 
     // Create texture and set image to canvas
@@ -214,7 +250,9 @@ class Media {
       img.src = this.cardData.icon;
       img.onload = () => {
         const ctx = canvas.getContext("2d");
-        const area = canvas.__iconArea || { x: 70, y: 80, w: 64, h: 64 };
+        // Retrieve the stored icon area from the canvas object
+        const area = canvas.__iconArea || { x: 70, y: 80, w: 64, h: 64 }; 
+        
         // fit icon inside the area preserving aspect
         const { w: tw, h: th } = { w: img.naturalWidth, h: img.naturalHeight };
         const scale = Math.min(area.w / tw, area.h / th);
@@ -222,14 +260,16 @@ class Media {
         const dh = th * scale;
         const dx = area.x + (area.w - dw) / 2;
         const dy = area.y + (area.h - dh) / 2;
+        
         // Draw the icon onto the canvas
         ctx.save();
-        // Since the icon itself is drawn, we can skip the clipping/clearing if the icon PNG has transparency.
         ctx.drawImage(img, dx, dy, dw, dh);
         ctx.restore();
 
         // update texture image and mark needs update
+        // We set image again to re-upload the texture to the GPU with the icon now drawn
         this.texture.image = canvas;
+        this.texture.needsUpdate = true;
       };
       // if fail, let placeholder remain
     }
@@ -319,6 +359,7 @@ class Media {
     const x = this.plane.position.x;
     const H = this.viewport.width / 2;
 
+    // Apply circular bend calculation
     if (this.bend === 0) {
       this.plane.position.y = 0;
       this.plane.rotation.z = 0;
@@ -335,6 +376,9 @@ class Media {
         this.plane.rotation.z = Math.sign(x) * Math.asin(effectiveX / R);
       }
     }
+
+    // Apply the stored vertical offset (offsetY) AFTER the bend calculation.
+    this.plane.position.y += this.offsetY; 
 
     this.speed = scroll.current - scroll.last;
     if (this.program.uniforms.uTime) this.program.uniforms.uTime.value += 0.03;
@@ -427,7 +471,7 @@ class App {
   createCamera() {
     this.camera = new Camera(this.gl);
     this.camera.fov = 45;
-    this.camera.position.z = 16;
+    this.camera.position.z = 20;
   }
 
   createScene() {
@@ -442,7 +486,17 @@ class App {
     const galleryItems = items && items.length ? items : [];
     // duplicate to make infinite scroll
     this.mediasImages = galleryItems.concat(galleryItems);
+
+    // Calculate the vertical offset for each card.
+    const verticalOffsetValue = 0.5; 
+    
     this.medias = this.mediasImages.map((data, index) => {
+      // Logic for alternating up/down: 
+      // index % 2 === 0 (even) -> 1 * offset
+      // index % 2 === 1 (odd) -> -1 * offset
+      const offsetSign = (index % 2 === 0) ? 1 : -1;
+      const offsetY = offsetSign * verticalOffsetValue;
+
       return new Media({
         geometry: this.planeGeometry,
         gl: this.gl,
@@ -455,7 +509,8 @@ class App {
         viewport: this.viewport,
         bend,
         cardData: { icon: data.icon, title: data.title, desc: data.desc },
-        borderRadius: this.borderRadius
+        borderRadius: this.borderRadius,
+        offsetY: offsetY // Pass the calculated offset
       });
     });
   }
@@ -553,42 +608,9 @@ class App {
 }
 
 /* ----------------- Exported Component ----------------- */
-const defaultFeatures = [
-  {
-    icon: "/MagnifyingGlass.svg",
-    title: "Real-Time Discovery",
-    desc: "Scan tens of millions of influencers and content creators across Instagram, TikTok, YouTube, and X."
-  },
-  {
-    icon: "/ChartBar.svg",
-    title: "Predictive ROI Analytics",
-    desc: "Forecast campaign performance and potential even before you launch."
-  },
-  {
-    icon: "/GlobeHemisphereEast.svg",
-    title: "Micro-Niche Targeting",
-    desc: "Filter searches by ultra-specific sub-categories like “TikTok Fashion Model” or “European Luxury Travel”."
-  },
-  {
-    icon: "/MagicWand.svg",
-    title: "Trend Prediction Engine",
-    desc: "Stay ahead of social media viral movements and emerging creators."
-  },
-  {
-    icon: "/MONOGRAM.svg",
-    title: "Fyuze Score™",
-    desc: "Our proprietary ranking system combining ROI potential, sentiment and fit, fraud detection, and audience trust."
-  },
-  {
-    icon: "/ChartPieSlice.svg",
-    title: "Enterprise-Grade Dashboards",
-    desc: "Transparent data, brand-safe reporting, and white-label options."
-  }
-];
-
 export default function CircularGalleryCardsOgl({
   items = null,
-  bend = 3,
+  bend = 0,
   borderRadius = 0.05,
   scrollSpeed = 2,
   scrollEase = 0.05
@@ -604,5 +626,6 @@ export default function CircularGalleryCardsOgl({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, bend, borderRadius, scrollSpeed, scrollEase]);
 
-  return <div ref={containerRef} className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing scale-110" />;
+  // IMPORTANT: Ensure the parent div of this component gives it a defined width and height (e.g., h-screen w-full)
+  return <div ref={containerRef} className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing scale-125" />;
 }
