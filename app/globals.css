@@ -149,7 +149,7 @@ body {
   }
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
@@ -181,7 +181,7 @@ body {
     rgba(255, 255, 255, 0.2) 92.77%
   );
 }
-.glass{
+.glass {
   clip-path: inset(50% 0 0 0);
 }
 
@@ -437,12 +437,13 @@ body {
   }
 } */
 
-
-
-
-
 .cards-gradient {
-  background: linear-gradient(302.64deg, #DD3305 -0.83%, #FF6B3A 49.95%, #FFB347 100.74%);
+  background: linear-gradient(
+    302.64deg,
+    #dd3305 -0.83%,
+    #ff6b3a 49.95%,
+    #ffb347 100.74%
+  );
   border: 1px solid transparent;
   transition: all 0.3s ease-in-out;
   position: relative;
@@ -451,7 +452,7 @@ body {
 }
 
 .cards-gradient::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -472,14 +473,17 @@ body {
   border: 1px solid #000000;
 }
 
-.cards-gradient h1, .cards-gradient p, .cards-gradient img {
+.cards-gradient h1,
+.cards-gradient p,
+.cards-gradient img {
   color: #ffffff;
   transition: color 0.3s ease-in-out;
   position: relative;
   z-index: 2;
 }
 
-.cards-gradient:hover h1, .cards-gradient:hover p {
+.cards-gradient:hover h1,
+.cards-gradient:hover p {
   color: #000000;
 }
 
@@ -520,3 +524,58 @@ body {
 
 
 
+
+
+.button-container {
+  text-align: center;
+}
+
+.fill-button {
+  position: relative;
+  padding: 8px 40px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #4F4F4F;
+  background: #E2E1DC;
+  border: 2px solid #4F4F4F;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.4s ease;
+  z-index: 1;
+}
+
+.fill-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #EE4F20;
+  transition: width 0.4s ease;
+  z-index: -1;
+}
+
+.fill-button:hover::before {
+  width: 100%;
+}
+
+.fill-button:hover {
+  color: #fff;
+}
+
+.fill-button:active {
+  transform: scale(0.98);
+}
+
+
+
+.img6 img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}

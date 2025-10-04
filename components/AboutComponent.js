@@ -69,8 +69,7 @@ export default function AboutComponent() {
           gsap.to(selector, {
             x: xNorm * moveAmount * factor,
             y: yNorm * moveAmountY * factor,
-            duration: 2,
-            ease: "power2.inOut",
+            duration: 1.5,
             willChange: "transform",
           });
         });
@@ -290,8 +289,8 @@ export default function AboutComponent() {
         chars,
         {
           value: text.length,
-          duration: 3.5,
           delay: 1.5,
+          duration: 1,
           ease: "none",
           onStart: () => {
             handlePlayAnimation();
@@ -622,6 +621,7 @@ export default function AboutComponent() {
             y: "10vh",
             x: "-21.5vw",
             duration: 1.5,
+            ease: "power2.inOut",
             willChange: "transform",
           },
           "step4"
@@ -817,7 +817,7 @@ export default function AboutComponent() {
             ease: "power2.inOut",
             willChange: "opacity, transform",
           },
-          "step5+=0.8"
+          "step5"
         )
         .to(
           ".img1",
@@ -1028,6 +1028,8 @@ export default function AboutComponent() {
                 fill
                 alt="img6"
                 className="object-cover object-center rounded-[20px] overflow-hidden z-40"
+                quality={100}
+                priority
               />
               <div className="w-full h-full relative border border-blue-800 ">
                 <GlassSurface

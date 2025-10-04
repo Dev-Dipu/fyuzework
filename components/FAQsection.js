@@ -11,7 +11,7 @@ export default function FAQsection() {
   };
 
   return (
-    <div className="relative w-full gradient-1 h-screen pt-[20vh]">
+    <div className="relative w-full text-white gradient-1 h-screen pt-[20vh]">
       <div className="relative text-center flex-center flex-col gap-3 lg:gap-5">
         <h2 className="text-[3.5vw] leading-[3vw] lg:text-[1.8vw] lg:leading-[1.8vw] font-[600] font-archivo">
           Frequently asked questions
