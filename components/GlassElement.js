@@ -94,7 +94,7 @@ const GlassElement = ({
 // Demo component
 export default function GlassDemo() {
   return (
-    <div className="min-h-screen absolute left-1/2">
+    <div className="min-h-screen absolute left-1/2 -translate-x-1/2">
       {/* Background pattern */}
         <GlassElement
           width={450}

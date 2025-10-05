@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import SplitType from "split-type";
+import GlassDemo from "./GlassElement";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -458,7 +459,7 @@ export default function AboutComponent() {
         .to(
           ".glass",
           {
-            top: 140,
+            top: 160,
             delay: 2.3,
             duration: 2.8,
             ease: "power3.inOut",
@@ -953,8 +954,8 @@ export default function AboutComponent() {
               className="object-cover object-center"
             />
           </div>
-          <div className="w-[7.2vw] h-[11.5vw] absolute top-[14vh] right-[11vw] rounded-[20px] img6">
-            <div className="w-full h-full relative rounded-[20px]">
+          <div className="w-[7.2vw] h-[11.5vw] absolute top-[14vh] right-[11vw] rounded-[20px] overflow-hidden img6">
+            <div className="w-full h-full relative overflow-hidden rounded-[20px]">
               <Image
                 src="/assets/img3.png"
                 fill
@@ -963,9 +964,9 @@ export default function AboutComponent() {
                 quality={100}
                 priority
               />
-              <div className="absolute h-10 w-full top-0 left-1/2 -translate-x-1/2 z-[200] glass">
-                
-              </div>
+              <div className="absolute h-4 w-full top-0 left-1/2 -translate-x-1/2 z-[200] rounded-[30px] overflow-hidden glass" style={{ isolation: 'isolate' }}>
+  <GlassDemo />
+</div>
             </div>
             <Image
               src="/assets/gradient-3.svg"
