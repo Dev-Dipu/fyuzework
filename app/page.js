@@ -10,6 +10,8 @@ import LogoLoop from "@/components/LogoLoop";
 import ChatFold11 from "@/screens/ChatFold11";
 import ChatFold12 from "@/screens/ChatFold12";
 import Lenis from "lenis";
+import Image from "next/image";
+import GlassDemo from "@/components/GlassElement";
 
 export default function Home() {
   useLenis();
@@ -33,7 +35,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="section bg-beige-800" data-text="light">
+      {/* <div className="section bg-beige-800" data-text="light">
         <HeroComponent />
       </div>
 
@@ -89,6 +91,14 @@ export default function Home() {
 
       <div className="section" data-text="light">
         <FAQsection />
+      </div> */}
+
+      <div className="h-[400vh] w-full bg-amber-500">
+
+
+        <Image src="/assets/img3.png" height={400} width={450} alt="something" className="sticky top-[20vh] left-1/2" />
+
+        <GlassDemo />
       </div>
     </>
   );

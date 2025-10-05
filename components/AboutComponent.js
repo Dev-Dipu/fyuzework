@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import SplitType from "split-type";
-import GlassSurface from "./GlassSurface";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -965,7 +964,7 @@ export default function AboutComponent() {
                 priority
               />
               <div className="absolute h-10 w-full top-0 left-1/2 -translate-x-1/2 z-[200] glass">
-                <GlassSurface className="h-full w-full" />
+                
               </div>
             </div>
             <Image

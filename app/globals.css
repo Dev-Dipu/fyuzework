@@ -518,14 +518,6 @@ body {
   animation: scrollDown 18s linear infinite;
 }
 
-
-
-
-
-
-
-
-
 .button-container {
   text-align: center;
 }
@@ -536,9 +528,9 @@ body {
   font-size: 12px;
   text-transform: uppercase;
   font-weight: 600;
-  color: #4F4F4F;
-  background: #E2E1DC;
-  border: 2px solid #4F4F4F;
+  color: #4f4f4f;
+  background: #e2e1dc;
+  border: 2px solid #4f4f4f;
   border-radius: 50px;
   cursor: pointer;
   overflow: hidden;
@@ -553,7 +545,7 @@ body {
   left: 0;
   width: 0;
   height: 100%;
-  background: #EE4F20;
+  background: #ee4f20;
   transition: width 0.4s ease;
   z-index: -1;
 }
@@ -570,12 +562,16 @@ body {
   transform: scale(0.98);
 }
 
-
-
 .img6 img {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.glass-element {
+  filter: url(#glass-effect);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
 }
