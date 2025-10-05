@@ -233,18 +233,7 @@ export default function SocialPlatformsComponent() {
         </div>
       </div>
 
-      <div className="flex-between w-full px-10 mx-auto absolute bottom-8 z-100">
-        <div className="rounded-full px-8 py-[10px] text-xs leading-[100%] border-gray-500 border font-medium text-gray-500">
-          FIND YOUR NEXT INFLUENCER
-        </div>
-        <div className="flex-center flex-col gap-1">
-          <div className="w-[0.5px] h-[20px] bg-gray-500 line1" />
-          <p className="text-xs text-center font-medium font-archivo leading-[100%] uppercase text-gray-500">
-            Scroll to explore
-          </p>
-          <div className="w-[0.5px] h-[5px] bg-gray-500 line2" />
-        </div>
-      </div>
+      
     </div>
   );
 }

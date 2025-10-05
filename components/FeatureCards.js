@@ -8,37 +8,33 @@ gsap.registerPlugin(ScrollTrigger);
 
 const cardData = [
   {
-    title: "100M + Verified Creators",
-    desc: "Ai-powered discovery systems that continuously identify new creators.",
     icon: "/sealCheck.svg",
-    iconHover: "/sealCheck.svg"
+    iconHover: "/sealHover.svg",
+    title: "100M + Verified Creators",
+    desc: "Ai-powered	discovery	systems	that	continuously	identify	new	creators."
   },
   {
-    title: "30+ Metrics for Creator Vetting",
-    desc: "Ai-powered subcategorization for hyper-specific targeting.",
-    icon: "/userFocus.svg",
-    iconHover: "/userFocus.svg"
+    icon: "/userFocusme.svg",
+    iconHover: "/UserFocusHover.svg",
+    title: "30+	Metrics	for	Creator	Vetting",
+    desc: "Ai-powered	subcategorization	for	hyper-specific	targeting."
   },
   {
-    title: "99% Match Accuracy",
-    desc: "Ai-powered creator matching and cutting-edge fraud detection.",
     icon: "/crossHair.svg",
-    iconHover: "/crossHair.svg"
+    iconHover: "/crossHairHover.svg",
+    title: "99% Match Accuracy",
+    desc: "Ai-powered	creator	matching and	cutting-edge	fraud detection."
   }
 ];
 
 const FeatureCards = () => {
   const cardRefs = useRef([]);
-  const iconRefs = useRef([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const iconRefs = useRef([]);
 
   useEffect(() => {
     const cardElements = cardRefs.current;
-
-    // Set initial states for fade-up animation
     gsap.set(cardElements, { y: 50, opacity: 0 });
-
-    // Fade-up animations for cards
     cardElements.forEach((card, index) => {
       gsap.to(card, {
         y: 0,
@@ -59,6 +55,21 @@ const FeatureCards = () => {
     };
   }, []);
 
+  useEffect(() => {
+    cardData.forEach((_, idx) => {
+      const iconWrap = iconRefs.current[idx];
+      if (!iconWrap) return;
+      const [defaultIcon, hoverIcon] = iconWrap.children;
+      if (hoveredIndex === idx) {
+        gsap.to(defaultIcon, { opacity: 0, scale: 0.95, duration: 0.35, ease: "power2.out" });
+        gsap.to(hoverIcon, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" });
+      } else {
+        gsap.to(defaultIcon, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" });
+        gsap.to(hoverIcon, { opacity: 0, scale: 1.05, duration: 0.35, ease: "power2.out" });
+      }
+    });
+  }, [hoveredIndex]);
+
   const addToRefs = (el) => {
     if (el && !cardRefs.current.includes(el)) {
       cardRefs.current.push(el);
@@ -66,13 +77,13 @@ const FeatureCards = () => {
   };
 
   const addToIconRefs = (el, idx) => {
-    if (el && !iconRefs.current[idx]) {
+    if (el) {
       iconRefs.current[idx] = el;
     }
   };
 
   return (
-    <div className="h-[40vh] w-[80%] mx-auto flex justify-between">
+    <div className="h-[44vh] w-[80%] mx-auto flex justify-between">
       {cardData.map((card, idx) => (
         <div
           key={card.title}
@@ -82,7 +93,7 @@ const FeatureCards = () => {
           onMouseLeave={() => setHoveredIndex(null)}
         >
           <div className="h-72 w-80 bg-gradient-to-r from-[#DD3305] via-[#FF8B3A] to-[#FFB347] absolute top-0 left-0 blur-[7vw] z-0 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100"></div>
-          <div className="h-[18.5vw] w-[25vw] rounded-4xl cards-gradient p-5 flex flex-col gap-8 relative z-10">
+          <div className="h-[20vw] w-[25vw] rounded-4xl cards-gradient p-5 flex flex-col gap-8 relative z-10">
             <div className="relative z-10 flex flex-col items-start">
               <span
                 className="relative inline-block w-[35px] h-[35px]"
@@ -117,7 +128,7 @@ const FeatureCards = () => {
                   />
                 </span>
               </span>
-              <h1 className={`text-white text-3xl font-bold pt-6 ${idx === 2 ? "w-[80%]" : "w-[80%]"}`}>
+              <h1 className={`text-white text-3xl font-bold pt-6${idx === 2 ? " w-[80%]" : ""}`}>
                 {card.title}
               </h1>
             </div>
