@@ -30,7 +30,6 @@ export default function AboutComponent() {
     const textWidth = textMeasureRef.current.offsetWidth;
     gsap.set(cursorRef.current, {
       left: textWidth + 'px',
-      willChange: "transform"
     });
   };
 
@@ -70,7 +69,6 @@ export default function AboutComponent() {
             x: xNorm * moveAmount * factor,
             y: yNorm * moveAmountY * factor,
             duration: 1.5,
-            willChange: "transform",
           });
         });
       };
@@ -110,7 +108,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity",
           },
           "q"
         )
@@ -121,7 +118,6 @@ export default function AboutComponent() {
             top: "-5vh",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "q"
         )
@@ -132,7 +128,6 @@ export default function AboutComponent() {
             bottom: "-5vh",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "q"
         )
@@ -143,7 +138,6 @@ export default function AboutComponent() {
             left: "-10vw",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "q"
         )
@@ -154,7 +148,6 @@ export default function AboutComponent() {
             bottom: "-5vh",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "q"
         )
@@ -165,7 +158,6 @@ export default function AboutComponent() {
             bottom: "-10vh",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "q"
         )
@@ -176,7 +168,6 @@ export default function AboutComponent() {
             top: "-5vh",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "q"
         )
@@ -187,7 +178,6 @@ export default function AboutComponent() {
             top: "-10vh",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "q"
         )
@@ -198,20 +188,18 @@ export default function AboutComponent() {
             top: "-2vh",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "q"
         )
         .fromTo(
           ".content-text",
-          { opacity: 0, y: 80, willChange: "opacity, transform" },
+          { opacity: 0, y: 80 },
           {
             opacity: 1,
             y: 0,
             stagger: 0.3,
             duration: 1,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "q"
         );
@@ -234,32 +222,26 @@ export default function AboutComponent() {
       gsap.set(heading.words, {
         opacity: 0,
         y: 30,
-        willChange: "opacity, transform",
       });
       gsap.set("anim3-desc .desc", {
         opacity: 0,
         y: 40,
-        willChange: "opacity, transform",
       });
       gsap.set(heading2.words, {
         opacity: 0,
         y: 10,
-        willChange: "opacity, transform",
       });
       gsap.set(".anim4-desc .desc", {
         opacity: 0,
         y: 20,
-        willChange: "opacity, transform",
       });
       gsap.set(".popup", {
         opacity: 0,
         y: 5,
-        willChange: "opacity, transform",
       });
       gsap.set(".gradient", {
         opacity: 0,
         y: 30,
-        willChange: "opacity, transform",
       });
 
       const tl = gsap.timeline({
@@ -302,7 +284,6 @@ export default function AboutComponent() {
               updateCursorPosition(currentText);
             }
           },
-          willChange: "opacity",
         },
         "step2"
       );
@@ -316,7 +297,6 @@ export default function AboutComponent() {
           delay: 1.5,
           duration: 1.8,
           ease: "power2.inOut",
-          willChange: "opacity, transform",
         },
         "step3"
       )
@@ -329,7 +309,6 @@ export default function AboutComponent() {
             delay: 1.5,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -342,7 +321,6 @@ export default function AboutComponent() {
             delay: 1.5,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -355,7 +333,6 @@ export default function AboutComponent() {
             delay: 1.5,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -368,7 +345,6 @@ export default function AboutComponent() {
             delay: 1.5,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -394,7 +370,6 @@ export default function AboutComponent() {
             },
             borderBottom: 1,
             borderBottomColor: "#ffffff",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -407,7 +382,6 @@ export default function AboutComponent() {
             duration: 1.8,
             delay: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -420,18 +394,17 @@ export default function AboutComponent() {
             delay: 1.5,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
         .to(
           ".content-text.heading",
-          { y: -60, opacity: 0, delay: 1.5, duration: 1.2, ease: "power2.inOut", willChange: "opacity, transform" },
+          { y: -60, opacity: 0, delay: 1.5, duration: 1.2, ease: "power2.inOut" },
           "step3"
         )
         .to(
           ".content-text.para",
-          { y: 60, opacity: 0, delay: 1.5, duration: 1.2, ease: "power2.inOut", willChange: "opacity, transform" },
+          { y: 60, opacity: 0, delay: 1.5, duration: 1.2, ease: "power2.inOut" },
           "step3"
         )
         .to(
@@ -450,7 +423,6 @@ export default function AboutComponent() {
             delay: 1.5,
             duration: 1.2,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -461,7 +433,6 @@ export default function AboutComponent() {
             delay: 1.5,
             duration: 1.2,
             ease: "power2.inOut",
-            willChange: "opacity",
           },
           "step3"
         )
@@ -474,7 +445,6 @@ export default function AboutComponent() {
             duration: 1.5,
             stagger: 0.22,
             ease: "power3.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -483,7 +453,6 @@ export default function AboutComponent() {
           {
             opacity: 1,
             delay: 2,
-            willChange: "opacity",
           },
           "step3"
         )
@@ -494,7 +463,6 @@ export default function AboutComponent() {
             delay: 2.3,
             duration: 2.8,
             ease: "power3.inOut",
-            willChange: "transform",
           },
           "step3"
         )
@@ -507,7 +475,6 @@ export default function AboutComponent() {
             duration: 1.5,
             stagger: 0.22,
             ease: "power3.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -520,7 +487,6 @@ export default function AboutComponent() {
             duration: 1.5,
             stagger: 0.22,
             ease: "power3.inOut",
-            willChange: "opacity, transform",
           },
           "step3"
         )
@@ -531,7 +497,6 @@ export default function AboutComponent() {
             delay: 2,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity",
           },
           "step3"
         )
@@ -552,7 +517,6 @@ export default function AboutComponent() {
                 gsap.set(cursorRef.current, { opacity: 0 });
               }
             },
-            willChange: "opacity",
           },
           "step3"
         );
@@ -565,7 +529,6 @@ export default function AboutComponent() {
           filter: "blur(6px)",
           duration: 1.5,
           ease: "power2.inOut",
-          willChange: "opacity, transform, filter",
         },
         "step4"
       )
@@ -577,7 +540,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity, transform, filter",
           },
           "step4"
         )
@@ -588,7 +550,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step4"
         )
@@ -599,7 +560,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 0.7,
             ease: "power2.inOut",
-            willChange: "opacity, filter",
           },
           "step4"
         )
@@ -611,7 +571,6 @@ export default function AboutComponent() {
             duration: 0.6,
             stagger: 0.18,
             ease: "power2.inOut",
-            willChange: "opacity, filter",
           },
           "step4"
         )
@@ -622,7 +581,6 @@ export default function AboutComponent() {
             x: "-21.5vw",
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "step4"
         )
@@ -633,7 +591,6 @@ export default function AboutComponent() {
             y: () => gsap.getProperty(".img6", "y") - window.innerHeight * 0.05,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "step4"
         )
@@ -643,7 +600,6 @@ export default function AboutComponent() {
             scale: 1.8,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "transform",
           },
           "step4"
         )
@@ -656,7 +612,6 @@ export default function AboutComponent() {
             delay: 0.8,
             stagger: 0.22,
             ease: "power3.inOut",
-            willChange: "opacity, transform",
           },
           "step4"
         )
@@ -669,7 +624,6 @@ export default function AboutComponent() {
             duration: 1.5,
             stagger: 0.22,
             ease: "power3.inOut",
-            willChange: "opacity, transform",
           },
           "step4"
         )
@@ -682,7 +636,6 @@ export default function AboutComponent() {
             opacity: 1,
             duration: 1.5,
             ease: "power3.inOut",
-            willChange: "opacity, transform, filter",
           },
           "step4"
         )
@@ -696,7 +649,6 @@ export default function AboutComponent() {
             opacity: 1,
             duration: 1.5,
             ease: "power3.inOut",
-            willChange: "opacity, transform, filter",
           },
           "step4"
         )
@@ -709,7 +661,6 @@ export default function AboutComponent() {
             opacity: 1,
             duration: 1.5,
             ease: "power3.inOut",
-            willChange: "opacity, transform, filter",
           },
           "step4"
         )
@@ -722,7 +673,6 @@ export default function AboutComponent() {
             opacity: 1,
             duration: 1.5,
             ease: "power3.inOut",
-            willChange: "opacity, transform, filter",
           },
           "step4"
         )
@@ -735,7 +685,6 @@ export default function AboutComponent() {
             opacity: 1,
             duration: 1.1,
             ease: "power3.inOut",
-            willChange: "opacity, transform, filter",
           },
           "step4"
         )
@@ -746,7 +695,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.1,
             ease: "back.out(1.7)",
-            willChange: "opacity, transform",
           },
           "step4"
         )
@@ -759,7 +707,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power3.inOut",
-            willChange: "opacity, transform",
           },
           "step4+=0.3"
         );
@@ -771,7 +718,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         )
@@ -782,7 +728,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5+=0.2"
         )
@@ -793,7 +738,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5+=0.4"
         )
@@ -804,7 +748,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5+=0.6"
         )
@@ -815,7 +758,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         )
@@ -827,7 +769,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         )
@@ -839,7 +780,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         )
@@ -851,7 +791,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         )
@@ -863,7 +802,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         )
@@ -875,7 +813,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         )
@@ -887,7 +824,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         )
@@ -899,7 +835,6 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.8,
             ease: "power2.inOut",
-            willChange: "opacity, transform",
           },
           "step5"
         );
@@ -917,13 +852,11 @@ export default function AboutComponent() {
         opacity: 0,
         duration: 0.6,
         ease: "power1.inOut",
-        willChange: "opacity",
       })
       .to(cursorRef.current, {
         opacity: 1,
         duration: 0.6,
         ease: "power1.inOut",
-        willChange: "opacity",
       });
 
       return () => {
@@ -1069,7 +1002,6 @@ export default function AboutComponent() {
           <div className="h-full relative w-3/12 anim3-heading">
             <h3
               className="text-[2.6vw] leading-[3vw] font-bold font-archivo w-10/12"
-              style={{ willChange: "opacity, transform, filter" }}
             >
               Discover the Right Voices
             </h3>
@@ -1158,7 +1090,6 @@ export default function AboutComponent() {
               <div className="relative anim4-heading w-full">
                 <h4
                   className="text-[2.6vw] leading-[3.2vw] font-bold font-archivo"
-                  style={{ willChange: "opacity, transform, filter" }}
                 >
                   Match with Precision
                 </h4>
