@@ -955,7 +955,7 @@ export default function AboutComponent() {
             />
           </div>
           <div className="w-[7.2vw] h-[11.5vw] absolute top-[14vh] right-[11vw] rounded-[20px] img6">
-            <div className="w-full h-full relative overflow-hidden rounded-[20px]">
+            <div className="w-full h-full relative rounded-[20px]">
               <Image
                 src="/assets/img3.png"
                 fill
@@ -964,11 +964,8 @@ export default function AboutComponent() {
                 quality={100}
                 priority
               />
-              <div className="w-full h-full relative border border-blue-800 ">
-                <GlassSurface
-                  borderRadius={20}
-                  className="absolute top-0 left-0 w-full h-[30px] z-50 glass scale-[1.1] opacity-0"
-                ></GlassSurface>
+              <div className="absolute h-10 w-full top-0 left-1/2 -translate-x-1/2 z-[200] glass">
+                <GlassSurface className="h-full w-full" />
               </div>
             </div>
             <Image
