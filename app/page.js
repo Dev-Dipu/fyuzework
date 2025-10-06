@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="section" data-text="light">
+      <div className="section bg-beige-800" data-text="light">
         <FAQsection />
       </div>
     </>

@@ -1,17 +1,42 @@
 "use client";
 import { faqContent } from "@/lib/content";
+import { useGSAP } from "@gsap/react";
 import { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
 
 export default function FAQsection() {
   const [activeTab, setActiveTab] = useState("");
+  const homeContainer = useRef(null);
   const contentRef = useRef(null);
 
   const handleToggle = (id) => {
     setActiveTab((prev) => (prev === id ? "" : id));
   };
 
+  useGSAP(() => {
+    gsap.set(homeContainer.current, {
+      scaleX: 0.95,
+      scaleY: 0.75,
+      borderRadius: 56,
+      transformOrigin: "50% 50%",
+      willChange: "transform, border-radius",
+    });
+
+    gsap.to(homeContainer.current, {
+      scaleX: 1,
+      scaleY: 1,
+      borderRadius: 0,
+      scrollTrigger: {
+        trigger: homeContainer.current,
+        start: "top bottom",
+        end: "top top",
+        scrub: 2,
+      },
+    });
+  });
+
   return (
-    <div className="relative w-full text-white gradient-1 h-screen pt-[20vh]">
+    <div ref={homeContainer} className="relative w-full text-white gradient-1 h-screen pt-[20vh]">
       <div className="relative text-center flex-center flex-col gap-3 lg:gap-5">
         <h2 className="text-[3.5vw] leading-[3vw] lg:text-[1.8vw] lg:leading-[1.8vw] font-[600] font-archivo">
           Frequently asked questions
@@ -25,9 +50,8 @@ export default function FAQsection() {
           return (
             <div
               key={item.id}
-              className={`cursor-pointer border-white ${
-                item.id == 1 ? "border-t-0" : "border-t-[0.5px]"
-              }`}
+              className={`cursor-pointer border-white ${item.id == 1 ? "border-t-0" : "border-t-[0.5px]"
+                }`}
             >
               <div
                 className="flex-between w-full relative rounded-t-md pt-4"
@@ -41,11 +65,10 @@ export default function FAQsection() {
                   <div className="w-[18px] h-[1.5px] bg-white rounded-full absolute"></div>
                   {/* Vertical line */}
                   <div
-                    className={`w-[18px] h-[1.5px] bg-white rounded-full absolute transition-all duration-300 ${
-                      activeTab === item.id
+                    className={`w-[18px] h-[1.5px] bg-white rounded-full absolute transition-all duration-300 ${activeTab === item.id
                         ? "rotate-0 opacity-0"
                         : "rotate-90 opacity-100"
-                    }`}
+                      }`}
                   ></div>
                 </div>
               </div>
