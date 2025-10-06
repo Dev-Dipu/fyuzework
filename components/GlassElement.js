@@ -97,11 +97,11 @@ export default function GlassDemo() {
     <div className="min-h-screen absolute left-1/2 -translate-x-1/2">
       {/* Background pattern */}
         <GlassElement
-          width={450}
-          height={100}
+          width={110}
+          height={15}
           depth={15}
           radius={30}
-          strength={80}
+          strength={20}
           chromaticAberration={5}
           blur={3}
         >
