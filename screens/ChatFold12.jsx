@@ -30,7 +30,7 @@ const ChatFold12 = () => {
         let tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "top 70%", // Adjusted start for better visibility
+                start: "top 90%", // Adjusted start for better visibility
                 end: "bottom center", // Added an end point
                 scrub: true,
                 // Uncomment below for debugging
@@ -45,10 +45,10 @@ const ChatFold12 = () => {
                 y: 25,
                 opacity: 0,
                 stagger: 0.05,
-                duration: 0.6,
+                duration: 0.4,
                 ease: "power3.out",
             },
-            "a-=0.2"
+            "a-=0.8"
         );
 
         // Animate paragraph lines
@@ -75,7 +75,7 @@ const ChatFold12 = () => {
     return (
         <div
             ref={containerRef}
-            className="h-[120vh] flex flex-col justify-center items-center gap-8"
+            className="h-[140vh] flex flex-col justify-center items-center gap-8"
         >
             {" "}
             <div className="flex justify-center gap-16">
