@@ -465,16 +465,16 @@ export default function AboutComponent() {
           ".glass",
           {
             opacity: 1,
-            delay: 2,
+            duration: 0.2,
+            ease: "power2.inOut",
           },
-          "step3"
+          "step3+=1.5"
         )
         .to(
           ".glass",
           {
             top: 200,
-            delay: 2.3,
-            duration: 2.8,
+            duration: 2,
             ease: "power3.inOut",
             onComplete: () => {
             gsap.to('.glass', {
@@ -484,19 +484,18 @@ export default function AboutComponent() {
             })
           }
           },
-          "step3"
+          "step3+=1.5"
         )
         .to(
           ".popup",
           {
             y: 0,
             opacity: 1,
-            delay: 2.5,
             duration: 1.5,
             stagger: 0.22,
             ease: "power3.inOut",
           },
-          "step3"
+          "step3+=3.2"
         )
         .to(
           ".anim3-desc .desc",
