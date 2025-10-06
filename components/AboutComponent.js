@@ -476,6 +476,13 @@ export default function AboutComponent() {
             delay: 2.3,
             duration: 2.8,
             ease: "power3.inOut",
+            onComplete: () => {
+            gsap.to('.glass', {
+              opacity: 0,
+              duration: 1.5,
+              ease: "power2.inOut"
+            })
+          }
           },
           "step3"
         )
