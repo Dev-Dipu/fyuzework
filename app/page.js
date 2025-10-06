@@ -10,10 +10,17 @@ import LogoLoop from "@/components/LogoLoop";
 import ChatFold11 from "@/screens/ChatFold11";
 import ChatFold12 from "@/screens/ChatFold12";
 import Image from "next/image";
+import { useEffect } from "react";
 
 
 export default function Home() {
   useLenis();
+
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
+  
 
   const imageLogos = [
     { src: "/layers.svg", alt: "Company 1", href: "https://company1.com" },
