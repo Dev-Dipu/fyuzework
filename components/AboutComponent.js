@@ -164,7 +164,7 @@ export default function AboutComponent() {
         .from(
           ".img6",
           {
-            right: "-10vw",
+            right: "-12vw",
             top: "-5vh",
             duration: 1.5,
             ease: "power2.inOut",
