@@ -526,7 +526,7 @@ body {
   font-weight: 600;
   color: #4f4f4f;
   background: #e2e1dc;
-  border: 2px solid #4f4f4f;
+  border: .5px solid #4f4f4f;
   border-radius: 50px;
   cursor: pointer;
   overflow: hidden;
