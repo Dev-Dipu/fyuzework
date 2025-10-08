@@ -105,7 +105,7 @@ export default function AboutComponent() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrapperRef.current,
-          start: "top top",
+          start: "top 55%",
           end: "bottom bottom",
           scrub: 1,
           onUpdate: (self) => {
@@ -179,8 +179,8 @@ export default function AboutComponent() {
         .to(".ig-name", { opacity: 1, duration: 1.5, ease: "power2.inOut" }, 2);
 
       // Step 3: Show discovery content (50-65%)
-      tl.to(heading.words, { y: 0, opacity: 1, duration: 2, stagger: 0.22, ease: "power3.inOut" }, 4)
-        .to(".glass", { opacity: 1, duration: 0.2, ease: "power2.inOut" }, 4.5)
+      tl.to(heading.words, { y: 0, opacity: 1, duration: 2, stagger: 0.22, ease: "power3.inOut" }, 2)
+        .to(".glass", { opacity: 1, duration: 0.2, ease: "power2.inOut" }, 2.5)
         .to(".glass", {
           top: 200,
           duration: 2,
@@ -188,48 +188,48 @@ export default function AboutComponent() {
           onComplete: () => {
             gsap.to('.glass', { opacity: 0, duration: 1.5, ease: "power2.inOut" });
           }
-        }, 4.5)
-        .to(".popup", { y: 0, opacity: 1, duration: 1.5, stagger: 0.22, ease: "power3.inOut" }, 5.5)
-        .to(".anim3-desc .desc", { y: 0, opacity: 1, duration: 1.5, stagger: 0.22, ease: "power3.inOut" }, 4)
-        .to(".gradient", { opacity: 1, duration: 1.5, ease: "power2.inOut" }, 4.5);
+        }, 2.5)
+        .to(".popup", { y: 0, opacity: 1, duration: 1.5, stagger: 0.22, ease: "power3.inOut" }, 2.5)
+        .to(".anim3-desc .desc", { y: 0, opacity: 1, duration: 1.5, stagger: 0.22, ease: "power3.inOut" }, 2.2)
+        .to(".gradient", { opacity: 1, duration: 1.5, ease: "power2.inOut" },2.5);
 
       // Step 4: Transition to precision match (65-80%)
-      tl.to(".anim3-heading", { y: "-25vh", opacity: 0, filter: "blur(6px)", duration: 1.5, ease: "power2.inOut" }, 7)
-        .to(".anim3-desc", { y: "-50vh", filter: "blur(6px)", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 7)
-        .to(".anim3-gradient", { y: "-5vh", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 7)
-        .to(".input-field", { filter: "blur(6px)", opacity: 0, duration: 0.7, ease: "power2.inOut" }, 7)
-        .to([".popup.one", ".popup.two", ".popup.three"], { filter: "blur(6px)", opacity: 0, duration: 0.6, stagger: 0.18, ease: "power2.inOut" }, 7)
-        .to(".popup.four", { y: "10vh", x: "-20.8vw", duration: 1.5, ease: "power2.inOut" }, 7)
+      tl.to(".anim3-heading", { y: "-25vh", opacity: 0, filter: "blur(6px)", duration: 1.5, ease: "power2.inOut" }, 4)
+        .to(".anim3-desc", { y: "-50vh", filter: "blur(6px)", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 4)
+        .to(".anim3-gradient", { y: "-5vh", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 4)
+        .to(".input-field", { filter: "blur(6px)", opacity: 0, duration: 0.7, ease: "power2.inOut" }, 4)
+        .to([".popup.one", ".popup.two", ".popup.three"], { filter: "blur(6px)", opacity: 0, duration: 0.6, stagger: 0.18, ease: "power2.inOut" }, 4)
+        .to(".popup.four", { y: "10vh", x: "-20.8vw", duration: 1.5, ease: "power2.inOut" }, 4)
         .to(".img6", {
           x: () => gsap.getProperty(".img6", "x") - window.innerWidth * 0.1,
           y: () => gsap.getProperty(".img6", "y") - window.innerHeight * 0.05,
           duration: 1.5,
           ease: "power2.inOut",
-        }, 7)
-        .to(".img6 .img-gradient", { scale: 1.8, duration: 1.5, ease: "power2.inOut" }, 7)
-        .to(heading2.words, { y: 0, opacity: 1, duration: 1.5, stagger: 0.22, ease: "power3.inOut" }, 7.2)
-        .to(".anim4-desc .desc", { y: 0, opacity: 1, duration: 1.5, stagger: 0.22, ease: "power3.inOut" }, 7.2)
-        .to(".img8", { left: "-2vw", top: "10vh", filter: "blur(4px)", duration: 1.5, ease: "power3.inOut" }, 7)
-        .to(".img3", { left: "20vw", bottom: "-30vh", scale: 0.5, filter: "blur(4px)", duration: 1.5, ease: "power3.inOut" }, 7)
-        .to(".img4", { right: "15vw", bottom: "-2vh", filter: "blur(4px)", duration: 1.5, ease: "power3.inOut" }, 7)
-        .to(".img5", { right: "-3vw", top: "-2vh", filter: "blur(4px)", duration: 1.5, ease: "power3.inOut" }, 7)
-        .to(".img7", { right: "-20vw", top: "-6vh", filter: "blur(4px)", duration: 1.1, ease: "power3.inOut" }, 7)
-        .from(".chat-logo", { scale: 0, opacity: 0, duration: 1.1, ease: "back.out(1.7)" }, 7)
-        .from(".chat-bubble", { x: -100, y: -20, scale: 0.2, opacity: 0, duration: 1.5, ease: "power3.inOut" }, 7.3);
+        }, 4)
+        .to(".img6 .img-gradient", { scale: 1.8, duration: 1.5, ease: "power2.inOut" }, 4)
+        .to(heading2.words, { y: 0, opacity: 1, duration: 1.5, stagger: 0.22, ease: "power3.inOut" }, 4.2)
+        .to(".anim4-desc .desc", { y: 0, opacity: 1, duration: 1.5, stagger: 0.22, ease: "power3.inOut" }, 4.2)
+        .to(".img8", { left: "-2vw", top: "10vh", filter: "blur(4px)", duration: 1.5, ease: "power3.inOut" }, 4)
+        .to(".img3", { left: "20vw", bottom: "-30vh", scale: 0.5, filter: "blur(4px)", duration: 1.5, ease: "power3.inOut" }, 4)
+        .to(".img4", { right: "15vw", bottom: "-2vh", filter: "blur(4px)", duration: 1.5, ease: "power3.inOut" }, 4)
+        .to(".img5", { right: "-3vw", top: "-2vh", filter: "blur(4px)", duration: 1.5, ease: "power3.inOut" }, 4)
+        .to(".img7", { right: "-20vw", top: "-6vh", filter: "blur(4px)", duration: 1.1, ease: "power3.inOut" }, 4)
+        .from(".chat-logo", { scale: 0, opacity: 0, duration: 1.1, ease: "back.out(1.7)" }, 4)
+        .from(".chat-bubble", { x: -100, y: -20, scale: 0.2, opacity: 0, duration: 1.5, ease: "power3.inOut" }, 4.3);
 
       // Step 5: Exit animations (80-100%)
-      tl.to(".img6", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9)
-        .to(".anim4-heading", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8.8)
-        .to(".anim4-desc", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9.4)
-        .to([".chat-logo", ".chat-bubble"], { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9.6)
-        .to(".popup.four", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9)
-        .to(".img1", { left: "-25vw", top: "-15vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9)
-        .to(".img2", { left: "-15vw", bottom: "-15vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9)
-        .to(".img3", { bottom: "-60vh", left: "-20vw", opacity: 0, duration: 2, ease: "power2.inOut" }, 9)
-        .to(".img4", { right: "-15vw", bottom: "-25vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9)
-        .to(".img5", { right: "-20vw", bottom: "-20vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9)
-        .to(".img7", { right: "-30vw", top: "-20vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9)
-        .to(".img8", { left: "-15vw", top: "-12vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 9);
+      tl.to(".img6", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5.4)
+        .to(".anim4-heading", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5.6)
+        .to(".anim4-desc", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5.8)
+        .to([".chat-logo", ".chat-bubble"], { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 6.2)
+        .to(".popup.four", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5.8)
+        .to(".img1", { left: "-25vw", top: "-15vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5)
+        .to(".img2", { left: "-15vw", bottom: "-15vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5)
+        .to(".img3", { bottom: "-60vh", left: "-20vw", opacity: 0, duration: 2, ease: "power2.inOut" }, 5)
+        .to(".img4", { right: "-15vw", bottom: "-25vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5)
+        .to(".img5", { right: "-20vw", bottom: "-20vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5)
+        .to(".img7", { right: "-30vw", top: "-20vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5)
+        .to(".img8", { left: "-15vw", top: "-12vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 5);
 
     }, scopeRef);
 
@@ -355,7 +355,7 @@ export default function AboutComponent() {
                   priority
                 />
                 <div
-                  className="absolute h-4 w-full -top-10 left-1/2 -translate-x-1/2 z-[200] glass"
+                  className="absolute h-4 w-full -top-10 left-1/2 -translate-x-1/2 z-[100] glass"
                   style={{ isolation: "isolate" }}
                 >
                   <GlassDemo />
