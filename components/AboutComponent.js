@@ -109,7 +109,7 @@ export default function AboutComponent() {
             duration: 1.5,
             ease: "power2.inOut",
           },
-          "q"
+          "q-=0.4"
         )
         .from(
           ".img1",
@@ -119,7 +119,7 @@ export default function AboutComponent() {
             duration: 1.5,
             ease: "power2.inOut",
           },
-          "q"
+          "q-=0.2"
         )
         .from(
           ".img2",
