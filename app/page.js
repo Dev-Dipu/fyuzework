@@ -11,37 +11,35 @@ import ChatFold11 from "@/screens/ChatFold11";
 import ChatFold12 from "@/screens/ChatFold12";
 import Image from "next/image";
 import { useEffect } from "react";
-
+import PricingScreen from "@/screens/PricingScreen";
 
 export default function Home() {
-  useLenis();
+    useLenis();
 
-  useEffect(() => {
-  window.scrollTo(0, 0);
-}, []);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
-  
+    const imageLogos = [
+        { src: "/layers.svg", alt: "Company 1", href: "https://company1.com" },
+        { src: "/sysphus.svg", alt: "Company 2", href: "https://company2.com" },
+        {
+            src: "/circooles.svg",
+            alt: "Company 3",
+            href: "https://company3.com",
+        },
+        { src: "/catelog.svg", alt: "Company 1", href: "https://company1.com" },
+        {
+            src: "/kosent.svg",
+            alt: "Company 5",
+            href: "https://company5.com",
+        },
+        { src: "/layers.svg", alt: "Company 1", href: "https://company1.com" },
+    ];
 
-  const imageLogos = [
-    { src: "/layers.svg", alt: "Company 1", href: "https://company1.com" },
-    { src: "/sysphus.svg", alt: "Company 2", href: "https://company2.com" },
-    {
-      src: "/circooles.svg",
-      alt: "Company 3",
-      href: "https://company3.com",
-    },
-    { src: "/catelog.svg", alt: "Company 1", href: "https://company1.com" },
-    {
-      src: "/kosent.svg",
-      alt: "Company 5",
-      href: "https://company5.com",
-    },
-    { src: "/layers.svg", alt: "Company 1", href: "https://company1.com" },
-  ];
-
-  return (
-    <>
-      <div className="section bg-beige-800" data-text="light">
+    return (
+        <>
+            <div className="section bg-beige-800" data-text="light">
         <HeroComponent />
       </div>
 
@@ -110,6 +108,10 @@ export default function Home() {
       <div className="section bg-beige-800" data-text="light">
         <FAQsection />
       </div>
-    </>
-  );
+
+            {/* <div className="section bg-beige-800" data-text="dark">
+                <PricingScreen />
+            </div> */}
+        </>
+    );
 }
