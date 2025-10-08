@@ -255,11 +255,11 @@ export default function AboutComponent() {
   return (
     <div className="w-full h-[500vh] bg-transparent" ref={wrapperRef}>
       <div
-        className="bg-beige-800 w-full h-screen sticky top-0 overflow-hidden flex-center text-dark-black"
+        className="bg-beige-800 w-full h-screen sticky top-0 overflow-hidden flex items-center justify-center text-dark-black"
         ref={aboutCont}
       >
-        <div ref={scopeRef} className="w-full h-full">
-          <div className="relative w-[40%] flex flex-col gap-14 -top-14 mx-auto">
+        <div ref={scopeRef} className="w-full h-full absolute top-0 left-0 flex items-center justify-center">
+          <div className="relative w-[40%] flex flex-col gap-14 -top-14">
             <div className="text-[2.5vw] leading-[3vw] font-archivo font-[100] content-text heading z-10">
               <div className="w-[5.8vw] h-[2.8vw] relative inline-block">
                 <Image
@@ -273,7 +273,7 @@ export default function AboutComponent() {
                 Helps from discovery to ROI fully automated, fully optimized.
               </span>
             </div>
-            <div className="relative w-7/12 ml-auto bg-white border border-gray-600 rounded-full flex-center p-3 font-[300] text-sm content-text input-field z-50">
+            <div className="relative w-7/12 ml-auto bg-white border border-gray-600 rounded-full flex items-center justify-center p-3 font-[300] text-sm content-text input-field z-50">
               <SparkleSvg2 restart={restartSparkle} />
               <div className="relative w-full ml-3">
                 <input
@@ -388,14 +388,14 @@ export default function AboutComponent() {
               />
             </div>
           </div>
-          <div className="w-[88%] absolute flex-center h-[40vh] left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+          <div className="w-[88%] absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center h-[40vh]">
             <div className="h-full relative w-3/12 anim3-heading">
               <h3 className="text-[2.6vw] leading-[3vw] font-bold font-archivo w-10/12">
                 Discover the Right Voices
               </h3>
             </div>
-            <div className="w-6/12 relative h-[40vh] z-100 flex-center flex-col">
-              <div className="absolute popup one right-[5vw] top-1/8 flex-center gap-2 bg-white/20 backdrop-blur-2xl p-[10px] w-[14vw] rounded-2xl overflow-hidden ">
+            <div className="w-6/12 relative h-[40vh] z-100 flex items-center justify-center flex-col">
+              <div className="absolute popup one right-[5vw] top-1/8 flex items-center justify-center gap-2 bg-white/20 backdrop-blur-2xl p-[10px] w-[14vw] rounded-2xl overflow-hidden ">
                 <Image
                   src="/assets/grow.svg"
                   alt="trendup"
@@ -407,7 +407,7 @@ export default function AboutComponent() {
                   Reach : 2 Million
                 </span>
               </div>
-              <div className="absolute popup two left-[4vw] top-3/8 flex-center gap-2 bg-white/20 backdrop-blur-2xl p-[10px] w-[11vw] rounded-2xl overflow-hidden ">
+              <div className="absolute popup two left-[4vw] top-3/8 flex items-center justify-center gap-2 bg-white/20 backdrop-blur-2xl p-[10px] w-[11vw] rounded-2xl overflow-hidden ">
                 <Image
                   src="/assets/ig.svg"
                   alt="ig"
@@ -419,7 +419,7 @@ export default function AboutComponent() {
                   140k Followers
                 </span>
               </div>
-              <div className="absolute popup four right-[4vw] top-[55%] flex-center gap-2 p-[10px] min-w-[14vw] rounded-[20px] overflow-hidden popup-gradient">
+              <div className="absolute popup four right-[4vw] top-[55%] flex items-center justify-center gap-2 p-[10px] min-w-[14vw] rounded-[20px] overflow-hidden popup-gradient">
                 <Image
                   src="/assets/icon.svg"
                   alt="ig"
@@ -473,8 +473,8 @@ export default function AboutComponent() {
           </div>
           <div className="absolute w-8/12 h-[60vh] flex  top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
             <div className="relative left-0 top-0 w-1/2 h-full"></div>
-            <div className="relative w-1/2  h-full flex-center ">
-              <div className="flex-center flex-col gap-5 w-[55%] relative">
+            <div className="relative w-1/2 h-full flex items-center justify-center">
+              <div className="flex items-center justify-center flex-col gap-5 w-[55%] relative">
                 <div className="relative anim4-heading w-full">
                   <h4 className="text-[2.6vw] leading-[3.2vw] font-bold font-archivo">
                     Match with Precision
@@ -497,7 +497,7 @@ export default function AboutComponent() {
                 </div>
                 <div className="chat-popup flex justify-center w-full relative mt-2">
                   <div className="w-2/12 chat-logo relative">
-                    <div className="w-10 h-10 rounded-full bg-white relative flex-center">
+                    <div className="w-10 h-10 rounded-full bg-white relative flex items-center justify-center">
                       <Image
                         src="/assets/orange-logo.svg"
                         width={15}
@@ -506,7 +506,7 @@ export default function AboutComponent() {
                       />
                     </div>
                   </div>
-                  <div className="chat-bubble bg-white/40 backdrop-blur-3xl relative flex-center py-3 px-3 rounded-tl-sm rounded-xl w-[80%]">
+                  <div className="chat-bubble bg-white/40 backdrop-blur-3xl relative flex items-center justify-center py-3 px-3 rounded-tl-sm rounded-xl w-[80%]">
                     <p className="text-sm text-[#383838] w-10/12 leading-[120%]">
                       I&apos;ve found the right influencer for you. Ready to
                       launch?
