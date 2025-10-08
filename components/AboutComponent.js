@@ -494,6 +494,7 @@ export default function AboutComponent() {
             opacity: 1,
             duration: 1.5,
             stagger: 0.22,
+            delay: -.8,
             ease: "power3.inOut",
           },
           "step3+=3.2"
@@ -629,7 +630,7 @@ export default function AboutComponent() {
             y: 0,
             opacity: 1,
             duration: 1.5,
-            delay: 0.8,
+            delay: 0.1,
             stagger: 0.22,
             ease: "power3.inOut",
           },
@@ -640,7 +641,7 @@ export default function AboutComponent() {
           {
             y: 0,
             opacity: 1,
-            delay: 0.8,
+            delay: 0.1,
             duration: 1.5,
             stagger: 0.22,
             ease: "power3.inOut",
