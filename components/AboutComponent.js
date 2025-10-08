@@ -253,6 +253,7 @@ export default function AboutComponent() {
           pin: true,
           anticipatePin: 1,
           refreshPriority: -1,
+          toggleActions: "play none none reverse",
           onUpdate: (self) => {
             if (cursorRef.current) {
               const progress = self.progress;
@@ -747,6 +748,7 @@ export default function AboutComponent() {
             opacity: 0,
             duration: 1.5,
             ease: "power2.inOut",
+            
           },
           "step5-=0.2"
         )
