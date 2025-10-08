@@ -76,7 +76,7 @@ export default function Home() {
             <div className="w-[0.5px] h-[5px] relative bg-gray-500 line2"></div>
           </div>
         </div>
-        <div className="h-[800vh] bg-beige-800">
+        <div className="h-[550vh] bg-beige-800">
           <AboutComponent />
         </div>
         <div className="bg-[#E2E1DC] h-[220vh]">
