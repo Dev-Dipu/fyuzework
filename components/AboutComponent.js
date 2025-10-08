@@ -79,7 +79,7 @@ export default function AboutComponent() {
 
     return () => ctx.revert();
   }, []);
-
+ 
   // removed: loadTl timeline merged into main pinned timeline below for smoother flow
   useEffect(() => {
     if (!scopeRef.current) return;
