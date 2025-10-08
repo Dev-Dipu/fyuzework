@@ -86,7 +86,7 @@ export default function AboutComponent() {
       const loadTl = gsap.timeline({
         scrollTrigger: {
           trigger: aboutCont.current,
-          start: "top top",
+          start: "top 26%",
           end: "bottom bottom",
           toggleActions: "play none none reverse",
           scrub: false,
@@ -109,7 +109,7 @@ export default function AboutComponent() {
             duration: 1.5,
             ease: "power2.inOut",
           },
-          "q-=0.4"
+          "q"
         )
         .from(
           ".img1",
@@ -119,7 +119,7 @@ export default function AboutComponent() {
             duration: 1.5,
             ease: "power2.inOut",
           },
-          "q-=0.2"
+          "q"
         )
         .from(
           ".img2",
