@@ -27,7 +27,7 @@ const defaultFeatures = [
     desc: "Our proprietary algorithm measures genuine engagement vs fake followers and comments."
   },
   {
-    icon: "/UserFocus.svg", 
+    icon: "/userFocus.svg", 
     title: "Audience Overlap Finder",
     desc: "Identify creators whose audiences match your ideal customer profile."
   },

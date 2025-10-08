@@ -25,11 +25,12 @@ export default function AboutComponent() {
   };
 
   const updateCursorPosition = (text) => {
-    if (!textMeasureRef.current || !cursorRef.current || !inputRef.current) return;
+    if (!textMeasureRef.current || !cursorRef.current || !inputRef.current)
+      return;
     textMeasureRef.current.textContent = text;
     const textWidth = textMeasureRef.current.offsetWidth;
     gsap.set(cursorRef.current, {
-      left: textWidth + 'px',
+      left: textWidth + "px",
     });
   };
 
@@ -58,7 +59,6 @@ export default function AboutComponent() {
           { selector: ".img3", factor: 0.6 },
           { selector: ".img4", factor: 0.2 },
           { selector: ".img5", factor: -0.8 },
-          { selector: ".img6", factor: -1.2, disableOnStep3: true },
           { selector: ".img7", factor: -1.7 },
           { selector: ".img8", factor: 0.5 },
         ];
@@ -248,8 +248,8 @@ export default function AboutComponent() {
         scrollTrigger: {
           trigger: aboutCont.current,
           start: "top top",
-          end: "+=800%",
-          scrub: 2,
+          end: "+=500%",
+          scrub: 1,
           pin: true,
           anticipatePin: 1,
           refreshPriority: -1,
@@ -258,11 +258,11 @@ export default function AboutComponent() {
               const progress = self.progress;
               const showCursor = progress > 0.1 && progress < 0.4;
               gsap.set(cursorRef.current, {
-                display: showCursor ? 'block' : 'none',
-                opacity: showCursor ? 1 : 0
+                display: showCursor ? "block" : "none",
+                opacity: showCursor ? 1 : 0,
               });
             }
-          }
+          },
         },
       });
 
@@ -399,12 +399,24 @@ export default function AboutComponent() {
         )
         .to(
           ".content-text.heading",
-          { y: -60, opacity: 0, delay: 1.5, duration: 1.2, ease: "power2.inOut" },
+          {
+            y: -60,
+            opacity: 0,
+            delay: 1.5,
+            duration: 1.2,
+            ease: "power2.inOut",
+          },
           "step3"
         )
         .to(
           ".content-text.para",
-          { y: 60, opacity: 0, delay: 1.5, duration: 1.2, ease: "power2.inOut" },
+          {
+            y: 60,
+            opacity: 0,
+            delay: 1.5,
+            duration: 1.2,
+            ease: "power2.inOut",
+          },
           "step3"
         )
         .to(
@@ -418,7 +430,8 @@ export default function AboutComponent() {
               document.querySelector(".input-field").offsetWidth / 2,
             y: () =>
               window.innerHeight / 4 -
-              document.querySelector(".input-field").getBoundingClientRect().top -
+              document.querySelector(".input-field").getBoundingClientRect()
+                .top -
               document.querySelector(".input-field").offsetHeight / 2,
             delay: 1.5,
             duration: 1.2,
@@ -452,16 +465,16 @@ export default function AboutComponent() {
           ".glass",
           {
             opacity: 1,
-            delay: 2,
+            duration: 0.2,
+            ease: "power2.inOut",
           },
-          "step3"
+          "step3+=1.5"
         )
         .to(
           ".glass",
           {
-            top: 160,
-            delay: 2.3,
-            duration: 2.8,
+            top: 200,
+            duration: 2,
             ease: "power3.inOut",
             onComplete: () => {
             gsap.to('.glass', {
@@ -471,19 +484,18 @@ export default function AboutComponent() {
             })
           }
           },
-          "step3"
+          "step3+=1.5"
         )
         .to(
           ".popup",
           {
             y: 0,
             opacity: 1,
-            delay: 2.5,
             duration: 1.5,
             stagger: 0.22,
             ease: "power3.inOut",
           },
-          "step3"
+          "step3+=3.2"
         )
         .to(
           ".anim3-desc .desc",
@@ -585,7 +597,7 @@ export default function AboutComponent() {
           ".popup.four",
           {
             y: "10vh",
-            x: "-21.5vw",
+            x: "-20.8vw",
             duration: 1.5,
             ease: "power2.inOut",
           },
@@ -719,15 +731,15 @@ export default function AboutComponent() {
         );
 
       tl.to(
-          ".img6",
-          {
-            y: "-100vh",
-            opacity: 0,
-            duration: 1.5,
-            ease: "power2.inOut",
-          },
-          "step5"
-        )
+        ".img6",
+        {
+          y: "-100vh",
+          opacity: 0,
+          duration: 1.5,
+          ease: "power2.inOut",
+        },
+        "step5"
+      )
         .to(
           ".anim4-heading",
           {
@@ -736,7 +748,7 @@ export default function AboutComponent() {
             duration: 1.5,
             ease: "power2.inOut",
           },
-          "step5+=0.2"
+          "step5-=0.2"
         )
         .to(
           ".anim4-desc",
@@ -855,16 +867,17 @@ export default function AboutComponent() {
     const ctx = gsap.context(() => {
       if (!cursorRef.current) return;
       const cursorTl = gsap.timeline({ repeat: -1 });
-      cursorTl.to(cursorRef.current, {
-        opacity: 0,
-        duration: 0.6,
-        ease: "power1.inOut",
-      })
-      .to(cursorRef.current, {
-        opacity: 1,
-        duration: 0.6,
-        ease: "power1.inOut",
-      });
+      cursorTl
+        .to(cursorRef.current, {
+          opacity: 0,
+          duration: 0.6,
+          ease: "power1.inOut",
+        })
+        .to(cursorRef.current, {
+          opacity: 1,
+          duration: 0.6,
+          ease: "power1.inOut",
+        });
 
       return () => {
         cursorTl.kill();
@@ -906,7 +919,11 @@ export default function AboutComponent() {
               <span
                 ref={textMeasureRef}
                 className="absolute top-0 left-0 opacity-0 pointer-events-none whitespace-nowrap"
-                style={{ fontSize: 'inherit', fontFamily: 'inherit', fontWeight: 'inherit' }}
+                style={{
+                  fontSize: "inherit",
+                  fontFamily: "inherit",
+                  fontWeight: "inherit",
+                }}
               ></span>
               <span
                 ref={cursorRef}
@@ -971,9 +988,12 @@ export default function AboutComponent() {
                 quality={100}
                 priority
               />
-              <div className="absolute h-4 w-full top-0 left-1/2 -translate-x-1/2 z-[200] rounded-[30px] overflow-hidden glass" style={{ isolation: 'isolate' }}>
-  <GlassDemo />
-</div>
+              <div
+                className="absolute h-4 w-full -top-10 left-1/2 -translate-x-1/2 z-[200] glass"
+                style={{ isolation: "isolate" }}
+              >
+                <GlassDemo />
+              </div>
             </div>
             <Image
               src="/assets/gradient-3.svg"
@@ -1004,9 +1024,7 @@ export default function AboutComponent() {
         </div>
         <div className="w-[88%] absolute flex-center h-[40vh]">
           <div className="h-full relative w-3/12 anim3-heading">
-            <h3
-              className="text-[2.6vw] leading-[3vw] font-bold font-archivo w-10/12"
-            >
+            <h3 className="text-[2.6vw] leading-[3vw] font-bold font-archivo w-10/12">
               Discover the Right Voices
             </h3>
           </div>
@@ -1035,7 +1053,7 @@ export default function AboutComponent() {
                 140k Followers
               </span>
             </div>
-            <div className="absolute popup four right-[4vw] top-[55%] flex-center gap-2  p-[10px] min-w-[14vw] rounded-[20px] overflow-hidden popup-gradient">
+            <div className="absolute popup four right-[4vw] top-[55%] flex-center gap-2 p-[10px] min-w-[14vw] rounded-[20px] overflow-hidden popup-gradient">
               <Image
                 src="/assets/icon.svg"
                 alt="ig"
@@ -1092,9 +1110,7 @@ export default function AboutComponent() {
           <div className="relative w-1/2  h-full flex-center ">
             <div className="flex-center flex-col gap-5 w-[55%] relative">
               <div className="relative anim4-heading w-full">
-                <h4
-                  className="text-[2.6vw] leading-[3.2vw] font-bold font-archivo"
-                >
+                <h4 className="text-[2.6vw] leading-[3.2vw] font-bold font-archivo">
                   Match with Precision
                 </h4>
               </div>
@@ -1126,7 +1142,8 @@ export default function AboutComponent() {
                 </div>
                 <div className="chat-bubble bg-white/40 backdrop-blur-3xl relative flex-center py-3 px-3 rounded-tl-sm rounded-xl w-[80%]">
                   <p className="text-sm text-[#383838] w-10/12 leading-[120%]">
-                    I&apos;ve found the right influencer for you. Ready to launch?
+                    I&apos;ve found the right influencer for you. Ready to
+                    launch?
                   </p>
                 </div>
               </div>
