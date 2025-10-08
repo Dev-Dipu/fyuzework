@@ -80,37 +80,85 @@ export default function AboutComponent() {
     return () => ctx.revert();
   }, []);
 
+  // removed: loadTl timeline merged into main pinned timeline below for smoother flow
   useEffect(() => {
     if (!scopeRef.current) return;
     const ctx = gsap.context(() => {
-      const loadTl = gsap.timeline({
+      const text = "Travel influencers in Lebanon";
+
+      const heading = new SplitType(aboutCont.current.querySelector("h3"), {
+        types: "words",
+      });
+      const heading2 = new SplitType(aboutCont.current.querySelector("h4"), {
+        types: "words",
+      });
+      gsap.set(heading.words, {
+        opacity: 0,
+        y: 30,
+      });
+      gsap.set("anim3-desc .desc", {
+        opacity: 0,
+        y: 40,
+      });
+      gsap.set(heading2.words, {
+        opacity: 0,
+        y: 10,
+      });
+      gsap.set(".anim4-desc .desc", {
+        opacity: 0,
+        y: 20,
+      });
+      gsap.set(".popup", {
+        opacity: 0,
+        y: 5,
+      });
+      gsap.set(".gradient", {
+        opacity: 0,
+        y: 30,
+      });
+
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: aboutCont.current,
-          start: "top 26%",
-          end: "bottom bottom",
+          start: "top top",
+          end: "+=500%",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          refreshPriority: -1,
           toggleActions: "play none none reverse",
-          scrub: false,
+          onUpdate: (self) => {
+            if (cursorRef.current) {
+              const progress = self.progress;
+              const showCursor = progress > 0.1 && progress < 0.4;
+              gsap.set(cursorRef.current, {
+                display: showCursor ? "block" : "none",
+                opacity: showCursor ? 1 : 0,
+              });
+            }
+          },
         },
       });
-      loadTl
-        .from(
-          [
-            ".img1",
-            ".img2",
-            ".img3",
-            ".img4",
-            ".img5",
-            ".img6",
-            ".img7",
-            ".img8",
-          ],
-          {
-            opacity: 0,
-            duration: 1.5,
-            ease: "power2.inOut",
-          },
-          "q"
-        )
+
+      // initial entrance animations (merged from previous loadTl)
+      tl.from(
+        [
+          ".img1",
+          ".img2",
+          ".img3",
+          ".img4",
+          ".img5",
+          ".img6",
+          ".img7",
+          ".img8",
+        ],
+        {
+          opacity: 0,
+          duration: 1.5,
+          ease: "power2.inOut",
+        },
+        "q"
+      )
         .from(
           ".img1",
           {
@@ -203,69 +251,6 @@ export default function AboutComponent() {
           },
           "q"
         );
-    }, scopeRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  useEffect(() => {
-    if (!scopeRef.current) return;
-    const ctx = gsap.context(() => {
-      const text = "Travel influencers in Lebanon";
-
-      const heading = new SplitType(aboutCont.current.querySelector("h3"), {
-        types: "words",
-      });
-      const heading2 = new SplitType(aboutCont.current.querySelector("h4"), {
-        types: "words",
-      });
-      gsap.set(heading.words, {
-        opacity: 0,
-        y: 30,
-      });
-      gsap.set("anim3-desc .desc", {
-        opacity: 0,
-        y: 40,
-      });
-      gsap.set(heading2.words, {
-        opacity: 0,
-        y: 10,
-      });
-      gsap.set(".anim4-desc .desc", {
-        opacity: 0,
-        y: 20,
-      });
-      gsap.set(".popup", {
-        opacity: 0,
-        y: 5,
-      });
-      gsap.set(".gradient", {
-        opacity: 0,
-        y: 30,
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: aboutCont.current,
-          start: "top top",
-          end: "+=500%",
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          refreshPriority: -1,
-          toggleActions: "play none none reverse",
-          onUpdate: (self) => {
-            if (cursorRef.current) {
-              const progress = self.progress;
-              const showCursor = progress > 0.1 && progress < 0.4;
-              gsap.set(cursorRef.current, {
-                display: showCursor ? "block" : "none",
-                opacity: showCursor ? 1 : 0,
-              });
-            }
-          },
-        },
-      });
 
       const chars = { value: 0 };
       tl.to(
@@ -286,7 +271,7 @@ export default function AboutComponent() {
             }
           },
         },
-        "step2"
+        "step3"
       );
 
       tl.to(
