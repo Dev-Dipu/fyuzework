@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const PricingScreen = () => {
   return (
-    <div className="h-screen pt-12 font-[Inter] bg-zinc-200 flex flex-col justify-center items-center">
+    <div className="h-screen pt-12 font-[Inter] bg-[#E2E1DC] flex flex-col justify-center items-center">
       <h1 className="text-7xl font-archivo font-bold leading-none">
         Pricing
       </h1>
