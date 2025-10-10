@@ -108,7 +108,7 @@ export default function HeroComponent() {
               <div className="relative w-full h-full pointer-events-auto hero-fade">
                 <input
                   type="text"
-                  className="w-full h-full absolute z-90 outline-none text-white placeholder:text-white pl-20 pr-36"
+                  className="w-[70%] ml-20 h-full absolute z-90 outline-none text-white placeholder:text-white "
                 />
                 <div className="relative w-full flex-between p-5 h-full input-gradient rounded-[28px] backdrop-blur-[120px] z-80">
                   <SparkleSvg />
