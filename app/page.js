@@ -19,6 +19,7 @@ import { useGSAP } from "@gsap/react";
 export default function Home() {
     useLenis();
     const [showContent, setShowContent] = useState(false);
+    const [hideLoader, setHideLoader] = useState(false);
     const loaderRef = useRef();
     const counterRef = useRef();
     const progressLineRef = useRef();
@@ -30,82 +31,81 @@ export default function Home() {
         return () => clearTimeout(t);
     }, []);
 
-    useGSAP(() => {
-        if (!loaderRef.current) return;
+    // Loader inside Home component
+useGSAP(() => {
+    if (!loaderRef.current) return;
 
-        const loaderTimeline = gsap.timeline({
-            onComplete: () => {
-                gsap.to(loaderRef.current, {
-                    opacity: 0,
-                    duration: 0.6,
-                    ease: "power2.inOut",
-                    onComplete: () => {
-                        setShowContent(true);
-                    },
-                });
-            },
-        });
-
-        // Logo fade-in
-        loaderTimeline.from(brandNameRef.current, {
-            opacity: 0,
-            y: 20,
-            duration: 0.8,
-            ease: "power2.out",
-        });
-
-
-        // Counter animation
-        loaderTimeline.to(
-            counterRef.current,
-            {
-                innerText: 100,
-                duration: 4,
-                snap: { innerText: 1 },
+    const loaderTimeline = gsap.timeline({
+        onComplete: () => {
+            gsap.to(loaderRef.current, {
+                opacity: 0,
+                duration: 0.6,
                 ease: "power2.inOut",
-                onUpdate: function () {
-                    counterRef.current.innerText = Math.ceil(
-                        counterRef.current.innerText
-                    );
+                onComplete: () => {
+                    setShowContent(true);
+                    setHideLoader(true);
                 },
-            },
-            "-=0.3"
-        );
+            });
+        },
+    });
 
-        // Progress bar fill
-        loaderTimeline.to(
-            progressLineRef.current,
-            {
-                width: "100%",
-                duration: 4,
-                ease: "power2.inOut",
-            },
-            "-=3.5"
-        );
+    // Logo fade-in
+    loaderTimeline.from(brandNameRef.current, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: "power2.out",
+    });
 
-        // Fade out progress + number before logo scale
-        loaderTimeline.to(
-            counterGroupRef.current,
-            {
-                opacity: 0,
-                duration: 0.4,
-                ease: "power2.inOut",
-            },
-            "-=0.6"
-        );
+    // Initialize counter
+    counterRef.current.innerHTML = `
+        <span class="text-white font-archivo font-medium tabular-nums text-sm">
+            0%
+        </span>
+    `;
 
-        // Logo scale-up cinematic exit
-        loaderTimeline.to(
-            brandNameRef.current,
-            {
-                scale: 10,
-                opacity: 0,
-                duration: 1.2,
-                ease: "power3.inOut",
-            },
-            "-=0.4"
-        );
-    }, []);
+    const counterSpan = counterRef.current.querySelector("span");
+
+    // Animate from 0 → 100 smoothly
+    loaderTimeline.to(
+        { value: 0 },
+        {
+            value: 100,
+            duration: 4, // total duration
+            ease: "power1.inOut",
+            onUpdate: function () {
+                const currentValue = Math.floor(this.targets()[0].value);
+                counterSpan.textContent = currentValue + "%";
+
+                // Update progress bar width
+                gsap.to(progressLineRef.current, {
+                    width: `${currentValue}%`,
+                    duration: 0.1,
+                    ease: "none",
+                });
+
+                gsap.to(counterRef.current, {
+                    left: `${currentValue}%`,
+                    duration: 0.1,
+                    ease: "none"
+                })
+            }
+        },
+        "-=0.2"
+    );
+
+    // Fade out counter + logo together
+    loaderTimeline.to(
+        [counterGroupRef.current, brandNameRef.current],
+        {
+            opacity: 0,
+            duration: 0.8,
+            ease: "power2.inOut",
+        },
+        "-=0.6"
+    );
+});
+
 
     const imageLogos = [
         { src: "/layers.svg", alt: "Company 1", href: "https://company1.com" },
@@ -118,20 +118,22 @@ export default function Home() {
 
     return (
         <>
-            {/* LiquidEther Background */}
-            <div className="fixed inset-0 w-full h-full z-0">
-                <LiquidEther
-                    colors={["#ee4f20", "#ff6b3a", "#ee4f20"]}
-                    autoDemo={true}
-                    autoSpeed={0.3}
-                    autoIntensity={1.5}
-                    mouseForce={15}
-                    cursorSize={400}
-                />
-            </div>
+            {/* LiquidEther Background - only show during loader */}
+            {!hideLoader && (
+                <div className="fixed inset-0 w-full h-full z-0 text-white">
+                    <LiquidEther
+                        colors={["#ee4f20", "#ff6b3a", "#ee4f20"]}
+                        autoDemo={true}
+                        autoSpeed={0.3}
+                        autoIntensity={1.5}
+                        mouseForce={15}
+                        cursorSize={400}
+                    />
+                </div>
+            )}
 
             {/* Loader Overlay */}
-            {!showContent && (
+            {!hideLoader && (
                 <div
                     ref={loaderRef}
                     className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none"
@@ -154,24 +156,30 @@ export default function Home() {
                             />
                         </div>
 
-                        {/* Counter + Progress Line */}
+                        {/* Progress Line with Moving Counter */}
                         <div
                             ref={counterGroupRef}
-                            className="flex flex-col items-center gap-6"
+                            className="relative w-80 text-white"
                         >
-                            <div
-                                ref={counterRef}
-                                className="text-5xl font-semibold font-archivo text-white tabular-nums"
-                                style={{ willChange: "opacity" }}
-                            >
-                                0
-                            </div>
-                            <div className="w-80 h-[1px] bg-white/20 relative overflow-hidden">
+                            <div className="w-full h-[2px] bg-white/20 relative overflow-visible">
                                 <div
                                     ref={progressLineRef}
                                     className="absolute left-0 top-0 h-full bg-white"
                                     style={{ width: "0%", willChange: "width" }}
                                 />
+                                {/* Counter moving with progress */}
+                                <div
+                                    ref={counterRef}
+                                    className="absolute top-3.5 left-0 -translate-x-1/2"
+                                    style={{ willChange: "left" }}
+                                >
+                                    <div className="relative h-6 w-12 overflow-hidden flex items-center justify-center">
+                                        <span className="digit-container text-sm font-medium font-archivo text-white tabular-nums">
+                                            0%
+                                        </span>
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
