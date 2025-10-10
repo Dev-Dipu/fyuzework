@@ -2,7 +2,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Inter, Archivo } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 
 // Google Fonts
 const geistSans = Geist({
@@ -40,7 +39,6 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${archivo.variable} antialiased w-full relative`}
       >
-        <Navbar />
         {children}
       </body>
     </html>

@@ -68,7 +68,7 @@ const ChatFold12 = () => {
         return () => {
             if (splitHeading) splitHeading.revert();
             if (splitPara) splitPara.revert();
-            if (tl) tl.scrollTrigger().kill();
+            // if (tl) tl.scrollTrigger().kill();
         };
     }, []);
 
