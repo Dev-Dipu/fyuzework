@@ -1,12 +1,15 @@
 "use client";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Navbar() {
   const [textColor, setTextColor] = useState("white");
   const [isDarkSection, setIsDarkSection] = useState(false);
   const [logoSrc, setLogoSrc] = useState("/assets/fyuze-logo.svg");
+  const navRef = useRef();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,8 +64,23 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', throttledHandleScroll);
   }, []);
 
+  useGSAP(() => {
+    const navelms = navRef.current.querySelectorAll('.navelm')
+
+    gsap.from(navelms, {
+      y: -40,
+      opacity: 0,
+      duration: 0.36,
+      stagger: 0.2,
+      delay: 0.4,
+      ease: "power2.inOut"
+    })
+
+  }, [])
+
   return (
     <nav
+    ref={navRef}
       className="w-full fixed p-9 flex-between z-100 transition-colors duration-300"
       style={{ color: textColor }}
     >
@@ -78,7 +96,7 @@ export default function Navbar() {
 
       {/* Content */}
       <div className="relative flex-center gap-12 z-10">
-        <div className="relative w-24 h-[30px]">
+        <div className="relative w-24 h-[30px] navelm">
           <Image
             src={logoSrc}
             alt="logo"
@@ -93,7 +111,7 @@ export default function Navbar() {
         <div className="flex-between gap-10 relativ">
           <Link
             href="/"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300"
+            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
             How it works
@@ -108,7 +126,7 @@ export default function Navbar() {
           ></div>
           <Link
             href="/"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300"
+            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
             Features
@@ -123,7 +141,7 @@ export default function Navbar() {
           ></div>
           <Link
             href="/"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300"
+            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
             pricing
@@ -138,7 +156,7 @@ export default function Navbar() {
           ></div>
           <Link
             href="/"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300"
+            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
             about
@@ -149,7 +167,7 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <div className="relative flex-center gap-3 z-10">
+      <div className="relative flex-center gap-3 z-10 navelm">
         <div className="w-[30px] h-[30px] relative overflow-hidden rounded-full">
           <Image
             src="/assets/profile.png"

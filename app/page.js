@@ -70,7 +70,7 @@ useGSAP(() => {
     loaderTimeline.to(
         { value: 0 },
         {
-            value: 100,
+            value: 101,
             duration: 4, // total duration
             ease: "power1.inOut",
             onUpdate: function () {

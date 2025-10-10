@@ -129,11 +129,12 @@ export default function AboutComponent() {
                 defaults: { force3D: true },
                 scrollTrigger: {
                     trigger: wrapperRef.current,
-                    start: "top 55%",
+                    start: "top 80%",
                     end: "bottom bottom",
                     scrub: 1.5,
                     toggleActions: "play reverse play reverse",
                     anticipatePin: 1,
+                    // markers: true,
                     onUpdate: (self) => {
                         if (cursorRef.current) {
                             const progress = self.progress;
