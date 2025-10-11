@@ -57,7 +57,7 @@ const FeaturesComponent = () => {
         ScrollTrigger.create({
             trigger: containerRef.current,
             start: "top 20%",
-            end: "bottom 65%",
+            end: "bottom 70%",
             duration: 10,
             scrub: true,
             ease: "expo.inOut",
