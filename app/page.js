@@ -230,7 +230,7 @@ useGSAP(() => {
                             </div>
                         </div>
 
-                        <div className="h-[400vh] bg-beige-800">
+                        <div className="h-[390vh] bg-beige-800">
                             <AboutComponent />
                         </div>
 
