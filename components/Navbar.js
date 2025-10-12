@@ -70,9 +70,8 @@ export default function Navbar() {
     gsap.from(navelms, {
       y: -40,
       opacity: 0,
-      duration: 0.36,
-      stagger: 0.2,
-      delay: 0.4,
+      duration: 2,
+      delay: 0,
       ease: "power2.inOut"
     })
 

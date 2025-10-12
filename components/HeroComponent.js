@@ -77,9 +77,8 @@ export default function HeroComponent() {
     gsap.from(bottomlinks, {
       y: 40,
       opacity: 0,
-      duration: 0.36,
-      stagger: 0.2,
-      delay: 1.6,
+      duration: 2,
+      delay: 0.3,
       ease: "power2.inOut"
     })
 
@@ -87,10 +86,9 @@ export default function HeroComponent() {
     gsap.from(".hero-fade", {
       opacity: 0,
       y: 20,
-      duration: 1.5,
+      duration: 2,
       ease: "power3.out",
-      stagger: 0.15,
-      delay: 2,
+      delay: 0.3,
     });
 
   }, homeContainer);
