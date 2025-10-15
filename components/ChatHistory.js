@@ -44,7 +44,7 @@ const ChatHistorySection = () => {
                     }`}
             >
                 <div className="relative pl-6">
-                    <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-zinc-600"></div>
+                    <div className="absolute left-2 top-0 bottom-0 w-[1px] bg-[#D0D5DD]"></div>
 
                     <div className="space-y-2 pt-3">
                         {historyItems.map((item, index) => (
