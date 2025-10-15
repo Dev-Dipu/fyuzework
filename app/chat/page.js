@@ -34,7 +34,7 @@ const page = () => {
                         <ChatHistorySection />
                     </div>
                     <div>
-                        <h1 className="text-white flex items-center gap-2">
+                        <h1 className="text-[#E2E1DC] flex items-center gap-2">
                             <Image
                                 src="./assets/dashBoard.svg"
                                 height={24}
@@ -68,7 +68,7 @@ const page = () => {
                             />
                             <div>
                                 <h1 className="text-white">Jenny Wilson</h1>
-                                <p className="text-xs text-gray-400">
+                                <p className="text-xs text-[#C1C1C1]">
                                     jennywilson@fyuze.com
                                 </p>
                             </div>
@@ -142,7 +142,7 @@ const page = () => {
                                 <div className="absolute w-full bg-[#060606] h-20 -translate-y-10 rounded-4xl flex justify-end px-6 py-2.5 font-[inter] font-medium">
                                     <div className="flex h-fit items-center gap-1">
                                         <Image height={1} width={20} src={'/faders.svg'} alt="faders" />
-                                        <h4 className="text-base font-medium">Search with advanced filters</h4>
+                                        <h4 className="text-base font-medium text-[#C5C5C5]">Search with advanced filters</h4>
                                     </div>
                                 </div>
                                 <input

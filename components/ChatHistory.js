@@ -51,8 +51,8 @@ const ChatHistorySection = () => {
                             <button
                                 key={index}
                                 className={`w-full text-left px-4 text-sm py-2 rounded-full transition-colors relative ${index === 0
-                                        ? 'bg-white text-black'
-                                        : 'text-zinc-400 hover:bg-white hover:text-black'
+                                        ? 'bg-white text-[#343434]'
+                                        : 'text-[#C1C1C1] hover:bg-white hover:text-[#343434]'
                                     }`}
                             >
                                 <span className="block truncate">{item}</span>
