@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Suspense } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function VerifyPage() {
+function VerifyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
@@ -105,5 +105,19 @@ export default function VerifyPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function VerifyPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-[#130a03] to-[#ff5e00]/10 text-white">
+          Loading...
+        </div>
+      }
+    >
+      <VerifyContent />
+    </Suspense>
   );
 }
