@@ -191,12 +191,12 @@ useGSAP(() => {
                 <>
                     <Navbar />
 
-                    <div className="section bg-beige-800" data-text="light">
+                    <div className="section theme-bg-secondary" data-text="light">
                         <HeroComponent />
                     </div>
 
                     <div
-                        className="section relative w-full z-50 bg-[#E2E1DC]"
+                        className="section relative w-full z-50 theme-bg-secondary"
                         data-text="dark"
                     >
                         <div className="flex-between w-full p-10 sticky top-[86vh] z-100">
@@ -230,11 +230,11 @@ useGSAP(() => {
                             </div>
                         </div>
 
-                        <div className="h-[380vh] bg-beige-800">
+                        <div className="h-[380vh] theme-bg-secondary">
                             <AboutComponent />
                         </div>
 
-                        <div className="bg-[#E2E1DC] h-[220vh]">
+                        <div className="theme-bg-secondary h-[220vh]">
                             <FeaturesComponent />
                             <FeatureCards />
                             <div className="h-[40vh] flex-center">
@@ -264,7 +264,7 @@ useGSAP(() => {
                         </div>
                     </div>
 
-                    <div className="section bg-beige-800" data-text="light">
+                    <div className="section theme-bg-secondary" data-text="light">
                         <FAQsection />
                     </div>
                 </>

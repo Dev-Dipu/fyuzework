@@ -907,7 +907,7 @@ export default function AboutComponent() {
     return (
         <div className="w-full h-[500vh] bg-transparent" ref={wrapperRef}>
             <div
-                className="bg-beige-800 w-full h-screen sticky top-0 overflow-hidden flex items-center justify-center text-dark-black"
+                className="w-full h-screen sticky top-0 overflow-hidden flex items-center justify-center text-dark-black"
                 ref={aboutCont}
             >
                 <div

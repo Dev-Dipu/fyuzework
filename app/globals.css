@@ -153,6 +153,59 @@ body {
   }
 }
 
+/* Theme-aware utility classes */
+@layer utilities {
+  .theme-bg-primary {
+    background-color: var(--theme-bg-primary);
+  }
+  
+  .theme-bg-secondary {
+    background-color: var(--theme-bg-secondary);
+  }
+  
+  .theme-bg-tertiary {
+    background-color: var(--theme-bg-tertiary);
+  }
+  
+  .theme-text-primary {
+    color: var(--theme-text-primary);
+  }
+  
+  .theme-text-secondary {
+    color: var(--theme-text-secondary);
+  }
+  
+  .theme-text-tertiary {
+    color: var(--theme-text-tertiary);
+  }
+  
+  .theme-text-inverse {
+    color: var(--theme-text-inverse);
+  }
+  
+  .theme-border {
+    border-color: var(--theme-border);
+  }
+  
+  .theme-accent {
+    color: var(--theme-accent);
+  }
+  
+  .theme-bg-accent {
+    background-color: var(--theme-accent);
+  }
+  
+  .theme-gradient {
+    background: linear-gradient(
+      315.59deg,
+      var(--theme-gradient-start) -0.18%,
+      var(--theme-gradient-mid) 27.4%,
+      var(--theme-gradient-mid) 56.24%,
+      var(--theme-gradient-end) 94.18%
+    );
+  }
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -321,6 +374,20 @@ border-image-source: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 5
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  
+  /* Custom theme colors - Light Mode (Original colors) */
+  --theme-bg-primary: #000000;
+  --theme-bg-secondary: #e2e1dc;
+  --theme-bg-tertiary: #c5c5c5;
+  --theme-text-primary: #4f4f4f;
+  --theme-text-secondary: #333333;
+  --theme-text-tertiary: #262626;
+  --theme-text-inverse: #0d0d0d;
+  --theme-border: #4f4f4f;
+  --theme-accent: #dd3305;
+  --theme-gradient-start: #ee4f20;
+  --theme-gradient-mid: #ff6b3a;
+  --theme-gradient-end: #ffb347;
 }
 
 .dark {
@@ -355,6 +422,20 @@ border-image-source: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 5
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  
+  /* Custom theme colors - Dark Mode */
+  --theme-bg-primary: #0d0d0d;
+  --theme-bg-secondary: #262626;
+  --theme-bg-tertiary: #333333;
+  --theme-text-primary: #c5c5c5;
+  --theme-text-secondary: #4f4f4f;
+  --theme-text-tertiary: #333333;
+  --theme-text-inverse: #fafafa;
+  --theme-border: #4f4f4f;
+  --theme-accent: #dd3305;
+  --theme-gradient-start: #ee4f20;
+  --theme-gradient-mid: #ff6b3a;
+  --theme-gradient-end: #ffb347;
 }
 
 @layer base {
@@ -364,14 +445,29 @@ border-image-source: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 5
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Ensure text colors are properly inherited */
+  * {
+    color: inherit;
+  }
+  
+  /* Dark mode overrides only */
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: var(--theme-text-primary);
+  }
+  
+  .dark p, .dark span, .dark div {
+    color: var(--theme-text-primary);
+  }
 }
 
 body {
-  background-color: #000000;
+  background-color: var(--theme-bg-primary);
   --step: 32px;
   position: relative;
   height: 100dvh;
   width: 100dvw;
+  transition: background-color 0.3s ease;
 }
 
 .background {
@@ -460,7 +556,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(226, 225, 220, 0.9);
+  background: var(--theme-bg-secondary);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   z-index: 1;
@@ -472,7 +568,7 @@ body {
 }
 
 .cards-gradient:hover {
-  border: 1px solid #000000;
+  border: 1px solid var(--theme-text-inverse);
 }
 
 .cards-gradient h1,
@@ -486,7 +582,7 @@ body {
 
 .cards-gradient:hover h1,
 .cards-gradient:hover p {
-  color: #000000;
+  color: var(--theme-text-inverse);
 }
 
 /* Infinite Scroll Animations */
@@ -528,13 +624,13 @@ body {
   font-size: 12px;
   text-transform: uppercase;
   font-weight: 600;
-  color: #4f4f4f;
-  background: #e2e1dc;
-  border: .5px solid #4f4f4f;
+  color: var(--theme-text-primary);
+  background: var(--theme-bg-secondary);
+  border: .5px solid var(--theme-border);
   border-radius: 50px;
   cursor: pointer;
   overflow: hidden;
-  transition: color 0.4s ease;
+  transition: all 0.4s ease;
   z-index: 1;
 }
 

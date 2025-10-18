@@ -2,6 +2,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Inter, Archivo } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/lib/contexts/ThemeContext";
 
 // Google Fonts
 const geistSans = Geist({
@@ -37,9 +38,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${archivo.variable} antialiased w-full relative`}
+        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${archivo.variable} antialiased w-full relative transition-colors duration-300`}
+        style={{ 
+          backgroundColor: 'var(--theme-bg-primary)'
+        }}
       >
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

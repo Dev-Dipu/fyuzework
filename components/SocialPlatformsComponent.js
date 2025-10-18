@@ -105,7 +105,7 @@ export default function SocialPlatformsComponent() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-screen bg-beige-800 flex items-center pt-[10vh] flex-col gap-6"
+      className="relative w-full h-screen flex items-center pt-[10vh] flex-col gap-6"
     >
       <div className="relative w-5/12 text-center flex-center flex-col">
         <div className="relative w-full z-80">

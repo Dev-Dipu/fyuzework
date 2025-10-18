@@ -4,8 +4,11 @@ import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
+import { useTheme } from "@/lib/contexts/ThemeContext";
 
 export default function Navbar() {
+  const { theme, isDark } = useTheme();
   const [textColor, setTextColor] = useState("white");
   const [isDarkSection, setIsDarkSection] = useState(false);
   const [logoSrc, setLogoSrc] = useState("/assets/fyuze-logo.svg");
@@ -36,14 +39,21 @@ export default function Navbar() {
       if (currentSection) {
         const textAttribute = currentSection.getAttribute('data-text');
         if (textAttribute === 'dark') {
-          setTextColor("black");
+          // For dark sections, keep original colors in light mode
+          setTextColor(isDark ? "#c5c5c5" : "#4f4f4f");
           setIsDarkSection(true);
           setLogoSrc("/assets/fyuze-dark.svg");
         } else {
-          setTextColor("white");
+          // For light sections, keep original white color in light mode
+          setTextColor(isDark ? "#fafafa" : "white");
           setIsDarkSection(false);
           setLogoSrc("/assets/fyuze-logo.svg");
         }
+      } else {
+        // Default colors - keep original white in light mode
+        setTextColor(isDark ? "#fafafa" : "white");
+        setIsDarkSection(false);
+        setLogoSrc("/assets/fyuze-logo.svg");
       }
     };
 
@@ -62,7 +72,7 @@ export default function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener('scroll', throttledHandleScroll);
-  }, []);
+  }, [isDark]);
 
   useGSAP(() => {
     const navelms = navRef.current.querySelectorAll('.navelm')
@@ -81,13 +91,18 @@ export default function Navbar() {
     <nav
     ref={navRef}
       className="w-full fixed p-9 flex-between z-100 transition-colors duration-300"
-      style={{ color: textColor }}
+      style={{ 
+        color: textColor,
+        backgroundColor: isDark ? 'var(--theme-bg-primary)' : 'transparent'
+      }}
     >
       {/* Gradient overlay with opacity transition */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{ 
-          background: 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
+          background: isDark 
+            ? 'linear-gradient(180deg, #262626 73.25%, rgba(38,38,38,0) 100%)'
+            : 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
           opacity: isDarkSection ? 1 : 0,
           transition: 'opacity 700ms ease-in-out'
         }}
@@ -167,6 +182,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="relative flex-center gap-3 z-10 navelm">
+        <ThemeToggle />
         <div className="w-[30px] h-[30px] relative overflow-hidden rounded-full">
           <Image
             src="/assets/profile.png"
