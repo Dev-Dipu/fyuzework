@@ -4,9 +4,9 @@ import { useState, useRef, useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // ⭐ ADDED
-import apiClient from '@/lib/axiosInstance'; // ⭐ CHANGED from axios
-import { authService } from '@/lib/authService'; // ⭐ ADDED
+import { useRouter } from 'next/navigation';
+import apiClient from '@/lib/axiosInstance';
+import { authService } from '@/lib/authService';
 import ChatHistorySection from "@/components/ChatHistory";
 
 const ChatPage = () => {
@@ -15,7 +15,7 @@ const ChatPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(`session-${Date.now()}`);
   const chatContainerRef = useRef(null);
-  const router = useRouter(); // ⭐ ADDED
+  const router = useRouter();
 
   const formatNumber = (num) => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
@@ -23,7 +23,7 @@ const ChatPage = () => {
     return num?.toString() || '0';
   };
 
-  // ⭐ ADDED - Auth check on mount
+  // Auth check on mount
   useEffect(() => {
     authService.initialize();
     
@@ -71,7 +71,7 @@ const ChatPage = () => {
     } catch (error) {
       console.error('Error:', error);
       
-      // ⭐ ADDED - Handle 401 unauthorized
+      // Handle 401 unauthorized
       if (error.response?.status === 401) {
         authService.logout();
         return;
@@ -187,7 +187,6 @@ const ChatPage = () => {
                 </p>
               </div>
             </div>
-            {/* ⭐ ADDED onClick handler for logout */}
             <button 
               onClick={() => authService.logout()}
               className="text-white text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition"
@@ -255,61 +254,64 @@ const ChatPage = () => {
             className="flex-1 overflow-y-auto px-8 pt-6 pb-16 space-y-6 scroll-smooth w-6/7 mx-auto"
           >
             {chatHistory.map((msg, idx) => (
-              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className='flex flex-wrap w-full'>
-                  {msg.influencers && msg.influencers.length > 0 && (
-                  msg.influencers.map((influ, i) => (
-                    <div key={i} className="relative h-80 w-56 rounded-3xl overflow-hidden group cursor-pointer transition-transform hover:scale-105">
-      {/* Background Image */}
-      <div className="absolute h-full w-full top-0 left-0"
-      style={{
-        backgroundImage: "url('https://instagram.fudi1-2.fna.fbcdn.net/v/t51.2885-19/535115009_18524271448007147_4000120314538915707_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDQyLmMyIn0&_nc_ht=instagram.fudi1-2.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHA5Yw6uOM3IFmsBOm9cn_Qp1lp61I8Nnisq9beX5zVEYB99bGPZzkVZQiFc1KOlgo&_nc_ohc=4FYGdg8ZNAQQ7kNvwH6F_3D&_nc_gid=7IEn-cgoKpj-zKrxVUp4iw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_Afe85Rt32r3_-pEeUY4AL5z7j1UdrP5zfbAyIRhA0uxZFA&oe=68F9089D&_nc_sid=8b3546')"
-      }}>
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
-      </div>
+              <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} w-full`}>
+                {/* Influencer Cards - Only for assistant messages */}
+                {msg.role === 'assistant' && msg.influencers && msg.influencers.length > 0 && (
+                  <div className='flex flex-wrap gap-4 mb-4 w-full'>
+                    {msg.influencers.map((influ, i) => (
+                      <div key={i} className="relative h-80 w-56 rounded-3xl overflow-hidden group cursor-pointer transition-transform hover:scale-105">
+                        {/* Background Image */}
+                        <div className="absolute h-full w-full top-0 left-0"
+                        style={{
+                          backgroundImage: "url('https://instagram.fudi1-2.fna.fbcdn.net/v/t51.2885-19/535115009_18524271448007147_4000120314538915707_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDQyLmMyIn0&_nc_ht=instagram.fudi1-2.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHA5Yw6uOM3IFmsBOm9cn_Qp1lp61I8Nnisq9beX5zVEYB99bGPZzkVZQiFc1KOlgo&_nc_ohc=4FYGdg8ZNAQQ7kNvwH6F_3D&_nc_gid=7IEn-cgoKpj-zKrxVUp4iw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_Afe85Rt32r3_-pEeUY4AL5z7j1UdrP5zfbAyIRhA0uxZFA&oe=68F9089D&_nc_sid=8b3546')"
+                        }}>
+                          {/* Dark Gradient Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
+                        </div>
 
-      {/* Verified Badge - Top Left */}
-      {influ.is_verified && (
-        <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-full p-1.5">
-          <CheckCircle className="w-5 h-5 text-blue-500" fill="currentColor" />
-        </div>
-      )}
+                        {/* Verified Badge - Top Left */}
+                        {influ.is_verified && (
+                          <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-full p-1.5">
+                            <CheckCircle className="w-5 h-5 text-blue-500" fill="currentColor" />
+                          </div>
+                        )}
 
-      {/* Content at Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-2">
-        {/* Name */}
-        <h3 className="text-white font-bold text-lg leading-tight line-clamp-1">
-          {influ.full_name}
-        </h3>
+                        {/* Content at Bottom */}
+                        <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-2">
+                          {/* Name */}
+                          <h3 className="text-white font-bold text-lg leading-tight line-clamp-1">
+                            {influ.full_name}
+                          </h3>
 
-        {/* Bio */}
-        <p className="text-gray-300 text-xs leading-tight line-clamp-2 mb-1">
-          {influ.bio}
-        </p>
+                          {/* Bio */}
+                          <p className="text-gray-300 text-xs leading-tight line-clamp-2 mb-1">
+                            {influ.bio}
+                          </p>
 
-        {/* Stats Row */}
-        <div className="flex items-center justify-between text-white text-sm">
-          <div className="flex flex-col">
-            <span className="font-semibold">{formatNumber(influ.followers)}</span>
-            <span className="text-gray-400 text-xs">Followers</span>
-          </div>
-          
-          <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
-            <span className="text-xs">@{influ.username}</span>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="opacity-70">
-              <path d="M10 4L6 8L2 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-        </div>
-      </div>
+                          {/* Stats Row */}
+                          <div className="flex items-center justify-between text-white text-sm">
+                            <div className="flex flex-col">
+                              <span className="font-semibold">{formatNumber(influ.followers)}</span>
+                              <span className="text-gray-400 text-xs">Followers</span>
+                            </div>
+                            
+                            <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                              <span className="text-xs">@{influ.username}</span>
+                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="opacity-70">
+                                <path d="M10 4L6 8L2 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
 
-      {/* Hover Effect Border */}
-      <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-3xl transition-all pointer-events-none" />
-    </div>
-                  ))
+                        {/* Hover Effect Border */}
+                        <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-3xl transition-all pointer-events-none" />
+                      </div>
+                    ))}
+                  </div>
                 )}
-                </div>
+                
+                {/* Message Bubble */}
                 <div className={`max-w-[80%] px-6 py-4 rounded-2xl ${
                   msg.role === 'user' 
                     ? 'bg-white/10 backdrop-blur-md' 
