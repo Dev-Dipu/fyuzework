@@ -4,7 +4,7 @@ import useLenis from "@/lib/hooks/useLenis";
 import gsap from "gsap";
 import { useRef } from "react";
 
-const page = () => {
+const Page = () => {
   const hoverElements = useRef([]);
   const modeDivH1s = useRef([]);
 
@@ -51,7 +51,7 @@ const page = () => {
         Hey! Tell us all <br />
         the things
       </h1>
-      <p className="text-3xl pt-20">I'm interested in.</p>
+      <p className="text-3xl pt-20">I&apos;m interested in.</p>
       <div className="selectionDivs flex flex-wrap gap-4 w-[65%]">
         {data.map((item, index) => (
           <Magnet magnetStrength={5} padding={5} key={index}>
@@ -111,4 +111,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
