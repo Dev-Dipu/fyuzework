@@ -1,9 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import axios from 'axios';
+import { useRouter } from 'next/navigation'; // ⭐ ADDED
+import apiClient from '@/lib/axiosInstance'; // ⭐ CHANGED from axios
+import { authService } from '@/lib/authService'; // ⭐ ADDED
 import ChatHistorySection from "@/components/ChatHistory";
 
 const ChatPage = () => {
@@ -12,6 +15,22 @@ const ChatPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(`session-${Date.now()}`);
   const chatContainerRef = useRef(null);
+  const router = useRouter(); // ⭐ ADDED
+
+  const formatNumber = (num) => {
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+    return num?.toString() || '0';
+  };
+
+  // ⭐ ADDED - Auth check on mount
+  useEffect(() => {
+    authService.initialize();
+    
+    if (!authService.isAuthenticated()) {
+      router.push('/auth');
+    }
+  }, [router]);
 
   // Auto-scroll to bottom when chat history changes
   useEffect(() => {
@@ -33,16 +52,10 @@ const ChatPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('https://iwoihtzagjtmrsihfwfv.supabase.co/functions/v1/find-influencers', {
+      const response = await apiClient.post('/functions/v1/find-influencers', {
         session_id: sessionId,
-        message: message,
-        user_id: '282aafa1-d2c9-4216-b4c4-b1ce32a0d4c3' // Replace with actual user ID
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6IjlrWjAwd1hCeXB4YmZhdysiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2l3b2lodHphZ2p0bXJzaWhmd2Z2LnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiIyODJhYWZhMS1kMmM5LTQyMTYtYjRjNC1iMWNlMzJhMGQ0YzMiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzYwNjQxNjYxLCJpYXQiOjE3NjA2MzgwNjEsImVtYWlsIjoiZGlwdXRoZWRldkBnbWFpbC5jb20iLCJwaG9uZSI6IiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIiwicHJvdmlkZXJzIjpbImVtYWlsIl19LCJ1c2VyX21ldGFkYXRhIjp7ImVtYWlsIjoiZGlwdXRoZWRldkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGhvbmVfdmVyaWZpZWQiOmZhbHNlLCJzdWIiOiIyODJhYWZhMS1kMmM5LTQyMTYtYjRjNC1iMWNlMzJhMGQ0YzMifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTc2MDYzODA2MX1dLCJzZXNzaW9uX2lkIjoiOGVhY2UyZTgtZDBiYy00N2ZmLWE1ZDctMWIzODZjMmIwMDU2IiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.I3XsSq_8_OguXtbCraEjED8EWrqmQSN38JAP18L4-ag`,
-          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml3b2lodHphZ2p0bXJzaWhmd2Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc3NjYxODAsImV4cCI6MjA3MzM0MjE4MH0.MNiJhvS2CNhPPhIAVAYVr9ZUaHn163113TUwRq9W5Gw'
-        }
+        message: currentMessage,
+        user_id: authService.getUserId()
       });
 
       if (response.data.success) {
@@ -57,6 +70,13 @@ const ChatPage = () => {
       }
     } catch (error) {
       console.error('Error:', error);
+      
+      // ⭐ ADDED - Handle 401 unauthorized
+      if (error.response?.status === 401) {
+        authService.logout();
+        return;
+      }
+      
       setChatHistory(prev => [...prev, {
         role: 'assistant',
         text: 'Sorry, there was an error processing your request. Please try again.',
@@ -167,7 +187,11 @@ const ChatPage = () => {
                 </p>
               </div>
             </div>
-            <button className="text-white text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition">
+            {/* ⭐ ADDED onClick handler for logout */}
+            <button 
+              onClick={() => authService.logout()}
+              className="text-white text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition"
+            >
               <Image
                 src="./assets/logOut.svg"
                 height={20}
@@ -232,6 +256,60 @@ const ChatPage = () => {
           >
             {chatHistory.map((msg, idx) => (
               <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className='flex flex-wrap w-full'>
+                  {msg.influencers && msg.influencers.length > 0 && (
+                  msg.influencers.map((influ, i) => (
+                    <div key={i} className="relative h-80 w-56 rounded-3xl overflow-hidden group cursor-pointer transition-transform hover:scale-105">
+      {/* Background Image */}
+      <div className="absolute h-full w-full top-0 left-0"
+      style={{
+        backgroundImage: "url('https://instagram.fudi1-2.fna.fbcdn.net/v/t51.2885-19/535115009_18524271448007147_4000120314538915707_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDQyLmMyIn0&_nc_ht=instagram.fudi1-2.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHA5Yw6uOM3IFmsBOm9cn_Qp1lp61I8Nnisq9beX5zVEYB99bGPZzkVZQiFc1KOlgo&_nc_ohc=4FYGdg8ZNAQQ7kNvwH6F_3D&_nc_gid=7IEn-cgoKpj-zKrxVUp4iw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_Afe85Rt32r3_-pEeUY4AL5z7j1UdrP5zfbAyIRhA0uxZFA&oe=68F9089D&_nc_sid=8b3546')"
+      }}>
+        {/* Dark Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
+      </div>
+
+      {/* Verified Badge - Top Left */}
+      {influ.is_verified && (
+        <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-full p-1.5">
+          <CheckCircle className="w-5 h-5 text-blue-500" fill="currentColor" />
+        </div>
+      )}
+
+      {/* Content at Bottom */}
+      <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-2">
+        {/* Name */}
+        <h3 className="text-white font-bold text-lg leading-tight line-clamp-1">
+          {influ.full_name}
+        </h3>
+
+        {/* Bio */}
+        <p className="text-gray-300 text-xs leading-tight line-clamp-2 mb-1">
+          {influ.bio}
+        </p>
+
+        {/* Stats Row */}
+        <div className="flex items-center justify-between text-white text-sm">
+          <div className="flex flex-col">
+            <span className="font-semibold">{formatNumber(influ.followers)}</span>
+            <span className="text-gray-400 text-xs">Followers</span>
+          </div>
+          
+          <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
+            <span className="text-xs">@{influ.username}</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="opacity-70">
+              <path d="M10 4L6 8L2 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      {/* Hover Effect Border */}
+      <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-3xl transition-all pointer-events-none" />
+    </div>
+                  ))
+                )}
+                </div>
                 <div className={`max-w-[80%] px-6 py-4 rounded-2xl ${
                   msg.role === 'user' 
                     ? 'bg-white/10 backdrop-blur-md' 
@@ -333,35 +411,7 @@ const ChatPage = () => {
             />
           </button>
         </div>
-        <div className="flex flex-col gap-3 text-right font-[inter]">
-          <Link
-            href="/"
-            className="text-white text-sm tracking-tighter uppercase w-full gap-2 hover:text-gray-300 transition"
-          >
-            how it works
-          </Link>
-          <div className="relative w-[1.5vw] h-[0.01vw] rounded-full bg-white self-end"></div>
-          <Link
-            href="/"
-            className="text-white text-sm tracking-tighter uppercase w-full gap-2 hover:text-gray-300 transition"
-          >
-            features
-          </Link>
-          <div className="relative w-[1.5vw] h-[0.01vw] rounded-full bg-white self-end"></div>
-          <Link
-            href="/"
-            className="text-white text-sm tracking-tighter uppercase w-full gap-2 hover:text-gray-300 transition"
-          >
-            pricing
-          </Link>
-          <div className="relative w-[1.5vw] h-[0.01vw] rounded-full bg-white self-end"></div>
-          <Link
-            href="/"
-            className="text-white text-sm tracking-tighter uppercase w-full gap-2 hover:text-gray-300 transition"
-          >
-            about
-          </Link>
-        </div>
+        
       </div>
     </div>
   );
