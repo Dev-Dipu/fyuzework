@@ -9,11 +9,28 @@ import apiClient from '@/lib/axiosInstance';
 import { authService } from '@/lib/authService';
 import ChatHistorySection from "@/components/ChatHistory";
 
+// Utility function to get proxied image URL with fallback mechanism
+const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
+  if (!instagramUrl) return '/assets/profile.png'; // default fallback
+  
+  const encodedUrl = encodeURIComponent(instagramUrl);
+  
+  const proxies = [
+    `https://images.weserv.nl/?url=${encodedUrl}`,
+    `https://wsrv.nl/?url=${encodedUrl}`,
+    `https://imageproxy.pimg.tw/resize?url=${encodedUrl}`,
+    instagramUrl // Last fallback: original URL
+  ];
+  
+  return proxies[fallbackIndex] || instagramUrl;
+};
+
 const ChatPage = () => {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId] = useState(`session-${Date.now()}`);
+  const [imageErrors, setImageErrors] = useState({});
   const chatContainerRef = useRef(null);
   const router = useRouter();
 
@@ -258,13 +275,29 @@ const ChatPage = () => {
                 {/* Influencer Cards - Only for assistant messages */}
                 {msg.role === 'assistant' && msg.influencers && msg.influencers.length > 0 && (
                   <div className='flex flex-wrap gap-4 mb-4 w-full'>
-                    {msg.influencers.map((influ, i) => (
+                    {msg.influencers.map((influ, i) => {
+                      const imageKey = `${idx}-${i}`;
+                      const currentFallbackIndex = imageErrors[imageKey] || 0;
+                      const proxiedImageUrl = getProxiedImageUrl(influ.profile_pic_url, currentFallbackIndex);
+                      
+                      return (
                       <div key={i} className="relative h-80 w-56 rounded-3xl overflow-hidden group cursor-pointer transition-transform hover:scale-105">
                         {/* Background Image */}
-                        <div className="absolute h-full w-full top-0 left-0"
-                        style={{
-                          backgroundImage: "url('https://instagram.fudi1-2.fna.fbcdn.net/v/t51.2885-19/535115009_18524271448007147_4000120314538915707_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDQyLmMyIn0&_nc_ht=instagram.fudi1-2.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHA5Yw6uOM3IFmsBOm9cn_Qp1lp61I8Nnisq9beX5zVEYB99bGPZzkVZQiFc1KOlgo&_nc_ohc=4FYGdg8ZNAQQ7kNvwH6F_3D&_nc_gid=7IEn-cgoKpj-zKrxVUp4iw&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_Afe85Rt32r3_-pEeUY4AL5z7j1UdrP5zfbAyIRhA0uxZFA&oe=68F9089D&_nc_sid=8b3546')"
-                        }}>
+                        <img 
+                          src={proxiedImageUrl}
+                          alt={influ.full_name}
+                          className="absolute h-full w-full top-0 left-0 object-cover"
+                          onError={(e) => {
+                            const nextIndex = currentFallbackIndex + 1;
+                            if (nextIndex < 4) {
+                              setImageErrors(prev => ({
+                                ...prev,
+                                [imageKey]: nextIndex
+                              }));
+                            }
+                          }}
+                        />
+                        <div className="absolute h-full w-full top-0 left-0">
                           {/* Dark Gradient Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
                         </div>
@@ -307,7 +340,7 @@ const ChatPage = () => {
                         {/* Hover Effect Border */}
                         <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-3xl transition-all pointer-events-none" />
                       </div>
-                    ))}
+                    )})}
                   </div>
                 )}
                 
