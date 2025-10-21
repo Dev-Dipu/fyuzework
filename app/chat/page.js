@@ -302,19 +302,22 @@ const ChatPage = () => {
                           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
                         </div>
 
-                        {/* Verified Badge - Top Left */}
-                        {influ.is_verified && (
-                          <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-full p-1.5">
-                            <CheckCircle className="w-5 h-5 text-blue-500" fill="currentColor" />
-                          </div>
-                        )}
+                        
 
                         {/* Content at Bottom */}
                         <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-2">
                           {/* Name */}
-                          <h3 className="text-white font-bold text-lg leading-tight line-clamp-1">
+                          <div className='flex gap-0.5 items-center'>
+                            <h3 className="text-white font-bold text-xs leading-tight line-clamp-1">
                             {influ.full_name}
                           </h3>
+                          {/* Verified Badge - Top Left */}
+                        {influ.is_verified && (
+                          <div className="p-1.5">
+                            <Image src={'/sealCheck.svg'} alt='check' width={14} height={1} />
+                          </div>
+                        )}
+                          </div>
 
                           {/* Bio */}
                           <p className="text-gray-300 text-xs leading-tight line-clamp-2 mb-1">
