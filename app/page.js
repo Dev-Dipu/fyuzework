@@ -17,7 +17,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 export default function Home() {
-    useLenis();
+    
     const [showContent, setShowContent] = useState(false);
     const [hideLoader, setHideLoader] = useState(false);
     const loaderRef = useRef();

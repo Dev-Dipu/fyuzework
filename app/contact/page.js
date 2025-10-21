@@ -46,18 +46,18 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen w-full inter px-20 space-y-10 tracking-tighter pb-32">
+    <div className="min-h-screen w-full inter px-20 space-y-10 tracking-tighter pb-32 text-white">
       <h1 className="text-8xl font-medium text-center text-white pt-[20vh]">
         Hey! Tell us all <br />
         the things
       </h1>
-      <p className="text-3xl pt-20">I&apos;m interested in.</p>
+      <p className="text-3xl pt-20 text-white">I&apos;m interested in.</p>
       <div className="selectionDivs flex flex-wrap gap-4 w-[65%]">
         {data.map((item, index) => (
           <Magnet magnetStrength={5} padding={5} key={index}>
             <div
               ref={el => (hoverElements.current[index] = el)}
-              className="px-6 py-2 border-[1px] rounded-full text-2xl inline-block cursor-pointer"
+              className="px-6 py-2 border-[1px] rounded-full text-2xl inline-block cursor-pointer text-white"
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={() => handleMouseLeave(index)}
             >
@@ -65,12 +65,14 @@ const Page = () => {
                 <h1
                   ref={el => (modeDivH1s.current[index][0] = el)}
                   style={{ transform: "translateY(0%)" }}
+                  className="text-white"
                 >
                   {item.name}
                 </h1>
                 <h1
                   ref={el => (modeDivH1s.current[index][1] = el)}
                   style={{ transform: "translateY(0%)" }}
+                  className="text-white"
                 >
                   {item.name}
                 </h1>
@@ -82,19 +84,19 @@ const Page = () => {
       <form className="inputs">
         <div className="space-y-10">
           <input
-            className="block border-b-[1px] border-white/70 text-3xl py-6 w-[70%] outline-0"
+            className="block border-b-[1px] border-white/70 text-3xl py-6 w-[70%] outline-0 text-white placeholder-white"
             type="text"
             placeholder="Name"
             name="name"
           />
           <input
-            className="block border-b-[1px] border-white/70 text-3xl py-6 w-[70%] outline-0"
+            className="block border-b-[1px] border-white/70 text-3xl py-6 w-[70%] outline-0 text-white placeholder-white"
             type="text"
             placeholder="Email"
             name="email"
           />
           <input
-            className="block border-b-[1px] border-white/70 text-3xl py-6 w-[70%] outline-0"
+            className="block border-b-[1px] border-white/70 text-3xl py-6 w-[70%] outline-0 text-white placeholder-white"
             type="text"
             placeholder="Tell me about your project"
             name="project"
@@ -102,7 +104,7 @@ const Page = () => {
         </div>
         <button
           type="submit"
-          className="border-[1px] cursor-pointer border-white/70 text-2xl py-6 px-32 rounded-full mt-20"
+          className="border-[1px] cursor-pointer border-white/70 text-2xl py-6 px-32 rounded-full mt-20 text-white"
         >
           Send request
         </button>

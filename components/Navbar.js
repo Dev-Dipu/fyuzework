@@ -182,7 +182,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="relative flex-center gap-3 z-10 navelm">
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
         <div className="w-[30px] h-[30px] relative overflow-hidden rounded-full">
           <Image
             src="/assets/profile.png"
