@@ -1,5 +1,6 @@
 "use client";
 import Magnet from "@/components/Magnet";
+import Navbar from "@/components/Navbar";
 import useLenis from "@/lib/hooks/useLenis";
 import gsap from "gsap";
 import { useRef } from "react";
@@ -46,7 +47,8 @@ const Page = () => {
   };
 
   return (
-    <div className="min-h-screen w-full inter px-20 space-y-10 tracking-tighter pb-32 text-white">
+    <div className="min-h-screen w-full inter px-20 space-y-10 tracking-tighter pb-32 text-white relative">
+      <Navbar />
       <h1 className="text-8xl font-medium text-center text-white pt-[20vh]">
         Hey! Tell us all <br />
         the things

@@ -5,7 +5,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import LiquidEther from "@/components/LiquidEther";
-import { authService } from "@/lib/authService"; // ⭐ ADDED
+import { authService } from "@/lib/authService";
 
 const AuthForm = () => {
     const router = useRouter();
@@ -124,11 +124,10 @@ const AuthForm = () => {
                     throw new Error(data.error_description || data.msg || "Login failed");
                 }
 
-                // ⭐ SAVE TOKENS
                 authService.setTokens(data);
 
                 console.log("Login successful:", data);
-                router.push("/chat"); // ⭐ CHANGED from "/" to "/chat"
+                router.push("/chat");
             } else {
                 const response = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
                     method: "POST",
@@ -209,11 +208,10 @@ const AuthForm = () => {
                 throw new Error(data.error_description || data.msg || "Verification failed");
             }
 
-            // ⭐ SAVE TOKENS AFTER VERIFICATION
             authService.setTokens(data);
 
             console.log("Verification successful:", data);
-            router.push("/chat"); // ⭐ CHANGED from "/" to "/chat"
+            router.push("/chat");
         } catch (error) {
             setErrors({ general: error.message || "Invalid OTP. Please try again." });
             setOtp(Array(6).fill(""));
@@ -231,9 +229,6 @@ const AuthForm = () => {
         setShowPassword(false);
         setShowConfirmPassword(false);
     };
-
-    // Rest of the component remains the same...
-    // (All the JSX code stays exactly as it was)
     
     if (mode === "verify") {
         return (
@@ -249,10 +244,10 @@ const AuthForm = () => {
                     />
                 </div>
 
-                <div className="w-2/5 relative hidden lg:block text-white bg-orange-400/10">
-                    <div className="fixed h-full w-full background"></div>
+                <div className="w-2/5 relative hidden lg:block text-white">
+                    <div className="fixed h-full w-full"></div>
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center flex-col">
-                        <Image className="invert" width={44} height={44} src="/MONOGRAM.svg" alt="logo" />
+                        <Image className="" width={140} height={44} src="/logowhite.svg" alt="logo" />
                         <h3 className="text-xl font-semibold text-nowrap">Welcome to the future of influence</h3>
                     </div>
                 </div>
@@ -277,15 +272,15 @@ const AuthForm = () => {
                                     ref={(el) => (otpInputsRef.current[idx] = el)}
                                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                                    className="w-12 h-14 text-center rounded-xl border-2 border-gray-400 bg-gray-100 text-black text-2xl font-semibold focus:outline-none focus:ring-2 focus:ring-[#EE4F20] focus:border-[#EE4F20] transition-all"
+                                    className="w-12 h-14 text-center rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-md text-white text-2xl font-semibold focus:outline-none focus:ring-2 focus:ring-[#EE4F20] focus:border-white/50 transition-all hover:bg-white/15"
                                     autoFocus={idx === 0}
                                 />
                             ))}
                         </div>
 
                         {errors.general && (
-                            <div className="mb-4 py-2 px-3 bg-red-50 border border-red-200 rounded-lg">
-                                <p className="text-red-600 text-xs">{errors.general}</p>
+                            <div className="mb-4 py-2 px-3 bg-red-500/10 border border-red-500/30 backdrop-blur-md rounded-lg">
+                                <p className="text-red-200 text-xs">{errors.general}</p>
                             </div>
                         )}
 
@@ -334,11 +329,11 @@ const AuthForm = () => {
                     cursorSize={400}
                 />
             </div>
-
-            <div className="w-2/5 relative hidden lg:block text-white bg-orange-400/10">
-                <div className="fixed h-full w-full background"></div>
+            
+            <div className="w-2/5 relative hidden lg:block text-white">
+                <div className="fixed h-full w-full "></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center flex-col">
-                    <Image className="invert" width={44} height={44} src="/MONOGRAM.svg" alt="logo" />
+                    <Image className="" width={140} height={44} src="/logowhite.svg" alt="logo" />
                     <h3 className="text-xl font-semibold text-nowrap">Welcome to the future of influence</h3>
                 </div>
             </div>
@@ -367,13 +362,13 @@ const AuthForm = () => {
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    className={`w-full text-xs md:text-sm lg:text-base px-4 py-[10px] lg:py-3 bg-gray-100 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 ${
-                                        errors.name ? "border-red-500" : "border-gray-400"
+                                    className={`w-full text-xs md:text-sm lg:text-base px-4 py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 hover:bg-white/15 focus:bg-white/15 ${
+                                        errors.name ? "border-red-500/50 focus:border-red-500" : "border-white/30 focus:border-white/50"
                                     }`}
                                     placeholder="Enter your full name"
                                 />
                                 {errors.name && (
-                                    <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                                    <p className="text-red-300 text-xs mt-1">{errors.name}</p>
                                 )}
                             </div>
                         )}
@@ -387,13 +382,13 @@ const AuthForm = () => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleInputChange}
-                                className={`w-full px-4 py-[10px] lg:py-3 text-xs lg:text-base bg-gray-100 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 ${
-                                    errors.email ? "border-red-500" : "border-gray-400"
+                                className={`w-full px-4 py-[10px] lg:py-3 text-xs lg:text-base bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 hover:bg-white/15 focus:bg-white/15 ${
+                                    errors.email ? "border-red-500/50 focus:border-red-500" : "border-white/30 focus:border-white/50"
                                 }`}
                                 placeholder="Enter your email"
                             />
                             {errors.email && (
-                                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                                <p className="text-red-300 text-xs mt-1">{errors.email}</p>
                             )}
                         </div>
 
@@ -407,21 +402,21 @@ const AuthForm = () => {
                                     name="password"
                                     value={formData.password}
                                     onChange={handleInputChange}
-                                    className={`w-full px-4 text-xs md:text-sm lg:text-base py-[10px] lg:py-3 bg-gray-100 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 pr-12 ${
-                                        errors.password ? "border-red-500" : "border-gray-400"
+                                    className={`w-full px-4 text-xs md:text-sm lg:text-base py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 pr-12 hover:bg-white/15 focus:bg-white/15 ${
+                                        errors.password ? "border-red-500/50 focus:border-red-500" : "border-white/30 focus:border-white/50"
                                     }`}
                                     placeholder={mode === "login" ? "Enter your password" : "Create a strong password"}
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black text-xs cursor-pointer"
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white text-xs cursor-pointer"
                                 >
                                     {showPassword ? "Hide" : "Show"}
                                 </button>
                             </div>
                             {errors.password && (
-                                <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                                <p className="text-red-300 text-xs mt-1">{errors.password}</p>
                             )}
                             {mode === "signup" && formData.password && !errors.password && (
                                 <div className="mt-2">
@@ -431,14 +426,14 @@ const AuthForm = () => {
                                             { test: /[A-Z]/.test(formData.password), label: "Uppercase" },
                                             { test: /[a-z]/.test(formData.password), label: "Lowercase" },
                                             { test: /\d/.test(formData.password), label: "Number" },
-                                            { test: /[!@#$%^&*(),.?":{}|<>]/.test(formData.password), label: "Special" },
+                                            { test: /[!@#$%^&*(),.?":{}|<>]/.test(formData.password), label: "Special Character" },
                                         ].map((requirement, index) => (
                                             <span
                                                 key={index}
-                                                className={`text-xs px-2 py-1 rounded ${
+                                                className={`text-xs px-2 py-1 rounded backdrop-blur-md ${
                                                     requirement.test
-                                                        ? "bg-green-100 text-green-700"
-                                                        : "bg-gray-100 text-white/90"
+                                                        ? "bg-orange-500/20 text-orange-200 border border-orange-500/30"
+                                                        : "bg-white/10 text-white/70 border border-white/20"
                                                 }`}
                                             >
                                                 {requirement.label}
@@ -460,33 +455,33 @@ const AuthForm = () => {
                                         name="confirmPassword"
                                         value={formData.confirmPassword}
                                         onChange={handleInputChange}
-                                        className={`w-full px-4 text-xs md:text-sm lg:text-base py-[10px] lg:py-3 bg-gray-100 border rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 pr-12 ${
-                                            errors.confirmPassword ? "border-red-500" : "border-gray-400"
+                                        className={`w-full px-4 text-xs md:text-sm lg:text-base py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 pr-12 hover:bg-white/15 focus:bg-white/15 ${
+                                            errors.confirmPassword ? "border-red-500/50 focus:border-red-500" : "border-white/30 focus:border-white/50"
                                         }`}
                                         placeholder="Confirm your password"
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black/90 text-xs cursor-pointer"
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white text-xs cursor-pointer"
                                     >
                                         {showConfirmPassword ? "Hide" : "Show"}
                                     </button>
                                 </div>
                                 {errors.confirmPassword && (
-                                    <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
+                                    <p className="text-red-300 text-xs mt-1">{errors.confirmPassword}</p>
                                 )}
                                 {formData.confirmPassword &&
                                     !errors.confirmPassword &&
                                     formData.password === formData.confirmPassword && (
-                                        <p className="text-green-600 text-xs mt-1">✓ Passwords match</p>
+                                        <p className="text-green-300 text-xs mt-1">✓ Passwords match</p>
                                     )}
                             </div>
                         )}
 
                         {errors.general && (
-                            <div className="py-2 px-3 bg-red-50 border border-red-200 rounded-lg">
-                                <p className="text-red-600 text-xs">{errors.general}</p>
+                            <div className="py-2 px-3 bg-red-500/10 border border-red-500/30 backdrop-blur-md rounded-lg">
+                                <p className="text-red-200 text-xs">{errors.general}</p>
                             </div>
                         )}
 
