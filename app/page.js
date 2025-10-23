@@ -16,17 +16,25 @@ import Navbar from "@/components/Navbar";
 import LiquidEther from "@/components/LiquidEther";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import dynamic from "next/dynamic";
 
-export default function Home() {
+function Home() {
   useLenis();
 
   const [showContent, setShowContent] = useState(false);
   const [hideLoader, setHideLoader] = useState(false);
-  const loaderRef = useRef();
-  const counterRef = useRef();
-  const progressLineRef = useRef();
-  const brandNameRef = useRef();
-  const counterGroupRef = useRef();
+  const [isMounted, setIsMounted] = useState(false); // Add this
+  
+  const loaderRef = useRef(null); // Initialize with null
+  const counterRef = useRef(null);
+  const progressLineRef = useRef(null);
+  const brandNameRef = useRef(null);
+  const counterGroupRef = useRef(null);
+
+  // Add mounted check
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const t = setTimeout(() => window.scrollTo(0, 0), 200);
@@ -35,7 +43,8 @@ export default function Home() {
 
   // Loader inside Home component
   useGSAP(() => {
-    if (!loaderRef.current) return;
+    // Safety check - only run on client after mount
+    if (!isMounted || !loaderRef.current) return;
 
     const loaderTimeline = gsap.timeline({
       onComplete: () => {
@@ -59,42 +68,47 @@ export default function Home() {
       ease: "power2.out",
     });
 
-    // Initialize counter
-    counterRef.current.innerHTML = `
+    // Initialize counter - add safety check
+    if (counterRef.current) {
+      counterRef.current.innerHTML = `
         <span class="text-white font-archivo font-medium tabular-nums text-sm">
             0%
         </span>
-    `;
+      `;
 
-    const counterSpan = counterRef.current.querySelector("span");
+      const counterSpan = counterRef.current.querySelector("span");
 
-    // Animate from 0 → 100 smoothly
-    loaderTimeline.to(
-      { value: 0 },
-      {
-        value: 101,
-        duration: 4, // total duration
-        ease: "power1.inOut",
-        onUpdate: function () {
-          const currentValue = Math.floor(this.targets()[0].value);
-          counterSpan.textContent = currentValue + "%";
+      // Animate from 0 → 100 smoothly
+      loaderTimeline.to(
+        { value: 0 },
+        {
+          value: 101,
+          duration: 4,
+          ease: "power1.inOut",
+          onUpdate: function () {
+            const currentValue = Math.floor(this.targets()[0].value);
+            if (counterSpan) counterSpan.textContent = currentValue + "%";
 
-          // Update progress bar width
-          gsap.to(progressLineRef.current, {
-            width: `${currentValue}%`,
-            duration: 0.1,
-            ease: "none",
-          });
+            if (progressLineRef.current) {
+              gsap.to(progressLineRef.current, {
+                width: `${currentValue}%`,
+                duration: 0.1,
+                ease: "none",
+              });
+            }
 
-          gsap.to(counterRef.current, {
-            left: `${currentValue}%`,
-            duration: 0.1,
-            ease: "none",
-          });
+            if (counterRef.current) {
+              gsap.to(counterRef.current, {
+                left: `${currentValue}%`,
+                duration: 0.1,
+                ease: "none",
+              });
+            }
+          },
         },
-      },
-      "-=0.2"
-    );
+        "-=0.2"
+      );
+    }
 
     // Fade out counter + logo together
     loaderTimeline.to(
@@ -106,7 +120,7 @@ export default function Home() {
       },
       "-=0.6"
     );
-  });
+  }, [isMounted]); // Add dependency
 
   const imageLogos = [
     { src: "/layers.svg", alt: "Company 1", href: "https://company1.com" },
@@ -116,6 +130,11 @@ export default function Home() {
     { src: "/kosent.svg", alt: "Company 5", href: "https://company5.com" },
     { src: "/layers.svg", alt: "Company 6", href: "https://company6.com" },
   ];
+
+  // Don't render until mounted (prevents SSR issues)
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <>
@@ -154,9 +173,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="h-screen w-full bg-zinc-200 relative">
-
-        </div>
+        <div className="h-screen w-full bg-zinc-200 relative"></div>
 
         <div className="h-[380vh] theme-bg-secondary">
           <AboutComponent />
@@ -191,3 +208,8 @@ export default function Home() {
     </>
   );
 }
+
+// Export with dynamic import to disable SSR
+export default dynamic(() => Promise.resolve(Home), {
+  ssr: false,
+});
