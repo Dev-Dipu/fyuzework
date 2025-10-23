@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import SplitType from "split-type";
+import GlassDemo from "./GlassElement";
 
 export default function AboutComponent() {
     const aboutCont = useRef(null);
@@ -308,82 +309,58 @@ export default function AboutComponent() {
                         </p>
                     </div>
                     <div className="w-full h-full absolute z-20 top-0 left-0 pointer-events-none">
-                        <div className="w-[12vw] h-[18vw] absolute top-[11vh] left-[-6vw] rounded-[56px] overflow-hidden img1">
-                            <Image
-                                src="/assets/img5.png"
-                                fill
-                                alt="img1"
-                                className="object-cover object-left-top"
-                            />
-                        </div>
-                        <div className="w-[4.2vw] h-[6.2vw] z-10 absolute bottom-[20vh] left-[8vw] rounded-2xl overflow-hidden img2">
-                            <Image
-                                src="/assets/img6.png"
-                                fill
-                                alt="img2"
-                                className="object-cover object-center scale-[1.15]"
-                            />
-                        </div>
-                        <div className="w-[21vw] h-[26vw] absolute -bottom-[19vh] left-[35.5vw] rounded-[32px] overflow-hidden img3">
-                            <Image
-                                src="/assets/img7.png"
-                                fill
-                                alt="img3"
-                                className="object-cover object-center scale-[1.15]"
-                            />
-                        </div>
-                        <div className="w-[6.3vw] h-[10vw] absolute bottom-[1.5vh] right-[20vw] rounded-[28px] overflow-hidden img4">
-                            <Image
-                                src="/assets/img1.png"
-                                fill
-                                alt="img4"
-                                className="object-cover object-left scale-[1.15]"
-                            />
-                        </div>
-                        <div className="w-[10vw] h-[14vw] absolute bottom-[24vh] -right-[6vw] rounded-[32px] overflow-hidden img5">
-                            <Image
-                                src="/assets/img2.png"
-                                fill
-                                alt="img5"
-                                className="object-cover object-center"
-                            />
-                        </div>
-                        <div className="w-[7.2vw] h-[11.5vw] absolute top-[14vh] right-[11vw] rounded-[20px] overflow-hidden img6">
-                            <div className="w-full h-full relative overflow-hidden rounded-[20px]">
-                                <Image
-                                    src="/assets/img3.png"
-                                    fill
-                                    alt="img6"
-                                    className="object-cover object-center rounded-[20px] overflow-hidden z-40"
-                                    quality={100}
-                                    priority
-                                />
+                        {/* Mockup Cards */}
+                        <div className="w-[12vw] h-[18vw] absolute top-[11vh] left-[-6vw] rounded-[56px] overflow-hidden img1 bg-gray-200 border border-gray-300">
+                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                Mockup Card 1
                             </div>
-                            <Image
-                                src="/assets/gradient-3.svg"
-                                fill
-                                alt="img6"
-                                className="object-contain img-gradient object-center absolute top-0 left-0 scale-[1.2] -dz-10"
-                            />
+                        </div>
+                        <div className="w-[4.2vw] h-[6.2vw] z-10 absolute bottom-[20vh] left-[8vw] rounded-2xl overflow-hidden img2 bg-gray-200 border border-gray-300">
+                            <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                                Card 2
+                            </div>
+                        </div>
+                        <div className="w-[21vw] h-[26vw] absolute -bottom-[19vh] left-[35.5vw] rounded-[32px] overflow-hidden img3 bg-gray-200 border border-gray-300">
+                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                Mockup Card 3
+                            </div>
+                        </div>
+                        <div className="w-[6.3vw] h-[10vw] absolute bottom-[1.5vh] right-[20vw] rounded-[28px] overflow-hidden img4 bg-gray-200 border border-gray-300">
+                            <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                                Card 4
+                            </div>
+                        </div>
+                        <div className="w-[10vw] h-[14vw] absolute bottom-[24vh] -right-[6vw] rounded-[32px] overflow-hidden img5 bg-gray-200 border border-gray-300">
+                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                Mockup Card 5
+                            </div>
+                        </div>
+                        <div className="w-[7.2vw] h-[11.5vw] absolute top-[14vh] right-[11vw] rounded-[20px] overflow-hidden img6 bg-gray-200 border border-gray-300">
+                            <div className="w-full h-full relative overflow-hidden rounded-[20px]">
+                                <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                                    Main Card
+                                </div>
+                                <div
+                                    className="absolute h-4 w-full -top-10 left-1/2 -translate-x-1/2 z-[100] glass"
+                                    style={{ isolation: "isolate" }}
+                                >
+                                    <GlassDemo />
+                                </div>
+                            </div>
+                            <div className="w-full h-full absolute top-0 left-0 bg-gradient-to-br from-gray-300 to-gray-400 img-gradient scale-[1.2] -z-10"></div>
                             <p className="text-[5px] opacity-0 font-medium absolute bottom-[10px] left-[10px] text-white z-100 ig-name">
                                 @Nick travels
                             </p>
                         </div>
-                        <div className="w-[4.2vw] h-[6.2vw] absolute -top-[2.8vh] left-[60vw] rounded-2xl overflow-hidden img7">
-                            <Image
-                                src="/assets/img4.png"
-                                fill
-                                alt="img7"
-                                className="object-cover object-center scale-[1.15]"
-                            />
+                        <div className="w-[4.2vw] h-[6.2vw] absolute -top-[2.8vh] left-[60vw] rounded-2xl overflow-hidden img7 bg-gray-200 border border-gray-300">
+                            <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+                                Card 7
+                            </div>
                         </div>
-                        <div className="w-[9.5vw] h-[16vw] absolute top-[19vh] left-[14vw] rounded-2xl overflow-hidden bg-[#d9d9d9] img8">
-                            <Image
-                                src="/assets/quote.svg"
-                                fill
-                                alt="img8"
-                                className="object-contain object-center"
-                            />
+                        <div className="w-[9.5vw] h-[16vw] absolute top-[19vh] left-[14vw] rounded-2xl overflow-hidden bg-gray-200 border border-gray-300 img8">
+                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                                Quote Card
+                            </div>
                         </div>
                     </div>
                     <div className="absolute top-0 w-11/12 mx-auto h-screen border-black gradient anim3-gradient">
@@ -516,7 +493,7 @@ export default function AboutComponent() {
                                     <div className="chat-bubble bg-white/40 backdrop-blur-3xl relative flex items-center justify-center py-3 px-3 rounded-tl-sm rounded-xl w-[80%]">
                                         <p className="text-sm text-[#383838] w-10/12 leading-[120%]">
                                             I&apos;ve found the right influencer
-                                            for you. Ready to launch
+                                            for you. Ready to launch?
                                         </p>
                                     </div>
                                 </div>
