@@ -86,7 +86,6 @@ const Page = () => {
         the things
       </h1>
       <p className="text-3xl pt-20 text-white">I&apos;m interested in.</p>
-
       <div className="selectionDivs flex flex-wrap gap-4 w-[65%]">
         {data.map((item, index) => (
           <Magnet magnetStrength={5} padding={5} key={index}>

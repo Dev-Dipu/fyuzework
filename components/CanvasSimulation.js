@@ -1,3 +1,5 @@
+"use client"
+
 // CanvasSimulation.jsx
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
@@ -7,22 +9,33 @@ import {
   renderVertexShader,
   renderFragmentShader,
 } from "./shaders.js";
+import { useMemoryManagement } from "../lib/utils/memoryManagement.js";
 
 const CanvasSimulation = () => {
   const containerRef = useRef();
+  const { manager, cleanup } = useMemoryManagement();
 
   useEffect(() => {
     const scene = new THREE.Scene();
     const simScene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
+    // Safari detection and compatibility fixes
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: isMobile ? false : (isSafari ? true : false), // Disable antialias on mobile, enable on Safari desktop
       alpha: true,
       preserveDrawingBuffer: true,
+      powerPreference: isSafari ? "default" : "high-performance", // Safari has issues with high-performance mode
+      precision: isSafari ? "mediump" : "highp", // Safari works better with medium precision
+      failIfMajorPerformanceCaveat: false, // Allow fallback for Safari
     });
 
-    const pixelRatio = Math.min(window.devicePixelRatio, 2);
+    // Cap pixelRatio at 2 for better performance
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
     const width = window.innerWidth * pixelRatio;
     const height = window.innerHeight * pixelRatio;
 
@@ -34,6 +47,9 @@ const CanvasSimulation = () => {
     const mouseVelocity = new THREE.Vector2();
     const prevMouse = new THREE.Vector2();
     let frame = 0;
+    let lastTime = 0;
+    const targetFPS = 60;
+    const frameInterval = 1000 / targetFPS;
 
     const options = {
       format: THREE.RGBAFormat,
@@ -74,6 +90,14 @@ const CanvasSimulation = () => {
     const simQuad = new THREE.Mesh(plane, simMaterial);
     const renderQuad = new THREE.Mesh(plane, renderMaterial);
 
+    // Register objects with memory manager
+    manager.threeJS.registerGeometry(plane);
+    manager.threeJS.registerMaterial(simMaterial);
+    manager.threeJS.registerMaterial(renderMaterial);
+    manager.threeJS.registerRenderer(renderer);
+    manager.threeJS.registerScene(scene);
+    manager.threeJS.registerScene(simScene);
+
     simScene.add(simQuad);
     scene.add(renderQuad);
 
@@ -86,6 +110,9 @@ const CanvasSimulation = () => {
     textTexture.minFilter = THREE.LinearFilter;
     textTexture.magFilter = THREE.LinearFilter;
     textTexture.format = THREE.RGBAFormat;
+    
+    // Register texture with memory manager
+    manager.threeJS.registerTexture(textTexture);
 
     const backgroundColor = "#fb7427";
 
@@ -155,8 +182,19 @@ const CanvasSimulation = () => {
 
     const handleMouseMove = (event) => {
       prevMouse.copy(mouse);
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -((event.clientY / window.innerHeight) * 2 - 1);
+      
+      // Safari-compatible mouse position calculation
+      const rect = renderer.domElement.getBoundingClientRect();
+      const clientX = event.clientX || (event.touches && event.touches[0] ? event.touches[0].clientX : 0);
+      const clientY = event.clientY || (event.touches && event.touches[0] ? event.touches[0].clientY : 0);
+      
+      mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -(((clientY - rect.top) / rect.height) * 2 - 1);
+      
+      // Clamp values to prevent Safari glitches
+      mouse.x = Math.max(-1, Math.min(1, mouse.x));
+      mouse.y = Math.max(-1, Math.min(1, mouse.y));
+      
       mouseVelocity.x = mouse.x - prevMouse.x;
       mouseVelocity.y = mouse.y - prevMouse.y;
     };
@@ -166,13 +204,29 @@ const CanvasSimulation = () => {
       mouseVelocity.set(0, 0);
     };
 
-    renderer.domElement.addEventListener("mousemove", handleMouseMove);
-    renderer.domElement.addEventListener("mouseleave", handleMouseLeave);
-    window.addEventListener("resize", handleResize);
+    const handleTouchMove = (event) => {
+      event.preventDefault(); // Prevent Safari scrolling
+      handleMouseMove(event);
+    };
 
-    const animate = () => {
+    // Register event listeners with memory manager
+    manager.events.addEventListener(renderer.domElement, "mousemove", handleMouseMove);
+    manager.events.addEventListener(renderer.domElement, "mouseleave", handleMouseLeave);
+    manager.events.addEventListener(renderer.domElement, "touchstart", handleTouchMove, { passive: false });
+    manager.events.addEventListener(renderer.domElement, "touchmove", handleTouchMove, { passive: false });
+    manager.events.addEventListener(renderer.domElement, "touchend", handleMouseLeave);
+    manager.events.addEventListener(window, "resize", handleResize);
+
+    const animate = (currentTime) => {
+      // Frame limiting for consistent 60fps
+      if (currentTime - lastTime < frameInterval) {
+        requestAnimationFrame(animate);
+        return;
+      }
+      lastTime = currentTime;
+
       simMaterial.uniforms.frame.value = frame++;
-      simMaterial.uniforms.time.value = performance.now() / 1000;
+      simMaterial.uniforms.time.value = currentTime / 1000;
 
       simMaterial.uniforms.textureA.value = rtA.texture;
       renderer.setRenderTarget(rtB);
@@ -186,18 +240,14 @@ const CanvasSimulation = () => {
 
       [rtA, rtB] = [rtB, rtA];
 
-      requestAnimationFrame(animate);
+      manager.requestAnimationFrame(animate);
     };
 
     animate();
 
     return () => {
-      renderer.dispose();
-      rtA.dispose();
-      rtB.dispose();
-      window.removeEventListener("resize", handleResize);
-      renderer.domElement.removeEventListener("mousemove", handleMouseMove);
-      renderer.domElement.removeEventListener("mouseleave", handleMouseLeave);
+      // Use comprehensive memory manager cleanup
+      cleanup();
     };
   }, []);
 

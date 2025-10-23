@@ -5,19 +5,27 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
-
 export default function SocialPlatformsComponent() {
   const headingRef = useRef(null);
   const paraRef = useRef(null);
   const containerRef = useRef(null);
 
   useEffect(() => {
+
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
+    // Safari-specific ScrollTrigger configuration
+    ScrollTrigger.config({
+      autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+      ignoreMobileResize: true
+    });
+
     // --- Heading and paragraph animations ---
     const splitHeading = new SplitText(headingRef.current, { type: "words" });
     const splitPara = new SplitText(paraRef.current, { type: "lines" });
 
     let tl = gsap.timeline({
+      defaults: { force3D: true, willChange: "transform, opacity" },
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top 90%",
@@ -69,6 +77,8 @@ export default function SocialPlatformsComponent() {
             ease: "linear",
             duration: totalHeight / 50,
             repeat: -1,
+            force3D: true,
+            willChange: "transform",
           }
         );
       } else {
@@ -81,6 +91,8 @@ export default function SocialPlatformsComponent() {
             ease: "linear",
             duration: totalHeight / 50,
             repeat: -1,
+            force3D: true,
+            willChange: "transform",
           }
         );
       }
@@ -233,7 +245,6 @@ export default function SocialPlatformsComponent() {
         </div>
       </div>
 
-      
     </div>
   );
 }

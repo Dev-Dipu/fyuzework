@@ -1,4 +1,5 @@
 "use client";
+
 import AboutComponent from "@/components/AboutComponent";
 import HeroComponent from "@/components/HeroComponent";
 import useLenis from "@/lib/hooks/useLenis";
@@ -17,6 +18,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 export default function Home() {
+
+    useLenis()
     
     const [showContent, setShowContent] = useState(false);
     const [hideLoader, setHideLoader] = useState(false);
@@ -191,8 +194,8 @@ useGSAP(() => {
                 <>
                     <Navbar />
 
-                    <div className="section theme-bg-secondary" data-text="light">
-                        <HeroComponent />
+                    <div className="section h-screen w-full relative theme-bg-secondary" data-text="light">
+                        {/* <HeroComponent /> */}
                     </div>
 
                     <div

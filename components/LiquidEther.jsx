@@ -6,11 +6,11 @@ export default function LiquidEther({
   cursorSize = 300,
   isViscous = false,
   viscous = 30,
-  iterationsViscous = 32,
-  iterationsPoisson = 32,
+  iterationsViscous = 16, // Reduced from 32 for better performance
+  iterationsPoisson = 16, // Reduced from 32 for better performance
   dt = 0.014,
   BFECC = true,
-  resolution = 0.5,
+  resolution = 0.4, // Reduced from 0.5 for better performance
   isBounce = false,
   colors = ['#ee4f20', '#ff6b3a', '#ee4f20'],
   style = {},
@@ -84,9 +84,23 @@ export default function LiquidEther({
       }
       init(container) {
         this.container = container;
+        
+        // Safari detection and compatibility fixes
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Cap pixelRatio at 2 for better performance
         this.pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
         this.resize();
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        this.renderer = new THREE.WebGLRenderer({ 
+          antialias: isMobile ? false : (isSafari ? true : false), // Disable antialias on mobile, enable on Safari desktop
+          alpha: true,
+          powerPreference: isSafari ? "default" : "high-performance", // Safari has issues with high-performance mode
+          precision: isSafari ? "mediump" : "highp", // Safari works better with medium precision
+          failIfMajorPerformanceCaveat: false, // Allow fallback for Safari
+          preserveDrawingBuffer: true, // Better for Safari
+        });
         this.renderer.autoClear = false;
         this.renderer.setClearColor(new THREE.Color(0x000000), 0);
         this.renderer.setPixelRatio(this.pixelRatio);
@@ -140,8 +154,8 @@ export default function LiquidEther({
       init(container) {
         this.container = container;
         container.addEventListener('mousemove', this._onMouseMove, false);
-        container.addEventListener('touchstart', this._onTouchStart, false);
-        container.addEventListener('touchmove', this._onTouchMove, false);
+        container.addEventListener('touchstart', this._onTouchStart, { passive: false });
+        container.addEventListener('touchmove', this._onTouchMove, { passive: false });
         container.addEventListener('mouseenter', this._onMouseEnter, false);
         container.addEventListener('mouseleave', this._onMouseLeave, false);
         container.addEventListener('touchend', this._onTouchEnd, false);
@@ -161,7 +175,12 @@ export default function LiquidEther({
         const rect = this.container.getBoundingClientRect();
         const nx = (x - rect.left) / rect.width;
         const ny = (y - rect.top) / rect.height;
-        this.coords.set(nx * 2 - 1, -(ny * 2 - 1));
+        
+        // Safari-compatible coordinate clamping
+        const clampedNx = Math.max(0, Math.min(1, nx));
+        const clampedNy = Math.max(0, Math.min(1, ny));
+        
+        this.coords.set(clampedNx * 2 - 1, -(clampedNy * 2 - 1));
         this.mouseMoved = true;
         this.timer = setTimeout(() => {
           this.mouseMoved = false;
@@ -175,8 +194,10 @@ export default function LiquidEther({
         if (this.onInteract) this.onInteract();
         if (this.isAutoActive && !this.hasUserControl && !this.takeoverActive) {
           const rect = this.container.getBoundingClientRect();
-          const nx = (event.clientX - rect.left) / rect.width;
-          const ny = (event.clientY - rect.top) / rect.height;
+          const clientX = event.clientX || (event.touches && event.touches[0] ? event.touches[0].clientX : 0);
+          const clientY = event.clientY || (event.touches && event.touches[0] ? event.touches[0].clientY : 0);
+          const nx = (clientX - rect.left) / rect.width;
+          const ny = (clientY - rect.top) / rect.height;
           this.takeoverFrom.copy(this.coords);
           this.takeoverTo.set(nx * 2 - 1, -(ny * 2 - 1));
           this.takeoverStartTime = performance.now();
@@ -185,22 +206,26 @@ export default function LiquidEther({
           this.isAutoActive = false;
           return;
         }
-        this.setCoords(event.clientX, event.clientY);
+        const clientX = event.clientX || (event.touches && event.touches[0] ? event.touches[0].clientX : 0);
+        const clientY = event.clientY || (event.touches && event.touches[0] ? event.touches[0].clientY : 0);
+        this.setCoords(clientX, clientY);
         this.hasUserControl = true;
       }
       onDocumentTouchStart(event) {
+        event.preventDefault(); // Prevent Safari scrolling
         if (event.touches.length === 1) {
           const t = event.touches[0];
           if (this.onInteract) this.onInteract();
-          this.setCoords(t.pageX, t.pageY);
+          this.setCoords(t.clientX, t.clientY);
           this.hasUserControl = true;
         }
       }
       onDocumentTouchMove(event) {
+        event.preventDefault(); // Prevent Safari scrolling
         if (event.touches.length === 1) {
           const t = event.touches[0];
           if (this.onInteract) this.onInteract();
-          this.setCoords(t.pageX, t.pageY);
+          this.setCoords(t.clientX, t.clientY);
         }
       }
       onTouchEnd() {

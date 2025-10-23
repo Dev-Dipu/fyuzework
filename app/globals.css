@@ -1,6 +1,77 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Safari Hardware Acceleration Optimizations */
+.safari-optimized {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+.hardware-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Safari-specific scroll behavior */
+.safari-browser {
+  scroll-behavior: auto;
+}
+
+.safari-browser * {
+  scroll-behavior: auto;
+}
+
+/* Safari mobile optimizations */
+.safari-mobile {
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translateZ(0);
+}
+
+/* Safari desktop optimizations */
+.safari-desktop {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Performance optimizations for animated elements */
+.animated-element {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* GSAP optimized elements */
+.gsap-element {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Three.js canvas optimizations */
+.three-canvas {
+  transform: translateZ(0);
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
 /* @custom-variant dark (&:is(.dark *)); */
 
 @theme inline {
@@ -446,9 +517,84 @@ border-image-source: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 5
     @apply bg-background text-foreground;
   }
   
-  /* Ensure text colors are properly inherited */
+  /* Performance optimizations */
   * {
     color: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Safari-specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    /* Safari-specific styles */
+    body {
+      -webkit-overflow-scrolling: touch;
+      -webkit-transform: translateZ(0);
+    }
+    
+    /* Fix Safari WebGL context issues */
+    canvas {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+    
+    /* Fix Safari animation glitches */
+    .animate-scroll-up-slow,
+    .animate-scroll-up-fast,
+    .animate-scroll-down-medium {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+  }
+  
+  /* Safari browser-specific styles */
+  .safari-browser {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .safari-browser canvas {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  .safari-browser .backdropShape {
+    -webkit-transform: rotate(180deg) translate(5%, 5%) translateZ(0);
+    transform: rotate(180deg) translate(5%, 5%) translateZ(0);
+  }
+  
+  /* iOS Safari specific fixes */
+  .safari-mobile {
+    -webkit-overflow-scrolling: touch;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .safari-mobile canvas {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+  }
+  
+  /* GPU acceleration for animated elements */
+  .animate-scroll-up-slow,
+  .animate-scroll-up-fast,
+  .animate-scroll-down-medium,
+  .backdropShape,
+  .cards-gradient {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Optimize transitions */
+  .cards-gradient,
+  .cards-gradient::before,
+  .cards-gradient h1,
+  .cards-gradient p {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    will-change: transform, opacity;
   }
   
   /* Dark mode overrides only */
@@ -521,9 +667,12 @@ body {
   z-index: -1;
   box-shadow: 0px 0px 120px -10px oklch(64.219% 0.18056 38.078);
   animation: up-n-down 3s infinite ease-in-out; /* ✅ fixed */
-  transform: rotate(180deg) translate(5%, 5%);
+  transform: rotate(180deg) translate(5%, 5%) translateZ(0);
+  will-change: transform;
+  -webkit-transform: rotate(180deg) translate(5%, 5%) translateZ(0);
+  -webkit-animation: up-n-down 3s infinite ease-in-out;
 }
-/* 
+/* Safari-compatible keyframes */
 @keyframes up-n-down {
   0% {
     transform: rotate(15deg) translate(0%, 20%);
@@ -534,7 +683,20 @@ body {
   100% {
     transform: rotate(15deg) translate(10%, 20%);
   }
-} */
+}
+
+/* Safari-specific webkit keyframes */
+@-webkit-keyframes up-n-down {
+  0% {
+    -webkit-transform: rotate(15deg) translate(0%, 20%);
+  }
+  50% {
+    -webkit-transform: rotate(15deg) translate(20%, -20%);
+  }
+  100% {
+    -webkit-transform: rotate(15deg) translate(10%, 20%);
+  }
+}
 
 .cards-gradient {
   background: linear-gradient(
@@ -605,16 +767,38 @@ body {
   }
 }
 
+/* Safari-specific webkit keyframes */
+@-webkit-keyframes scrollUp {
+  0% {
+    -webkit-transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(-50%);
+  }
+}
+
+@-webkit-keyframes scrollDown {
+  0% {
+    -webkit-transform: translateY(-50%);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+
 .animate-scroll-up-slow {
   animation: scrollUp 20s linear infinite;
+  -webkit-animation: scrollUp 20s linear infinite;
 }
 
 .animate-scroll-up-fast {
   animation: scrollUp 15s linear infinite;
+  -webkit-animation: scrollUp 15s linear infinite;
 }
 
 .animate-scroll-down-medium {
   animation: scrollDown 18s linear infinite;
+  -webkit-animation: scrollDown 18s linear infinite;
 }
 
 
@@ -656,4 +840,14 @@ body {
   filter: url(#glass-effect);
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* Cursor blinking animation for better performance */
+@keyframes cursorBlink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
 }

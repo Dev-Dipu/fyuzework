@@ -1,8 +1,10 @@
+"use client"
+
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from 'react';
 import Image from 'next/image';
 
 const ANIMATION_CONFIG = {
-  SMOOTH_TAU: 0.25,
+  SMOOTH_TAU: 0.15, // Reduced for more responsive animation
   MIN_COPIES: 2,
   COPY_HEADROOM: 2
 };
@@ -78,6 +80,12 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, isHovered, pauseOn
   const lastTimestampRef = useRef(null);
   const offsetRef = useRef(0);
   const velocityRef = useRef(0);
+  const frameTimeRef = useRef(0);
+  
+  // Safari detection for performance optimization
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const targetFPS = isSafari ? 30 : 60; // Reduce FPS for Safari
+  const frameInterval = 1000 / targetFPS;
 
   useEffect(() => {
     const track = trackRef.current;
@@ -101,6 +109,13 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, isHovered, pauseOn
     }
 
     const animate = timestamp => {
+      // Frame limiting for consistent 60fps
+      if (timestamp - frameTimeRef.current < frameInterval) {
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      frameTimeRef.current = timestamp;
+
       if (lastTimestampRef.current === null) {
         lastTimestampRef.current = timestamp;
       }
@@ -120,6 +135,7 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, isHovered, pauseOn
 
         const translateX = -offsetRef.current;
         track.style.transform = `translate3d(${translateX}px, 0, 0)`;
+        track.style.willChange = 'transform'; // Optimize for GPU acceleration
       }
 
       rafRef.current = requestAnimationFrame(animate);

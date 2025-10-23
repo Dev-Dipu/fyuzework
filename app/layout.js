@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Inter, Archivo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/contexts/ThemeContext";
+import SafariDetection from "@/lib/utils/safariDetection";
+import { setupSafariOptimizations } from "@/lib/utils/safariOptimizationInit";
 
 // Google Fonts
 const geistSans = Geist({
@@ -37,6 +39,42 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                
+                if (isSafari) {
+                  document.documentElement.classList.add('safari-browser');
+                  // Disable smooth scrolling for Safari
+                  document.documentElement.style.scrollBehavior = 'auto';
+                  document.body.style.scrollBehavior = 'auto';
+                }
+                if (isIOS) {
+                  document.documentElement.classList.add('ios-device');
+                }
+                if (isSafari && isIOS) {
+                  document.documentElement.classList.add('safari-mobile');
+                }
+                
+                // Initialize Safari optimizations
+                if (typeof window !== 'undefined') {
+                  window.safariOptimizations = {
+                    isSafari: isSafari,
+                    isIOS: isIOS,
+                    isMobile: isIOS,
+                    pixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+                    targetFPS: isSafari ? 30 : 60
+                  };
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${archivo.variable} antialiased w-full relative transition-colors duration-300`}
         style={{ 
