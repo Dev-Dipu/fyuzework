@@ -90,7 +90,7 @@ export default function Navbar() {
   return (
     <nav
     ref={navRef}
-      className="w-full fixed p-9 flex-between z-100 transition-colors duration-300"
+      className="w-full left-0 top-0 fixed p-9 flex-between z-100 transition-colors duration-300"
       style={{ 
         color: textColor,
         backgroundColor: isDark ? 'var(--theme-bg-primary)' : 'transparent'

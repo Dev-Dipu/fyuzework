@@ -194,8 +194,8 @@ useGSAP(() => {
                 <>
                     <Navbar />
 
-                    <div className="section theme-bg-secondary" data-text="light">
-                        <HeroComponent />
+                    <div className="section h-screen w-full relative theme-bg-secondary" data-text="light">
+                        {/* <HeroComponent /> */}
                     </div>
 
                     <div

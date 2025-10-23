@@ -245,7 +245,6 @@ export default function SocialPlatformsComponent() {
         </div>
       </div>
 
-
     </div>
   );
 }
