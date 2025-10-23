@@ -11,7 +11,6 @@ export default function AboutComponent() {
     const aboutCont = useRef(null);
     const inputRef = useRef(null);
     const cursorRef = useRef(null);
-    const step3Reached = useRef(false);
     const [restartSparkle, setRestartSparkle] = useState(false);
     const textMeasureRef = useRef(null);
     const scopeRef = useRef(null);
@@ -32,73 +31,11 @@ export default function AboutComponent() {
         });
     };
 
-    // Main scroll-based animations
     useEffect(() => {
         if (!scopeRef.current || !wrapperRef.current) return;
         
-        // ✅ Register plugin and configure INSIDE useEffect
         gsap.registerPlugin(ScrollTrigger);
         
-        ScrollTrigger.config({
-            autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
-            ignoreMobileResize: true
-        });
-        
-        const ctx = gsap.context(() => {
-            let rafId = null;
-            let currentX = 0;
-            let currentY = 0;
-            let isAnimating = false;
-            
-            // Cache DOM elements and dimensions
-            let cachedDims = null;
-            let cachedElements = null;
-            
-            const updateCache = () => {
-                if (!aboutCont.current) return;
-                cachedDims = aboutCont.current.getBoundingClientRect();
-                cachedElements = {
-                    img1: document.querySelector('.img1'),
-                    img2: document.querySelector('.img2'),
-                    img3: document.querySelector('.img3'),
-                    img4: document.querySelector('.img4'),
-                    img5: document.querySelector('.img5'),
-                    img7: document.querySelector('.img7'),
-                    img8: document.querySelector('.img8')
-                };
-            };
-            
-            updateCache();
-            
-            // Throttle mouse move events
-            let lastMoveTime = 0;
-            const throttleDelay = 16; // ~60fps
-
-            // Use passive event listener for better performance
-           
-            
-            // Update cache on resize
-            const handleResize = () => {
-                updateCache();
-            };
-            window.addEventListener('resize', handleResize, { passive: true });
-            
-            return () => {
-                
-                window.removeEventListener('resize', handleResize);
-                if (rafId) {
-                    cancelAnimationFrame(rafId);
-                    rafId = null;
-                }
-            };
-        }, scopeRef);
-
-        return () => ctx.revert();
-    }, []);
-
-    // Main scroll-based animations
-    useEffect(() => {
-        if (!scopeRef.current || !wrapperRef.current) return;
         const ctx = gsap.context(() => {
             const text = "Travel influencers in Lebanon";
 
@@ -125,8 +62,6 @@ export default function AboutComponent() {
 
             const tl = gsap.timeline({
                 defaults: { 
-                    force3D: true, 
-                    
                     ease: "power2.inOut"
                 },
                 scrollTrigger: {
@@ -134,156 +69,46 @@ export default function AboutComponent() {
                     start: "top 80%",
                     end: "bottom bottom",
                     scrub: 1.5,
-                    toggleActions: "play reverse play reverse",
-                    anticipatePin: 1,
-                    // markers: true,
                     onUpdate: (self) => {
                         if (cursorRef.current) {
                             const progress = self.progress;
                             const showCursor = progress > 0.15 && progress < 0.35;
-                            
-                            // Use requestAnimationFrame for smooth cursor updates
-                            requestAnimationFrame(() => {
-                                gsap.set(cursorRef.current, {
-                                    display: showCursor ? "block" : "none",
-                                    opacity: showCursor ? 1 : 0,
-                                    
-                                });
+                            gsap.set(cursorRef.current, {
+                                display: showCursor ? "block" : "none",
+                                opacity: showCursor ? 1 : 0,
                             });
                         }
                     },
                 },
             });
 
-            // Step 1: Initial entrance (0-20%) - Optimized
+            // Step 1: Initial entrance
             tl.from(
-                [
-                    ".img1",
-                    ".img2",
-                    ".img3",
-                    ".img4",
-                    ".img5",
-                    ".img6",
-                    ".img7",
-                    ".img8",
-                ],
+                [".img1", ".img2", ".img3", ".img4", ".img5", ".img6", ".img7", ".img8"],
                 {
                     opacity: 0,
                     duration: 2,
                     ease: "power2.inOut",
-                    overwrite: "auto",
-                    force3D: true,
-                    
                 },
                 0
             )
-                .from(
-                    ".img1",
-                    {
-                        left: "-15vw",
-                        top: "-5vh",
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    0
-                )
-                .from(
-                    ".img2",
-                    {
-                        left: "-5vw",
-                        bottom: "-5vh",
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    0
-                )
-                .from(
-                    ".img3",
-                    {
-                        bottom: "-50vh",
-                        left: "-10vw",
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    0
-                )
-                .from(
-                    ".img4",
-                    {
-                        right: "-5vw",
-                        bottom: "-5vh",
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    0
-                )
-                .from(
-                    ".img5",
-                    {
-                        right: "-10vw",
-                        bottom: "-10vh",
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    0
-                )
-                .from(
-                    ".img6",
-                    {
-                        right: "-12vw",
-                        top: "-5vh",
-                        duration: 2,
-                        ease: "expo.inOut",
-                        overwrite: "auto",
-                    },
-                    0
-                )
-                .from(
-                    ".img7",
-                    {
-                        right: "-20vw",
-                        top: "-10vh",
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    0
-                )
-                .from(
-                    ".img8",
-                    {
-                        left: "-5vw",
-                        top: "-2vh",
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    0
-                )
+                .from(".img1", { left: "-15vw", top: "-5vh", duration: 2, ease: "power2.inOut" }, 0)
+                .from(".img2", { left: "-5vw", bottom: "-5vh", duration: 2, ease: "power2.inOut" }, 0)
+                .from(".img3", { bottom: "-50vh", left: "-10vw", duration: 2, ease: "power2.inOut" }, 0)
+                .from(".img4", { right: "-5vw", bottom: "-5vh", duration: 2, ease: "power2.inOut" }, 0)
+                .from(".img5", { right: "-10vw", bottom: "-10vh", duration: 2, ease: "power2.inOut" }, 0)
+                .from(".img6", { right: "-12vw", top: "-5vh", duration: 2, ease: "expo.inOut" }, 0)
+                .from(".img7", { right: "-20vw", top: "-10vh", duration: 2, ease: "power2.inOut" }, 0)
+                .from(".img8", { left: "-5vw", top: "-2vh", duration: 2, ease: "power2.inOut" }, 0)
                 .fromTo(
                     ".content-text",
                     { opacity: 0, y: 80 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        stagger: 0.3,
-                        duration: 1.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
+                    { opacity: 1, y: 0, stagger: 0.3, duration: 1.5, ease: "power2.inOut" },
                     0.3
                 );
 
-            // Step 2: Typing animation and image movements (20-50%) - Optimized
+            // Step 2: Typing animation
             const chars = { value: 0 };
-            let lastUpdateTime = 0;
-            const updateThrottle = 16; // ~60fps
-            
             tl.to(
                 chars,
                 {
@@ -292,15 +117,8 @@ export default function AboutComponent() {
                     ease: "none",
                     onStart: () => handlePlayAnimation(),
                     onUpdate: () => {
-                        const now = performance.now();
-                        if (now - lastUpdateTime < updateThrottle) return;
-                        lastUpdateTime = now;
-                        
                         if (inputRef.current) {
-                            const currentText = text.slice(
-                                0,
-                                Math.floor(chars.value)
-                            );
+                            const currentText = text.slice(0, Math.floor(chars.value));
                             inputRef.current.placeholder = currentText;
                             updateCursorPosition(currentText);
                         }
@@ -308,71 +126,11 @@ export default function AboutComponent() {
                 },
                 3
             )
-                .to(
-                    ".img1",
-                    {
-                        left: "-20vw",
-                        top: "-5vh",
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3
-                )
-                .to(
-                    ".img2",
-                    {
-                        left: "-5vw",
-                        bottom: "-5vh",
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3
-                )
-                .to(
-                    ".img3",
-                    {
-                        bottom: "-50vh",
-                        left: "-10vw",
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3
-                )
-                .to(
-                    ".img4",
-                    {
-                        right: "-8vw",
-                        bottom: "-15vh",
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3
-                )
-                .to(
-                    ".img5",
-                    {
-                        right: "-15vw",
-                        bottom: "-10vh",
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3
-                )
+                .to(".img1", { left: "-20vw", top: "-5vh", duration: 2.5, ease: "power2.inOut" }, 3)
+                .to(".img2", { left: "-5vw", bottom: "-5vh", duration: 2.5, ease: "power2.inOut" }, 3)
+                .to(".img3", { bottom: "-50vh", left: "-10vw", duration: 2.5, ease: "power2.inOut" }, 3)
+                .to(".img4", { right: "-8vw", bottom: "-15vh", duration: 2.5, ease: "power2.inOut" }, 3)
+                .to(".img5", { right: "-15vw", bottom: "-10vh", duration: 2.5, ease: "power2.inOut" }, 3)
                 .to(
                     ".img6",
                     {
@@ -391,67 +149,13 @@ export default function AboutComponent() {
                         scale: 2.8,
                         duration: 3,
                         ease: "power4.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                        onStart: () => {
-                            step3Reached.current = true;
-                        },
                     },
                     3
                 )
-                .to(
-                    ".img7",
-                    {
-                        right: "-20vw",
-                        top: "-15vh",
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3
-                )
-                .to(
-                    ".img8",
-                    {
-                        left: "-10vw",
-                        top: "-2vh",
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3
-                )
-                .to(
-                    ".content-text.heading",
-                    {
-                        y: -60,
-                        opacity: 0,
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3.5
-                )
-                .to(
-                    ".content-text.para",
-                    {
-                        y: 60,
-                        opacity: 0,
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    3.5
-                )
+                .to(".img7", { right: "-20vw", top: "-15vh", duration: 2.5, ease: "power2.inOut" }, 3)
+                .to(".img8", { left: "-10vw", top: "-2vh", duration: 2.5, ease: "power2.inOut" }, 3)
+                .to(".content-text.heading", { y: -60, opacity: 0, duration: 2, ease: "power2.inOut" }, 3.5)
+                .to(".content-text.para", { y: 60, opacity: 0, duration: 2, ease: "power2.inOut" }, 3.5)
                 .to(
                     ".input-field",
                     {
@@ -470,150 +174,24 @@ export default function AboutComponent() {
                         },
                         duration: 2,
                         ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
                     },
                     3.5
                 )
-                .to(
-                    ".ig-name",
-                    {
-                        opacity: 1,
-                        duration: 1.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    4
-                )
+                .to(".ig-name", { opacity: 1, duration: 1.5, ease: "power2.inOut" }, 4);
 
-            // Step 3: Show discovery content (50-65%) - Optimized
-            tl.to(
-                heading.words,
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 2,
-                    stagger: 0.25,
-                    ease: "power3.inOut",
-                    overwrite: "auto",
-                    force3D: true,
-                    
-                },
-                4.2
-            )
+            // Step 3: Show discovery content
+            tl.to(heading.words, { y: 0, opacity: 1, duration: 2, stagger: 0.25, ease: "power3.inOut" }, 4.2)
+                .to(".popup", { y: 0, opacity: 1, duration: 1.8, stagger: 0.25, ease: "power3.inOut" }, 4.2)
+                .to(".anim3-desc .desc", { y: 0, opacity: 1, duration: 1.8, stagger: 0.25, ease: "power3.inOut" }, 4.4)
+                .to(".gradient", { opacity: 1, duration: 2, ease: "power2.inOut" }, 4.6);
 
-                .to(
-                    ".popup",
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.8,
-                        stagger: 0.25,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    4.2
-                )
-                .to(
-                    ".anim3-desc .desc",
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.8,
-                        stagger: 0.25,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    4.4
-                )
-                .to(
-                    ".gradient",
-                    {
-                        opacity: 1,
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    4.6
-                );
-
-            // Step 4: Transition to precision match (65-80%)
-            tl.to(
-                ".anim3-heading",
-                {
-                    y: "-25vh",
-                    opacity: 0,
-                    filter: "blur(6px)",
-                    duration: 2,
-                    ease: "power2.inOut",
-                    overwrite: "auto",
-                },
-                7
-            )
-                .to(
-                    ".anim3-desc",
-                    {
-                        y: "-50vh",
-                        filter: "blur(6px)",
-                        opacity: 0,
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    7.5
-                )
-                .to(
-                    ".anim3-gradient",
-                    {
-                        y: "-5vh",
-                        opacity: 0,
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    7
-                )
-                .to(
-                    ".input-field",
-                    {
-                        filter: "blur(6px)",
-                        opacity: 0,
-                        duration: 1.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    7
-                )
-                .to(
-                    [".popup.one", ".popup.two", ".popup.three"],
-                    {
-                        filter: "blur(6px)",
-                        opacity: 0,
-                        duration: 1.5,
-                        stagger: 0.2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    7
-                )
-                .to(
-                    ".popup.four",
-                    {
-                        y: "10vh",
-                        x: "-20.8vw",
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    8
-                )
+            // Step 4: Transition to precision match
+            tl.to(".anim3-heading", { y: "-25vh", opacity: 0, filter: "blur(6px)", duration: 2, ease: "power2.inOut" }, 7)
+                .to(".anim3-desc", { y: "-50vh", filter: "blur(6px)", opacity: 0, duration: 2, ease: "power2.inOut" }, 7.5)
+                .to(".anim3-gradient", { y: "-5vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 7)
+                .to(".input-field", { filter: "blur(6px)", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 7)
+                .to([".popup.one", ".popup.two", ".popup.three"], { filter: "blur(6px)", opacity: 0, duration: 1.5, stagger: 0.2, ease: "power2.inOut" }, 7)
+                .to(".popup.four", { y: "10vh", x: "-20.8vw", duration: 2, ease: "power2.inOut" }, 8)
                 .to(
                     ".img6",
                     {
@@ -627,301 +205,49 @@ export default function AboutComponent() {
                         },
                         duration: 2,
                         ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
                     },
                     8
                 )
-                .to(
-                    ".img6 .img-gradient",
-                    {
-                        scale: 1.8,
-                        duration: 2,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    8
-                )
-                .to(
-                    heading2.words,
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 2,
-                        stagger: 0.25,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                    },
-                    8.1
-                )
-                .to(
-                    ".anim4-desc .desc",
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 2,
-                        stagger: 0.25,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                    },
-                    8.1
-                )
-                .to(
-                    ".img8",
-                    {
-                        left: "-2vw",
-                        top: "10vh",
-                        filter: "blur(4px)",
-                        duration: 2,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                    },
-                    8
-                )
-                .to(
-                    ".img3",
-                    {
-                        left: "20vw",
-                        bottom: "-30vh",
-                        scale: 0.5,
-                        filter: "blur(4px)",
-                        duration: 2,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                    },
-                    8
-                )
-                .to(
-                    ".img4",
-                    {
-                        right: "15vw",
-                        bottom: "-2vh",
-                        filter: "blur(4px)",
-                        duration: 2,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                    },
-                    8
-                )
-                .to(
-                    ".img5",
-                    {
-                        right: "-3vw",
-                        top: "-2vh",
-                        filter: "blur(4px)",
-                        duration: 2,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                    },
-                    8
-                )
-                .to(
-                    ".img7",
-                    {
-                        right: "-20vw",
-                        top: "-6vh",
-                        filter: "blur(4px)",
-                        duration: 2,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                    },
-                    8
-                )
-                .from(
-                    ".chat-logo",
-                    {
-                        scale: 0,
-                        opacity: 0,
-                        duration: 1.5,
-                        ease: "back.out(1.7)",
-                        overwrite: "auto",
-                    },
-                    8.2
-                )
-                .from(
-                    ".chat-bubble",
-                    {
-                        x: -100,
-                        y: -20,
-                        scale: 0.2,
-                        opacity: 0,
-                        duration: 2,
-                        ease: "power3.inOut",
-                        overwrite: "auto",
-                    },
-                    8.3
-                );
+                .to(".img6 .img-gradient", { scale: 1.8, duration: 2, ease: "power2.inOut" }, 8)
+                .to(heading2.words, { y: 0, opacity: 1, duration: 2, stagger: 0.25, ease: "power3.inOut" }, 8.1)
+                .to(".anim4-desc .desc", { y: 0, opacity: 1, duration: 2, stagger: 0.25, ease: "power3.inOut" }, 8.1)
+                .to(".img8", { left: "-2vw", top: "10vh", filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
+                .to(".img3", { left: "20vw", bottom: "-30vh", scale: 0.5, filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
+                .to(".img4", { right: "15vw", bottom: "-2vh", filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
+                .to(".img5", { right: "-3vw", top: "-2vh", filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
+                .to(".img7", { right: "-20vw", top: "-6vh", filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
+                .from(".chat-logo", { scale: 0, opacity: 0, duration: 1.5, ease: "back.out(1.7)" }, 8.2)
+                .from(".chat-bubble", { x: -100, y: -20, scale: 0.2, opacity: 0, duration: 2, ease: "power3.inOut" }, 8.3);
 
-            // Step 5: Exit animations (80-100%) - Optimized
-            tl.to(
-                ".img6",
-                {
-                    y: "-100vh",
-                    opacity: 0,
-                    duration: 2.5,
-                    ease: "power2.inOut",
-                    overwrite: "auto",
-                    force3D: true,
-                    
-                },
-                10.5
-            )
-                .to(
-                    ".anim4-heading",
-                    {
-                        y: "-100vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    10
-                )
-                .to(
-                    ".anim4-desc",
-                    {
-                        y: "-100vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    10.2
-                )
-                .to(
-                    [".chat-logo", ".chat-bubble"],
-                    {
-                        y: "-100vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    10.3
-                )
-                .to(
-                    ".popup.four",
-                    {
-                        y: "-100vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                        force3D: true,
-                        
-                    },
-                    10.5
-                )
-                .to(
-                    ".img1",
-                    {
-                        left: "-25vw",
-                        top: "-15vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    10
-                )
-                .to(
-                    ".img2",
-                    {
-                        left: "-15vw",
-                        bottom: "-15vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    10
-                )
-                .to(
-                    ".img3",
-                    {
-                        bottom: "-60vh",
-                        left: "-20vw",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    10
-                )
-                .to(
-                    ".img4",
-                    {
-                        right: "-15vw",
-                        bottom: "-25vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    10
-                )
-                .to(
-                    ".img5",
-                    {
-                        right: "-20vw",
-                        bottom: "-20vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    10
-                )
-                .to(
-                    ".img7",
-                    {
-                        right: "-30vw",
-                        top: "-20vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    10
-                )
-                .to(
-                    ".img8",
-                    {
-                        left: "-15vw",
-                        top: "-12vh",
-                        opacity: 0,
-                        duration: 2.5,
-                        ease: "power2.inOut",
-                        overwrite: "auto",
-                    },
-                    10
-                );
+            // Step 5: Exit animations
+            tl.to(".img6", { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10.5)
+                .to(".anim4-heading", { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
+                .to(".anim4-desc", { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10.2)
+                .to([".chat-logo", ".chat-bubble"], { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10.3)
+                .to(".popup.four", { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10.5)
+                .to(".img1", { left: "-25vw", top: "-15vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
+                .to(".img2", { left: "-15vw", bottom: "-15vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
+                .to(".img3", { bottom: "-60vh", left: "-20vw", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
+                .to(".img4", { right: "-15vw", bottom: "-25vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
+                .to(".img5", { right: "-20vw", bottom: "-20vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
+                .to(".img7", { right: "-30vw", top: "-20vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
+                .to(".img8", { left: "-15vw", top: "-12vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10);
         }, scopeRef);
 
         return () => ctx.revert();
     }, []);
 
-    // Cursor blinking animation - Optimized
+    // Cursor blinking animation
     useEffect(() => {
-        if (!scopeRef.current) return;
+        if (!scopeRef.current || !cursorRef.current) return;
         const ctx = gsap.context(() => {
-            if (!cursorRef.current) return;
-            
-            // Use CSS animation for better performance
-            cursorRef.current.style.animation = 'cursorBlink 1.2s infinite';
-            
-            return () => {
-                if (cursorRef.current) {
-                    cursorRef.current.style.animation = '';
-                }
-            };
+            gsap.to(cursorRef.current, {
+                opacity: 0,
+                duration: 0.6,
+                repeat: -1,
+                yoyo: true,
+                ease: "power1.inOut"
+            });
         }, scopeRef);
 
         return () => ctx.revert();
@@ -1068,15 +394,15 @@ export default function AboutComponent() {
                         </div>
                     </div>
                     <div className="absolute top-0 w-11/12 mx-auto h-screen border-black gradient anim3-gradient">
-                            <div className="w-full h-full -bottom-[10vh] absolute">
-                                <Image
-                                    src="/assets/gradient-2.svg"
-                                    alt="gradient-1"
-                                    fill
-                                    className="relative object-contain"
-                                />
-                            </div>
+                        <div className="w-full h-full -bottom-[10vh] absolute">
+                            <Image
+                                src="/assets/gradient-2.svg"
+                                alt="gradient-1"
+                                fill
+                                className="relative object-contain"
+                            />
                         </div>
+                    </div>
                     <div className="w-[88%] absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center justify-center h-[40vh] z-40 pointer-events-auto">
                         <div className="h-full relative w-3/12 anim3-heading">
                             <h3 className="text-[2.6vw] leading-[3vw] font-bold font-archivo w-10/12">
