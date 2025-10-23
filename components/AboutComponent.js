@@ -523,7 +523,7 @@ export default function AboutComponent() {
                                     <div className="chat-bubble bg-white/40 backdrop-blur-3xl relative flex items-center justify-center py-3 px-3 rounded-tl-sm rounded-xl w-[80%]">
                                         <p className="text-sm text-[#383838] w-10/12 leading-[120%]">
                                             I&apos;ve found the right influencer
-                                            for you. Ready to launch?
+                                            for you. Ready to launch
                                         </p>
                                     </div>
                                 </div>
