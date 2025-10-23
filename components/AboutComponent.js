@@ -36,6 +36,12 @@ export default function AboutComponent() {
         
         gsap.registerPlugin(ScrollTrigger);
         
+        // Safari optimizations
+        gsap.defaults({ 
+            force3D: true,
+            transformPerspective: 1000
+        });
+
         const ctx = gsap.context(() => {
             const text = "Travel influencers in Lebanon";
 
@@ -52,13 +58,42 @@ export default function AboutComponent() {
                 }
             );
 
-            // Initial states
-            gsap.set(heading.words, { opacity: 0, y: 30 });
-            gsap.set(".anim3-desc .desc", { opacity: 0, y: 40 });
-            gsap.set(heading2.words, { opacity: 0, y: 10 });
-            gsap.set(".anim4-desc .desc", { opacity: 0, y: 20 });
-            gsap.set(".popup", { opacity: 0, y: 5 });
-            gsap.set(".gradient", { opacity: 0, y: 30 });
+            // Initial states with Safari optimizations
+            gsap.set(heading.words, { 
+                opacity: 0, 
+                y: 30,
+                willChange: "transform, opacity"
+            });
+            gsap.set(".anim3-desc .desc", { 
+                opacity: 0, 
+                y: 40,
+                willChange: "transform, opacity"
+            });
+            gsap.set(heading2.words, { 
+                opacity: 0, 
+                y: 10,
+                willChange: "transform, opacity"
+            });
+            gsap.set(".anim4-desc .desc", { 
+                opacity: 0, 
+                y: 20,
+                willChange: "transform, opacity"
+            });
+            gsap.set(".popup", { 
+                opacity: 0, 
+                y: 5,
+                willChange: "transform, opacity"
+            });
+            gsap.set(".gradient", { 
+                opacity: 0, 
+                y: 30,
+                willChange: "transform, opacity"
+            });
+
+            // Set will-change for images
+            gsap.set([".img1", ".img2", ".img3", ".img4", ".img5", ".img6", ".img7", ".img8"], {
+                willChange: "transform, opacity"
+            });
 
             const tl = gsap.timeline({
                 defaults: { 
@@ -82,28 +117,28 @@ export default function AboutComponent() {
                 },
             });
 
-            // Step 1: Initial entrance
+            // Step 1: Initial entrance - Reduced duration and simplified eases
             tl.from(
                 [".img1", ".img2", ".img3", ".img4", ".img5", ".img6", ".img7", ".img8"],
                 {
                     opacity: 0,
-                    duration: 2,
+                    duration: 1.5,
                     ease: "power2.inOut",
                 },
                 0
             )
-                .from(".img1", { left: "-15vw", top: "-5vh", duration: 2, ease: "power2.inOut" }, 0)
-                .from(".img2", { left: "-5vw", bottom: "-5vh", duration: 2, ease: "power2.inOut" }, 0)
-                .from(".img3", { bottom: "-50vh", left: "-10vw", duration: 2, ease: "power2.inOut" }, 0)
-                .from(".img4", { right: "-5vw", bottom: "-5vh", duration: 2, ease: "power2.inOut" }, 0)
-                .from(".img5", { right: "-10vw", bottom: "-10vh", duration: 2, ease: "power2.inOut" }, 0)
-                .from(".img6", { right: "-12vw", top: "-5vh", duration: 2, ease: "expo.inOut" }, 0)
-                .from(".img7", { right: "-20vw", top: "-10vh", duration: 2, ease: "power2.inOut" }, 0)
-                .from(".img8", { left: "-5vw", top: "-2vh", duration: 2, ease: "power2.inOut" }, 0)
+                .from(".img1", { left: "-15vw", top: "-5vh", duration: 1.5, ease: "power2.inOut" }, 0)
+                .from(".img2", { left: "-5vw", bottom: "-5vh", duration: 1.5, ease: "power2.inOut" }, 0)
+                .from(".img3", { bottom: "-50vh", left: "-10vw", duration: 1.5, ease: "power2.inOut" }, 0)
+                .from(".img4", { right: "-5vw", bottom: "-5vh", duration: 1.5, ease: "power2.inOut" }, 0)
+                .from(".img5", { right: "-10vw", bottom: "-10vh", duration: 1.5, ease: "power2.inOut" }, 0)
+                .from(".img6", { right: "-12vw", top: "-5vh", duration: 1.5, ease: "power2.inOut" }, 0)
+                .from(".img7", { right: "-20vw", top: "-10vh", duration: 1.5, ease: "power2.inOut" }, 0)
+                .from(".img8", { left: "-5vw", top: "-2vh", duration: 1.5, ease: "power2.inOut" }, 0)
                 .fromTo(
                     ".content-text",
                     { opacity: 0, y: 80 },
-                    { opacity: 1, y: 0, stagger: 0.3, duration: 1.5, ease: "power2.inOut" },
+                    { opacity: 1, y: 0, stagger: 0.3, duration: 1.2, ease: "power2.inOut" },
                     0.3
                 );
 
@@ -113,7 +148,7 @@ export default function AboutComponent() {
                 chars,
                 {
                     value: text.length,
-                    duration: 2.5,
+                    duration: 2,
                     ease: "none",
                     onStart: () => handlePlayAnimation(),
                     onUpdate: () => {
@@ -124,13 +159,13 @@ export default function AboutComponent() {
                         }
                     },
                 },
-                3
+                2.5
             )
-                .to(".img1", { left: "-20vw", top: "-5vh", duration: 2.5, ease: "power2.inOut" }, 3)
-                .to(".img2", { left: "-5vw", bottom: "-5vh", duration: 2.5, ease: "power2.inOut" }, 3)
-                .to(".img3", { bottom: "-50vh", left: "-10vw", duration: 2.5, ease: "power2.inOut" }, 3)
-                .to(".img4", { right: "-8vw", bottom: "-15vh", duration: 2.5, ease: "power2.inOut" }, 3)
-                .to(".img5", { right: "-15vw", bottom: "-10vh", duration: 2.5, ease: "power2.inOut" }, 3)
+                .to(".img1", { left: "-20vw", top: "-5vh", duration: 2, ease: "power2.inOut" }, 2.5)
+                .to(".img2", { left: "-5vw", bottom: "-5vh", duration: 2, ease: "power2.inOut" }, 2.5)
+                .to(".img3", { bottom: "-50vh", left: "-10vw", duration: 2, ease: "power2.inOut" }, 2.5)
+                .to(".img4", { right: "-8vw", bottom: "-15vh", duration: 2, ease: "power2.inOut" }, 2.5)
+                .to(".img5", { right: "-15vw", bottom: "-10vh", duration: 2, ease: "power2.inOut" }, 2.5)
                 .to(
                     ".img6",
                     {
@@ -147,15 +182,15 @@ export default function AboutComponent() {
                             return window.innerHeight / 2 - rect.top - img6.offsetHeight / 2 + 40;
                         },
                         scale: 2.8,
-                        duration: 3,
-                        ease: "power4.inOut",
+                        duration: 2.5,
+                        ease: "power2.inOut", // Simplified from power4
                     },
-                    3
+                    2.5
                 )
-                .to(".img7", { right: "-20vw", top: "-15vh", duration: 2.5, ease: "power2.inOut" }, 3)
-                .to(".img8", { left: "-10vw", top: "-2vh", duration: 2.5, ease: "power2.inOut" }, 3)
-                .to(".content-text.heading", { y: -60, opacity: 0, duration: 2, ease: "power2.inOut" }, 3.5)
-                .to(".content-text.para", { y: 60, opacity: 0, duration: 2, ease: "power2.inOut" }, 3.5)
+                .to(".img7", { right: "-20vw", top: "-15vh", duration: 2, ease: "power2.inOut" }, 2.5)
+                .to(".img8", { left: "-10vw", top: "-2vh", duration: 2, ease: "power2.inOut" }, 2.5)
+                .to(".content-text.heading", { y: -60, opacity: 0, duration: 1.5, ease: "power2.inOut" }, 3)
+                .to(".content-text.para", { y: 60, opacity: 0, duration: 1.5, ease: "power2.inOut" }, 3)
                 .to(
                     ".input-field",
                     {
@@ -172,26 +207,26 @@ export default function AboutComponent() {
                             const rect = inputField.getBoundingClientRect();
                             return window.innerHeight / 4 - rect.top - inputField.offsetHeight / 2;
                         },
-                        duration: 2,
+                        duration: 1.5,
                         ease: "power2.inOut",
                     },
-                    3.5
+                    3
                 )
-                .to(".ig-name", { opacity: 1, duration: 1.5, ease: "power2.inOut" }, 4);
+                .to(".ig-name", { opacity: 1, duration: 1, ease: "power2.inOut" }, 3.5);
 
             // Step 3: Show discovery content
-            tl.to(heading.words, { y: 0, opacity: 1, duration: 2, stagger: 0.25, ease: "power3.inOut" }, 4.2)
-                .to(".popup", { y: 0, opacity: 1, duration: 1.8, stagger: 0.25, ease: "power3.inOut" }, 4.2)
-                .to(".anim3-desc .desc", { y: 0, opacity: 1, duration: 1.8, stagger: 0.25, ease: "power3.inOut" }, 4.4)
-                .to(".gradient", { opacity: 1, duration: 2, ease: "power2.inOut" }, 4.6);
+            tl.to(heading.words, { y: 0, opacity: 1, duration: 1.5, stagger: 0.2, ease: "power2.inOut" }, 3.7)
+                .to(".popup", { y: 0, opacity: 1, duration: 1.2, stagger: 0.2, ease: "power2.inOut" }, 3.7)
+                .to(".anim3-desc .desc", { y: 0, opacity: 1, duration: 1.2, stagger: 0.2, ease: "power2.inOut" }, 3.9)
+                .to(".gradient", { opacity: 1, duration: 1.5, ease: "power2.inOut" }, 4.1);
 
             // Step 4: Transition to precision match
-            tl.to(".anim3-heading", { y: "-25vh", opacity: 0, filter: "blur(6px)", duration: 2, ease: "power2.inOut" }, 7)
-                .to(".anim3-desc", { y: "-50vh", filter: "blur(6px)", opacity: 0, duration: 2, ease: "power2.inOut" }, 7.5)
-                .to(".anim3-gradient", { y: "-5vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 7)
-                .to(".input-field", { filter: "blur(6px)", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 7)
-                .to([".popup.one", ".popup.two", ".popup.three"], { filter: "blur(6px)", opacity: 0, duration: 1.5, stagger: 0.2, ease: "power2.inOut" }, 7)
-                .to(".popup.four", { y: "10vh", x: "-20.8vw", duration: 2, ease: "power2.inOut" }, 8)
+            tl.to(".anim3-heading", { y: "-25vh", opacity: 0, filter: "blur(6px)", duration: 1.5, ease: "power2.inOut" }, 6)
+                .to(".anim3-desc", { y: "-50vh", filter: "blur(6px)", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 6.2)
+                .to(".anim3-gradient", { y: "-5vh", opacity: 0, duration: 1.5, ease: "power2.inOut" }, 6)
+                .to(".input-field", { filter: "blur(6px)", opacity: 0, duration: 1, ease: "power2.inOut" }, 6)
+                .to([".popup.one", ".popup.two", ".popup.three"], { filter: "blur(6px)", opacity: 0, duration: 1, stagger: 0.15, ease: "power2.inOut" }, 6)
+                .to(".popup.four", { y: "10vh", x: "-20.8vw", duration: 1.5, ease: "power2.inOut" }, 6.5)
                 .to(
                     ".img6",
                     {
@@ -203,35 +238,35 @@ export default function AboutComponent() {
                             const currentY = gsap.getProperty(".img6", "y");
                             return currentY - window.innerHeight * 0.05;
                         },
-                        duration: 2,
+                        duration: 1.5,
                         ease: "power2.inOut",
                     },
-                    8
+                    6.5
                 )
-                .to(".img6 .img-gradient", { scale: 1.8, duration: 2, ease: "power2.inOut" }, 8)
-                .to(heading2.words, { y: 0, opacity: 1, duration: 2, stagger: 0.25, ease: "power3.inOut" }, 8.1)
-                .to(".anim4-desc .desc", { y: 0, opacity: 1, duration: 2, stagger: 0.25, ease: "power3.inOut" }, 8.1)
-                .to(".img8", { left: "-2vw", top: "10vh", filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
-                .to(".img3", { left: "20vw", bottom: "-30vh", scale: 0.5, filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
-                .to(".img4", { right: "15vw", bottom: "-2vh", filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
-                .to(".img5", { right: "-3vw", top: "-2vh", filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
-                .to(".img7", { right: "-20vw", top: "-6vh", filter: "blur(4px)", duration: 2, ease: "power3.inOut" }, 8)
-                .from(".chat-logo", { scale: 0, opacity: 0, duration: 1.5, ease: "back.out(1.7)" }, 8.2)
-                .from(".chat-bubble", { x: -100, y: -20, scale: 0.2, opacity: 0, duration: 2, ease: "power3.inOut" }, 8.3);
+                .to(".img6 .img-gradient", { scale: 1.8, duration: 1.5, ease: "power2.inOut" }, 6.5)
+                .to(heading2.words, { y: 0, opacity: 1, duration: 1.5, stagger: 0.2, ease: "power2.inOut" }, 6.6)
+                .to(".anim4-desc .desc", { y: 0, opacity: 1, duration: 1.5, stagger: 0.2, ease: "power2.inOut" }, 6.6)
+                .to(".img8", { left: "-2vw", top: "10vh", filter: "blur(4px)", duration: 1.5, ease: "power2.inOut" }, 6.5)
+                .to(".img3", { left: "20vw", bottom: "-30vh", scale: 0.5, filter: "blur(4px)", duration: 1.5, ease: "power2.inOut" }, 6.5)
+                .to(".img4", { right: "15vw", bottom: "-2vh", filter: "blur(4px)", duration: 1.5, ease: "power2.inOut" }, 6.5)
+                .to(".img5", { right: "-3vw", top: "-2vh", filter: "blur(4px)", duration: 1.5, ease: "power2.inOut" }, 6.5)
+                .to(".img7", { right: "-20vw", top: "-6vh", filter: "blur(4px)", duration: 1.5, ease: "power2.inOut" }, 6.5)
+                .from(".chat-logo", { scale: 0, opacity: 0, duration: 1, ease: "back.out(1.4)" }, 6.7)
+                .from(".chat-bubble", { x: -100, y: -20, scale: 0.2, opacity: 0, duration: 1.2, ease: "power2.inOut" }, 6.8);
 
             // Step 5: Exit animations
-            tl.to(".img6", { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10.5)
-                .to(".anim4-heading", { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
-                .to(".anim4-desc", { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10.2)
-                .to([".chat-logo", ".chat-bubble"], { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10.3)
-                .to(".popup.four", { y: "-100vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10.5)
-                .to(".img1", { left: "-25vw", top: "-15vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
-                .to(".img2", { left: "-15vw", bottom: "-15vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
-                .to(".img3", { bottom: "-60vh", left: "-20vw", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
-                .to(".img4", { right: "-15vw", bottom: "-25vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
-                .to(".img5", { right: "-20vw", bottom: "-20vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
-                .to(".img7", { right: "-30vw", top: "-20vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10)
-                .to(".img8", { left: "-15vw", top: "-12vh", opacity: 0, duration: 2.5, ease: "power2.inOut" }, 10);
+            tl.to(".img6", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8.5)
+                .to(".anim4-heading", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8)
+                .to(".anim4-desc", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8.2)
+                .to([".chat-logo", ".chat-bubble"], { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8.3)
+                .to(".popup.four", { y: "-100vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8.5)
+                .to(".img1", { left: "-25vw", top: "-15vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8)
+                .to(".img2", { left: "-15vw", bottom: "-15vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8)
+                .to(".img3", { bottom: "-60vh", left: "-20vw", opacity: 0, duration: 2, ease: "power2.inOut" }, 8)
+                .to(".img4", { right: "-15vw", bottom: "-25vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8)
+                .to(".img5", { right: "-20vw", bottom: "-20vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8)
+                .to(".img7", { right: "-30vw", top: "-20vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8)
+                .to(".img8", { left: "-15vw", top: "-12vh", opacity: 0, duration: 2, ease: "power2.inOut" }, 8);
         }, scopeRef);
 
         return () => ctx.revert();
@@ -271,6 +306,7 @@ export default function AboutComponent() {
                                     alt="fyuze"
                                     fill
                                     className="object-contain mt-3"
+                                    priority
                                 />
                             </div>
                             <span className="ml-2">
@@ -315,6 +351,7 @@ export default function AboutComponent() {
                                 fill
                                 alt="img1"
                                 className="object-cover object-left-top"
+                                loading="eager"
                             />
                         </div>
                         <div className="w-[4.2vw] h-[6.2vw] z-10 absolute bottom-[20vh] left-[8vw] rounded-2xl overflow-hidden img2">
@@ -323,6 +360,7 @@ export default function AboutComponent() {
                                 fill
                                 alt="img2"
                                 className="object-cover object-center scale-[1.15]"
+                                loading="eager"
                             />
                         </div>
                         <div className="w-[21vw] h-[26vw] absolute -bottom-[19vh] left-[35.5vw] rounded-[32px] overflow-hidden img3">
@@ -331,6 +369,7 @@ export default function AboutComponent() {
                                 fill
                                 alt="img3"
                                 className="object-cover object-center scale-[1.15]"
+                                loading="eager"
                             />
                         </div>
                         <div className="w-[6.3vw] h-[10vw] absolute bottom-[1.5vh] right-[20vw] rounded-[28px] overflow-hidden img4">
@@ -339,6 +378,7 @@ export default function AboutComponent() {
                                 fill
                                 alt="img4"
                                 className="object-cover object-left scale-[1.15]"
+                                loading="eager"
                             />
                         </div>
                         <div className="w-[10vw] h-[14vw] absolute bottom-[24vh] -right-[6vw] rounded-[32px] overflow-hidden img5">
@@ -347,6 +387,7 @@ export default function AboutComponent() {
                                 fill
                                 alt="img5"
                                 className="object-cover object-center"
+                                loading="eager"
                             />
                         </div>
                         <div className="w-[7.2vw] h-[11.5vw] absolute top-[14vh] right-[11vw] rounded-[20px] overflow-hidden img6">
@@ -371,6 +412,7 @@ export default function AboutComponent() {
                                 fill
                                 alt="img6"
                                 className="object-contain img-gradient object-center absolute top-0 left-0 scale-[1.2] -dz-10"
+                                loading="eager"
                             />
                             <p className="text-[5px] opacity-0 font-medium absolute bottom-[10px] left-[10px] text-white z-100 ig-name">
                                 @Nick travels
@@ -382,6 +424,7 @@ export default function AboutComponent() {
                                 fill
                                 alt="img7"
                                 className="object-cover object-center scale-[1.15]"
+                                loading="eager"
                             />
                         </div>
                         <div className="w-[9.5vw] h-[16vw] absolute top-[19vh] left-[14vw] rounded-2xl overflow-hidden bg-[#d9d9d9] img8">
@@ -390,6 +433,7 @@ export default function AboutComponent() {
                                 fill
                                 alt="img8"
                                 className="object-contain object-center"
+                                loading="eager"
                             />
                         </div>
                     </div>
@@ -400,6 +444,7 @@ export default function AboutComponent() {
                                 alt="gradient-1"
                                 fill
                                 className="relative object-contain"
+                                loading="eager"
                             />
                         </div>
                     </div>
@@ -417,6 +462,7 @@ export default function AboutComponent() {
                                     width={21}
                                     height={21}
                                     className="object-contain relative"
+                                    loading="eager"
                                 />
                                 <span className="font-medium text-[0.9vw] text-dark-black">
                                     Reach : 2 Million
@@ -429,6 +475,7 @@ export default function AboutComponent() {
                                     width={21}
                                     height={21}
                                     className="object-contain relative"
+                                    loading="eager"
                                 />
                                 <span className="font-medium text-[0.9vw] text-dark-black">
                                     140k Followers
@@ -441,6 +488,7 @@ export default function AboutComponent() {
                                     width={21}
                                     height={21}
                                     className="object-contain relative mb-1"
+                                    loading="eager"
                                 />
                                 <span className="font-[500] text-[0.9vw] leading-[2vw] text-white">
                                     FYUZE Score :
@@ -457,6 +505,7 @@ export default function AboutComponent() {
                                     width={21}
                                     height={21}
                                     className="object-contain relative mb-1"
+                                    loading="eager"
                                 />
                                 <span className="font-[500] text-[0.9vw] leading-[1.2vw] text-dark-black">
                                     Worked with more that 50 brands, with 75%
@@ -517,6 +566,7 @@ export default function AboutComponent() {
                                                 width={15}
                                                 height={21}
                                                 alt="gradient-logo"
+                                                loading="eager"
                                             />
                                         </div>
                                     </div>
