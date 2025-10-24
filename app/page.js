@@ -13,6 +13,7 @@ import ChatFold12 from "@/screens/ChatFold12";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   useLenis();
@@ -126,6 +127,7 @@ export default function Home() {
 
       <section className="section theme-bg-secondary" data-text="light">
         <FAQsection />
+        <Footer />
       </section>
     </main>
   );
