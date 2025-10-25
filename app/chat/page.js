@@ -9,6 +9,7 @@ import apiClient from "@/lib/axiosInstance";
 import { authService } from "@/lib/authService";
 import ChatHistorySection from "@/components/ChatHistory";
 import DashboardComponent from "@/components/DashboardComponent";
+import Filter from "./filter";
 
 // Utility function to get proxied image URL with fallback mechanism
 const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
@@ -595,6 +596,8 @@ const ChatPage = () => {
                     </button>
                 </div>
             </div>
+
+            <Filter />
         </div>
     );
 };
