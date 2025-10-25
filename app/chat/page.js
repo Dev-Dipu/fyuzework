@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Moon, Sun } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -27,6 +27,9 @@ const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
 };
 
 const ChatPage = () => {
+    const [isDark, setIsDark] = useState(false);
+    const toggleTheme = () => setIsDark(!isDark);
+
     const [message, setMessage] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -136,7 +139,23 @@ const ChatPage = () => {
     ];
 
     return (
-        <div className="h-screen w-full flex justify-between bg-[#0D0D0D] relative p-6">
+        <div
+            className={`h-screen w-full flex justify-between relative p-6 ${
+                isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"
+            }`}
+        >
+            {/* Theme Toggle Button */}
+            <button
+                onClick={toggleTheme}
+                className={`fixed bottom-6 z-50 right-6 p-3 rounded-full transition-all duration-300 ${
+                    isDark
+                        ? "bg-white text-black hover:bg-gray-200"
+                        : "bg-black text-white hover:bg-gray-800"
+                }`}
+            >
+                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+
             <div className="absolute top-0 left-0 h-full w-full z-0">
                 <Image
                     src="/assets/gradientEdited.svg"
@@ -154,6 +173,7 @@ const ChatPage = () => {
                         alt="fyuze logo"
                         height={80}
                         width={80}
+                        className={`${!isDark && "invert"}`}
                     />
                     <button
                         onClick={() => {
@@ -171,25 +191,38 @@ const ChatPage = () => {
                         New chat
                     </button>
                     <div>
-                        <ChatHistorySection />
+                        <ChatHistorySection isDark={isDark} />
                     </div>
                     <div>
-                        <h1 onClick={() => setIsDashboardOpen(prev => !prev)} className={`text-[#E2E1DC] cursor-pointer hover:bg-white transition rounded-full ${isDashboardOpen && "bg-white"}`}>
-                          <div className={`h-full w-full hover:invert flex items-center gap-2 px-3 py-1.5 ${isDashboardOpen && "invert"}`}>
-                            <Image
-                                src="./assets/dashBoard.svg"
-                                height={24}
-                                width={24}
-                                alt="dashBoard"
-                            />
-                            Dashboard
-                          </div>
+                        <h1
+                            onClick={() => setIsDashboardOpen((prev) => !prev)}
+                            className={`text-[#E2E1DC] cursor-pointer hover:bg-white transition rounded-full ${
+                                isDashboardOpen && "bg-white"
+                            } ${!isDark && "invert"}`}
+                        >
+                            <div
+                                className={`h-full w-full hover:invert flex items-center gap-2 px-3 py-1.5 ${
+                                    isDashboardOpen && isDark && "invert"
+                                }`}
+                            >
+                                <Image
+                                    src="./assets/dashBoard.svg"
+                                    height={24}
+                                    width={24}
+                                    alt="dashBoard"
+                                />
+                                Dashboard
+                            </div>
                         </h1>
                     </div>
                 </div>
                 <div>
                     <div className="space-y-4">
-                        <h1 className="text-white flex items-center gap-2 cursor-pointer">
+                        <h1
+                            className={`text-white flex items-center gap-2 cursor-pointer ${
+                                !isDark && "invert"
+                            }`}
+                        >
                             <Image
                                 src="./assets/settings.svg"
                                 height={24}
@@ -198,8 +231,14 @@ const ChatPage = () => {
                             />
                             Settings
                         </h1>
-                        <hr />
-                        <h1 className="text-white text-sm">Profile</h1>
+                        <hr className={`${!isDark && "invert"}`} />
+                        <h1
+                            className={`text-sm ${
+                                isDark ? "text-white" : "text-black"
+                            }`}
+                        >
+                            Profile
+                        </h1>
                         <div className="flex items-center gap-2">
                             <Image
                                 src="/assets/profile.png"
@@ -209,15 +248,27 @@ const ChatPage = () => {
                                 className="rounded-full"
                             />
                             <div>
-                                <h1 className="text-white">Jenny Wilson</h1>
-                                <p className="text-xs text-[#C1C1C1]">
+                                <h1
+                                    className={`${
+                                        isDark ? "text-white" : "text-black"
+                                    }`}
+                                >
+                                    Jenny Wilson
+                                </h1>
+                                <p
+                                    className={`text-xs ${
+                                        isDark ? "text-[#c1c1c1]" : "text-black"
+                                    }`}
+                                >
                                     jennywilson@fyuze.com
                                 </p>
                             </div>
                         </div>
                         <button
                             onClick={() => authService.logout()}
-                            className="text-white text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition"
+                            className={`text-white text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition ${
+                                !isDark && "invert"
+                            }`}
                         >
                             <Image
                                 src="./assets/logOut.svg"
@@ -233,13 +284,17 @@ const ChatPage = () => {
 
             {/* Main Chat Area */}
             {!isDashboardOpen && (
-                <div className="h-full relative text-white w-[72vw] z-10 flex flex-col">
+                <div
+                    className={`h-full relative ${
+                        isDark ? "text-white" : "text-black"
+                    } w-[72vw] z-10 flex flex-col`}
+                >
                     {chatHistory.length === 0 ? (
                         // Empty State
                         <div className="flex-1 flex items-center justify-center">
                             <div className="flex flex-col justify-center items-center font-[inter]">
                                 <Image
-                                    className="invert"
+                                    className={`${isDark && "invert"}`}
                                     height={1}
                                     width={30}
                                     src={"/MONOGRAM.svg"}
@@ -260,15 +315,21 @@ const ChatPage = () => {
                                             onClick={() =>
                                                 setMessage(card.text)
                                             }
-                                            className="w-1/3 px-6 py-4 rounded-4xl cursor-pointer hover:scale-105 transition
-                     bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)]
-                     border border-transparent backdrop-blur-[500px]"
+                                            className={`w-1/3 px-6 py-4 rounded-4xl cursor-pointer hover:scale-105 transition
+                     border border-transparent backdrop-blur-[500px] ${
+                         isDark
+                             ? "bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)]"
+                             : "bg-[linear-gradient(244.85deg,rgba(0,0,0,0.25)_-16.54%,rgba(0,0,0,0)_-1.98%,rgba(0,0,0,0.25)_61.94%)]"
+                     }`}
                                         >
                                             <Image
                                                 height={1}
                                                 width={20}
                                                 src={card.img}
                                                 alt="icon"
+                                                className={`${
+                                                    !isDark && "invert"
+                                                }`}
                                             />
                                             <p className="text-sm mt-1.5 leading-tight">
                                                 {card.text}
@@ -476,7 +537,7 @@ const ChatPage = () => {
                         className="w-4/5 mx-auto mb-6 pointer-events-auto"
                         style={{ willChange: "opacity, transform" }}
                     >
-                        <div className="absolute w-full bg-[#060606] h-20 -translate-y-10 rounded-4xl flex justify-end px-6 py-2.5 font-[inter] font-medium">
+                        <div className={`absolute w-full h-20 -translate-y-10 rounded-4xl flex justify-end px-6 py-2.5 font-[inter] font-medium ${isDark ? "bg-[#060606]" : "bg-white"}`}>
                             <div className="flex h-fit items-center gap-1 cursor-pointer hover:text-white transition">
                                 <Image
                                     height={1}
@@ -500,7 +561,7 @@ const ChatPage = () => {
                             style={{ willChange: "opacity, transform" }}
                         />
                         <div
-                            className="relative bg-[#0D0D0D] w-full flex justify-between items-center p-5 h-full rounded-[28px] backdrop-blur-[120px] z-80"
+                            className={`relative ${isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"} w-full flex justify-between items-center p-5 h-full rounded-[28px] backdrop-blur-[120px] z-80`}
                             style={{ willChange: "opacity, filter, transform" }}
                         >
                             <div>
@@ -517,7 +578,7 @@ const ChatPage = () => {
                                 style={{ willChange: "opacity, transform" }}
                             >
                                 <div
-                                    className="relative flex items-center justify-center p-3 rounded-2xl icon-gradient cursor-pointer hover:scale-105 transition"
+                                    className={`relative flex items-center justify-center p-3 rounded-2xl icon-gradient cursor-pointer hover:scale-105 transition ${!isDark && "invert"}`}
                                     style={{ willChange: "opacity, transform" }}
                                 >
                                     <div
@@ -541,7 +602,7 @@ const ChatPage = () => {
                                 <button
                                     onClick={handleSendMessage}
                                     disabled={isLoading || !message.trim()}
-                                    className="relative flex items-center justify-center p-3 rounded-2xl icon-gradient cursor-pointer hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className={`relative flex items-center justify-center p-3 rounded-2xl icon-gradient cursor-pointer hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed ${!isDark && "invert"}`}
                                     style={{ willChange: "opacity, transform" }}
                                 >
                                     <div
