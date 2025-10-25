@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import apiClient from '@/lib/axiosInstance';
 import { authService } from '@/lib/authService';
 import ChatHistorySection from "@/components/ChatHistory";
+import Filter from './Filter';
 
 // Utility function to get proxied image URL with fallback mechanism
 const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
