@@ -164,21 +164,21 @@ export default function Navbar() {
 
       {/* Content */}
       <div className="relative flex-center gap-12 z-10">
-        <div className="relative w-24 h-[30px] navelm">
+        <Link href="/" className="relative w-24 h-[30px] navelm">
           <Image
             src={logoSrc}
             alt="logo"
             fill
             className="object-contain"
           />
-        </div>
+        </Link>
         <div 
           className="w-[1px] h-[26px] relative transition-colors duration-300"
           style={{ backgroundColor: textColor }}
         ></div>
         <div className="flex-between gap-10 relativ">
           <Link
-            href="/"
+            href="/howitworks"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
@@ -193,7 +193,7 @@ export default function Navbar() {
             style={{ backgroundColor: textColor }}
           ></div>
           <Link
-            href="/"
+            href="/features"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
@@ -208,7 +208,7 @@ export default function Navbar() {
             style={{ backgroundColor: textColor }}
           ></div>
           <Link
-            href="/"
+            href="/pricing"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
@@ -223,7 +223,7 @@ export default function Navbar() {
             style={{ backgroundColor: textColor }}
           ></div>
           <Link
-            href="/"
+            href="/about"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
@@ -238,7 +238,7 @@ export default function Navbar() {
       <div className="relative flex-center gap-10 z-10 navelm">
         {/* <ThemeToggle /> */}
         <Link
-            href="/"
+            href="/contact"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
