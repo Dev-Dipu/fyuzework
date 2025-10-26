@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 
-const ChatHistorySection = () => {
+const ChatHistorySection = ({isDark}) => {
     const [isOpen, setIsOpen] = useState(true);
 
     const historyItems = [
@@ -19,7 +19,7 @@ const ChatHistorySection = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex items-center justify-between rounded-lg transition-colors mb-2"
             >
-                <h1 className="text-white flex items-center gap-2">
+                <h1 className={`flex items-center gap-2 ${isDark ? "text-white" : "text-black" }`}>
                     <Image src="./assets/chatHistory.svg" height={24} width={24} alt="chatHistory" />
                     Chat History
                 </h1>
@@ -50,9 +50,9 @@ const ChatHistorySection = () => {
                         {historyItems.map((item, index) => (
                             <button
                                 key={index}
-                                className={`w-full text-left px-4 text-sm py-2 rounded-full transition-colors relative ${index === 0
-                                        ? 'bg-white text-[#343434]'
-                                        : 'text-[#C1C1C1] hover:bg-white hover:text-[#343434]'
+                                className={`w-full text-left px-4 text-sm py-2 rounded-full transition-colors relative  ${index === 0
+                                        ?'bg-white text-[#343434]'
+                                        : `hover:bg-white hover:text-[#343434] ${isDark ? "text-[#C1C1C1]" : "text-[#4F4F4F]"}`
                                     }`}
                             >
                                 <span className="block truncate">{item}</span>

@@ -12,7 +12,61 @@ export default function Navbar() {
   const [textColor, setTextColor] = useState("white");
   const [isDarkSection, setIsDarkSection] = useState(false);
   const [logoSrc, setLogoSrc] = useState("/assets/fyuze-logo.svg");
+  const [isProfileCardVisible, setIsProfileCardVisible] = useState(false);
   const navRef = useRef();
+  const profileCardRef = useRef();
+
+  useGSAP(() => {
+    if (isProfileCardVisible) {
+        gsap.fromTo(profileCardRef.current, 
+          {
+            opacity: 0,
+            y: 50,
+            display: "none"
+          },
+          {
+            opacity: 1,
+            y: 0,
+            display: "block",
+            duration: 0.7,
+            ease: "power2.inOut"
+          }
+        );
+      } else {
+        gsap.to(profileCardRef.current, {
+          opacity: 0,
+          y: 50,
+          duration: 0.7,
+          ease: "power2.inOut",
+          onComplete: () => {
+            if (profileCardRef.current) {
+              profileCardRef.current.style.display = "none";
+            }
+          }
+        });
+      }
+  }, [isProfileCardVisible]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        profileCardRef.current &&
+        !profileCardRef.current.contains(event.target) &&
+        !event.target.closest('.profileClick')
+      ) {
+        setIsProfileCardVisible(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const toggleProfileCard = () => {
+    setIsProfileCardVisible(!isProfileCardVisible);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -89,7 +143,7 @@ export default function Navbar() {
 
   return (
     <nav
-    ref={navRef}
+      ref={navRef}
       className="w-full left-0 top-0 fixed p-9 flex-between z-100 transition-colors duration-300"
       style={{ 
         color: textColor,
@@ -110,21 +164,21 @@ export default function Navbar() {
 
       {/* Content */}
       <div className="relative flex-center gap-12 z-10">
-        <div className="relative w-24 h-[30px] navelm">
+        <Link href="/" className="relative w-24 h-[30px] navelm">
           <Image
             src={logoSrc}
             alt="logo"
             fill
             className="object-contain"
           />
-        </div>
+        </Link>
         <div 
           className="w-[1px] h-[26px] relative transition-colors duration-300"
           style={{ backgroundColor: textColor }}
         ></div>
         <div className="flex-between gap-10 relativ">
           <Link
-            href="/"
+            href="/howitworks"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
@@ -139,7 +193,7 @@ export default function Navbar() {
             style={{ backgroundColor: textColor }}
           ></div>
           <Link
-            href="/"
+            href="/features"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
@@ -154,7 +208,7 @@ export default function Navbar() {
             style={{ backgroundColor: textColor }}
           ></div>
           <Link
-            href="/"
+            href="/pricing"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
@@ -169,7 +223,7 @@ export default function Navbar() {
             style={{ backgroundColor: textColor }}
           ></div>
           <Link
-            href="/"
+            href="/about"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
@@ -181,22 +235,98 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <div className="relative flex-center gap-3 z-10 navelm">
+      <div className="relative flex-center gap-10 z-10 navelm">
         {/* <ThemeToggle /> */}
-        <div className="w-[30px] h-[30px] relative overflow-hidden rounded-full">
-          <Image
-            src="/assets/profile.png"
-            alt="logo"
-            fill
-            className="object-cover"
-          />
+        <Link
+            href="/contact"
+            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
+            style={{ color: textColor }}
+          >
+            contact
+            <span
+              className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
+              style={{ backgroundColor: textColor }}
+            ></span>
+          </Link>
+        <div className="relative">
+          <div 
+            className="flex profileClick items-center gap-2 cursor-pointer"
+            onClick={toggleProfileCard}
+          >
+            <div className="w-[30px] h-[30px] relative overflow-hidden rounded-full">
+              <Image
+                src="/assets/profile.png"
+                alt="logo"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <p 
+              className="font-[500] text-base leading-[100%] transition-colors duration-300"
+              style={{ color: textColor }}
+            >
+              Jenny Wilson
+            </p>
+          </div>
+          <div 
+            ref={profileCardRef}
+            className="h-fit profileCard w-[14vw] p-6 rounded-3xl absolute -right-5 top-12 bg-white"
+            style={{ 
+              opacity: 0, 
+              display: 'none',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+            }}
+          >
+            <div className="flex pb-3 border-b justify-between items-center">
+              <div className="flex gap-2 items-center">
+                  <div className="w-[30px] h-[30px] relative overflow-hidden rounded-full">
+                  <Image
+                    src="/assets/profile.png"
+                    alt="logo"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h1 className="tracking-tight text-sm font-semibold">Jenny Wilson's FYUZE</h1>
+              </div>
+              <Image src="/next-arrow.svg" height={15} width={15} alt="arrow right icon" />
+            </div>
+            <div className="flex py-3 border-b items-center justify-between">
+              <div className="flex gap-2 items-center">
+                <Image src="/ChartPieSlice.svg" height={30} width={30} alt="dashboard icon" />
+                <h1 className="tracking-tight text-sm font-semibold">Dashboard</h1>
+              </div>
+              <Image src="/next-arrow.svg" height={15} width={15} alt="arrow right icon" />
+            </div>
+            <div className="h-[14vh] mb-4 w-full px-3 bg-[#E2E1DC] rounded-2xl mt-4">
+              <div className="flex-between py-4 border-b border-[#C5C5C5]">
+                <div className="flex items-center gap-2">
+                  <Image src="/Crown.svg" height={20} width={20} alt="logout icon"/>
+                  <h1 className="text-sm tracking-tight font-medium">Turn pro</h1>
+                </div>
+                <p className="uppercase bg-[#FF6B3A] inline-block rounded-full tracking-tight text-xs text-white font-medium px-3 py-1">Upgrade</p>
+              </div>
+              <div className="flex-between py-4">
+                <h1 className="text-sm font-medium tracking-tight">Credits</h1>
+                <h1 className="text-sm font-medium tracking-tight"><span className="font-bold text-red-600">05</span> left</h1>
+              </div>
+              <div className="h-2 w-full bg-white rounded">
+              </div>
+            </div>
+            <div className="pt-4 border-t flex-center">
+              <button className="text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition">
+                <Image
+                  src="./assets/logOut.svg"
+                  height={20}
+                  width={20}
+                  alt="chatIcon"
+                  className="invert"
+                />
+                  Log out
+              </button>
+            </div>
+          </div>
         </div>
-        <p 
-          className="font-[500] text-base leading-[100%] transition-colors duration-300"
-          style={{ color: textColor }}
-        >
-          Jenny Wilson
-        </p>
       </div>
     </nav>
   );
