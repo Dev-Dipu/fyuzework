@@ -52,7 +52,7 @@ const ChatHistorySection = ({isDark}) => {
                                 key={index}
                                 className={`w-full text-left px-4 text-sm py-2 rounded-full transition-colors relative  ${index === 0
                                         ?'bg-white text-[#343434]'
-                                        : `hover:bg-white hover:text-[#343434] ${isDark ? "text-[#C1C1C1]" : "text-[#4F4F4F]"}`
+                                        : `hover:bg-white hover:text-[#343434] ${isDark ? `text-[#C1C1C1]` : "text-[#4F4F4F]"}`
                                     }`}
                             >
                                 <span className="block truncate">{item}</span>

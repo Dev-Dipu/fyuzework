@@ -1,12 +1,10 @@
 "use client";
-import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import Image from "next/image";
+import { useTheme } from '@/lib/contexts/ThemeContext';
 
 const PricingScreen = () => {
-    const [isDark, setIsDark] = useState(false);
-
-    const toggleTheme = () => setIsDark(!isDark);
+    const { isDark, toggleTheme } = useTheme();
 
     return (
         <div

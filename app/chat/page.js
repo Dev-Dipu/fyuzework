@@ -10,6 +10,7 @@ import { authService } from "@/lib/authService";
 import ChatHistorySection from "@/components/ChatHistory";
 import Filter from "./Filter";
 import DashboardComponent from "@/components/DashboardComponent";
+import { useTheme } from "@/lib/contexts/ThemeContext";
 
 
 const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
@@ -28,8 +29,7 @@ const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
 };
 
 const ChatPage = () => {
-  const [isDark, setIsDark] = useState(false);
-  const toggleTheme = () => setIsDark(!isDark);
+  const { isDark, toggleTheme } = useTheme();
 
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
