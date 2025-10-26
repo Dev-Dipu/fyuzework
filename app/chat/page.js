@@ -144,15 +144,36 @@ const ChatPage = () => {
     >
       {/* Theme Toggle Button */}
       <button
-        onClick={toggleTheme}
-        className={`fixed bottom-6 z-50 right-6 p-3 rounded-full transition-all duration-300 ${
-          isDark
-            ? "bg-white text-black hover:bg-gray-200"
-            : "bg-black text-white hover:bg-gray-800"
+      onClick={toggleTheme}
+      className={`fixed bottom-6 right-6 z-50 flex items-center justify-between w-[72px] h-[35px] rounded-full px-3   transition-all duration-500 shadow-inner border ${
+          isDark ? "border-[#4F4F4F]" : "border-black"
+        }`}
+    >
+      {/* Moon Icon */}
+      <div
+        className={`flex items-center justify-center transition-all duration-500 ${
+          isDark ? "text-white opacity-100" : "text-black opacity-70"
         }`}
       >
-        {isDark ? <Sun size={20} /> : <Moon size={20} />}
-      </button>
+        <Moon size={16} />
+      </div>
+
+      {/* Sun Icon */}
+      <div
+        className={`flex items-center justify-center transition-all duration-500 ${
+          isDark ? "text-gray-500 opacity-60" : "text-black opacity-100"
+        }`}
+      >
+        <Sun size={16} />
+      </div>
+
+      {/* Orange indicator */}
+      <div
+        className={`absolute bottom-[4px] h-[2px] w-[12px] rounded-full bg-[#E14E1D] transition-all duration-500 ${
+          isDark ? "left-[14px]" : "right-[14px]"
+        }`}
+      ></div>
+    </button>
 
       <div className="absolute top-0 left-0 h-full w-full z-0">
         <Image
@@ -482,10 +503,11 @@ const ChatPage = () => {
             style={{ willChange: "opacity, transform" }}
           >
             <div
-              className={`absolute w-full h-20 -translate-y-10 rounded-4xl flex justify-end px-6 py-2.5 font-[inter] font-medium ${
+              className={`absolute w-full pb-12 bottom-10 rounded-t-4xl flex justify-end px-6 py-2.5 font-[inter] font-medium ${
                 isDark ? "bg-[#060606]" : "bg-white"
               }`}
             >
+              {/* <Filter /> */}
               <div className="flex h-fit items-center gap-1 cursor-pointer hover:text-white transition">
                 <Image height={1} width={20} src={"/faders.svg"} alt="faders" />
                 <h4 className="text-base font-medium text-[#C5C5C5]">
@@ -604,7 +626,6 @@ const ChatPage = () => {
         </div>
       </div>
 
-      <Filter />
     </div>
   );
 };

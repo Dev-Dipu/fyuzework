@@ -270,7 +270,7 @@ export default function Navbar() {
   </div>
   <div 
     ref={profileCardRef}
-    className="h-fit profileCard w-[90vw] sm:w-[320px] md:w-[280px] lg:w-[14vw] min-w-[260px] p-4 sm:p-6 rounded-3xl absolute right-0 sm:-right-5 top-12 sm:top-12 bg-white z-50"
+    className="h-fit profileCard w-[90vw] sm:w-[320px] md:w-[280px] lg:w-[14vw] min-w-[260px] p-4 sm:p-6 rounded-3xl absolute right-0 sm:-right-5 top-12 sm:top-12 bg-white text-black z-50"
     style={{ 
       opacity: 0, 
       display: 'none',
@@ -325,15 +325,15 @@ export default function Navbar() {
           <Image src="/Crown.svg" height={20} width={20} alt="logout icon"/>
           <h1 className="text-xs sm:text-sm tracking-tight font-medium">Turn pro</h1>
         </div>
-        <p className="uppercase bg-[#FF6B3A] inline-block rounded-full tracking-tight text-[10px] sm:text-xs text-white font-medium px-2 sm:px-3 py-1">
+        <h3 className="uppercase bg-[#FF6B3A] inline-block rounded-full tracking-tight text-[10px] sm:text-xs text-white font-medium px-2 sm:px-3 py-1">
           Upgrade
-        </p>
+        </h3>
       </div>
       <div className="flex justify-between items-center py-3 sm:py-4">
-        <h1 className="text-xs sm:text-sm font-medium tracking-tight">Credits</h1>
-        <h1 className="text-xs sm:text-sm font-medium tracking-tight">
+        <h4 className="text-xs sm:text-sm font-medium tracking-tight">Credits</h4>
+        <h4 className="text-xs sm:text-sm font-medium tracking-tight">
           <span className="font-bold text-red-600">05</span> left
-        </h1>
+        </h4>
       </div>
       <div className="h-2 w-full bg-white rounded mb-3 sm:mb-0"></div>
     </div>
