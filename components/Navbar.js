@@ -249,84 +249,109 @@ export default function Navbar() {
             ></span>
           </Link>
         <div className="relative">
-          <div 
-            className="flex profileClick items-center gap-2 cursor-pointer"
-            onClick={toggleProfileCard}
-          >
-            <div className="w-[30px] h-[30px] relative overflow-hidden rounded-full">
-              <Image
-                src="/assets/profile.png"
-                alt="logo"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <p 
-              className="font-[500] text-base leading-[100%] transition-colors duration-300"
-              style={{ color: textColor }}
-            >
-              Jenny Wilson
-            </p>
-          </div>
-          <div 
-            ref={profileCardRef}
-            className="h-fit profileCard w-[14vw] p-6 rounded-3xl absolute -right-5 top-12 bg-white"
-            style={{ 
-              opacity: 0, 
-              display: 'none',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
-            }}
-          >
-            <div className="flex pb-3 border-b justify-between items-center">
-              <div className="flex gap-2 items-center">
-                  <div className="w-[30px] h-[30px] relative overflow-hidden rounded-full">
-                  <Image
-                    src="/assets/profile.png"
-                    alt="logo"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <h1 className="tracking-tight text-sm font-semibold">Jenny Wilson FYUZE</h1>
-              </div>
-              <Image src="/next-arrow.svg" height={15} width={15} alt="arrow right icon" />
-            </div>
-            <div className="flex py-3 border-b items-center justify-between">
-              <div className="flex gap-2 items-center">
-                <Image src="/ChartPieSlice.svg" height={30} width={30} alt="dashboard icon" />
-                <h1 className="tracking-tight text-sm font-semibold">Dashboard</h1>
-              </div>
-              <Image src="/next-arrow.svg" height={15} width={15} alt="arrow right icon" />
-            </div>
-            <div className="h-[14vh] mb-4 w-full px-3 bg-[#E2E1DC] rounded-2xl mt-4">
-              <div className="flex-between py-4 border-b border-[#C5C5C5]">
-                <div className="flex items-center gap-2">
-                  <Image src="/Crown.svg" height={20} width={20} alt="logout icon"/>
-                  <h1 className="text-sm tracking-tight font-medium">Turn pro</h1>
-                </div>
-                <p className="uppercase bg-[#FF6B3A] inline-block rounded-full tracking-tight text-xs text-white font-medium px-3 py-1">Upgrade</p>
-              </div>
-              <div className="flex-between py-4">
-                <h1 className="text-sm font-medium tracking-tight">Credits</h1>
-                <h1 className="text-sm font-medium tracking-tight"><span className="font-bold text-red-600">05</span> left</h1>
-              </div>
-              <div className="h-2 w-full bg-white rounded">
-              </div>
-            </div>
-            <div className="pt-4 border-t flex-center">
-              <button className="text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition">
-                <Image
-                  src="./assets/logOut.svg"
-                  height={20}
-                  width={20}
-                  alt="chatIcon"
-                  className="invert"
-                />
-                  Log out
-              </button>
-            </div>
-          </div>
+  <div 
+    className="flex profileClick items-center gap-2 cursor-pointer"
+    onClick={toggleProfileCard}
+  >
+    <div className="w-[30px] h-[30px] sm:w-[35px] sm:h-[35px] relative overflow-hidden rounded-full">
+      <Image
+        src="/assets/profile.png"
+        alt="logo"
+        fill
+        className="object-cover"
+      />
+    </div>
+    <p 
+      className="font-[500] text-sm sm:text-base leading-[100%] transition-colors duration-300"
+      style={{ color: textColor }}
+    >
+      Jenny Wilson
+    </p>
+  </div>
+  <div 
+    ref={profileCardRef}
+    className="h-fit profileCard w-[90vw] sm:w-[320px] md:w-[280px] lg:w-[14vw] min-w-[260px] p-4 sm:p-6 rounded-3xl absolute right-0 sm:-right-5 top-12 sm:top-12 bg-white z-50"
+    style={{ 
+      opacity: 0, 
+      display: 'none',
+      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+    }}
+  >
+    <div className="flex pb-3 border-b justify-between items-center">
+      <div className="flex gap-2 items-center">
+        <div className="w-[30px] h-[30px] sm:w-[35px] sm:h-[35px] relative overflow-hidden rounded-full">
+          <Image
+            src="/assets/profile.png"
+            alt="logo"
+            fill
+            className="object-cover"
+          />
         </div>
+        <h1 className="tracking-tight text-xs sm:text-sm font-semibold truncate max-w-[150px]">
+          Jenny Wilson FYUZE
+        </h1>
+      </div>
+      <Image 
+        src="/next-arrow.svg" 
+        height={15} 
+        width={15} 
+        alt="arrow right icon" 
+        className="flex-shrink-0"
+      />
+    </div>
+    
+    <div className="flex py-3 border-b items-center justify-between">
+      <div className="flex gap-2 items-center">
+        <Image 
+          src="/ChartPieSlice.svg" 
+          height={30} 
+          width={30} 
+          alt="dashboard icon" 
+        />
+        <h1 className="tracking-tight text-xs sm:text-sm font-semibold">Dashboard</h1>
+      </div>
+      <Image 
+        src="/next-arrow.svg" 
+        height={15} 
+        width={15} 
+        alt="arrow right icon" 
+        className="flex-shrink-0"
+      />
+    </div>
+    
+    <div className="h-auto sm:h-[14vh] min-h-[120px] mb-4 w-full px-3 bg-[#E2E1DC] rounded-2xl mt-4">
+      <div className="flex justify-between items-center py-3 sm:py-4 border-b border-[#C5C5C5]">
+        <div className="flex items-center gap-2">
+          <Image src="/Crown.svg" height={20} width={20} alt="logout icon"/>
+          <h1 className="text-xs sm:text-sm tracking-tight font-medium">Turn pro</h1>
+        </div>
+        <p className="uppercase bg-[#FF6B3A] inline-block rounded-full tracking-tight text-[10px] sm:text-xs text-white font-medium px-2 sm:px-3 py-1">
+          Upgrade
+        </p>
+      </div>
+      <div className="flex justify-between items-center py-3 sm:py-4">
+        <h1 className="text-xs sm:text-sm font-medium tracking-tight">Credits</h1>
+        <h1 className="text-xs sm:text-sm font-medium tracking-tight">
+          <span className="font-bold text-red-600">05</span> left
+        </h1>
+      </div>
+      <div className="h-2 w-full bg-white rounded mb-3 sm:mb-0"></div>
+    </div>
+    
+    <div className="pt-4 border-t flex items-center justify-center">
+      <button className="text-xs sm:text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition">
+        <Image
+          src="./assets/logOut.svg"
+          height={20}
+          width={20}
+          alt="chatIcon"
+          className="invert"
+        />
+        Log out
+      </button>
+    </div>
+  </div>
+</div>
       </div>
     </nav>
   );
