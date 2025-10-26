@@ -287,7 +287,7 @@ export default function Navbar() {
                     className="object-cover"
                   />
                 </div>
-                <h1 className="tracking-tight text-sm font-semibold">Jenny Wilson's FYUZE</h1>
+                <h1 className="tracking-tight text-sm font-semibold">Jenny Wilson FYUZE</h1>
               </div>
               <Image src="/next-arrow.svg" height={15} width={15} alt="arrow right icon" />
             </div>

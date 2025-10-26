@@ -9,7 +9,9 @@ import apiClient from "@/lib/axiosInstance";
 import { authService } from "@/lib/authService";
 import ChatHistorySection from "@/components/ChatHistory";
 import Filter from "./Filter";
-// Utility function to get proxied image URL with fallback mechanism
+import DashboardComponent from "@/components/DashboardComponent";
+
+
 const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
   if (!instagramUrl) return "/assets/profile.png"; // default fallback
 
@@ -356,9 +358,10 @@ const ChatPage = () => {
                               className="relative h-80 w-56 rounded-3xl overflow-hidden group cursor-pointer transition-transform hover:scale-105"
                             >
                               {/* Background Image */}
-                              <img
+                              <Image
                                 src={proxiedImageUrl}
                                 alt={influ.full_name}
+                                fill
                                 className="absolute h-full w-full top-0 left-0 object-cover"
                                 onError={(e) => {
                                   const nextIndex = currentFallbackIndex + 1;
