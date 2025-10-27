@@ -13,8 +13,10 @@ export default function Navbar() {
   const [isDarkSection, setIsDarkSection] = useState(false);
   const [logoSrc, setLogoSrc] = useState("/assets/fyuze-logo.svg");
   const [isProfileCardVisible, setIsProfileCardVisible] = useState(false);
+  const [isAboutDropdownVisible, setIsAboutDropdownVisible] = useState(false);
   const navRef = useRef();
   const profileCardRef = useRef();
+  const aboutDropdownRef = useRef();
 
   useGSAP(() => {
     if (isProfileCardVisible) {
@@ -47,6 +49,37 @@ export default function Navbar() {
       }
   }, [isProfileCardVisible]);
 
+  useGSAP(() => {
+    if (isAboutDropdownVisible) {
+        gsap.fromTo(aboutDropdownRef.current, 
+          {
+            opacity: 0,
+            y: 20,
+            display: "none"
+          },
+          {
+            opacity: 1,
+            y: 0,
+            display: "block",
+            duration: 0.4,
+            ease: "power2.out"
+          }
+        );
+      } else {
+        gsap.to(aboutDropdownRef.current, {
+          opacity: 0,
+          y: 20,
+          duration: 0.4,
+          ease: "power2.out",
+          onComplete: () => {
+            if (aboutDropdownRef.current) {
+              aboutDropdownRef.current.style.display = "none";
+            }
+          }
+        });
+      }
+  }, [isAboutDropdownVisible]);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -55,6 +88,14 @@ export default function Navbar() {
         !event.target.closest('.profileClick')
       ) {
         setIsProfileCardVisible(false);
+      }
+
+      if (
+        aboutDropdownRef.current &&
+        !aboutDropdownRef.current.contains(event.target) &&
+        !event.target.closest('.aboutClick')
+      ) {
+        setIsAboutDropdownVisible(false);
       }
     };
 
@@ -66,6 +107,10 @@ export default function Navbar() {
 
   const toggleProfileCard = () => {
     setIsProfileCardVisible(!isProfileCardVisible);
+  };
+
+  const toggleAboutDropdown = () => {
+    setIsAboutDropdownVisible(!isAboutDropdownVisible);
   };
 
   useEffect(() => {
@@ -192,17 +237,82 @@ export default function Navbar() {
             className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
           ></div>
-          <Link
-            href="/about"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
-            style={{ color: textColor }}
-          >
-            about
-            <span
-              className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
-              style={{ backgroundColor: textColor }}
-            ></span>
-          </Link>
+          <div className="relative">
+            <div
+              className="aboutClick group relative inline-flex items-center gap-1 text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm cursor-pointer"
+              style={{ color: textColor }}
+              onClick={toggleAboutDropdown}
+            >
+              about
+              <svg 
+                width="10" 
+                height="10" 
+                viewBox="0 0 10 10" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                className="transition-transform duration-300"
+                style={{ 
+                  transform: isAboutDropdownVisible ? 'rotate(180deg)' : 'rotate(0deg)'
+                }}
+              >
+                <path 
+                  d="M2.5 3.75L5 6.25L7.5 3.75" 
+                  stroke={textColor} 
+                  strokeWidth="1.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span
+                className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
+                style={{ backgroundColor: textColor }}
+              ></span>
+            </div>
+
+            {/* About Dropdown */}
+            <div 
+              ref={aboutDropdownRef}
+              className="absolute top-8 left-0 w-[180px] rounded-xl overflow-hidden"
+              style={{ 
+                opacity: 0, 
+                display: 'none',
+                backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)'
+              }}
+            >
+              <Link
+                href="/how-it-works"
+                className="block px-4 py-3 text-xs font-[400] transition-all duration-200 hover:bg-opacity-10"
+                style={{ 
+                  color: isDark ? '#ffffff' : '#000000',
+                  borderBottom: `1px solid ${isDark ? '#404040' : '#e5e5e5'}`
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
+                How it works
+              </Link>
+              <Link
+                href="/who-is-it-for"
+                className="block px-4 py-3 text-xs font-[400] transition-all duration-200"
+                style={{ 
+                  color: isDark ? '#ffffff' : '#000000'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
+              >
+                Who is it for
+              </Link>
+            </div>
+          </div>
           <div 
             className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
