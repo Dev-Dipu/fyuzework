@@ -294,6 +294,7 @@ const ChatPage = () => {
       </div>
 
       {/* Main Chat Area */}
+      {/* <Filter /> */}
       {!isDashboardOpen && (
         <div
           className={`h-full relative ${
@@ -507,7 +508,7 @@ const ChatPage = () => {
                 isDark ? "bg-[#060606]" : "bg-white"
               }`}
             >
-              {/* <Filter /> */}
+              
               <div className="flex h-fit items-center gap-1 cursor-pointer hover:text-white transition">
                 <Image height={1} width={20} src={"/faders.svg"} alt="faders" />
                 <h4 className="text-base font-medium text-[#C5C5C5]">

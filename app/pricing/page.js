@@ -147,7 +147,7 @@ const PricingScreen = () => {
                     >
                         <div className="text-sm">
                             <div className="flex items-center justify-between">
-                                <h1 className="text-3xl leading-none font-bold">
+                                <h1 className="text-3xl leading-none font-bold text-white">
                                     Growth
                                 </h1>
                                 <div className="flex items-center gap-1 font-bold text-xs">
@@ -158,11 +158,11 @@ const PricingScreen = () => {
                                         alt="logo"
                                         src={"/MONOGRAM.svg"}
                                     />
-                                    <span>Recommended</span>
+                                    <span className="text-white">Recommended</span>
                                 </div>
                             </div>
-                            <p className="font-medium mt-6 mb-3.5">Ideal For</p>
-                            <p className="font-light">
+                            <p className="font-medium mt-6 mb-3.5 text-white">Ideal For</p>
+                            <p className="font-light text-white">
                                 Marketing agencies testing campaigns
                             </p>
                         </div>
@@ -175,8 +175,8 @@ const PricingScreen = () => {
                             </h3>
                         </div>
                         <div className="flex justify-between items-center">
-                            <h1 className="font-light">
-                                <span className="text-3xl font-bold">$149</span>
+                            <h1 className="font-light text-white">
+                                <span className="text-3xl font-bold text-white">$149</span>
                                 /Month
                             </h1>
                             <button
