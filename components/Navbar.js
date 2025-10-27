@@ -178,36 +178,6 @@ export default function Navbar() {
         ></div>
         <div className="flex-between gap-10 relativ">
           <Link
-            href="/howitworks"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
-            style={{ color: textColor }}
-          >
-            How it works
-            <span
-              className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
-              style={{ backgroundColor: textColor }}
-            ></span>
-          </Link>
-          <div 
-            className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
-            style={{ backgroundColor: textColor }}
-          ></div>
-          <Link
-            href="/features"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
-            style={{ color: textColor }}
-          >
-            Features
-            <span
-              className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
-              style={{ backgroundColor: textColor }}
-            ></span>
-          </Link>
-          <div 
-            className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
-            style={{ backgroundColor: textColor }}
-          ></div>
-          <Link
             href="/pricing"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
@@ -233,11 +203,12 @@ export default function Navbar() {
               style={{ backgroundColor: textColor }}
             ></span>
           </Link>
-        </div>
-      </div>
-      <div className="relative flex-center gap-10 z-10 navelm">
-        {/* <ThemeToggle /> */}
-        <Link
+          <div 
+            className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
+            style={{ backgroundColor: textColor }}
+          ></div>
+          
+          <Link
             href="/contact"
             className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
@@ -248,6 +219,9 @@ export default function Navbar() {
               style={{ backgroundColor: textColor }}
             ></span>
           </Link>
+        </div>
+      </div>
+      <div className="relative flex-center gap-10 z-10 navelm">
         <div className="relative">
           <div 
             className="flex profileClick items-center gap-2 cursor-pointer"
