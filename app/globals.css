@@ -626,9 +626,8 @@ body {
     90deg,
     rgba(255, 255, 255, 0.1),
     rgba(0, 0, 0, 0.38),
-    rgba(255, 255, 255, 0.27) var(--step)
+    rgba(255, 255, 255, 0.27) var(--step, 50px)
   );
-
   backdrop-filter: blur(20px);
   filter: blur(0.5px);
   box-shadow: inset 0 0 10px #000;
@@ -644,8 +643,33 @@ body {
     90deg,
     rgba(255, 255, 255, 0.1),
     rgba(0, 0, 0, 0.38),
-    rgba(255, 255, 255, 0.1) var(--step)
+    rgba(255, 255, 255, 0.1) var(--step, 50px)
   );
+}
+
+/* Responsive step sizes for consistent appearance */
+@media (max-width: 480px) {
+  .background {
+    --step: 30px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .background {
+    --step: 40px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .background {
+    --step: 45px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .background {
+    --step: 45px;
+  }
 }
 
 .backdropShape {
