@@ -96,7 +96,7 @@ export default function Navbar() {
           // For dark sections, keep original colors in light mode
           setTextColor(isDark ? "#c5c5c5" : "#4f4f4f");
           setIsDarkSection(true);
-          setLogoSrc("/assets/fyuze-dark.svg");
+          isDark ? setLogoSrc("/assets/fyuze-logo.svg") : setLogoSrc("/assets/fyuze-dark.svg");
         } else {
           // For light sections, keep original white color in light mode
           setTextColor(isDark ? "#fafafa" : "white");
@@ -169,7 +169,7 @@ export default function Navbar() {
             src={logoSrc}
             alt="logo"
             fill
-            className="object-contain"
+            className={`object-contain`}
           />
         </Link>
         <div 

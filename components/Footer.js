@@ -2,8 +2,10 @@ import React from 'react'
 import Content from './Content';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from '@/lib/contexts/ThemeContext';
 
 export default function Footer() {
+  const { isDark, toggleTheme } = useTheme();
   return (
     <div 
         className='relative h-auto min-h-[35vh] md:h-[35vh]'
@@ -20,7 +22,7 @@ export default function Footer() {
                       width={100} 
                       src="/assets/fyuze-dark.svg" 
                       alt="fyuze-logo"
-                      className='w-[100px] sm:w-[120px] md:w-[130px] h-auto'
+                      className={`w-[100px] sm:w-[120px] md:w-[130px] h-auto ${isDark ? 'invert' : ''}`}
                     />
                     <p className='text-sm sm:text-base'>Welcome to the future of influence</p>
                     <div className='flex gap-3 sm:gap-4'>
