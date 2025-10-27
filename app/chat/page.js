@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { CheckCircle, Moon, Sun } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import apiClient from "@/lib/axiosInstance";
 import { authService } from "@/lib/authService";
 import ChatHistorySection from "@/components/ChatHistory";
@@ -39,6 +39,8 @@ const ChatPage = () => {
 
     const [animatedPlaceholder, setAnimatedPlaceholder] = useState("");
 
+    const params = useSearchParams();
+
     const [message, setMessage] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -55,6 +57,9 @@ const ChatPage = () => {
     };
 
     useEffect(() => {
+        console.log(params)
+        setMessage(params.get("prompt") || "");
+
         let promptIndex = 0;
         let charIndex = 0;
         let typing = true;

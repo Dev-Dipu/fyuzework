@@ -1,13 +1,15 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
 import SparkleSvg from "./SparkleSvg";
 import SparkleSvg2 from "./SparkleSvg2";
 import LiquidEther from "./LiquidEther";
 import { ScrollTrigger } from "gsap/all";
+import { authService } from "@/lib/authService";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +17,29 @@ export default function HeroComponent() {
     const homeContainer = useRef();
     const scrollBtn = useRef();
     const homeContRef = useRef();
+    const [prompt, setPrompt] = useState('');
+    const router = useRouter();
+
+    const handlePromptSubmit = (e) => {
+        // Check if Enter key was pressed or if arrow button was clicked
+        if (e.key === 'Enter' || e.type === 'click') {
+            e.preventDefault();
+            
+            if (!prompt.trim()) return; // Don't submit empty prompts
+            authService.initialize();
+            if (authService.isAuthenticated()) {
+                // Encode the prompt for URL safety
+                const encodedPrompt = encodeURIComponent(prompt.trim());
+                router.push(`/chat?prompt=${encodedPrompt}`);
+            } else {
+                router.push('/auth');
+            }
+        }
+    };
+
+    const handleArrowClick = () => {
+        handlePromptSubmit({ type: 'click' });
+    };
 
     useGSAP(() => {
         const bottomlinks = homeContRef.current.querySelectorAll(".bottomlink");
@@ -153,7 +178,11 @@ export default function HeroComponent() {
                             >
                                 <input
                                     type="text"
-                                    className="w-[70%] h-full absolute z-90 outline-none text-white  placeholder:text-white ml-20"
+                                    className="w-[70%] h-full absolute z-90 outline-none text-white placeholder:text-white ml-20"
+                                    value={prompt}
+                                    onChange={(e) => setPrompt(e.target.value)}
+                                    onKeyPress={handlePromptSubmit}
+                                    placeholder="e.g., Find travel influencers in Dubai with >100k followers"
                                     style={{ willChange: "opacity, transform" }}
                                 />
                                 <div
@@ -198,6 +227,7 @@ export default function HeroComponent() {
                                         </div>
                                         <div
                                             className="relative flex-center p-3 rounded-2xl icon-gradient cursor-pointer hover:scale-105 transition"
+                                            onClick={handleArrowClick}
                                             style={{
                                                 willChange:
                                                     "opacity, transform",

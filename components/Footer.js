@@ -97,10 +97,10 @@ export default function Footer() {
                         </h1>
                         <div className='flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-6 lg:gap-8'>
                             <Link 
-                              href="mailto:Support@fyuze.ai" 
+                              href="mailto:Help@Fyuze.ai" 
                               className='block text-sm sm:text-base hover:underline transition break-all sm:break-normal'
                             >
-                              Support@fyuze.ai
+                              Help@Fyuze.ai
                             </Link>
                             <Link 
                               href="tel:+915676512343" 
