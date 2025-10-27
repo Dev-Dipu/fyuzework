@@ -50,12 +50,12 @@ const ChatHistorySection = ({isDark}) => {
                         {historyItems.map((item, index) => (
                             <button
                                 key={index}
-                                className={`w-full text-left px-4 text-sm py-2 rounded-full transition-colors relative  ${index === 0
-                                        ?'bg-white text-[#343434]'
-                                        : `hover:bg-white hover:text-[#343434] ${isDark ? `text-[#C1C1C1]` : "text-[#4F4F4F]"}`
-                                    }`}
+                                className={`w-full text-left text-sm transition-colors relative`}
                             >
-                                <span className="block truncate">{item}</span>
+                                <span className={`block px-4 py-2 rounded-full truncate ${index === 0
+                                        ?'bg-white text-[#343434]'
+                                        : `hover:bg-white hover:text-[#343434] ${isDark ? "text-[#C1C1C1]" : "text-[#4F4F4F]"}`
+                                    }`}>{item}</span>
                             </button>
                         ))}
                     </div>
