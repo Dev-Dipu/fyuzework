@@ -30,7 +30,6 @@ const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
 // Separate component that uses useSearchParams
 const ChatPageContent = () => {
     const { isDark, toggleTheme } = useTheme();
-
     const prompts = [
         "Find top 10 fashion influencers in Dubai with 100K+ followers",
         "Help me find tech YouTubers for my SaaS product launch",
@@ -606,11 +605,13 @@ const ChatPageContent = () => {
                         style={{ willChange: "opacity, transform" }}
                     >
                         <div
-                            className={`absolute w-full pb-12 bottom-10 rounded-t-4xl flex justify-end px-6 py-2.5 font-[inter] font-medium ${
+                            className={`absolute h-[88vh] w-full pb-12 rounded-t-4xl flex flex-col justify-end px-6 py-2.5 font-[inter] font-medium ${
                                 isDark ? "bg-[#060606]" : "bg-white"
-                            } ${isFilterOpen ? "h-[80vh] py-6 overflow-y-auto" : "h-auto py-2.5"}`}
+                            } ${isFilterOpen ? "bottom-10" : "-bottom-[75vh]"} transition-all duration-300`}
+                            style={{clipPath: `${isFilterOpen ? 'inset(0 0 0% 0)' : 'inset(0 0 90% 0)'}`}}
                         >
-                            <div className="flex h-fit items-center gap-1 cursor-pointer hover:text-white transition">
+                            {/* filter */}
+                            <div className="flex h-fit items-end justify-end gap-1 cursor-pointer hover:text-white transition">
                                 <Image
                                     height={1}
                                     width={20}
@@ -618,10 +619,197 @@ const ChatPageContent = () => {
                                     alt="faders"
                                 />
                                 <h4
-                                    onClick={() => setIsFilterOpen(true)}
-                                    className="text-base font-medium text-[#C5C5C5]">
+                                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                 className="text-base font-medium text-[#C5C5C5]">
                                     Search with advanced filters
                                 </h4>
+                            </div>
+                            <div className="h-full w-full text-white z-[400] overflow-y-auto">
+                            
+                                  {/* Location Section */}
+                                  <div className="pt-2 sm:pt-3">
+                                    <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">Location</h1>
+                                    <div className="pt-2 sm:pt-3">
+                                      <p className="tracking-tight pb-1.5 text-[10px] sm:text-xs">
+                                        Brief Description of what you are looking for
+                                      </p>
+                                      <input
+                                        type="text"
+                                        className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-sm text-white border-none outline-none"
+                                        placeholder="Enter description..."
+                                      />
+                                    </div>
+                            
+                                    {/* Location & Verification Row */}
+                                    <div className="py-2 sm:py-3 md:py-6 flex flex-col lg:flex-row gap-3 sm:gap-4 lg:gap-6">
+                                      {/* Location Input */}
+                                      <div className="w-full">
+                                        <div className="flex pb-1.5 items-center gap-1">
+                                          <Image 
+                                            src="/mapPin.svg" 
+                                            height={13} 
+                                            width={13} 
+                                            alt="Location pin icon"
+                                            className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
+                                          />
+                                          <h1 className="text-[10px] sm:text-xs">Location</h1>
+                                        </div>
+                                        <input
+                                          type="text"
+                                          className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
+                                          placeholder="Enter location..."
+                                        />
+                                      </div>
+                            
+                                      {/* Verification Buttons */}
+                                      <div className="w-full">
+                                        <div className="flex pb-1.5 items-center gap-1">
+                                          <Image 
+                                            src="/sealCheck.svg" 
+                                            height={13} 
+                                            width={13} 
+                                            alt="Verification badge icon"
+                                            className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
+                                          />
+                                          <h1 className="text-[10px] sm:text-xs">Verification</h1>
+                                        </div>
+                                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                            All
+                                          </p>
+                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                            Verified
+                                          </p>
+                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors whitespace-nowrap">
+                                            Un-Verified
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                            
+                                  {/* Category Section */}
+                                  <div className="pt-2 sm:pt-3">
+                                    <div className="flex pb-1.5 items-center gap-1">
+                                      <Image 
+                                        src="/sortAscending.svg" 
+                                        height={16} 
+                                        width={16} 
+                                        alt="Sort ascending icon"
+                                        className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]"
+                                      />
+                                      <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">Category</h1>
+                                    </div>
+                                    <p className="font-medium tracking-tight text-[9px] sm:text-[10px] pb-2 pt-1 opacity-70">
+                                      POPULAR CATEGORIES
+                                    </p>
+                                    <div className="flex flex-wrap gap-1.5 sm:gap-2 pb-2 sm:pb-3">
+                                      {["Food", "Fitness", "Tech", "Design"].map((item, index) => (
+                                        <p
+                                          key={index}
+                                          className="tracking-tight py-2.5 px-10 border-[1px] border-white rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors"
+                                        >
+                                          {item}
+                                        </p>
+                                      ))}
+                                    </div>
+                                    <input
+                                      placeholder="Browse 20+ more category"
+                                      className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] w-full tracking-tight rounded-lg sm:rounded-xl text-xs sm:text-sm text-white border-none outline-none"
+                                    />
+                                  </div>
+
+                                  <div className="h-[1px] w-full bg-white mt-8 mb-4 opacity-50"></div>
+                            
+                                  {/* Audience Section */}
+                                  <div className="pt-2 sm:pt-3">
+                                    <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl pb-2 sm:pb-3">Audience</h1>
+                                    
+                                    {/* Follower Range & Gender Row */}
+                                    <div className="flex flex-col lg:flex-row items-start gap-3 sm:gap-4 lg:gap-6">
+                                      {/* Follower Range */}
+                                      <div className="w-full lg:w-1/2">
+                                        <div className="flex pb-1.5 items-center gap-1">
+                                          <Image 
+                                            src="/mapPin.svg" 
+                                            height={13} 
+                                            width={13} 
+                                            alt="Location pin icon"
+                                            className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
+                                          />
+                                          <h1 className="text-[10px] sm:text-xs">Follower range</h1>
+                                        </div>
+                                        <div className="flex gap-2 sm:gap-3">
+                                          <input
+                                            placeholder="Min"
+                                            type="text"
+                                            className="py-2.5 px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
+                                          />
+                                          <input
+                                            placeholder="Max"
+                                            type="text"
+                                            className="py-2.5 px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
+                                          />
+                                        </div>
+                                      </div>
+                            
+                                      {/* Gender */}
+                                      <div className="w-full lg:w-1/2">
+                                        <div className="flex pb-1.5 items-center gap-1">
+                                          <Image 
+                                            src="/sealCheck.svg" 
+                                            height={13} 
+                                            width={13} 
+                                            alt="Verification badge icon"
+                                            className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
+                                          />
+                                          <h1 className="text-[10px] sm:text-xs">Gender</h1>
+                                        </div>
+                                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                            Any
+                                          </p>
+                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                            Male
+                                          </p>
+                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                            Female
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                            
+                                    {/* Age Range */}
+                                    <div className="pt-3 sm:pt-4">
+                                      <div className="flex pb-1.5 items-center gap-1">
+                                        <Image 
+                                          src="/mapPin.svg" 
+                                          height={13} 
+                                          width={13} 
+                                          alt="Location pin icon"
+                                          className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
+                                        />
+                                        <h1 className="text-[10px] sm:text-xs">Age range</h1>
+                                      </div>
+                                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                                        {["18-25y", "25-35y", "35-45y", "45-55y", "55-65y", "65+"].map((age, index) => (
+                                          <p
+                                            key={index}
+                                            className="py-2.5 px-10 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors whitespace-nowrap"
+                                          >
+                                            {age}
+                                          </p>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                            
+                                  {/* Apply Button */}
+                                  <div className="pt-3 sm:pt-4 mt-2 sm:mt-3">
+                                    <button className="w-full sm:w-auto px-10 sm:px-16 md:px-20 py-1.5 sm:py-2 md:py-2.5 bg-white/30 rounded-full text-[10px] sm:text-xs md:text-sm font-medium cursor-pointer hover:bg-white/40 transition-colors">
+                                      Apply and send
+                                    </button>
+                                  </div>
                             </div>
                         </div>
                         <input
