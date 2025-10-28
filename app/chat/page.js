@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
 import { CheckCircle, Moon, Sun } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import DashboardComponent from "@/components/DashboardComponent";
 import { useTheme } from "@/lib/contexts/ThemeContext";
 
 const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
-    if (!instagramUrl) return "/assets/profile.png"; // default fallback
+    if (!instagramUrl) return "/assets/profile.png";
 
     const encodedUrl = encodeURIComponent(instagramUrl);
 
@@ -21,13 +21,14 @@ const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
         `https://images.weserv.nl/?url=${encodedUrl}`,
         `https://wsrv.nl/?url=${encodedUrl}`,
         `https://imageproxy.pimg.tw/resize?url=${encodedUrl}`,
-        instagramUrl, // Last fallback: original URL
+        instagramUrl,
     ];
 
     return proxies[fallbackIndex] || instagramUrl;
 };
 
-const ChatPage = () => {
+// Separate component that uses useSearchParams
+const ChatPageContent = () => {
     const { isDark, toggleTheme } = useTheme();
 
     const prompts = [
@@ -41,7 +42,6 @@ const ChatPage = () => {
 
     const params = useSearchParams();
 
-    // Add this state near the top with other useState declarations
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     const [message, setMessage] = useState("");
@@ -67,9 +67,9 @@ const ChatPage = () => {
         let charIndex = 0;
         let typing = true;
 
-        const typeSpeed = 70; // typing speed (ms)
-        const eraseSpeed = 40; // erasing speed (ms)
-        const delayBetweenPrompts = 1200; // wait before erasing
+        const typeSpeed = 70;
+        const eraseSpeed = 40;
+        const delayBetweenPrompts = 1200;
 
         const typeAnimation = () => {
             const currentPrompt = prompts[promptIndex];
@@ -105,7 +105,6 @@ const ChatPage = () => {
         };
     }, []);
 
-    // Auth check on mount
     useEffect(() => {
         authService.initialize();
 
@@ -114,7 +113,6 @@ const ChatPage = () => {
         }
     }, [router]);
 
-    // Auto-scroll to bottom when chat history changes
     useEffect(() => {
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop =
@@ -128,7 +126,6 @@ const ChatPage = () => {
         const userMessage = { role: "user", text: message };
         const currentMessage = message;
 
-        // Clear input immediately
         setMessage("");
 
         setChatHistory((prev) => [...prev, userMessage]);
@@ -157,7 +154,6 @@ const ChatPage = () => {
         } catch (error) {
             console.error("Error:", error);
 
-            // Handle 401 unauthorized
             if (error.response?.status === 401) {
                 authService.logout();
                 return;
@@ -204,6 +200,7 @@ const ChatPage = () => {
                 isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"
             }`}
         >
+            {/* Rest of your component JSX remains exactly the same */}
             {/* Theme Toggle Button */}
             <button
                 onClick={toggleTheme}
@@ -211,7 +208,6 @@ const ChatPage = () => {
                     isDark ? "border-[#4F4F4F]" : "border-black"
                 }`}
             >
-                {/* Moon Icon */}
                 <div
                     className={`flex items-center justify-center transition-all duration-500 ${
                         isDark
@@ -222,7 +218,6 @@ const ChatPage = () => {
                     <Moon size={16} />
                 </div>
 
-                {/* Sun Icon */}
                 <div
                     className={`flex items-center justify-center transition-all duration-500 ${
                         isDark
@@ -233,7 +228,6 @@ const ChatPage = () => {
                     <Sun size={16} />
                 </div>
 
-                {/* Orange indicator */}
                 <div
                     className={`absolute bottom-[4px] h-[2px] w-[12px] rounded-full bg-[#E14E1D] transition-all duration-500 ${
                         isDark ? "left-[14px]" : "right-[14px]"
@@ -375,7 +369,6 @@ const ChatPage = () => {
                     } w-[72vw] z-10 flex flex-col`}
                 >
                     {chatHistory.length === 0 ? (
-                        // Empty State
                         <div className="flex-1 flex items-center justify-center">
                             <div className="flex flex-col justify-center items-center font-[inter]">
                                 <Image
@@ -425,7 +418,6 @@ const ChatPage = () => {
                             </div>
                         </div>
                     ) : (
-                        // Chat Messages
                         <div
                             ref={chatContainerRef}
                             className="flex-1 overflow-y-auto px-8 pt-6 pb-16 space-y-6 scroll-smooth w-6/7 mx-auto"
@@ -439,7 +431,6 @@ const ChatPage = () => {
                                             : "items-start"
                                     } w-full`}
                                 >
-                                    {/* Influencer Cards - Only for assistant messages */}
                                     {msg.role === "assistant" &&
                                         msg.influencers &&
                                         msg.influencers.length > 0 && (
@@ -462,7 +453,6 @@ const ChatPage = () => {
                                                                 key={i}
                                                                 className="relative h-80 w-56 rounded-3xl overflow-hidden group cursor-pointer transition-transform hover:scale-105"
                                                             >
-                                                                {/* Background Image */}
                                                                 <Image
                                                                     src={
                                                                         proxiedImageUrl
@@ -495,20 +485,16 @@ const ChatPage = () => {
                                                                     }}
                                                                 />
                                                                 <div className="absolute h-full w-full top-0 left-0">
-                                                                    {/* Dark Gradient Overlay */}
                                                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
                                                                 </div>
 
-                                                                {/* Content at Bottom */}
                                                                 <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-2">
-                                                                    {/* Name */}
                                                                     <div className="flex gap-0.5 items-center">
                                                                         <h3 className="text-white font-bold text-xs leading-tight line-clamp-1">
                                                                             {
                                                                                 influ.full_name
                                                                             }
                                                                         </h3>
-                                                                        {/* Verified Badge - Top Left */}
                                                                         {influ.is_verified && (
                                                                             <div className="p-1.5">
                                                                                 <Image
@@ -527,14 +513,12 @@ const ChatPage = () => {
                                                                         )}
                                                                     </div>
 
-                                                                    {/* Bio */}
                                                                     <p className="text-gray-300 text-xs leading-tight line-clamp-2 mb-1">
                                                                         {
                                                                             influ.bio
                                                                         }
                                                                     </p>
 
-                                                                    {/* Stats Row */}
                                                                     <div className="flex items-center justify-between text-white text-sm">
                                                                         <div className="flex flex-col">
                                                                             <span className="font-semibold">
@@ -573,7 +557,6 @@ const ChatPage = () => {
                                                                     </div>
                                                                 </div>
 
-                                                                {/* Hover Effect Border */}
                                                                 <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-3xl transition-all pointer-events-none" />
                                                             </div>
                                                         );
@@ -582,7 +565,6 @@ const ChatPage = () => {
                                             </div>
                                         )}
 
-                                    {/* Message Bubble */}
                                     <div
                                         className={`max-w-[80%] px-6 py-4 rounded-2xl ${
                                             msg.role === "user"
@@ -623,221 +605,11 @@ const ChatPage = () => {
                         className="w-4/5 mx-auto mb-6 pointer-events-auto"
                         style={{ willChange: "opacity, transform" }}
                     >
-                        {/* filter panel */}
                         <div
                             className={`absolute w-full pb-12 bottom-10 rounded-t-4xl flex justify-end px-6 py-2.5 font-[inter] font-medium ${
                                 isDark ? "bg-[#060606]" : "bg-white"
                             } ${isFilterOpen ? "h-[80vh] py-6 overflow-y-auto" : "h-auto py-2.5"}`}
                         >
-                                {/* filter */}
-                                <div className="hidden">
-                                    {/* Header */}
-      <div className="w-full flex items-center justify-between gap-2 pb-2 sm:pb-3">
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          <Image 
-            src="/faders.svg" 
-            height={16} 
-            width={16} 
-            alt="Filter settings icon"
-            className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px] md:w-[18px] md:h-[18px]"
-          />
-          <h1 className="font-medium tracking-tight text-sm sm:text-base md:text-lg">
-            Search with advanced filters
-          </h1>
-        </div>
-        <Image
-          src="/X.svg"
-          height={20}
-          width={20}
-          alt="Close filter modal"
-          className="cursor-pointer hover:opacity-70 w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] md:w-[22px] md:h-[22px] flex-shrink-0"
-        />
-      </div>
-
-      {/* Location Section */}
-      <div className="pt-2 sm:pt-3">
-        <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">Location</h1>
-        <div className="pt-2 sm:pt-3">
-          <p className="tracking-tight pb-1.5 text-[10px] sm:text-xs">
-            Brief Description of what you are looking for
-          </p>
-          <input
-            type="text"
-            className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
-            placeholder="Enter description..."
-          />
-        </div>
-
-        {/* Location & Verification Row */}
-        <div className="py-2 sm:py-3 md:py-4 flex flex-col lg:flex-row items-start lg:items-end gap-3 sm:gap-4 lg:gap-6">
-          {/* Location Input */}
-          <div className="w-full lg:w-[55%]">
-            <div className="flex pb-1.5 items-center gap-1">
-              <Image 
-                src="/mapPin.svg" 
-                height={13} 
-                width={13} 
-                alt="Location pin icon"
-                className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
-              />
-              <h1 className="text-[10px] sm:text-xs">Location</h1>
-            </div>
-            <input
-              type="text"
-              className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
-              placeholder="Enter location..."
-            />
-          </div>
-
-          {/* Verification Buttons */}
-          <div className="w-full lg:w-[45%]">
-            <div className="flex pb-1.5 items-center gap-1">
-              <Image 
-                src="/sealCheck.svg" 
-                height={13} 
-                width={13} 
-                alt="Verification badge icon"
-                className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
-              />
-              <h1 className="text-[10px] sm:text-xs">Verification</h1>
-            </div>
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              <p className="py-1 sm:py-1.5 px-3 sm:px-5 md:px-7 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
-                All
-              </p>
-              <p className="py-1 sm:py-1.5 px-4 sm:px-6 md:px-9 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
-                Verified
-              </p>
-              <p className="py-1 sm:py-1.5 px-3 sm:px-5 md:px-7 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors whitespace-nowrap">
-                Un-Verified
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Category Section */}
-      <div className="pt-2 sm:pt-3">
-        <div className="flex pb-1.5 items-center gap-1">
-          <Image 
-            src="/sortAscending.svg" 
-            height={16} 
-            width={16} 
-            alt="Sort ascending icon"
-            className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]"
-          />
-          <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">Category</h1>
-        </div>
-        <p className="font-medium tracking-tight text-[9px] sm:text-[10px] pb-2 pt-1 opacity-70">
-          POPULAR CATEGORIES
-        </p>
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 pb-2 sm:pb-3">
-          {["Food", "Fitness", "Tech", "Design"].map((item, index) => (
-            <p
-              key={index}
-              className="tracking-tight px-3 sm:px-4 md:px-5 py-0.5 sm:py-1 border-[1px] border-white rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors"
-            >
-              {item}
-            </p>
-          ))}
-        </div>
-        <input
-          placeholder="Browse 20+ more category"
-          className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] w-full tracking-tight rounded-lg sm:rounded-xl text-xs sm:text-sm text-white border-none outline-none"
-        />
-      </div>
-
-      {/* Audience Section */}
-      <div className="pt-2 sm:pt-3">
-        <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl pb-2 sm:pb-3">Audience</h1>
-        
-        {/* Follower Range & Gender Row */}
-        <div className="flex flex-col lg:flex-row items-start gap-3 sm:gap-4 lg:gap-6">
-          {/* Follower Range */}
-          <div className="w-full lg:w-1/2">
-            <div className="flex pb-1.5 items-center gap-1">
-              <Image 
-                src="/mapPin.svg" 
-                height={13} 
-                width={13} 
-                alt="Location pin icon"
-                className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
-              />
-              <h1 className="text-[10px] sm:text-xs">Follower range</h1>
-            </div>
-            <div className="flex gap-2 sm:gap-3">
-              <input
-                placeholder="Min"
-                type="text"
-                className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
-              />
-              <input
-                placeholder="Max"
-                type="text"
-                className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
-              />
-            </div>
-          </div>
-
-          {/* Gender */}
-          <div className="w-full lg:w-1/2">
-            <div className="flex pb-1.5 items-center gap-1">
-              <Image 
-                src="/sealCheck.svg" 
-                height={13} 
-                width={13} 
-                alt="Verification badge icon"
-                className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
-              />
-              <h1 className="text-[10px] sm:text-xs">Gender</h1>
-            </div>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              <p className="px-4 sm:px-6 py-1 sm:py-1.5 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
-                Any
-              </p>
-              <p className="px-5 sm:px-8 py-1 sm:py-1.5 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
-                Male
-              </p>
-              <p className="px-5 sm:px-8 py-1 sm:py-1.5 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
-                Female
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Age Range */}
-        <div className="pt-3 sm:pt-4">
-          <div className="flex pb-1.5 items-center gap-1">
-            <Image 
-              src="/mapPin.svg" 
-              height={13} 
-              width={13} 
-              alt="Location pin icon"
-              className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
-            />
-            <h1 className="text-[10px] sm:text-xs">Age range</h1>
-          </div>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">
-            {["18-25y", "25-35y", "35-45y", "45-55y", "55-65y", "65+"].map((age, index) => (
-              <p
-                key={index}
-                className="px-3 sm:px-4 md:px-5 py-1 sm:py-1.5 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors whitespace-nowrap"
-              >
-                {age}
-              </p>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Apply Button */}
-      <div className="pt-3 sm:pt-4 mt-2 sm:mt-3">
-        <button className="w-full sm:w-auto px-10 sm:px-16 md:px-20 py-1.5 sm:py-2 md:py-2.5 bg-white/30 rounded-full text-[10px] sm:text-xs md:text-sm font-medium cursor-pointer hover:bg-white/40 transition-colors">
-          Apply and send
-        </button>
-      </div>
-                                </div>
-
                             <div className="flex h-fit items-center gap-1 cursor-pointer hover:text-white transition">
                                 <Image
                                     height={1}
@@ -846,8 +618,8 @@ const ChatPage = () => {
                                     alt="faders"
                                 />
                                 <h4
-                                onClick={() => setIsFilterOpen(true)}
-                                 className="text-base font-medium text-[#C5C5C5]">
+                                    onClick={() => setIsFilterOpen(true)}
+                                    className="text-base font-medium text-[#C5C5C5]">
                                     Search with advanced filters
                                 </h4>
                             </div>
@@ -939,7 +711,6 @@ const ChatPage = () => {
                     </div>
                 </div>
             )}
-            {/* dashboard */}
             {isDashboardOpen && <DashboardComponent />}
 
             {/* Right Sidebar */}
@@ -964,6 +735,15 @@ const ChatPage = () => {
                 </div>
             </div>
         </div>
+    );
+};
+
+// Main export with Suspense wrapper
+const ChatPage = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ChatPageContent />
+        </Suspense>
     );
 };
 
