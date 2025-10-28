@@ -605,9 +605,9 @@ const ChatPageContent = () => {
                         style={{ willChange: "opacity, transform" }}
                     >
                         <div
-                            className={`absolute h-[88vh] w-full pb-12 rounded-t-4xl flex flex-col justify-end px-6 py-2.5 font-[inter] font-medium ${
+                            className={`absolute h-[88vh] w-full pb-22 rounded-t-4xl flex flex-col justify-end px-6 py-2.5 font-[inter] font-medium ${
                                 isDark ? "bg-[#060606]" : "bg-white"
-                            } ${isFilterOpen ? "bottom-10" : "-bottom-[75vh]"} transition-all duration-300`}
+                            } ${isFilterOpen ? "bottom-4" : "-bottom-[72vh]"} transition-all duration-300`}
                             style={{clipPath: `${isFilterOpen ? 'inset(0 0 0% 0)' : 'inset(0 0 90% 0)'}`}}
                         >
                             {/* filter */}
