@@ -85,36 +85,6 @@ const Page = () => {
         Hey! Tell us all <br />
         the things
       </h1>
-      <p className="text-3xl pt-20 text-white">I&apos;m interested in.</p>
-      <div className="selectionDivs flex flex-wrap gap-4 w-[65%]">
-        {data.map((item, index) => (
-          <Magnet magnetStrength={5} padding={5} key={index}>
-            <div
-              ref={(el) => (hoverElements.current[index] = el)}
-              className="px-6 py-2 border-[1px] rounded-full text-2xl inline-block cursor-pointer text-white"
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={() => handleMouseLeave(index)}
-            >
-              <div className="h-8 overflow-hidden">
-                <h1
-                  ref={(el) => (modeDivH1s.current[index][0] = el)}
-                  style={{ transform: "translateY(0%)" }}
-                  className="text-white"
-                >
-                  {item.name}
-                </h1>
-                <h1
-                  ref={(el) => (modeDivH1s.current[index][1] = el)}
-                  style={{ transform: "translateY(0%)" }}
-                  className="text-white"
-                >
-                  {item.name}
-                </h1>
-              </div>
-            </div>
-          </Magnet>
-        ))}
-      </div>
 
       <form className="inputs">
         <div className="space-y-10">
@@ -129,15 +99,15 @@ const Page = () => {
             autoComplete="off"
             className="block border-b-[1px] border-white/70 text-3xl py-6 w-[70%] outline-0 text-white placeholder-white"
             type="text"
-            placeholder="Email"
-            name="email"
+            placeholder="Subject"
+            name="subject"
           />
           <input
             autoComplete="off"
             className="block border-b-[1px] border-white/70 text-3xl py-6 w-[70%] outline-0 text-white placeholder-white"
             type="text"
-            placeholder="Tell us about your requirements"
-            name="project"
+            placeholder="Brief Description"
+            name="description"
           />
         </div>
 
