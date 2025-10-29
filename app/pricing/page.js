@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 
 const PricingScreen = () => {
     const { isDark } = useTheme();
-
     return (
         <div className="bg-[#E2E1DC]">
         <Navbar />

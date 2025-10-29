@@ -3,6 +3,7 @@ import Image from "next/image"
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 const Landing = () => {
     gsap.registerPlugin(ScrollTrigger);
@@ -37,10 +38,22 @@ const Landing = () => {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: "top 40%",
-                    toggleActions: "play none none none"
+                    end: "top -40%",
+                    scrub: true,
                 }
             });
         });
+
+        gsap.to(".scrollElem", {
+            opacity: 0,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 40%",
+                end: "top 35%",
+                scrub: true
+            }
+        })
 
         ScrollTrigger.create({
             trigger: containerRef.current,
@@ -92,6 +105,12 @@ const Landing = () => {
 
   return (
     <div className="min-h-[180vh] w-full relative top-[45vh]" ref={containerRef}>
+        <div className="absolute scrollElem top-[45vh] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <div className="w-[0.5px] h-[20px] relative bg-gray-500 line1"></div>
+            <p className="text-xs text-center font-medium font-archivo leading-[100%] uppercase text-gray-500">
+                Scroll
+            </p>
+        </div>
       <div className="flex flex-col items-center gap-4">
         <Image src="/assets/fyuze-dark.svg" alt="Fyuze Logo" width={150} height={10} className="w-24 h-24 sm:w-32 sm:h-32 md:w-[150px] md:h-[50px]" />
         <p className="text-black tracking-tighter text-lg">Welcome to the future of influence</p>

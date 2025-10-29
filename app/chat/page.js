@@ -614,7 +614,7 @@ const ChatPageContent = () => {
                             className={`absolute h-[88vh] w-full pb-22 rounded-t-4xl flex flex-col justify-end px-6 py-2.5 font-[inter] font-medium ${
                                 isDark ? "bg-[#060606]" : "bg-white"
                             } ${
-                                isFilterOpen ? "bottom-4" : "-bottom-[72vh]"
+                                isFilterOpen ? "bottom-4" : "-bottom-[35vw]"
                             } transition-all duration-300`}
                             style={{
                                 clipPath: `${
@@ -625,21 +625,27 @@ const ChatPageContent = () => {
                             }}
                         >
                             {/* filter */}
-                            <div className="flex h-fit items-end justify-end gap-1 cursor-pointer hover:text-white transition">
+                            <div className="flex h-fit items-end justify-between gap-1 cursor-pointer hover:text-white transition">
                                 <Image
-                                    height={1}
+                                    onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                    src="/X.svg"
+                                    height={20}
                                     width={20}
-                                    src={"/faders-in.svg"}
-                                    alt="faders"
+                                    alt="Close filter modal"
+                                    className={`cursor-pointer hover:opacity-70 w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] ${isFilterOpen ? 'opacity-100' : 'opacity-0'} md:w-[22px] md:h-[22px] flex-shrink-0`}
                                 />
-                                <h4
-                                    onClick={() =>
-                                        setIsFilterOpen(!isFilterOpen)
-                                    }
-                                    className="text-base font-medium text-[#C5C5C5]"
-                                >
+                                <div className="flex items-center gap-2">
+                                    <Image
+                                        height={1}
+                                        width={20}
+                                        src={"/faders-in.svg"}
+                                        alt="faders"
+                                    />
+                                    <h4 onClick={() => setIsFilterOpen(!isFilterOpen)}
+                                        className="text-base font-medium text-[#C5C5C5]">
                                     Search with advanced filters
-                                </h4>
+                                    </h4>
+                                </div>
                             </div>
                             <div className="h-full w-full text-white z-[400] overflow-y-auto">
                                 {/* Location Section */}
