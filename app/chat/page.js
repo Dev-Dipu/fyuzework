@@ -30,10 +30,10 @@ const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
 // Separate component that uses useSearchParams
 const ChatPageContent = () => {
     // const { isDark, toggleTheme } = useTheme();
-    const [isDark, setIsDark] = useState(true)
+    const [isDark, setIsDark] = useState(true);
     const toggleTheme = () => {
-        setIsDark(prev => !prev)
-    }
+        setIsDark((prev) => !prev);
+    };
     const prompts = [
         "Find top 10 fashion influencers in Dubai with 100K+ followers",
         "Help me find tech YouTubers for my SaaS product launch",
@@ -56,6 +56,10 @@ const ChatPageContent = () => {
     const chatContainerRef = useRef(null);
     const router = useRouter();
 
+    const closeDashboard = () => {
+        setIsDashboardOpen(false);
+    };
+
     const formatNumber = (num) => {
         if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
         if (num >= 1000) return (num / 1000).toFixed(1) + "K";
@@ -63,7 +67,7 @@ const ChatPageContent = () => {
     };
 
     useEffect(() => {
-        console.log(params)
+        console.log(params);
         setMessage(params.get("prompt") || "");
 
         let promptIndex = 0;
@@ -273,7 +277,7 @@ const ChatPageContent = () => {
                         New chat
                     </button>
                     <div>
-                        <ChatHistorySection isDark={isDark} />
+                        <ChatHistorySection closeDashboard={closeDashboard} isDark={isDark} />
                     </div>
                     <div>
                         <h1
@@ -611,8 +615,16 @@ const ChatPageContent = () => {
                         <div
                             className={`absolute h-[88vh] w-full pb-22 rounded-t-4xl flex flex-col justify-end px-6 py-2.5 font-[inter] font-medium ${
                                 isDark ? "bg-[#060606]" : "bg-white"
-                            } ${isFilterOpen ? "bottom-4" : "-bottom-[72vh]"} transition-all duration-300`}
-                            style={{clipPath: `${isFilterOpen ? 'inset(0 0 0% 0)' : 'inset(0 0 90% 0)'}`}}
+                            } ${
+                                isFilterOpen ? "bottom-4" : "-bottom-[72vh]"
+                            } transition-all duration-300`}
+                            style={{
+                                clipPath: `${
+                                    isFilterOpen
+                                        ? "inset(0 0 0% 0)"
+                                        : "inset(0 0 90% 0)"
+                                }`,
+                            }}
                         >
                             {/* filter */}
                             <div className="flex h-fit items-end justify-end gap-1 cursor-pointer hover:text-white transition">
@@ -623,27 +635,32 @@ const ChatPageContent = () => {
                                     alt="faders"
                                 />
                                 <h4
-                                onClick={() => setIsFilterOpen(!isFilterOpen)}
-                                 className="text-base font-medium text-[#C5C5C5]">
+                                    onClick={() =>
+                                        setIsFilterOpen(!isFilterOpen)
+                                    }
+                                    className="text-base font-medium text-[#C5C5C5]"
+                                >
                                     Search with advanced filters
                                 </h4>
                             </div>
                             <div className="h-full w-full text-white z-[400] overflow-y-auto">
-                            
-                                  {/* Location Section */}
-                                  <div className="pt-2 sm:pt-3">
-                                    <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">Location</h1>
+                                {/* Location Section */}
+                                <div className="pt-2 sm:pt-3">
+                                    <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">
+                                        Location
+                                    </h1>
                                     <div className="pt-2 sm:pt-3">
-                                      <p className="tracking-tight pb-1.5 text-[10px] sm:text-xs">
-                                        Brief Description of what you are looking for
-                                      </p>
-                                      <input
-                                        type="text"
-                                        className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-sm text-white border-none outline-none"
-                                        placeholder="Enter description..."
-                                      />
+                                        <p className="tracking-tight pb-1.5 text-[10px] sm:text-xs">
+                                            Brief Description of what you are
+                                            looking for
+                                        </p>
+                                        <input
+                                            type="text"
+                                            className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-sm text-white border-none outline-none"
+                                            placeholder="Enter description..."
+                                        />
                                     </div>
-                            
+
                                     {/* Location & Verification Row */}
                                     <div className="py-2 sm:py-3 md:py-6 flex flex-col lg:flex-row gap-3 sm:gap-4 lg:gap-6">
                                       {/* Location Input */}
@@ -690,10 +707,10 @@ const ChatPageContent = () => {
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                            
-                                  {/* Category Section */}
-                                  <div className="pt-2 sm:pt-3">
+                                </div>
+
+                                {/* Category Section */}
+                                <div className="pt-2 sm:pt-3">
                                     <div className="flex pb-1.5 items-center gap-1">
                                       <Image 
                                         src="/sort-asc.svg" 
@@ -705,30 +722,37 @@ const ChatPageContent = () => {
                                       <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">Category</h1>
                                     </div>
                                     <p className="font-medium tracking-tight text-[9px] sm:text-[10px] pb-2 pt-1 opacity-70">
-                                      POPULAR CATEGORIES
+                                        POPULAR CATEGORIES
                                     </p>
                                     <div className="flex flex-wrap gap-1.5 sm:gap-2 pb-2 sm:pb-3">
-                                      {["Food", "Fitness", "Tech", "Design"].map((item, index) => (
-                                        <p
-                                          key={index}
-                                          className="tracking-tight py-2.5 px-10 border-[1px] border-white rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors"
-                                        >
-                                          {item}
-                                        </p>
-                                      ))}
+                                        {[
+                                            "Food",
+                                            "Fitness",
+                                            "Tech",
+                                            "Design",
+                                        ].map((item, index) => (
+                                            <p
+                                                key={index}
+                                                className="tracking-tight py-2.5 px-10 border-[1px] border-white rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors"
+                                            >
+                                                {item}
+                                            </p>
+                                        ))}
                                     </div>
                                     <input
-                                      placeholder="Browse 20+ more category"
-                                      className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] w-full tracking-tight rounded-lg sm:rounded-xl text-xs sm:text-sm text-white border-none outline-none"
+                                        placeholder="Browse 20+ more category"
+                                        className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] w-full tracking-tight rounded-lg sm:rounded-xl text-xs sm:text-sm text-white border-none outline-none"
                                     />
-                                  </div>
+                                </div>
 
-                                  <div className="h-[1px] w-full bg-white mt-8 mb-4 opacity-50"></div>
-                            
-                                  {/* Audience Section */}
-                                  <div className="pt-2 sm:pt-3">
-                                    <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl pb-2 sm:pb-3">Audience</h1>
-                                    
+                                <div className="h-[1px] w-full bg-white mt-8 mb-4 opacity-50"></div>
+
+                                {/* Audience Section */}
+                                <div className="pt-2 sm:pt-3">
+                                    <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl pb-2 sm:pb-3">
+                                        Audience
+                                    </h1>
+
                                     {/* Follower Range & Gender Row */}
                                     <div className="flex flex-col lg:flex-row items-start gap-3 sm:gap-4 lg:gap-6">
                                       {/* Follower Range */}
@@ -782,7 +806,7 @@ const ChatPageContent = () => {
                                         </div>
                                       </div>
                                     </div>
-                            
+
                                     {/* Age Range */}
                                     <div className="pt-3 sm:pt-4">
                                       <div className="flex pb-1.5 items-center gap-1">
@@ -806,14 +830,14 @@ const ChatPageContent = () => {
                                         ))}
                                       </div>
                                     </div>
-                                  </div>
-                            
-                                  {/* Apply Button */}
-                                  <div className="pt-3 sm:pt-4 mt-2 sm:mt-3">
+                                </div>
+
+                                {/* Apply Button */}
+                                <div className="pt-3 sm:pt-4 mt-2 sm:mt-3">
                                     <button className="w-full sm:w-auto px-10 sm:px-16 md:px-20 py-1.5 sm:py-2 md:py-2.5 bg-white/30 rounded-full text-[10px] sm:text-xs md:text-sm font-medium cursor-pointer hover:bg-white/40 transition-colors">
-                                      Apply and send
+                                        Apply and send
                                     </button>
-                                  </div>
+                                </div>
                             </div>
                         </div>
                         <input
