@@ -74,8 +74,8 @@ const ChatPageContent = () => {
         let charIndex = 0;
         let typing = true;
 
-        const typeSpeed = 70;
-        const eraseSpeed = 40;
+        const typeSpeed = 30;
+        const eraseSpeed = 20;
         const delayBetweenPrompts = 1200;
 
         const typeAnimation = () => {
@@ -83,9 +83,7 @@ const ChatPageContent = () => {
 
             if (typing) {
                 if (charIndex < currentPrompt.length) {
-                    setAnimatedPlaceholder(
-                        (prev) => prev + currentPrompt.charAt(charIndex)
-                    );
+                    setAnimatedPlaceholder(currentPrompt.substring(0, charIndex + 1));
                     charIndex++;
                     setTimeout(typeAnimation, typeSpeed);
                 } else {
