@@ -1,4 +1,7 @@
 import Image from "next/image"
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const FeatureCard = ({ icon, title, desc }) => {
   return (
@@ -22,22 +25,77 @@ const FeatureCard = ({ icon, title, desc }) => {
 
 
 
-const WhoIsFor = () => {
 
-const features = [
-  { icon: "/MagnifyingGlass.svg", title: "Real-Time Discovery", desc: "Scan tens of millions of influencers and content creators across Instagram, TikTok, YouTube, and X." },
-  { icon: "/ChartBar.svg", title: "Predictive ROI Analytics", desc: "Forecast campaign performance and potential even before you launch." },
-  { icon: "/GlobeHemisphereEast.svg", title: "Micro-Niche Targeting", desc: "Filter searches by ultra-specific sub-categories like “TikTok Fashion Model” or “European Luxury Travel”." },
-  { icon: "/MagicWand.svg", title: "Trend Prediction Engine", desc: "Stay ahead of social media viral movements and emerging creators." },
-  { icon: "/MONOGRAM.svg", title: "Fyuze Score™", desc: "Our proprietary ranking system combining ROI potential, sentiment and fit, fraud detection, and audience trust." },
-  { icon: "/ChartPieSlice.svg", title: "Enterprise-Grade Dashboards", desc: "Transparent data, brand-safe reporting, and white-label options." }
-]
+
+const WhoIsFor = () => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const headingRef = useRef(null);
+  const paragraphRef = useRef(null);
+
+  useEffect(() => {
+    // Set initial states
+    gsap.set(headingRef.current, { y: 100, opacity: 0 });
+    gsap.set(paragraphRef.current, { y: 100, opacity: 0 });
+
+    // Heading animation
+    ScrollTrigger.create({
+      trigger: headingRef.current,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(headingRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          force3D: true,
+          willChange: "transform, opacity"
+        });
+      }
+    });
+
+    // Paragraph animation
+    ScrollTrigger.create({
+      trigger: paragraphRef.current,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(paragraphRef.current, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          delay: 0.2,
+          ease: "power2.out",
+          force3D: true,
+          willChange: "transform, opacity"
+        });
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  const features = [
+    { icon: "/MagnifyingGlass.svg", title: "Real-Time Discovery", desc: "Scan tens of millions of influencers and content creators across Instagram, TikTok, YouTube, and X." },
+    { icon: "/ChartBar.svg", title: "Predictive ROI Analytics", desc: "Forecast campaign performance and potential even before you launch." },
+    { icon: "/GlobeHemisphereEast.svg", title: "Micro-Niche Targeting", desc: "Filter searches by ultra-specific sub-categories like." },
+    { icon: "/MagicWand.svg", title: "Trend Prediction Engine", desc: "Stay ahead of social media viral movements and emerging creators." },
+    { icon: "/MONOGRAM.svg", title: "Fyuze Score™", desc: "Our proprietary ranking system combining ROI potential, sentiment and fit, fraud detection, and audience trust." },
+    { icon: "/ChartPieSlice.svg", title: "Enterprise-Grade Dashboards", desc: "Transparent data, brand-safe reporting, and white-label options." }
+  ];
 
   return (
     <div className="min-h-screen pb-48 w-full relative pt-44">
       <div className="flex flex-col gap-8">
-        <h1 className="text-center font-archivo font-semibold tracking-tight text-5xl text-black">Who Is It For</h1>
-        <p className="tracking-tight text-center text-xl text-black leading-none">From discovery to ROI fully <br />automated, fully optimized.</p>
+        <h1 ref={headingRef} className="text-center font-archivo font-semibold tracking-tight text-5xl text-black">
+          Who Is It For
+        </h1>
+        <p ref={paragraphRef} className="tracking-tight text-center text-xl text-black leading-none">
+          From discovery to ROI fully <br />automated, fully optimized.
+        </p>
       </div>
       <div className="w-full h-4/5 flex justify-center gap-20 pt-20 scale-90">
         <div className="flex flex-col gap-20 translate-y-12">
@@ -48,7 +106,7 @@ const features = [
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WhoIsFor
+export default WhoIsFor;

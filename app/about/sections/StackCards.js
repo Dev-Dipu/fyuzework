@@ -33,14 +33,14 @@ function Card({ i, title, description, url, color, progress, range, targetScale 
           scale,
           top: `calc(-5vh + ${i * 100}px)`
         }}
-        className={`relative ${i=== 1 ? 'bg-gradient-to-r from-[#DD3305] via-[#FF8B3A] to-[#FFB347]' : `bg-[${color}]`} flex flex-col w-[40vw] h-[50vh] rounded-3xl p-12 origin-top`}
+        className={`relative ${i=== 1 ? 'bg-gradient-to-r from-[#DD3305] via-[#FF8B3A] to-[#FFB347]' : `bg-[${color}]`} flex flex-col w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] h-[60vh] sm:h-[55vh] md:h-[50vh] rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 origin-top`}
       >
-        <div className="absolute top-10 left-10 w-20">
+        <div className="absolute top-6 left-6 sm:top-8 sm:left-8 md:top-10 md:left-10 w-12 sm:w-16 md:w-20">
           <Image src={url} alt={title} width={40} height={40} />
         </div>
-        <div className="absolute left-10 bottom-20 flex flex-col gap-4">
-          <h2 className={`text-xl tracking-tight bottom-10 ${i=== 1 ? "text-white" : 'text-black' }  font-bold`}>{title}</h2>
-          <p className={`text-lg tracking-tight bottom-10 ${i=== 1 ? "text-white" : 'text-black/70' } w-[60%]`}>{description}</p>
+        <div className="absolute left-6 right-6 sm:left-8 sm:right-8 md:left-10 md:right-10 bottom-12 sm:bottom-16 md:bottom-20 flex flex-col gap-2 sm:gap-3 md:gap-4">
+          <h2 className={`text-lg sm:text-xl md:text-2xl tracking-tight ${i=== 1 ? "text-white" : 'text-black' }  font-bold`}>{title}</h2>
+          <p className={`text-sm sm:text-base md:text-sm tracking-tight ${i=== 1 ? "text-white" : 'text-black/70' } w-full md:w-[80%] lg:w-[80%]`}>{description}</p>
         </div>
       </motion.div>
     </div>
