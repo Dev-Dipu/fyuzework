@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const ChatHistorySection = ({ isDark }) => {
+const ChatHistorySection = ({ isDark, closeDashboard }) => {
     const [isOpen, setIsOpen] = useState(true);
     const [activeIndex, setActiveIndex] = useState(null); // Initially null, koi active nahi
 
@@ -57,7 +57,11 @@ const ChatHistorySection = ({ isDark }) => {
                         {historyItems.map((item, index) => (
                             <button
                                 key={index}
-                                onClick={() => setActiveIndex(index)} // Click par active set karo
+                                onClick={() => {
+                                    console.log("clicked")
+                                    setActiveIndex(index)
+                                    closeDashboard()
+                                }} // Click par active set karo
                                 className={`w-full text-left text-sm transition-colors relative`}
                             >
                                 <span
