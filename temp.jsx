@@ -14,7 +14,7 @@ const [isFilterOpen, setIsFilterOpen] = useState(false);
         <div className="w-full flex items-center justify-between gap-2 pb-2 sm:pb-3">
             <div className="flex items-center gap-1.5 sm:gap-2">
                 <Image 
-                    src="/faders.svg" 
+                    src="/-in.svg" 
                     height={16} 
                     width={16} 
                     alt="Filter settings icon"
@@ -54,7 +54,7 @@ const [isFilterOpen, setIsFilterOpen] = useState(false);
                 <div className="w-full lg:w-[55%]">
                     <div className="flex pb-1.5 items-center gap-1">
                         <Image 
-                            src="/mapPin.svg" 
+                            src="/map-pin.svg" 
                             height={13} 
                             width={13} 
                             alt="Location pin icon"
@@ -100,7 +100,7 @@ const [isFilterOpen, setIsFilterOpen] = useState(false);
         <div className="pt-2 sm:pt-3">
             <div className="flex pb-1.5 items-center gap-1">
                 <Image 
-                    src="/sortAscending.svg" 
+                    src="/sort-asc.svg" 
                     height={16} 
                     width={16} 
                     alt="Sort ascending icon"
@@ -137,7 +137,7 @@ const [isFilterOpen, setIsFilterOpen] = useState(false);
                 <div className="w-full lg:w-1/2">
                     <div className="flex pb-1.5 items-center gap-1">
                         <Image 
-                            src="/mapPin.svg" 
+                            src="/map-pin.svg" 
                             height={13} 
                             width={13} 
                             alt="Location pin icon"
@@ -189,7 +189,7 @@ const [isFilterOpen, setIsFilterOpen] = useState(false);
             <div className="pt-3 sm:pt-4">
                 <div className="flex pb-1.5 items-center gap-1">
                     <Image 
-                        src="/mapPin.svg" 
+                        src="/map-pin.svg" 
                         height={13} 
                         width={13} 
                         alt="Location pin icon"
@@ -227,7 +227,7 @@ const [isFilterOpen, setIsFilterOpen] = useState(false);
             <Image
                 height={1}
                 width={20}
-                src={"/faders.svg"}
+                src={"/faders-in.svg"}
                 alt="faders"
             />
             <h4 className="text-base font-medium text-[#C5C5C5]">
