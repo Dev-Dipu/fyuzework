@@ -272,7 +272,7 @@ const AuthForm = () => {
                                     ref={(el) => (otpInputsRef.current[idx] = el)}
                                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                                    className="w-12 h-14 text-center rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-md text-white text-2xl font-semibold focus:outline-none focus:ring-2 focus:ring-[#EE4F20] focus:border-white/50 transition-all hover:bg-white/15"
+                                    className="w-12 h-14 text-center rounded-xl border-2 border-white/30 bg-white/10 backdrop-blur-md text-white text-2xl font-semibold focus:outline-none focus:ring-2 focus:ring-white focus:border-white/50 transition-all hover:bg-white/15"
                                     autoFocus={idx === 0}
                                 />
                             ))}
@@ -287,7 +287,7 @@ const AuthForm = () => {
                         <button
                             onClick={handleVerify}
                             disabled={isFormLoading}
-                            className="w-full bg-[#EE4F20] text-white py-[10px] text-xs md:text-sm lg:text-base lg:py-3 px-4 rounded-lg font-semibold hover:bg-[#EE4F20]/90 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-[#EE4F20] text-white py-[10px] text-xs md:text-sm lg:text-base lg:py-3 px-4 rounded-lg font-semibold hover:bg-[#EE4F20]/90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {isFormLoading ? (
                                 <div className="flex items-center justify-center">
@@ -362,7 +362,7 @@ const AuthForm = () => {
                                     name="name"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    className={`w-full text-xs md:text-sm lg:text-base px-4 py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 hover:bg-white/15 focus:bg-white/15 ${
+                                    className={`w-full text-xs md:text-sm lg:text-base px-4 py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-300 hover:bg-white/15 focus:bg-white/15 ${
                                         errors.name ? "border-red-500/50 focus:border-red-500" : "border-white/30 focus:border-white/50"
                                     }`}
                                     placeholder="Enter your full name"
@@ -382,7 +382,7 @@ const AuthForm = () => {
                                 name="email"
                                 value={formData.email}
                                 onChange={handleInputChange}
-                                className={`w-full px-4 py-[10px] lg:py-3 text-xs lg:text-base bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 hover:bg-white/15 focus:bg-white/15 ${
+                                className={`w-full px-4 py-[10px] lg:py-3 text-xs lg:text-base bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-300 hover:bg-white/15 focus:bg-white/15 ${
                                     errors.email ? "border-red-500/50 focus:border-red-500" : "border-white/30 focus:border-white/50"
                                 }`}
                                 placeholder="Enter your email"
@@ -402,7 +402,7 @@ const AuthForm = () => {
                                     name="password"
                                     value={formData.password}
                                     onChange={handleInputChange}
-                                    className={`w-full px-4 text-xs md:text-sm lg:text-base py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 pr-12 hover:bg-white/15 focus:bg-white/15 ${
+                                    className={`w-full px-4 text-xs md:text-sm lg:text-base py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-300 pr-12 hover:bg-white/15 focus:bg-white/15 ${
                                         errors.password ? "border-red-500/50 focus:border-red-500" : "border-white/30 focus:border-white/50"
                                     }`}
                                     placeholder={mode === "login" ? "Enter your password" : "Create a strong password"}
@@ -455,7 +455,7 @@ const AuthForm = () => {
                                         name="confirmPassword"
                                         value={formData.confirmPassword}
                                         onChange={handleInputChange}
-                                        className={`w-full px-4 text-xs md:text-sm lg:text-base py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] transition-all duration-300 pr-12 hover:bg-white/15 focus:bg-white/15 ${
+                                        className={`w-full px-4 text-xs md:text-sm lg:text-base py-[10px] lg:py-3 bg-white/10 backdrop-blur-md border-[1px] rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-300 pr-12 hover:bg-white/15 focus:bg-white/15 ${
                                             errors.confirmPassword ? "border-red-500/50 focus:border-red-500" : "border-white/30 focus:border-white/50"
                                         }`}
                                         placeholder="Confirm your password"
@@ -488,7 +488,7 @@ const AuthForm = () => {
                         <button
                             onClick={handleSubmit}
                             disabled={isFormLoading}
-                            className="w-full bg-[#EE4F20] text-white py-[10px] text-xs md:text-sm lg:text-base lg:py-3 px-4 rounded-lg font-semibold hover:bg-[#EE4F20]/90 focus:outline-none focus:ring-2 focus:ring-[#EE4F20] focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-[#EE4F20] text-white py-[10px] text-xs md:text-sm lg:text-base lg:py-3 px-4 rounded-lg font-semibold hover:bg-[#EE4F20]/90 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed uppercase"
                         >
                             {isFormLoading ? (
                                 <div className="flex items-center justify-center">
@@ -508,7 +508,7 @@ const AuthForm = () => {
                             {mode === "login" ? "Don't have an account?" : "Already have an account?"}
                             <button
                                 onClick={switchMode}
-                                className="ml-1 text-[#EE4F20] hover:text-[#EE4F20]/80 font-medium transition-colors cursor-pointer"
+                                className="ml-1 text-[#EE4F20] hover:text-[#EE4F20]/80 font-medium transition-colors cursor-pointer uppercase"
                             >
                                 {mode === "login" ? "Sign up" : "Sign in"}
                             </button>

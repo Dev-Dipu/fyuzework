@@ -6,9 +6,16 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "@/lib/contexts/ThemeContext";
+import { authService } from "@/lib/authService";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const isAuth = () => {
+    authService.initialize()
+    return authService.isAuthenticated()
+  }
   const { theme, isDark } = useTheme();
+  const router = useRouter();
   const [textColor, setTextColor] = useState("white");
   const [isDarkSection, setIsDarkSection] = useState(false);
   const [logoSrc, setLogoSrc] = useState("/assets/fyuze-logo.svg");
@@ -17,6 +24,7 @@ export default function Navbar() {
   const navRef = useRef();
   const profileCardRef = useRef();
   const aboutDropdownRef = useRef();
+  const nameParam = "Jenny Wilson"
 
   useGSAP(() => {
     if (isProfileCardVisible) {
@@ -331,7 +339,7 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <div className="relative flex-center gap-10 z-10 navelm">
+      {isAuth() ? (<div className="relative flex-center gap-10 z-10 navelm">
         <div className="relative">
           <div 
             className="flex profileClick items-center gap-2 cursor-pointer"
@@ -339,7 +347,7 @@ export default function Navbar() {
           >
             <div className="w-[30px] h-[30px] sm:w-[35px] sm:h-[35px] relative overflow-hidden rounded-full">
               <Image
-                src="/assets/profile.png"
+                src={`https://ui-avatars.com/api/?name=${nameParam}&bold=true`}
                 alt="logo"
                 fill
                 className="object-cover"
@@ -349,7 +357,7 @@ export default function Navbar() {
               className="font-[500] text-sm sm:text-base leading-[100%] transition-colors duration-300"
               style={{ color: textColor }}
             >
-              Jenny Wilson
+              {nameParam}
             </p>
           </div>
           <div 
@@ -427,10 +435,12 @@ export default function Navbar() {
               <div className="flex justify-between items-center py-3 sm:py-4">
                 <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isDark ? '#ffffff' : '#000000' }}>Credits</h4>
                 <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isDark ? '#ffffff' : '#000000' }}>
-                  <span className="font-bold text-red-600">05</span> left
+                  <span className="font-bold text-orange-500">05</span> left
                 </h4>
               </div>
-              <div className="h-2 w-full rounded mb-3 sm:mb-0" style={{ backgroundColor: isDark ? '#404040' : '#ffffff' }}></div>
+              <div className="h-2 w-full rounded mb-3 sm:mb-0 overflow-hidden" style={{ backgroundColor: isDark ? '#404040' : '#ffffff' }}>
+                <div className="h-full w-1/2 bg-orange-400"></div>
+              </div>
             </div>
             
             <div className="pt-4 flex items-center justify-center" style={{ borderTopColor: isDark ? '#404040' : '#e5e5e5', borderTopWidth: '1px' }}>
@@ -447,7 +457,9 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      </div>
+      </div>): (<button onClick={() => {
+        router.push('/auth')
+      }} className="cursor-pointer px-20 border border-white text-white rounded-full py-2 navelm">Get Started</button>)}
     </nav>
   );
 }

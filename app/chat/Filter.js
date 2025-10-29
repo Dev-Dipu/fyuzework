@@ -47,7 +47,7 @@ const Filter = ({isFilterOpen}) => {
           <div className="w-full lg:w-[55%]">
             <div className="flex pb-1.5 items-center gap-1">
               <Image 
-                src="/mapPin.svg" 
+                src="/MapPin.svg" 
                 height={13} 
                 width={13} 
                 alt="Location pin icon"
@@ -93,7 +93,7 @@ const Filter = ({isFilterOpen}) => {
       <div className="pt-2 sm:pt-3">
         <div className="flex pb-1.5 items-center gap-1">
           <Image 
-            src="/sortAscending.svg" 
+            src="/SortAscending.svg" 
             height={16} 
             width={16} 
             alt="Sort ascending icon"
@@ -130,7 +130,7 @@ const Filter = ({isFilterOpen}) => {
           <div className="w-full lg:w-1/2">
             <div className="flex pb-1.5 items-center gap-1">
               <Image 
-                src="/mapPin.svg" 
+                src="/MapPin.svg" 
                 height={13} 
                 width={13} 
                 alt="Location pin icon"
@@ -182,7 +182,7 @@ const Filter = ({isFilterOpen}) => {
         <div className="pt-3 sm:pt-4">
           <div className="flex pb-1.5 items-center gap-1">
             <Image 
-              src="/mapPin.svg" 
+              src="/MapPin.svg" 
               height={13} 
               width={13} 
               alt="Location pin icon"

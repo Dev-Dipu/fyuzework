@@ -10,7 +10,7 @@ const mockData = [
     followers: "312 K",
     location: "Mumbai, India",
     email: "olivia@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Tech", "Fashion", "Lifestyle", "Travel"],
   },
   {
     name: "Phoenix Baker",
@@ -18,7 +18,7 @@ const mockData = [
     followers: "324 K",
     location: "Mumbai, India",
     email: "phoenix@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Fitness", "Health", "Wellness"],
   },
   {
     name: "Lana Steiner",
@@ -26,7 +26,7 @@ const mockData = [
     followers: "412 K",
     location: "Mumbai, India",
     email: "lana@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Beauty", "Fashion", "Lifestyle", "Food"],
   },
   {
     name: "Demi Wilkinson",
@@ -34,7 +34,7 @@ const mockData = [
     followers: "752 K",
     location: "Mumbai, India",
     email: "demi@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Tech", "Gaming", "Entertainment"],
   },
   {
     name: "Candice Wu",
@@ -42,7 +42,7 @@ const mockData = [
     followers: "232 K",
     location: "Mumbai, India",
     email: "candice@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Business", "Finance", "Startup", "Tech"],
   },
   {
     name: "Natali Craig",
@@ -50,7 +50,7 @@ const mockData = [
     followers: "2.3 M",
     location: "Mumbai, India",
     email: "natali@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Fashion", "Beauty", "Lifestyle"],
   },
   {
     name: "Drew Cano",
@@ -58,7 +58,7 @@ const mockData = [
     followers: "2.3 M",
     location: "Mumbai, India",
     email: "drew@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Sports", "Fitness", "Health", "Nutrition"],
   },
   {
     name: "Orlando Diggs",
@@ -66,7 +66,7 @@ const mockData = [
     followers: "2.3 M",
     location: "Mumbai, India",
     email: "orlando@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Music", "Entertainment", "Art"],
   },
   {
     name: "Andi Lane",
@@ -74,7 +74,7 @@ const mockData = [
     followers: "2.3 M",
     location: "Mumbai, India",
     email: "andi@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Travel", "Adventure", "Photography", "Food"],
   },
   {
     name: "Kate Morrison",
@@ -82,7 +82,7 @@ const mockData = [
     followers: "2.3 M",
     location: "Mumbai, India",
     email: "kate@untitledui.com",
-    categories: ["Design", "Product", "Marketing"],
+    categories: ["Design", "Product", "Marketing", "Education", "Tech", "Coding"],
   },
 ];
 
@@ -103,7 +103,7 @@ const DashboardComponent = () => {
       </div>
 
       {/* Table */}
-      <div className="mt-8 absolute top-1/7 w-[105%] h-3/4 bg-[#060606] rounded-xl overflow-hidden flex flex-col">
+      <div className="mt-8 absolute top-1/7 w-[105%] h-3/4 bg-[#060606] rounded-xl overflow-hidden flex flex-col px-6">
 
         <div className="grid grid-cols-[1.8fr_0.8fr_1.2fr_1.8fr_2fr_0.8fr_0.2fr] px-6 py-3 text-white text-sm border-b border-[#6E6E6E]">
           <div>Name</div>
@@ -127,8 +127,8 @@ const DashboardComponent = () => {
 
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-[#1E1E1E] flex items-center justify-center overflow-hidden">
-                  <Image
-                    src={`/avatars/${index + 1}.png`}
+                  <img
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=random&color=fff&size=128`}
                     alt={user.name}
                     width={40}
                     height={40}
@@ -148,7 +148,7 @@ const DashboardComponent = () => {
               <div className="">{user.email}</div>
 
               <div className="flex flex-wrap gap-2">
-                {user.categories.map((cat, i) => (
+                {user.categories.slice(0, 2).map((cat, i) => (
                   <span
                     key={i}
                     className="text-xs border border-[#fff] rounded-full px-2 py-1"
@@ -156,9 +156,11 @@ const DashboardComponent = () => {
                     {cat}
                   </span>
                 ))}
-                <span className="text-xs border border-[#fff] rounded-full px-2 py-1">
-                  +4
-                </span>
+                {user.categories.length > 2 && (
+                  <span className="text-xs border border-[#fff] rounded-full px-2 py-1">
+                    +{user.categories.length - 2}
+                  </span>
+                )}
               </div>
 
               <div className="text-[#FF6B3A] text-sm font-medium cursor-pointer hover:underline">

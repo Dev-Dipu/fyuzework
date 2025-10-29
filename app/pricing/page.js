@@ -2,27 +2,21 @@
 import { Moon, Sun } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from '@/lib/contexts/ThemeContext';
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const PricingScreen = () => {
-    const { isDark, toggleTheme } = useTheme();
+    const { isDark } = useTheme();
 
     return (
+        <>
+        <Navbar />
         <div
             className={`min-h-screen pt-12 font-sans transition-colors duration-300 ${
                 isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"
-            } flex flex-col justify-center items-center px-4`}
+            } flex flex-col justify-center items-center px-4 mt-4`}
         >
-            {/* Theme Toggle Button */}
-            <button
-                onClick={toggleTheme}
-                className={`fixed top-6 right-6 p-3 rounded-full transition-all duration-300 ${
-                    isDark
-                        ? "bg-white text-black hover:bg-gray-200"
-                        : "bg-black text-white hover:bg-gray-800"
-                }`}
-            >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+            
 
             <h1
                 className={`text-5xl md:text-7xl font-bold leading-none transition-colors duration-300 ${
@@ -380,6 +374,8 @@ const PricingScreen = () => {
                 </p>
             </div>
         </div>
+            <Footer />
+</>
     );
 };
 

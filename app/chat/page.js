@@ -296,7 +296,7 @@ const ChatPageContent = () => {
                 </div>
                 <div>
                     <div className="space-y-4">
-                        <h1
+                        {/* <h1
                             className={`text-white flex items-center gap-2 cursor-pointer ${
                                 !isDark && "invert"
                             }`}
@@ -308,7 +308,7 @@ const ChatPageContent = () => {
                                 alt="settings"
                             />
                             Settings
-                        </h1>
+                        </h1> */}
                         <hr className={`${!isDark && "invert"}`} />
                         <h1
                             className={`text-sm ${
