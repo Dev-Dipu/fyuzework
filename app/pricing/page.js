@@ -14,7 +14,7 @@ const PricingScreen = () => {
         <div
             className={`min-h-screen pt-12 font-sans transition-colors duration-300 ${
                 isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"
-            } flex flex-col justify-center items-center px-4`}
+            } flex flex-col justify-center items-center px-4 pt-4`}
         >
             
 

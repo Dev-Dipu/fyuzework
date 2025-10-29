@@ -203,7 +203,7 @@ export default function Navbar() {
   // Determine navbar background based on route
   const getNavbarBg = () => {
     if (!isHomePage) {
-      return '#E2E1DC'; // White background for non-home pages
+      return 'transparent'; // White background for non-home pages
     }
     return isDark ? 'var(--theme-bg-primary)' : 'transparent';
   };
