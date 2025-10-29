@@ -251,7 +251,7 @@ const ChatPageContent = () => {
 
             {/* Left Sidebar */}
             <div className="h-full bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)] backdrop-blur-[500px] z-10 inter w-[20vw] p-6 border-[.5px] rounded-3xl flex flex-col justify-between">
-                <div className="space-y-6">
+                <div className="space-y-5">
                     <Image
                         src="/assets/fyuze-logo.svg"
                         alt="fyuze logo"
@@ -259,6 +259,12 @@ const ChatPageContent = () => {
                         width={80}
                         className={`${!isDark && "invert"}`}
                     />
+                    <button onClick={() => {
+                        router.push('/')
+                    }} className="text-white uppercase cursor-pointer flex items-center gap-2.5">
+                        <Image className="h-10" src={'/ArrowLeft.svg'} width={22} height={22} />
+                        <span>back to home</span>
+                    </button>
                     <button
                         onClick={() => {
                             setChatHistory([]);
