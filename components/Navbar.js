@@ -275,7 +275,8 @@ export default function Navbar() {
             className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
           ></div>
-          <div 
+          <div
+            onClick={() => {router.push('/about')}} 
             ref={aboutContainerRef}
             className="relative p-1"
             onMouseEnter={handleAboutMouseEnter}
