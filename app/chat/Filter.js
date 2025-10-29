@@ -8,7 +8,7 @@ const Filter = ({isFilterOpen}) => {
       <div className="w-full flex items-center justify-between gap-2 pb-2 sm:pb-3">
         <div className="flex items-center gap-1.5 sm:gap-2">
           <Image 
-            src="/faders.svg" 
+            src="/faders-in.svg" 
             height={16} 
             width={16} 
             alt="Filter settings icon"
@@ -47,7 +47,7 @@ const Filter = ({isFilterOpen}) => {
           <div className="w-full lg:w-[55%]">
             <div className="flex pb-1.5 items-center gap-1">
               <Image 
-                src="/MapPin.svg" 
+                src="/map-pin.svg" 
                 height={13} 
                 width={13} 
                 alt="Location pin icon"
@@ -130,7 +130,7 @@ const Filter = ({isFilterOpen}) => {
           <div className="w-full lg:w-1/2">
             <div className="flex pb-1.5 items-center gap-1">
               <Image 
-                src="/MapPin.svg" 
+                src="/map-pin.svg" 
                 height={13} 
                 width={13} 
                 alt="Location pin icon"
@@ -182,7 +182,7 @@ const Filter = ({isFilterOpen}) => {
         <div className="pt-3 sm:pt-4">
           <div className="flex pb-1.5 items-center gap-1">
             <Image 
-              src="/MapPin.svg" 
+              src="/map-pin.svg"
               height={13} 
               width={13} 
               alt="Location pin icon"

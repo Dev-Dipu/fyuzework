@@ -619,7 +619,7 @@ const ChatPageContent = () => {
                                 <Image
                                     height={1}
                                     width={20}
-                                    src={"/faders.svg"}
+                                    src={"/faders-in.svg"}
                                     alt="faders"
                                 />
                                 <h4
@@ -650,7 +650,7 @@ const ChatPageContent = () => {
                                       <div className="w-full">
                                         <div className="flex pb-1.5 items-center gap-1">
                                           <Image 
-                                            src="/mapPin.svg" 
+                                            src="/map-pin.svg" 
                                             height={13} 
                                             width={13} 
                                             alt="Location pin icon"
@@ -735,7 +735,7 @@ const ChatPageContent = () => {
                                       <div className="w-full lg:w-1/2">
                                         <div className="flex pb-1.5 items-center gap-1">
                                           <Image 
-                                            src="/mapPin.svg" 
+                                            src="/map-pin.svg" 
                                             height={13} 
                                             width={13} 
                                             alt="Location pin icon"
@@ -787,7 +787,7 @@ const ChatPageContent = () => {
                                     <div className="pt-3 sm:pt-4">
                                       <div className="flex pb-1.5 items-center gap-1">
                                         <Image 
-                                          src="/mapPin.svg" 
+                                          src="/map-pin.svg" 
                                           height={13} 
                                           width={13} 
                                           alt="Location pin icon"

@@ -97,7 +97,7 @@ const DashboardComponent = () => {
         <h4 className="text-white font-medium">Wishlisted Influencers</h4>
         <span>|</span>
         <div className="flex h-fit items-center gap-1 cursor-pointer hover:text-white transition">
-          <Image height={20} width={20} src="/faders.svg" alt="filters" />
+          <Image height={20} width={20} src="/faders-in.svg" alt="filters" />
           <h4 className="text-base font-medium text-[#C5C5C5]">Filters</h4>
         </div>
       </div>
