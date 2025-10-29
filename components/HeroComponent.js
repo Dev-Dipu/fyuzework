@@ -20,25 +20,28 @@ export default function HeroComponent() {
     const [prompt, setPrompt] = useState('');
     const router = useRouter();
 
-    const handlePromptSubmit = (e) => {
-        // Check if Enter key was pressed or if arrow button was clicked
-        if (e.key === 'Enter' || e.type === 'click') {
-            e.preventDefault();
-            
-            if (!prompt.trim()) return; // Don't submit empty prompts
-            authService.initialize();
-            if (authService.isAuthenticated()) {
-                // Encode the prompt for URL safety
-                const encodedPrompt = encodeURIComponent(prompt.trim());
-                router.push(`/chat?prompt=${encodedPrompt}`);
-            } else {
-                router.push('/auth');
-            }
+    const submitPrompt = () => {
+        if (!prompt.trim()) return; // Don't submit empty prompts
+        authService.initialize();
+        if (authService.isAuthenticated()) {
+            // Encode the prompt for URL safety
+            const encodedPrompt = encodeURIComponent(prompt.trim());
+            router.push(`/chat?prompt=${encodedPrompt}`);
+        } else {
+            router.push('/auth');
         }
     };
 
-    const handleArrowClick = () => {
-        handlePromptSubmit({ type: 'click' });
+    const handlePromptSubmit = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            submitPrompt();
+        }
+    };
+
+    const handleArrowClick = (e) => {
+        e.preventDefault();
+        submitPrompt();
     };
 
     useGSAP(() => {
