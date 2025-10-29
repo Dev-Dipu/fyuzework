@@ -209,7 +209,7 @@ const ChatPageContent = () => {
         >
             {/* Rest of your component JSX remains exactly the same */}
             {/* Theme Toggle Button */}
-            <button
+            {/* <button
                 onClick={toggleTheme}
                 className={`fixed bottom-6 right-6 z-50 flex items-center justify-between w-[72px] h-[35px] rounded-full px-3   transition-all duration-500 shadow-inner border ${
                     isDark ? "border-[#4F4F4F]" : "border-black"
@@ -240,7 +240,7 @@ const ChatPageContent = () => {
                         isDark ? "left-[14px]" : "right-[14px]"
                     }`}
                 ></div>
-            </button>
+            </button> */}
 
             <div className="absolute top-0 left-0 h-full w-full z-0">
                 <Image

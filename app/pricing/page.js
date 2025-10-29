@@ -18,13 +18,7 @@ const PricingScreen = () => {
         >
             
 
-            <h1
-                className={`text-5xl md:text-7xl font-bold leading-none transition-colors duration-300 ${
-                    isDark ? "text-white" : "text-black"
-                }`}
-            >
-                Pricing
-            </h1>
+        <h1 className={`font-archivo font-bold leading-none transition-colors duration-300  text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-6xl ${isDark ? "text-white" : "text-black"}`}>Pricing</h1>
 
             <p
                 className={`mt-6 text-sm font-light w-full md:w-2/5 text-center transition-colors duration-300 ${

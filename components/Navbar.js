@@ -10,6 +10,7 @@ import { authService } from "@/lib/authService";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
+
   const isAuth = () => {
     authService.initialize()
     return authService.isAuthenticated()
@@ -66,12 +67,11 @@ export default function Navbar() {
         gsap.fromTo(aboutDropdownRef.current, 
           {
             opacity: 0,
-            y: 20,
             display: "none"
           },
           {
             opacity: 1,
-            y: 0,
+
             display: "block",
             duration: 0.4,
             ease: "power2.out"
@@ -190,13 +190,14 @@ export default function Navbar() {
   useGSAP(() => {
     const navelms = navRef.current.querySelectorAll('.navelm')
 
-    gsap.from(navelms, {
-      y: -40,
+    if(isHomePage){
+      gsap.from(navelms, {
       opacity: 0,
       duration: 2,
       delay: 0,
       ease: "power2.inOut"
     })
+    }
 
   }, [])
 
@@ -256,7 +257,7 @@ export default function Navbar() {
           />
         </Link>
         <div 
-          className="w-[1px] h-[26px] relative transition-colors duration-300"
+          className="w-[1px] h-[26px] relative navelm transition-colors duration-300"
           style={{ backgroundColor: textColor }}
         ></div>
         <div className="flex-between gap-10 relativ">
@@ -272,7 +273,7 @@ export default function Navbar() {
             ></span>
           </Link>
           <div 
-            className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
+            className="relative w-[2px] h-[2px] navelm rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
           ></div>
           <div
@@ -357,7 +358,7 @@ export default function Navbar() {
             </div>
           </div>
           <div 
-            className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
+            className="relative w-[2px] h-[2px] navelm rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
           ></div>
           
