@@ -516,14 +516,6 @@ const AuthForm = () => {
                     </div>
                 </div>
             </div>
-            <div className="absolute bottom-8 text-center w-fit right-8">
-                <button 
-                    onClick={() => router.push('/')}
-                    className="text-gray-200 hover:text-white text-sm underline transition-colors cursor-pointer"
-                >
-                    Continue without login
-                </button>
-            </div>
         </div>
     );
 };
