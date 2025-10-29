@@ -18,7 +18,6 @@ const page = () => {
       <WhoIsFor />
       <Dominate />
       <PricingScreen />
-      <Footer />
     </div>
   )
 }

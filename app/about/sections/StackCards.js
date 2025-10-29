@@ -30,18 +30,17 @@ function Card({ i, title, description, url, color, progress, range, targetScale 
     <div ref={container} className="h-screen flex items-center justify-center sticky top-0">
       <motion.div
         style={{
-          backgroundColor: color,
           scale,
-          top: `calc(-5vh + ${i * 40}px)`
+          top: `calc(-5vh + ${i * 100}px)`
         }}
-        className="relative flex flex-col w-[40vw] h-[50vh] rounded-3xl p-12 origin-top"
+        className={`relative ${i=== 1 ? 'bg-gradient-to-r from-[#DD3305] via-[#FF8B3A] to-[#FFB347]' : `bg-[${color}]`} flex flex-col w-[40vw] h-[50vh] rounded-3xl p-12 origin-top`}
       >
         <div className="absolute top-10 left-10 w-20">
           <Image src={url} alt={title} width={40} height={40} />
         </div>
         <div className="absolute left-10 bottom-20 flex flex-col gap-4">
-          <h2 className="text-xl tracking-tight bottom-10 text-black font-bold">{title}</h2>
-          <p className="text-lg tracking-tight bottom-10 text-black/70 w-[60%]">{description}</p>
+          <h2 className={`text-xl tracking-tight bottom-10 ${i=== 1 ? "text-white" : 'text-black' }  font-bold`}>{title}</h2>
+          <p className={`text-lg tracking-tight bottom-10 ${i=== 1 ? "text-white" : 'text-black/70' } w-[60%]`}>{description}</p>
         </div>
       </motion.div>
     </div>
@@ -96,7 +95,7 @@ export default function StackCards() {
           />
         );
       })}
-      <div className="h-screen" />
+      <div className="h-[50vh]" />
     </main>
   );
 }
