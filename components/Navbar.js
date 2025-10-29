@@ -24,6 +24,7 @@ export default function Navbar() {
   const navRef = useRef();
   const profileCardRef = useRef();
   const aboutDropdownRef = useRef();
+  const aboutContainerRef = useRef();
   const nameParam = "Jenny Wilson"
 
   useGSAP(() => {
@@ -97,14 +98,6 @@ export default function Navbar() {
       ) {
         setIsProfileCardVisible(false);
       }
-
-      if (
-        aboutDropdownRef.current &&
-        !aboutDropdownRef.current.contains(event.target) &&
-        !event.target.closest('.aboutClick')
-      ) {
-        setIsAboutDropdownVisible(false);
-      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -117,8 +110,12 @@ export default function Navbar() {
     setIsProfileCardVisible(!isProfileCardVisible);
   };
 
-  const toggleAboutDropdown = () => {
-    setIsAboutDropdownVisible(!isAboutDropdownVisible);
+  const handleAboutMouseEnter = () => {
+    setIsAboutDropdownVisible(true);
+  };
+
+  const handleAboutMouseLeave = () => {
+    setIsAboutDropdownVisible(false);
   };
 
   useEffect(() => {
@@ -146,18 +143,15 @@ export default function Navbar() {
       if (currentSection) {
         const textAttribute = currentSection.getAttribute('data-text');
         if (textAttribute === 'dark') {
-          // For dark sections, keep original colors in light mode
           setTextColor(isDark ? "#c5c5c5" : "#4f4f4f");
           setIsDarkSection(true);
           isDark ? setLogoSrc("/assets/fyuze-logo.svg") : setLogoSrc("/assets/fyuze-dark.svg");
         } else {
-          // For light sections, keep original white color in light mode
           setTextColor(isDark ? "#fafafa" : "white");
           setIsDarkSection(false);
           setLogoSrc("/assets/fyuze-logo.svg");
         }
       } else {
-        // Default colors - keep original white in light mode
         setTextColor(isDark ? "#fafafa" : "white");
         setIsDarkSection(false);
         setLogoSrc("/assets/fyuze-logo.svg");
@@ -245,13 +239,15 @@ export default function Navbar() {
             className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
           ></div>
-          <div onClick={() => {
-            router.push('/about')
-          }} className="relative">
+          <div 
+            ref={aboutContainerRef}
+            className="relative p-1"
+            onMouseEnter={handleAboutMouseEnter}
+            onMouseLeave={handleAboutMouseLeave}
+          >
             <div
-              className="aboutClick group relative inline-flex items-center gap-1 text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm cursor-pointer"
+              className="group relative inline-flex items-center gap-1 text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm cursor-pointer"
               style={{ color: textColor }}
-              onClick={toggleAboutDropdown}
             >
               about
               <svg 
@@ -418,7 +414,7 @@ export default function Navbar() {
               />
             </div>
             
-            <div className="h-auto sm:h-[14vh] min-h-[120px] mb-4 w-full px-3 rounded-2xl mt-4" style={{ backgroundColor: isDark ? '#1a1a1a' : '#E2E1DC' }}>
+            <div className="h-auto sm:h-[14vh] min-h-[130px] mb-4 w-full px-3 rounded-2xl mt-4" style={{ backgroundColor: isDark ? '#1a1a1a' : '#E2E1DC' }}>
               <div className="flex justify-between items-center py-3 sm:py-4" style={{ borderBottomColor: isDark ? '#404040' : '#C5C5C5', borderBottomWidth: '1px' }}>
                 <div className="flex items-center gap-2">
                   <Image 
