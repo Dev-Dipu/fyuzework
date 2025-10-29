@@ -82,7 +82,7 @@ const PricingScreen = () => {
                         </div>
                         <div className="flex gap-3 absolute top-1/2 -translate-y-1/2 flex-wrap">
                             <h3
-                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[13px] transition-colors duration-300 ${
+                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[10px] transition-colors duration-300 ${
                                     isDark
                                         ? "border border-gray-600 text-gray-300"
                                         : "border border-[#828282] text-black"
@@ -91,7 +91,7 @@ const PricingScreen = () => {
                                 400 Credits
                             </h3>
                             <h3
-                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[13px] transition-colors duration-300 ${
+                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[10px] transition-colors duration-300 ${
                                     isDark
                                         ? "border border-gray-600 text-gray-300"
                                         : "border border-[#828282] text-black"
@@ -161,10 +161,10 @@ const PricingScreen = () => {
                             </p>
                         </div>
                         <div className="flex gap-3 absolute top-1/2 -translate-y-1/2 flex-wrap">
-                            <h3 className="py-2 px-3 md:py-2.5 md:px-4 bg-white text-black rounded-full leading-none text-[13px]">
+                            <h3 className="py-2 px-3 md:py-2.5 md:px-4 bg-white text-black rounded-full leading-none text-[10px]">
                                 1500 Credits
                             </h3>
-                            <h3 className="py-2 px-3 md:py-2.5 md:px-4 bg-white text-black rounded-full leading-none text-[13px]">
+                            <h3 className="py-2 px-3 md:py-2.5 md:px-4 bg-white text-black rounded-full leading-none text-[10px]">
                                 $0.099 cost per credit
                             </h3>
                         </div>
@@ -229,7 +229,7 @@ const PricingScreen = () => {
                         </div>
                         <div className="flex gap-3 absolute top-1/2 -translate-y-1/2 flex-wrap">
                             <h3
-                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[13px] transition-colors duration-300 ${
+                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[10px] transition-colors duration-300 ${
                                     isDark
                                         ? "border border-gray-600 text-gray-300"
                                         : "border border-[#828282] text-black"
@@ -238,7 +238,7 @@ const PricingScreen = () => {
                                 5000 Credits
                             </h3>
                             <h3
-                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[13px] transition-colors duration-300 ${
+                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[10px] transition-colors duration-300 ${
                                     isDark
                                         ? "border border-gray-600 text-gray-300"
                                         : "border border-[#828282] text-black"
@@ -312,7 +312,7 @@ const PricingScreen = () => {
                         </div>
                         <div className="flex gap-3 absolute top-1/2 -translate-y-1/2 flex-wrap">
                             <h3
-                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[13px] transition-colors duration-300 ${
+                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[10px] transition-colors duration-300 ${
                                     isDark
                                         ? "border border-gray-600 text-gray-300"
                                         : "border border-[#828282] text-black"
@@ -321,7 +321,7 @@ const PricingScreen = () => {
                                 10,000+ Credits
                             </h3>
                             <h3
-                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[13px] whitespace-nowrap transition-colors duration-300 ${
+                                className={`py-2 px-3 md:py-2.5 md:px-4 rounded-full leading-none text-[10px] whitespace-nowrap transition-colors duration-300 ${
                                     isDark
                                         ? "border border-gray-600 text-gray-300"
                                         : "border border-[#828282] text-black"
