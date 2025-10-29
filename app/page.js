@@ -51,7 +51,7 @@ export default function Home() {
   }
 
   return (
-    <main>
+    <main className="bg-bg-[#E2E1DC]">
       <Navbar />
 
       <section className="section theme-bg-secondary" data-text="light">

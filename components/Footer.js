@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Content from './Content';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,9 +6,10 @@ import { useTheme } from '@/lib/contexts/ThemeContext';
 
 export default function Footer() {
   const { isDark, toggleTheme } = useTheme();
+  
   return (
     <div 
-        className='relative h-auto min-h-[35vh] md:h-[35vh]'
+        className='relative h-auto min-h-[35vh] md:h-[35vh] bg-[]'
         style={{clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)"}}
     >
         <div className='relative h-auto md:h-[calc(100vh+35vh)] md:-top-[100vh]'>

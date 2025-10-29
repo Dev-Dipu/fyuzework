@@ -29,7 +29,11 @@ const getProxiedImageUrl = (instagramUrl, fallbackIndex = 0) => {
 
 // Separate component that uses useSearchParams
 const ChatPageContent = () => {
-    const { isDark, toggleTheme } = useTheme();
+    // const { isDark, toggleTheme } = useTheme();
+    const [isDark, setIsDark] = useState(true)
+    const toggleTheme = () => {
+        setIsDark(prev => !prev)
+    }
     const prompts = [
         "Find top 10 fashion influencers in Dubai with 100K+ followers",
         "Help me find tech YouTubers for my SaaS product launch",
@@ -195,7 +199,7 @@ const ChatPageContent = () => {
 
     return (
         <div
-            className={`h-screen w-full flex justify-between relative p-6 ${
+            className={`h-screen overflow-hidden w-full flex justify-between relative p-6 ${
                 isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"
             }`}
         >

@@ -67,95 +67,6 @@ export default function Contact({ navigationOverlayRef }) {
     }
   };
 
-  useEffect(() => {
-    document.body.style.backgroundColor = "black";
-    const isMobile = window.innerWidth <= 768;
-    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
-    const bgStartPoint = isMobile ? "top 60%" : (isTablet ? "top 55%" : "top 70%");
-    const bgEndPoint = isMobile ? "bottom 40%" : (isTablet ? "bottom 45%" : "bottom 30%");
-
-    const bgTrigger = ScrollTrigger.create({
-      trigger: contactRef.current,
-      start: bgStartPoint,
-      end: bgEndPoint,
-      onEnter: () => {
-        gsap.to(document.body, {
-          duration: 1,
-          backgroundColor: "#fff",
-          ease: "power2.inOut",
-        });
-      },
-      onLeave: () => {
-        gsap.to(document.body, {
-          duration: 1,
-          backgroundColor: "black",
-          ease: "power2.inOut",
-        });
-      },
-      onEnterBack: () => {
-        gsap.to(document.body, {
-          duration: 1,
-          backgroundColor: "#fff",
-          ease: "power2.inOut",
-        });
-      },
-      onLeaveBack: () => {
-        gsap.to(document.body, {
-          duration: 1,
-          backgroundColor: "black",
-          ease: "power2.inOut",
-        });
-      },
-    });
-
-    return () => {
-      bgTrigger && bgTrigger.kill();
-      document.body.style.backgroundColor = "";
-    };
-  }, []);
-
-  useGSAP(() => {
-    // Set initial state for all text elements
-    gsap.set([
-      mainHeadingStaggerRef.current,
-      foundersHeadingStaggerRef.current,
-      foundersParaStaggerRef.current,
-      partnersHeadingStaggerRef.current,
-      partnersParaStaggerRef.current,
-      footerTextStaggerRef.current
-    ], {
-      opacity: 0,
-      y: 50,
-      transformOrigin: "center center",
-      willChange: "transform, opacity"
-    });
-
-    // Create timeline for staggered animations
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: contactRef.current,
-        start: "top 90%",
-        end: "bottom 80%",
-      }
-    });
-
-    // Animate elements in sequence with stagger
-    tl.to([
-      mainHeadingStaggerRef.current,
-      foundersHeadingStaggerRef.current,
-      foundersParaStaggerRef.current,
-      partnersHeadingStaggerRef.current,
-      partnersParaStaggerRef.current,
-      footerTextStaggerRef.current
-    ], {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power2.out",
-      stagger: 0.15
-    });
-  }, []);
-
   return (
     <div className='bg-[#E2E1DC] h-screen overflow-hidden'>
     <Navbar />
@@ -178,7 +89,7 @@ export default function Contact({ navigationOverlayRef }) {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                   </div>
-                  <p ref={partnersParaRef} className="text-gray-600 text-sm sm:text-sm w-full sm:w-[90%] lg:w-[80%] leading-relaxed">
+                  <p ref={partnersParaRef} className="text-[#878787] text-sm sm:text-sm w-full sm:w-[90%] lg:w-[80%] leading-relaxed">
                     <span ref={partnersParaStaggerRef} className="will-change-transform text-xs block">
                       Whether you're a Brand, Startup, agency or enterprise we're interested in ambitious ideas.
                     </span>

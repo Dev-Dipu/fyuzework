@@ -245,7 +245,9 @@ export default function Navbar() {
             className="relative w-[2px] h-[2px] rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
           ></div>
-          <div className="relative">
+          <div onClick={() => {
+            router.push('/about')
+          }} className="relative">
             <div
               className="aboutClick group relative inline-flex items-center gap-1 text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm cursor-pointer"
               style={{ color: textColor }}
@@ -371,7 +373,7 @@ export default function Navbar() {
               boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
             }}
           >
-            <div className="flex pb-3 justify-between items-center" style={{ borderBottomColor: isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
+            <div onClick={() => router.push('/chat')} className="flex pb-3 justify-between items-center cursor-pointer" style={{ borderBottomColor: isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
               <div className="flex gap-2 items-center">
                 <div className="w-[30px] h-[30px] sm:w-[35px] sm:h-[35px] relative overflow-hidden rounded-full">
                   <Image
@@ -395,7 +397,7 @@ export default function Navbar() {
               />
             </div>
             
-            <div className="flex py-3 items-center justify-between" style={{ borderBottomColor: isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
+            <div onClick={() => router.push('/chat')} className="flex py-3 items-center justify-between cursor-pointer" style={{ borderBottomColor: isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
               <div className="flex gap-2 items-center">
                 <Image 
                   src="/ChartPieSlice.svg" 
@@ -423,14 +425,14 @@ export default function Navbar() {
                     src="/Crown.svg" 
                     height={20} 
                     width={20} 
-                    alt="logout icon"
+                    alt="crown icon"
                     style={{ filter: isDark ? 'invert(1)' : 'invert(0)' }}
                   />
                   <h1 className="text-xs sm:text-sm tracking-tight font-medium" style={{ color: isDark ? '#ffffff' : '#000000' }}>Turn pro</h1>
                 </div>
-                <h3 className="uppercase bg-[#FF6B3A] inline-block rounded-full tracking-tight text-[10px] sm:text-xs text-white font-medium px-2 sm:px-3 py-1">
+                <button onClick={() => router.push('/pricing')} className="uppercase cursor-pointer bg-[#FF6B3A] inline-block rounded-full tracking-tight text-[10px] sm:text-xs text-white font-medium px-2 sm:px-3 py-1">
                   Upgrade
-                </h3>
+                </button>
               </div>
               <div className="flex justify-between items-center py-3 sm:py-4">
                 <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isDark ? '#ffffff' : '#000000' }}>Credits</h4>
@@ -444,7 +446,11 @@ export default function Navbar() {
             </div>
             
             <div className="pt-4 flex items-center justify-center" style={{ borderTopColor: isDark ? '#404040' : '#e5e5e5', borderTopWidth: '1px' }}>
-              <button className="text-xs sm:text-sm tracking-tighter w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition" style={{ borderColor: isDark ? '#404040' : '#e5e5e5', borderWidth: '0.5px', color: isDark ? '#ffffff' : '#000000' }}>
+              <button onClick={() => {
+                authService.initialize()
+                authService.logout()
+                router.push('/auth')
+              }} className="text-xs cursor-pointer sm:text-sm tracking-tighter w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition" style={{ borderColor: isDark ? '#404040' : '#e5e5e5', borderWidth: '0.5px', color: isDark ? '#ffffff' : '#000000' }}>
                 <Image
                   src="./assets/logOut.svg"
                   height={20}
@@ -459,7 +465,7 @@ export default function Navbar() {
         </div>
       </div>): (<button onClick={() => {
         router.push('/auth')
-      }} className="cursor-pointer px-20 border border-white text-white rounded-full py-2 navelm">Get Started</button>)}
+      }} className="cursor-pointer px-20 border border-white text-white rounded-full py-2 navelm hover:bg-white hover:text-black duration-300 all ease-in-out">Get Started</button>)}
     </nav>
   );
 }
