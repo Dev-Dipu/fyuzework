@@ -326,7 +326,7 @@ const AuthForm = () => {
                     autoSpeed={0.3}
                     autoIntensity={1.5}
                     mouseForce={15}
-                    cursorSize={400}
+                    cursorSize={150}
                 />
             </div>
             
@@ -514,8 +514,18 @@ const AuthForm = () => {
                             </button>
                         </p>
                     </div>
-                </div>
+                    <div className="text-center relative left-1/2 -translate-x-1/2 top-4 w-fit">
+                <button 
+                    onClick={() => router.push('/')}
+                    className="text-gray-200 hover:text-white text-sm underline transition-colors cursor-pointer"
+                >
+                    Continue without login
+                </button>
             </div>
+                </div>
+                
+            </div>
+            
         </div>
     );
 };
