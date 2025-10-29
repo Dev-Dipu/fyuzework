@@ -127,7 +127,7 @@ const AuthForm = () => {
                 authService.setTokens(data);
 
                 console.log("Login successful:", data);
-                router.push("/chat");
+                router.push("/");
             } else {
                 const response = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
                     method: "POST",
