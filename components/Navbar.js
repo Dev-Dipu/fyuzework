@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "@/lib/contexts/ThemeContext";
 import { authService } from "@/lib/authService";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
   const isAuth = () => {
@@ -16,6 +16,9 @@ export default function Navbar() {
   }
   const { theme, isDark } = useTheme();
   const router = useRouter();
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+  
   const [textColor, setTextColor] = useState("white");
   const [isDarkSection, setIsDarkSection] = useState(false);
   const [logoSrc, setLogoSrc] = useState("/assets/fyuze-logo.svg");
@@ -122,6 +125,15 @@ export default function Navbar() {
   };
 
   useEffect(() => {
+    // If not on home page, force black text and white background
+    if (!isHomePage) {
+      setTextColor("#000000");
+      setIsDarkSection(false);
+      setLogoSrc("/assets/fyuze-dark.svg");
+      return;
+    }
+
+    // Home page logic - follow isDark theme
     const handleScroll = () => {
       const sections = document.querySelectorAll('.section');
       const scrollPosition = window.scrollY + window.innerHeight / 2;
@@ -146,18 +158,15 @@ export default function Navbar() {
       if (currentSection) {
         const textAttribute = currentSection.getAttribute('data-text');
         if (textAttribute === 'dark') {
-          // For dark sections, keep original colors in light mode
           setTextColor(isDark ? "#c5c5c5" : "#4f4f4f");
           setIsDarkSection(true);
           isDark ? setLogoSrc("/assets/fyuze-logo.svg") : setLogoSrc("/assets/fyuze-dark.svg");
         } else {
-          // For light sections, keep original white color in light mode
           setTextColor(isDark ? "#fafafa" : "white");
           setIsDarkSection(false);
           setLogoSrc("/assets/fyuze-logo.svg");
         }
       } else {
-        // Default colors - keep original white in light mode
         setTextColor(isDark ? "#fafafa" : "white");
         setIsDarkSection(false);
         setLogoSrc("/assets/fyuze-logo.svg");
@@ -179,7 +188,7 @@ export default function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener('scroll', throttledHandleScroll);
-  }, [isDark]);
+  }, [isDark, isHomePage]);
 
   useGSAP(() => {
     const navelms = navRef.current.querySelectorAll('.navelm')
@@ -194,23 +203,47 @@ export default function Navbar() {
 
   }, [])
 
+  // Determine navbar background based on route
+  const getNavbarBg = () => {
+    if (!isHomePage) {
+      return '#E2E1DC'; // White background for non-home pages
+    }
+    return isDark ? 'var(--theme-bg-primary)' : 'transparent';
+  };
+
+  // Determine gradient overlay
+  const getGradientOverlay = () => {
+    if (!isHomePage) {
+      return {
+        background: 'linear-gradient(180deg, #ffffff 73.25%, rgba(255,255,255,0) 100%)',
+        opacity: 0
+      };
+    }
+    return {
+      background: isDark 
+        ? 'linear-gradient(180deg, #262626 73.25%, rgba(38,38,38,0) 100%)'
+        : 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
+      opacity: isDarkSection ? 1 : 0
+    };
+  };
+
+  const gradientStyle = getGradientOverlay();
+
   return (
     <nav
       ref={navRef}
       className="w-full left-0 top-0 fixed p-9 flex-between z-100 transition-colors duration-300"
       style={{ 
         color: textColor,
-        backgroundColor: isDark ? 'var(--theme-bg-primary)' : 'transparent'
+        backgroundColor: getNavbarBg()
       }}
     >
       {/* Gradient overlay with opacity transition */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{ 
-          background: isDark 
-            ? 'linear-gradient(180deg, #262626 73.25%, rgba(38,38,38,0) 100%)'
-            : 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
-          opacity: isDarkSection ? 1 : 0,
+          background: gradientStyle.background,
+          opacity: gradientStyle.opacity,
           transition: 'opacity 700ms ease-in-out'
         }}
       ></div>
@@ -286,7 +319,7 @@ export default function Navbar() {
               style={{ 
                 opacity: 0, 
                 display: 'none',
-                backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
+                backgroundColor: isHomePage && isDark ? '#1a1a1a' : '#ffffff',
                 boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)'
               }}
             >
@@ -294,11 +327,11 @@ export default function Navbar() {
                 href="/how-it-works"
                 className="block px-4 py-3 text-xs font-[400] transition-all duration-200 hover:bg-opacity-10"
                 style={{ 
-                  color: isDark ? '#ffffff' : '#000000',
-                  borderBottom: `1px solid ${isDark ? '#404040' : '#e5e5e5'}`
+                  color: isHomePage && isDark ? '#ffffff' : '#000000',
+                  borderBottom: `1px solid ${isHomePage && isDark ? '#404040' : '#e5e5e5'}`
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+                  e.currentTarget.style.backgroundColor = isHomePage && isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
@@ -310,10 +343,10 @@ export default function Navbar() {
                 href="/who-is-it-for"
                 className="block px-4 py-3 text-xs font-[400] transition-all duration-200"
                 style={{ 
-                  color: isDark ? '#ffffff' : '#000000'
+                  color: isHomePage && isDark ? '#ffffff' : '#000000'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+                  e.currentTarget.style.backgroundColor = isHomePage && isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
@@ -368,12 +401,12 @@ export default function Navbar() {
             style={{ 
               opacity: 0, 
               display: 'none',
-              backgroundColor: isDark ? '#000000' : '#ffffff',
-              color: isDark ? '#ffffff' : '#000000',
+              backgroundColor: isHomePage && isDark ? '#000000' : '#ffffff',
+              color: isHomePage && isDark ? '#ffffff' : '#000000',
               boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
             }}
           >
-            <div onClick={() => router.push('/chat')} className="flex pb-3 justify-between items-center cursor-pointer" style={{ borderBottomColor: isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
+            <div onClick={() => router.push('/chat')} className="flex pb-3 justify-between items-center cursor-pointer" style={{ borderBottomColor: isHomePage && isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
               <div className="flex gap-2 items-center">
                 <div className="w-[30px] h-[30px] sm:w-[35px] sm:h-[35px] relative overflow-hidden rounded-full">
                   <Image
@@ -383,7 +416,7 @@ export default function Navbar() {
                     className="object-cover"
                   />
                 </div>
-                <h1 className="tracking-tight text-xs sm:text-sm font-semibold truncate max-w-[150px]" style={{ color: isDark ? '#ffffff' : '#000000' }}>
+                <h1 className="tracking-tight text-xs sm:text-sm font-semibold truncate max-w-[150px]" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
                   Jenny Wilson FYUZE
                 </h1>
               </div>
@@ -393,20 +426,20 @@ export default function Navbar() {
                 width={15} 
                 alt="arrow right icon" 
                 className="flex-shrink-0"
-                style={{ filter: isDark ? 'invert(1)' : 'invert(0)' }}
+                style={{ filter: isHomePage && isDark ? 'invert(1)' : 'invert(0)' }}
               />
             </div>
             
-            <div onClick={() => router.push('/chat')} className="flex py-3 items-center justify-between cursor-pointer" style={{ borderBottomColor: isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
+            <div onClick={() => router.push('/chat')} className="flex py-3 items-center justify-between cursor-pointer" style={{ borderBottomColor: isHomePage && isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
               <div className="flex gap-2 items-center">
                 <Image 
                   src="/ChartPieSlice.svg" 
                   height={30} 
                   width={30} 
                   alt="dashboard icon"
-                  style={{ filter: isDark ? 'invert(1)' : 'invert(0)' }}
+                  style={{ filter: isHomePage && isDark ? 'invert(1)' : 'invert(0)' }}
                 />
-                <h1 className="tracking-tight text-xs sm:text-sm font-semibold" style={{ color: isDark ? '#ffffff' : '#000000' }}>Dashboard</h1>
+                <h1 className="tracking-tight text-xs sm:text-sm font-semibold" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Dashboard</h1>
               </div>
               <Image 
                 src="/next-arrow.svg" 
@@ -414,49 +447,49 @@ export default function Navbar() {
                 width={15} 
                 alt="arrow right icon" 
                 className="flex-shrink-0"
-                style={{ filter: isDark ? 'invert(1)' : 'invert(0)' }}
+                style={{ filter: isHomePage && isDark ? 'invert(1)' : 'invert(0)' }}
               />
             </div>
             
-            <div className="h-auto sm:h-[14vh] min-h-[120px] mb-4 w-full px-3 rounded-2xl mt-4" style={{ backgroundColor: isDark ? '#1a1a1a' : '#E2E1DC' }}>
-              <div className="flex justify-between items-center py-3 sm:py-4" style={{ borderBottomColor: isDark ? '#404040' : '#C5C5C5', borderBottomWidth: '1px' }}>
+            <div className="h-auto sm:h-[14vh] min-h-[120px] mb-4 w-full px-3 rounded-2xl mt-4" style={{ backgroundColor: isHomePage && isDark ? '#1a1a1a' : '#E2E1DC' }}>
+              <div className="flex justify-between items-center py-3 sm:py-4" style={{ borderBottomColor: isHomePage && isDark ? '#404040' : '#C5C5C5', borderBottomWidth: '1px' }}>
                 <div className="flex items-center gap-2">
                   <Image 
                     src="/Crown.svg" 
                     height={20} 
                     width={20} 
                     alt="crown icon"
-                    style={{ filter: isDark ? 'invert(1)' : 'invert(0)' }}
+                    style={{ filter: isHomePage && isDark ? 'invert(1)' : 'invert(0)' }}
                   />
-                  <h1 className="text-xs sm:text-sm tracking-tight font-medium" style={{ color: isDark ? '#ffffff' : '#000000' }}>Turn pro</h1>
+                  <h1 className="text-xs sm:text-sm tracking-tight font-medium" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Turn pro</h1>
                 </div>
                 <button onClick={() => router.push('/pricing')} className="uppercase cursor-pointer bg-[#FF6B3A] inline-block rounded-full tracking-tight text-[10px] sm:text-xs text-white font-medium px-2 sm:px-3 py-1">
                   Upgrade
                 </button>
               </div>
               <div className="flex justify-between items-center py-3 sm:py-4">
-                <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isDark ? '#ffffff' : '#000000' }}>Credits</h4>
-                <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isDark ? '#ffffff' : '#000000' }}>
+                <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Credits</h4>
+                <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
                   <span className="font-bold text-orange-500">05</span> left
                 </h4>
               </div>
-              <div className="h-2 w-full rounded mb-3 sm:mb-0 overflow-hidden" style={{ backgroundColor: isDark ? '#404040' : '#ffffff' }}>
+              <div className="h-2 w-full rounded mb-3 sm:mb-0 overflow-hidden" style={{ backgroundColor: isHomePage && isDark ? '#404040' : '#ffffff' }}>
                 <div className="h-full w-1/2 bg-orange-400"></div>
               </div>
             </div>
             
-            <div className="pt-4 flex items-center justify-center" style={{ borderTopColor: isDark ? '#404040' : '#e5e5e5', borderTopWidth: '1px' }}>
+            <div className="pt-4 flex items-center justify-center" style={{ borderTopColor: isHomePage && isDark ? '#404040' : '#e5e5e5', borderTopWidth: '1px' }}>
               <button onClick={() => {
                 authService.initialize()
                 authService.logout()
                 router.push('/auth')
-              }} className="text-xs cursor-pointer sm:text-sm tracking-tighter w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition" style={{ borderColor: isDark ? '#404040' : '#e5e5e5', borderWidth: '0.5px', color: isDark ? '#ffffff' : '#000000' }}>
+              }} className="text-xs cursor-pointer sm:text-sm tracking-tighter w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition" style={{ borderColor: isHomePage && isDark ? '#404040' : '#e5e5e5', borderWidth: '0.5px', color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
                 <Image
                   src="./assets/logOut.svg"
                   height={20}
                   width={20}
                   alt="chatIcon"
-                  style={{ filter: !isDark ? 'invert(1)' : 'invert(0)' }}
+                  style={{ filter: !isHomePage || !isDark ? 'invert(1)' : 'invert(0)' }}
                 />
                 Log out
               </button>
@@ -465,7 +498,17 @@ export default function Navbar() {
         </div>
       </div>): (<button onClick={() => {
         router.push('/auth')
-      }} className="cursor-pointer px-20 border border-white text-white rounded-full py-2 navelm hover:bg-white hover:text-black duration-300 all ease-in-out">Get Started</button>)}
+      }} className="cursor-pointer px-20 navelm rounded-full py-2 duration-300 all ease-in-out" style={{
+        border: `1px solid ${textColor}`,
+        color: textColor,
+        backgroundColor: 'transparent'
+      }} onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = textColor;
+        e.currentTarget.style.color = isHomePage && !isDark ? '#000000' : '#ffffff';
+      }} onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'transparent';
+        e.currentTarget.style.color = textColor;
+      }}>Get Started</button>)}
     </nav>
   );
 }
