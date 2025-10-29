@@ -696,7 +696,7 @@ const ChatPageContent = () => {
                                   <div className="pt-2 sm:pt-3">
                                     <div className="flex pb-1.5 items-center gap-1">
                                       <Image 
-                                        src="/sortAscending.svg" 
+                                        src="/sort-asc.svg" 
                                         height={16} 
                                         width={16} 
                                         alt="Sort ascending icon"
