@@ -3,11 +3,10 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+
 const FeaturesComponent = () => {
 
     gsap.registerPlugin(ScrollTrigger);
-
-    // Safari-specific ScrollTrigger configuration
     ScrollTrigger.config({
         autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
         ignoreMobileResize: true
