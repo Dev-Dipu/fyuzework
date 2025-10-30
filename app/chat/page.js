@@ -352,30 +352,32 @@ const ChatPageContent = () => {
                                 <div className="w-[70%] flex gap-5 mt-8 font-light">
                                     {suggestedQueries.map((card, index) => (
                                         <div
-                                            key={index}
-                                            onClick={() =>
-                                                setMessage(card.text)
-                                            }
-                                            className={`w-1/3 px-6 py-4 rounded-4xl cursor-pointer hover:scale-105 transition
-                     border border-transparent backdrop-blur-[500px] ${
-                         isDark
-                             ? "bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)]"
-                             : "bg-[linear-gradient(244.85deg,rgba(0,0,0,0.25)_-16.54%,rgba(0,0,0,0)_-1.98%,rgba(0,0,0,0.25)_61.94%)]"
-                     }`}
-                                        >
-                                            <Image
-                                                height={1}
-                                                width={20}
-                                                src={card.img}
-                                                alt="icon"
-                                                className={`${
-                                                    !isDark && "invert"
-                                                }`}
-                                            />
-                                            <p className="text-xs mt-1.5 leading-tight">
-                                                {card.text}
-                                            </p>
-                                        </div>
+  key={index}
+  onClick={() => setMessage(card.text)}
+  className={`relative w-1/3 px-6 py-4 rounded-[29px] cursor-pointer hover:scale-105 transition border border-transparent backdrop-blur-[500px] overflow-hidden
+    ${
+      isDark
+        ? "bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)]"
+        : "bg-[linear-gradient(244.85deg,rgba(0,0,0,0.25)_-16.54%,rgba(0,0,0,0)_-1.98%,rgba(0,0,0,0.25)_61.94%)]"
+    }`}
+>
+  {/* 🔹 Custom Border Overlay */}
+  <div
+    className="w-full h-full absolute top-0 left-0 z-[90] pointer-events-none custom-border"
+    style={{ willChange: "opacity, transform" }}
+  ></div>
+
+  {/* 🔹 Content */}
+  <Image
+    height={1}
+    width={20}
+    src={card.img}
+    alt="icon"
+    className={`${!isDark && "invert"}`}
+  />
+  <p className="text-xs mt-1.5 leading-tight">{card.text}</p>
+</div>
+
                                     ))}
                                 </div>
                             </div>
