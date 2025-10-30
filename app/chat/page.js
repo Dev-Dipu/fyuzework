@@ -592,7 +592,7 @@ const ChatPageContent = () => {
                             className={`absolute h-[88vh] w-full pb-22 rounded-t-4xl flex flex-col justify-end px-6 py-2.5 font-[inter] font-medium ${
                                 isDark ? "bg-[#060606]" : "bg-white"
                             } ${
-                                isFilterOpen ? "-top-[740%]" : "-top-10"
+                                isFilterOpen ? "-top-[80vh]" : "-top-10"
                             } transition-all duration-300`}
                             style={{
                                 clipPath: `${

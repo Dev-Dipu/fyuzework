@@ -30,6 +30,7 @@ export default function Contact({ navigationOverlayRef }) {
   const footerTextRef = useRef(null);
   const footerTextStaggerRef = useRef(null);
   const formRef = useRef(null);
+  const containerRef = useRef(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
@@ -39,18 +40,41 @@ export default function Contact({ navigationOverlayRef }) {
     emailjs.init("T4qWu19B5Yg6alfHl"); // Replace with your actual public key
   }, []);
 
+  // Add GSAP animations
+  useGSAP(() => {
+    // Container fade in animation
+    gsap.fromTo(
+      containerRef.current,
+      { opacity: 0, y: 50, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out" }
+    );
+
+    // Form inputs stagger animation
+    gsap.fromTo(
+      ".form-input",
+      { opacity: 0, x: -30 },
+      { opacity: 1, x: 0, duration: 0.6, stagger: 0.1, ease: "power2.out", delay: 0.3 }
+    );
+
+    // Heading animation
+    gsap.fromTo(
+      ".contact-heading",
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.2 }
+    );
+
+    // Description animation
+    gsap.fromTo(
+      ".contact-description",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", delay: 0.4 }
+    );
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("");
-
-
-    // await emailjs.sendForm(
-    //   "service_ip70kvb", // Service ID
-    //   "template_4t4qc8o", // Template ID
-    //   formRef.current,
-    //   "T4qWu19B5Yg6alfHl" // Public Key
-    // );
 
     try {
       await emailjs.sendForm(
@@ -75,15 +99,15 @@ export default function Contact({ navigationOverlayRef }) {
     <div className='bg-[#E2E1DC] inter'>
     <div className='bg-[#E2E1DC] h-screen inter overflow-hidden'>
     <Navbar />
-    <div ref={contactRef} className=" flex relative flex-col pt-20">
+    <div ref={contactRef} className="flex relative flex-col pt-20">
       {/* Main Content - Takes up remaining space */}
       <div className="flex-1 flex px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-8">
-        <div className="flex flex-col lg:flex-row lg:justify-between gap-6 lg:gap-8 w-full h-full">
+        <div ref={containerRef} className="flex flex-col lg:flex-row lg:justify-between gap-6 lg:gap-8 w-full h-full">
           {/* Left Column */}
           <div className="flex-1 flex flex-col justify-between">
             <div className="flex-1">
               <div className="flex sm:flex-row sm:items-center gap-2 sm:gap-2 mb-4 sm:mb-6">
-                <h1 ref={mainHeadingRef} className="text-[6vw] sm:text-2xl md:text-3xl lg:text-4xl lg:pt-2 pt-1 font-bold text-black telegraf leading-none">
+                <h1 ref={mainHeadingRef} className="contact-heading text-[6vw] sm:text-2xl md:text-3xl lg:text-4xl lg:pt-2 pt-1 font-bold text-black telegraf leading-none">
                   <span ref={mainHeadingStaggerRef} className="will-change-transform block uppercase">
                     LEt's get in touch 
                   </span>
@@ -94,7 +118,7 @@ export default function Contact({ navigationOverlayRef }) {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                   </div>
-                  <p ref={partnersParaRef} className="text-[#878787] text-xs sm:text-xs md:text-xs lg:text-sm w-full sm:w-[90%] lg:w-[80%] leading-relaxed">
+                  <p ref={partnersParaRef} className="contact-description text-[#878787] text-xs sm:text-xs md:text-xs lg:text-sm w-full sm:w-[90%] lg:w-[80%] leading-relaxed">
                     <span ref={partnersParaStaggerRef} className="will-change-transform block">
                       Whether you're a Brand, Startup, agency or enterprise we're interested in ambitious ideas.
                     </span>
@@ -108,7 +132,7 @@ export default function Contact({ navigationOverlayRef }) {
 <div className="flex-1 flex flex-col justify-center max-w-none lg:max-w-2xl">
   <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 lg:space-y-6">
     {/* Name */}
-    <div>
+    <div className="form-input">
       <label className="block text-[10px] sm:text-[11px] md:text-xs lg:text-sm font-medium text-black mb-1.5 sm:mb-2 tracking-wide">
         NAME
       </label>
@@ -122,7 +146,7 @@ export default function Contact({ navigationOverlayRef }) {
     </div>
 
     {/* Contact */}
-    <div>
+    <div className="form-input">
       <label className="block text-[10px] sm:text-[11px] md:text-xs lg:text-sm font-medium text-black mb-1.5 sm:mb-2 tracking-wide">
         CONTACT
       </label>
@@ -136,7 +160,7 @@ export default function Contact({ navigationOverlayRef }) {
     </div>
 
     {/* Brief Description */}
-    <div>
+    <div className="form-input">
       <label className="block text-[10px] sm:text-[11px] md:text-xs lg:text-sm font-medium text-black mb-1.5 sm:mb-2 tracking-wide">
         BRIEF DESCRIPTION
       </label>
@@ -168,7 +192,7 @@ export default function Contact({ navigationOverlayRef }) {
     <button
       type="submit"
       disabled={isSubmitting}
-      className={`w-full sm:w-auto font-medium py-2 px-12 sm:py-2.5 sm:px-14 lg:py-3 lg:px-16 text-[10px] sm:text-[11px] md:text-xs lg:text-sm rounded-full transition-all duration-200 ${
+      className={`form-input w-full sm:w-auto font-medium py-2 px-12 sm:py-2.5 sm:px-14 lg:py-3 lg:px-16 text-[10px] sm:text-[11px] md:text-xs lg:text-sm rounded-full transition-all duration-200 ${
         isSubmitting
           ? 'bg-gray-400 cursor-not-allowed text-gray-600'
           : 'bg-[#FF6333] hover:bg-[#ff4d1a] text-white'

@@ -139,7 +139,6 @@ export default function SocialPlatformsComponent() {
             </span>
           </p>
         </div>
-        <div className="w-[400px] absolute h-[300px] z-10 -top-20 opacity-50 gradient-4 border-black backdrop-blur-[120px]" />
       </div>
 
       <div className="w-1/2 relative flex flex-col gap-4 z-100">
