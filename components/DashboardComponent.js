@@ -90,22 +90,22 @@ const DashboardComponent = () => {
   return (
     <div className="h-full relative text-white w-[72vw] z-20 flex flex-col pl-12 font-archivo">
       {/* Header */}
-      <h1 className="text-5xl font-semibold">Dashboard</h1>
+      <h1 className="text-4xl font-semibold">Dashboard</h1>
 
       {/* Sub Header */}
       <div className="text-[#C5C5C5] flex items-center gap-5 mt-12">
-        <h4 className="text-white font-medium">Wishlisted Influencers</h4>
+        <h4 className="text-white text-sm font-medium">Wishlisted Influencers</h4>
         <span>|</span>
         <div className="flex h-fit items-center gap-1 cursor-pointer hover:text-white transition">
           <Image height={20} width={20} src="/faders-in.svg" alt="filters" />
-          <h4 className="text-base font-medium text-[#C5C5C5]">Filters</h4>
+          <h4 className="text-sm font-medium text-[#C5C5C5]">Filters</h4>
         </div>
       </div>
 
       {/* Table */}
       <div className="mt-8 absolute top-1/7 w-[105%] h-3/4 bg-[#060606] rounded-xl overflow-hidden flex flex-col px-6">
 
-        <div className="grid grid-cols-[1.8fr_0.8fr_1.2fr_1.8fr_2fr_0.8fr_0.2fr] px-6 py-3 text-white text-sm border-b border-[#6E6E6E]">
+        <div className="grid grid-cols-[1.8fr_0.8fr_1.2fr_1.8fr_2fr_0.8fr_0.2fr] px-6 py-3 text-white text-xs border-b border-[#6E6E6E]">
           <div>Name</div>
           <div className="flex items-center gap-2">
             Followers
@@ -136,34 +136,34 @@ const DashboardComponent = () => {
                   />
                 </div>
                 <div>
-                  <p className="font-medium">{user.name}</p>
-                  <p className="text-sm">{user.username}</p>
+                  <p className="font-medium text-sm">{user.name}</p>
+                  <p className="text-xs">{user.username}</p>
                 </div>
               </div>
 
-              <div className="">{user.followers}</div>
+              <div className="text-xs">{user.followers}</div>
 
-              <div className="">{user.location}</div>
+              <div className="text-xs">{user.location}</div>
 
-              <div className="">{user.email}</div>
+              <div className="text-xs">{user.email}</div>
 
               <div className="flex flex-wrap gap-2">
                 {user.categories.slice(0, 2).map((cat, i) => (
                   <span
                     key={i}
-                    className="text-xs border border-[#fff] rounded-full px-2 py-1"
+                    className="text-[10px] border border-[#fff] rounded-full px-2 py-1"
                   >
                     {cat}
                   </span>
                 ))}
                 {user.categories.length > 2 && (
-                  <span className="text-xs border border-[#fff] rounded-full px-2 py-1">
+                  <span className="text-[10px] border border-[#fff] rounded-full px-2 py-1">
                     +{user.categories.length - 2}
                   </span>
                 )}
               </div>
 
-              <div className="text-[#FF6B3A] text-sm font-medium cursor-pointer hover:underline">
+              <div className="text-[#FF6B3A] text-xs font-medium cursor-pointer hover:underline">
                 OPEN CHAT
               </div>
 

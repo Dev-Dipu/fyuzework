@@ -201,45 +201,10 @@ const ChatPageContent = () => {
 
     return (
         <div
-            className={`h-screen overflow-hidden w-full flex justify-between relative p-6 ${
+            className={`h-screen overflow-hidden inter w-full flex justify-between relative p-6 ${
                 isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"
             }`}
         >
-            {/* Rest of your component JSX remains exactly the same */}
-            {/* Theme Toggle Button */}
-            {/* <button
-                onClick={toggleTheme}
-                className={`fixed bottom-6 right-6 z-50 flex items-center justify-between w-[72px] h-[35px] rounded-full px-3   transition-all duration-500 shadow-inner border ${
-                    isDark ? "border-[#4F4F4F]" : "border-black"
-                }`}
-            >
-                <div
-                    className={`flex items-center justify-center transition-all duration-500 ${
-                        isDark
-                            ? "text-white opacity-100"
-                            : "text-black opacity-70"
-                    }`}
-                >
-                    <Moon size={16} />
-                </div>
-
-                <div
-                    className={`flex items-center justify-center transition-all duration-500 ${
-                        isDark
-                            ? "text-gray-500 opacity-60"
-                            : "text-black opacity-100"
-                    }`}
-                >
-                    <Sun size={16} />
-                </div>
-
-                <div
-                    className={`absolute bottom-[4px] h-[2px] w-[12px] rounded-full bg-[#E14E1D] transition-all duration-500 ${
-                        isDark ? "left-[14px]" : "right-[14px]"
-                    }`}
-                ></div>
-            </button> */}
-
             <div className="absolute top-0 left-0 h-full w-full z-0">
                 <Image
                     src="/assets/gradientEdited.svg"
@@ -261,7 +226,7 @@ const ChatPageContent = () => {
                     />
                     <button onClick={() => {
                         router.push('/')
-                    }} className="text-white uppercase cursor-pointer flex items-center gap-2.5">
+                    }} className="text-white uppercase text-xs cursor-pointer flex items-center gap-2.5">
                         <Image className="h-10" src={'/ArrowLeft.svg'} width={22} height={22} />
                         <span>back to home</span>
                     </button>
@@ -270,7 +235,7 @@ const ChatPageContent = () => {
                             setChatHistory([]);
                             setMessage("");
                         }}
-                        className="text-white uppercase text-sm tracking-tighter bg-black w-full gap-2 justify-center py-3 rounded-full flex items-center hover:bg-gray-900 transition"
+                        className="text-white uppercase text-xs tracking-tighter bg-black w-full gap-2 justify-center py-3 rounded-full flex items-center hover:bg-gray-900 transition"
                     >
                         <Image
                             src="./assets/ChatCircleText.svg"
@@ -286,7 +251,7 @@ const ChatPageContent = () => {
                     <div>
                         <h1
                             onClick={() => setIsDashboardOpen((prev) => !prev)}
-                            className={`text-[#E2E1DC] cursor-pointer hover:bg-white transition rounded-full ${
+                            className={`text-[#E2E1DC] text-xs cursor-pointer hover:bg-white transition rounded-full ${
                                 isDashboardOpen && "bg-white"
                             } ${!isDark && "invert"}`}
                         >
@@ -308,22 +273,9 @@ const ChatPageContent = () => {
                 </div>
                 <div>
                     <div className="space-y-4">
-                        {/* <h1
-                            className={`text-white flex items-center gap-2 cursor-pointer ${
-                                !isDark && "invert"
-                            }`}
-                        >
-                            <Image
-                                src="./assets/settings.svg"
-                                height={24}
-                                width={24}
-                                alt="settings"
-                            />
-                            Settings
-                        </h1> */}
                         <hr className={`${!isDark && "invert"}`} />
                         <h1
-                            className={`text-sm ${
+                            className={`text-xs ${
                                 isDark ? "text-white" : "text-black"
                             }`}
                         >
@@ -339,14 +291,14 @@ const ChatPageContent = () => {
                             />
                             <div>
                                 <h1
-                                    className={`${
+                                    className={`text-sm ${
                                         isDark ? "text-white" : "text-black"
                                     }`}
                                 >
                                     Jenny Wilson
                                 </h1>
                                 <p
-                                    className={`text-xs ${
+                                    className={`text-[10px] ${
                                         isDark ? "text-[#c1c1c1]" : "text-black"
                                     }`}
                                 >
@@ -356,7 +308,7 @@ const ChatPageContent = () => {
                         </div>
                         <button
                             onClick={() => authService.logout()}
-                            className={`text-white text-sm tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition ${
+                            className={`text-white text-xs tracking-tighter border-[.5px] w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition ${
                                 !isDark && "invert"
                             }`}
                         >
@@ -389,10 +341,10 @@ const ChatPageContent = () => {
                                     src={"/MONOGRAM.svg"}
                                     alt="logo"
                                 />
-                                <h3 className="text-3xl font-archivo font-semibold mt-2">
+                                <h3 className="text-2xl font-archivo font-semibold mt-2">
                                     Ask Fyuze to find your next Influencer
                                 </h3>
-                                <p className="w-[56%] text-center text-sm leading-tight mt-5">
+                                <p className="w-[56%] text-center text-xs leading-tight mt-5">
                                     AI-powered influencer discovery that filters
                                     by niche, authenticity & ROI so you spend
                                     less time searching and more time growing.
@@ -420,7 +372,7 @@ const ChatPageContent = () => {
                                                     !isDark && "invert"
                                                 }`}
                                             />
-                                            <p className="text-sm mt-1.5 leading-tight">
+                                            <p className="text-xs mt-1.5 leading-tight">
                                                 {card.text}
                                             </p>
                                         </div>
@@ -501,7 +453,7 @@ const ChatPageContent = () => {
 
                                                                 <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-2">
                                                                     <div className="flex gap-0.5 items-center">
-                                                                        <h3 className="text-white font-bold text-xs leading-tight line-clamp-1">
+                                                                        <h3 className="text-white font-bold text-[10px] leading-tight line-clamp-1">
                                                                             {
                                                                                 influ.full_name
                                                                             }
@@ -524,26 +476,26 @@ const ChatPageContent = () => {
                                                                         )}
                                                                     </div>
 
-                                                                    <p className="text-gray-300 text-xs leading-tight line-clamp-2 mb-1">
+                                                                    <p className="text-gray-300 text-[9px] leading-tight line-clamp-2 mb-1">
                                                                         {
                                                                             influ.bio
                                                                         }
                                                                     </p>
 
-                                                                    <div className="flex items-center justify-between text-white text-sm">
+                                                                    <div className="flex items-center justify-between text-white text-xs">
                                                                         <div className="flex flex-col">
                                                                             <span className="font-semibold">
                                                                                 {formatNumber(
                                                                                     influ.followers
                                                                                 )}
                                                                             </span>
-                                                                            <span className="text-gray-400 text-xs">
+                                                                            <span className="text-gray-400 text-[9px]">
                                                                                 Followers
                                                                             </span>
                                                                         </div>
 
                                                                         <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                                                                            <span className="text-xs">
+                                                                            <span className="text-[9px]">
                                                                                 @
                                                                                 {
                                                                                     influ.username
@@ -583,13 +535,13 @@ const ChatPageContent = () => {
                                                 : "bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)] backdrop-blur-[500px] border border-white/10"
                                         }`}
                                     >
-                                        <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                                        <p className="text-xs leading-relaxed whitespace-pre-wrap">
                                             {msg.text}
                                         </p>
                                         {msg.influencers &&
                                             msg.influencers.length > 0 && (
                                                 <div className="mt-4 space-y-2">
-                                                    <p className="text-xs text-[#C1C1C1]">
+                                                    <p className="text-[9px] text-[#C1C1C1]">
                                                         Found{" "}
                                                         {msg.influencers.length}{" "}
                                                         influencers
@@ -602,7 +554,7 @@ const ChatPageContent = () => {
                             {isLoading && (
                                 <div className="flex justify-start">
                                     <div className="max-w-[80%] px-6 py-4 rounded-2xl bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)] backdrop-blur-[500px] border border-white/10">
-                                        <p className="text-sm">
+                                        <p className="text-xs">
                                             Searching for influencers...
                                         </p>
                                     </div>
@@ -630,7 +582,6 @@ const ChatPageContent = () => {
                                 }`,
                             }}
                         >
-                            {/* filter */}
                             <div className="flex h-fit items-end justify-between gap-1 cursor-pointer hover:text-white transition">
                                 <Image
                                     onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -638,7 +589,7 @@ const ChatPageContent = () => {
                                     height={20}
                                     width={20}
                                     alt="Close filter modal"
-                                    className={`cursor-pointer hover:opacity-70 w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] ${isFilterOpen ? 'opacity-100' : 'opacity-0'} md:w-[22px] md:h-[22px] flex-shrink-0`}
+                                    className={`cursor-pointer w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] ${isFilterOpen ? 'opacity-100 hover:opacity-70' : 'opacity-0 pointer-events-none'} md:w-[22px] md:h-[22px] flex-shrink-0`}
                                 />
                                 <div className="flex items-center gap-2">
                                     <Image
@@ -648,32 +599,29 @@ const ChatPageContent = () => {
                                         alt="faders"
                                     />
                                     <h4 onClick={() => setIsFilterOpen(!isFilterOpen)}
-                                        className="text-base font-medium text-[#C5C5C5]">
+                                        className="text-sm font-medium text-[#C5C5C5]">
                                     Search with advanced filters
                                     </h4>
                                 </div>
                             </div>
                             <div className="h-full w-full text-white z-[400] overflow-y-auto">
-                                {/* Location Section */}
                                 <div className="pt-2 sm:pt-3">
-                                    <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">
+                                    <h1 className="font-semibold tracking-tight text-sm sm:text-base md:text-lg">
                                         Location
                                     </h1>
                                     <div className="pt-2 sm:pt-3">
-                                        <p className="tracking-tight pb-1.5 text-[10px] sm:text-xs">
+                                        <p className="tracking-tight pb-1.5 text-[9px] sm:text-[10px]">
                                             Brief Description of what you are
                                             looking for
                                         </p>
                                         <input
                                             type="text"
-                                            className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-sm text-white border-none outline-none"
+                                            className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs text-white border-none outline-none"
                                             placeholder="Enter description..."
                                         />
                                     </div>
 
-                                    {/* Location & Verification Row */}
                                     <div className="py-2 sm:py-3 md:py-6 flex flex-col lg:flex-row gap-3 sm:gap-4 lg:gap-6">
-                                      {/* Location Input */}
                                       <div className="w-full">
                                         <div className="flex pb-1.5 items-center gap-1">
                                           <Image 
@@ -683,16 +631,15 @@ const ChatPageContent = () => {
                                             alt="Location pin icon"
                                             className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
                                           />
-                                          <h1 className="text-[10px] sm:text-xs">Location</h1>
+                                          <h1 className="text-[9px] sm:text-[10px]">Location</h1>
                                         </div>
                                         <input
                                           type="text"
-                                          className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
+                                          className="py-1.5 sm:py-2 md:py-2.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-[10px] sm:text-xs text-white border-none outline-none"
                                           placeholder="Enter location..."
                                         />
                                       </div>
                             
-                                      {/* Verification Buttons */}
                                       <div className="w-full">
                                         <div className="flex pb-1.5 items-center gap-1">
                                           <Image 
@@ -702,16 +649,16 @@ const ChatPageContent = () => {
                                             alt="Verification badge icon"
                                             className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
                                           />
-                                          <h1 className="text-[10px] sm:text-xs">Verification</h1>
+                                          <h1 className="text-[9px] sm:text-[10px]">Verification</h1>
                                         </div>
                                         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[9px] sm:text-[10px] cursor-pointer hover:bg-white hover:text-black transition-colors">
                                             All
                                           </p>
-                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[9px] sm:text-[10px] cursor-pointer hover:bg-white hover:text-black transition-colors">
                                             Verified
                                           </p>
-                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors whitespace-nowrap">
+                                          <p className="py-2.5 px-10 rounded-full border-[1px] border-white text-[9px] sm:text-[10px] cursor-pointer hover:bg-white hover:text-black transition-colors whitespace-nowrap">
                                             Un-Verified
                                           </p>
                                         </div>
@@ -719,7 +666,6 @@ const ChatPageContent = () => {
                                     </div>
                                 </div>
 
-                                {/* Category Section */}
                                 <div className="pt-2 sm:pt-3">
                                     <div className="flex pb-1.5 items-center gap-1">
                                       <Image 
@@ -729,9 +675,9 @@ const ChatPageContent = () => {
                                         alt="Sort ascending icon"
                                         className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]"
                                       />
-                                      <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl">Category</h1>
+                                      <h1 className="font-semibold tracking-tight text-sm sm:text-base md:text-lg">Category</h1>
                                     </div>
-                                    <p className="font-medium tracking-tight text-[9px] sm:text-[10px] pb-2 pt-1 opacity-70">
+                                    <p className="font-medium tracking-tight text-[8px] sm:text-[9px] pb-2 pt-1 opacity-70">
                                         POPULAR CATEGORIES
                                     </p>
                                     <div className="flex flex-wrap gap-1.5 sm:gap-2 pb-2 sm:pb-3">
@@ -743,7 +689,7 @@ const ChatPageContent = () => {
                                         ].map((item, index) => (
                                             <p
                                                 key={index}
-                                                className="tracking-tight py-2.5 px-10 border-[1px] border-white rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors"
+                                                className="tracking-tight py-2.5 px-10 border-[1px] border-white rounded-full text-[9px] sm:text-[10px] cursor-pointer hover:bg-white hover:text-black transition-colors"
                                             >
                                                 {item}
                                             </p>
@@ -751,21 +697,18 @@ const ChatPageContent = () => {
                                     </div>
                                     <input
                                         placeholder="Browse 20+ more category"
-                                        className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] w-full tracking-tight rounded-lg sm:rounded-xl text-xs sm:text-sm text-white border-none outline-none"
+                                        className="py-1.5 sm:py-2 md:py-4.5 px-3 sm:px-4 md:px-5 bg-[#1a1a1a] w-full tracking-tight rounded-lg sm:rounded-xl text-[10px] sm:text-xs text-white border-none outline-none"
                                     />
                                 </div>
 
                                 <div className="h-[1px] w-full bg-white mt-8 mb-4 opacity-50"></div>
 
-                                {/* Audience Section */}
                                 <div className="pt-2 sm:pt-3">
-                                    <h1 className="font-semibold tracking-tight text-base sm:text-lg md:text-xl pb-2 sm:pb-3">
+                                    <h1 className="font-semibold tracking-tight text-sm sm:text-base md:text-lg pb-2 sm:pb-3">
                                         Audience
                                     </h1>
 
-                                    {/* Follower Range & Gender Row */}
                                     <div className="flex flex-col lg:flex-row items-start gap-3 sm:gap-4 lg:gap-6">
-                                      {/* Follower Range */}
                                       <div className="w-full lg:w-1/2">
                                         <div className="flex pb-1.5 items-center gap-1">
                                           <Image 
@@ -775,23 +718,22 @@ const ChatPageContent = () => {
                                             alt="Location pin icon"
                                             className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
                                           />
-                                          <h1 className="text-[10px] sm:text-xs">Follower range</h1>
+                                          <h1 className="text-[9px] sm:text-[10px]">Follower range</h1>
                                         </div>
                                         <div className="flex gap-2 sm:gap-3">
                                           <input
                                             placeholder="Min"
                                             type="text"
-                                            className="py-2.5 px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
+                                            className="py-2.5 px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-[10px] sm:text-xs text-white border-none outline-none"
                                           />
                                           <input
                                             placeholder="Max"
                                             type="text"
-                                            className="py-2.5 px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-xs sm:text-sm text-white border-none outline-none"
+                                            className="py-2.5 px-5 bg-[#1a1a1a] rounded-lg sm:rounded-xl w-full text-[10px] sm:text-xs text-white border-none outline-none"
                                           />
                                         </div>
                                       </div>
                             
-                                      {/* Gender */}
                                       <div className="w-full lg:w-1/2">
                                         <div className="flex pb-1.5 items-center gap-1">
                                           <Image 
@@ -801,23 +743,22 @@ const ChatPageContent = () => {
                                             alt="Verification badge icon"
                                             className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
                                           />
-                                          <h1 className="text-[10px] sm:text-xs">Gender</h1>
+                                          <h1 className="text-[9px] sm:text-[10px]">Gender</h1>
                                         </div>
                                         <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[9px] sm:text-[10px] cursor-pointer hover:bg-white hover:text-black transition-colors">
                                             Any
                                           </p>
-                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[9px] sm:text-[10px] cursor-pointer hover:bg-white hover:text-black transition-colors">
                                             Male
                                           </p>
-                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors">
+                                          <p className="py-2.5 px-10 border-[1px] rounded-full text-[9px] sm:text-[10px] cursor-pointer hover:bg-white hover:text-black transition-colors">
                                             Female
                                           </p>
                                         </div>
                                       </div>
                                     </div>
 
-                                    {/* Age Range */}
                                     <div className="pt-3 sm:pt-4">
                                       <div className="flex pb-1.5 items-center gap-1">
                                         <Image 
@@ -827,13 +768,13 @@ const ChatPageContent = () => {
                                           alt="Location pin icon"
                                           className="w-[11px] h-[11px] sm:w-[13px] sm:h-[13px]"
                                         />
-                                        <h1 className="text-[10px] sm:text-xs">Age range</h1>
+                                        <h1 className="text-[9px] sm:text-[10px]">Age range</h1>
                                       </div>
                                       <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                         {["18-25y", "25-35y", "35-45y", "45-55y", "55-65y", "65+"].map((age, index) => (
                                           <p
                                             key={index}
-                                            className="py-2.5 px-10 border-[1px] rounded-full text-[10px] sm:text-xs cursor-pointer hover:bg-white hover:text-black transition-colors whitespace-nowrap"
+                                            className="py-2.5 px-10 border-[1px] rounded-full text-[9px] sm:text-[10px] cursor-pointer hover:bg-white hover:text-black transition-colors whitespace-nowrap"
                                           >
                                             {age}
                                           </p>
@@ -842,9 +783,8 @@ const ChatPageContent = () => {
                                     </div>
                                 </div>
 
-                                {/* Apply Button */}
                                 <div className="pt-3 sm:pt-4 mt-2 sm:mt-3">
-                                    <button className="w-full sm:w-auto px-10 sm:px-16 md:px-20 py-1.5 sm:py-2 md:py-2.5 bg-white/30 rounded-full text-[10px] sm:text-xs md:text-sm font-medium cursor-pointer hover:bg-white/40 transition-colors">
+                                    <button className="w-full sm:w-auto px-10 sm:px-16 md:px-20 py-1.5 sm:py-2 md:py-2.5 bg-white/30 rounded-full text-[9px] sm:text-[10px] md:text-xs font-medium cursor-pointer hover:bg-white/40 transition-colors">
                                         Apply and send
                                     </button>
                                 </div>
@@ -857,7 +797,7 @@ const ChatPageContent = () => {
                             onChange={(e) => setMessage(e.target.value)}
                             onKeyPress={handleKeyPress}
                             disabled={isLoading}
-                            className="w-[70%] h-full absolute z-90 outline-none text-white bg-transparent placeholder:text-[#5D5D5D] placeholder:font-[inter] ml-18 transition-all"
+                            className="w-[70%] h-full absolute z-90 outline-none text-white bg-transparent placeholder:text-[#5D5D5D] placeholder:font-[inter] ml-18 transition-all text-xs"
                         />
 
                         <div

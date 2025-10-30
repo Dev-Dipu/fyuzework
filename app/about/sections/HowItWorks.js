@@ -16,8 +16,8 @@ const FeatureCard = ({ icon, title, desc }) => {
         hover:bg-white transition duration-300 group-hover:shadow-xl">
         <Image src={icon} alt={title} width={32} height={32} className="object-contain"/>  
         <div>
-          <h3 className="font-[Archivo] text-md font-semibold">{title}</h3>
-          <p className="leading-tight mt-2 text-sm w-[90%]">{desc}</p>
+          <h3 className="font-[Archivo] text-lg font-semibold">{title}</h3>
+          <p className="leading-tight mt-2 text-xs w-[90%]">{desc}</p>
         </div>
       </div>
     </div>
@@ -91,10 +91,10 @@ const HowItWorks = () => {
   return (
     <div className="min-h-screen pb-48 w-full relative pt-44">
       <div className="flex flex-col gap-8">
-        <h1 ref={headingRef} className="text-center font-archivo font-semibold tracking-tight text-5xl text-black">
+        <h1 ref={headingRef} className="text-center font-archivo font-semibold tracking-tight text-4xl text-black">
           How it works
         </h1>
-        <p ref={paragraphRef} className="tracking-tight text-center text-xl text-black leading-none">
+        <p ref={paragraphRef} className="tracking-tight text-center text-lg text-black leading-none">
           From discovery to ROI fully <br />automated, fully optimized.
         </p>
       </div>

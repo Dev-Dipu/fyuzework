@@ -230,7 +230,7 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="w-full left-0 top-0 fixed p-9 flex-between z-100 transition-colors duration-300"
+      className="w-full left-0 top-0 fixed p-9 flex-between inter z-100 transition-colors duration-300"
       style={{ 
         color: textColor,
         backgroundColor: getNavbarBg()
@@ -263,7 +263,7 @@ export default function Navbar() {
         <div className="flex-between gap-10 relativ">
           <Link
             href="/pricing"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
+            className="group relative inline-block text-[10px] font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
             pricing
@@ -277,14 +277,14 @@ export default function Navbar() {
             style={{ backgroundColor: textColor }}
           ></div>
           <div
-            onClick={() => {router.push('/about')}} 
             ref={aboutContainerRef}
             className="relative p-1"
             onMouseEnter={handleAboutMouseEnter}
             onMouseLeave={handleAboutMouseLeave}
           >
             <div
-              className="group relative inline-flex items-center gap-1 text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm cursor-pointer"
+              onClick={() => {router.push('/about')}} 
+              className="group relative inline-flex items-center gap-1 text-[10px] font-[300] leading-[100%] uppercase transition-colors duration-300 navelm cursor-pointer"
               style={{ color: textColor }}
             >
               about
@@ -316,7 +316,7 @@ export default function Navbar() {
             {/* About Dropdown */}
             <div 
               ref={aboutDropdownRef}
-              className="absolute top-8 left-0 w-[180px] rounded-xl overflow-hidden"
+              className="absolute top-2 left-0 w-[180px] rounded-xl overflow-hidden"
               style={{ 
                 opacity: 0, 
                 display: 'none',
@@ -325,8 +325,8 @@ export default function Navbar() {
               }}
             >
               <Link
-                href="/how-it-works"
-                className="block px-4 py-3 text-xs font-[400] transition-all duration-200 hover:bg-opacity-10"
+                href="/about#how-it-works"
+                className="block px-4 py-3 text-[10px] font-[400] transition-all duration-200 hover:bg-opacity-10"
                 style={{ 
                   color: isHomePage && isDark ? '#ffffff' : '#000000',
                   borderBottom: `1px solid ${isHomePage && isDark ? '#404040' : '#e5e5e5'}`
@@ -341,8 +341,8 @@ export default function Navbar() {
                 How it works
               </Link>
               <Link
-                href="/who-is-it-for"
-                className="block px-4 py-3 text-xs font-[400] transition-all duration-200"
+                href="/about#who-is-it-for"
+                className="block px-4 py-3 text-[10px] font-[400] transition-all duration-200"
                 style={{ 
                   color: isHomePage && isDark ? '#ffffff' : '#000000'
                 }}
@@ -364,7 +364,7 @@ export default function Navbar() {
           
           <Link
             href="/contact"
-            className="group relative inline-block text-xs font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
+            className="group relative inline-block text-[10px] font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
             contact
@@ -390,7 +390,7 @@ export default function Navbar() {
               />
             </div>
             <p 
-              className="font-[500] text-sm sm:text-base leading-[100%] transition-colors duration-300"
+              className="font-[500] text-xs sm:text-sm leading-[100%] transition-colors duration-300"
               style={{ color: textColor }}
             >
               {nameParam}
@@ -417,7 +417,7 @@ export default function Navbar() {
                     className="object-cover"
                   />
                 </div>
-                <h1 className="tracking-tight text-xs sm:text-sm font-semibold truncate max-w-[150px]" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
+                <h1 className="tracking-tight text-[10px] sm:text-xs font-semibold truncate max-w-[150px]" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
                   Jenny Wilson FYUZE
                 </h1>
               </div>
@@ -440,7 +440,7 @@ export default function Navbar() {
                   alt="dashboard icon"
                   style={{ filter: isHomePage && isDark ? 'invert(1)' : 'invert(0)' }}
                 />
-                <h1 className="tracking-tight text-xs sm:text-sm font-semibold" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Dashboard</h1>
+                <h1 className="tracking-tight text-[10px] sm:text-xs font-semibold" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Dashboard</h1>
               </div>
               <Image 
                 src="/next-arrow.svg" 
@@ -462,15 +462,15 @@ export default function Navbar() {
                     alt="crown icon"
                     style={{ filter: isHomePage && isDark ? 'invert(1)' : 'invert(0)' }}
                   />
-                  <h1 className="text-xs sm:text-sm tracking-tight font-medium" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Turn pro</h1>
+                  <h1 className="text-[10px] sm:text-xs tracking-tight font-medium" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Turn pro</h1>
                 </div>
-                <button onClick={() => router.push('/pricing')} className="uppercase cursor-pointer bg-[#FF6B3A] inline-block rounded-full tracking-tight text-[10px] sm:text-xs text-white font-medium px-2 sm:px-3 py-1">
+                <button onClick={() => router.push('/pricing')} className="uppercase cursor-pointer bg-[#FF6B3A] inline-block rounded-full tracking-tight text-[9px] sm:text-[10px] text-white font-medium px-2 sm:px-3 py-1">
                   Upgrade
                 </button>
               </div>
               <div className="flex justify-between items-center py-3 sm:py-4">
-                <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Credits</h4>
-                <h4 className="text-xs sm:text-sm font-medium tracking-tight" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
+                <h4 className="text-[10px] sm:text-xs font-medium tracking-tight" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>Credits</h4>
+                <h4 className="text-[10px] sm:text-xs font-medium tracking-tight" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
                   <span className="font-bold text-orange-500">05</span> left
                 </h4>
               </div>
@@ -484,7 +484,7 @@ export default function Navbar() {
                 authService.initialize()
                 authService.logout()
                 router.push('/auth')
-              }} className="text-xs cursor-pointer sm:text-sm tracking-tighter w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition" style={{ borderColor: isHomePage && isDark ? '#404040' : '#e5e5e5', borderWidth: '0.5px', color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
+              }} className="text-[10px] cursor-pointer sm:text-xs tracking-tighter w-full gap-2 justify-center py-2 rounded-full flex items-center hover:bg-white/10 transition" style={{ borderColor: isHomePage && isDark ? '#404040' : '#e5e5e5', borderWidth: '0.5px', color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
                 <Image
                   src="./assets/logOut.svg"
                   height={20}

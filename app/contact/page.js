@@ -10,8 +10,12 @@ gsap.registerPlugin(ScrollTrigger)
 import { useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import useLenis from '@/lib/hooks/useLenis';
 
 export default function Contact({ navigationOverlayRef }) {
+
+  useLenis();
+
   const contactRef = useRef(null);
   const mainHeadingRef = useRef(null);
   const mainHeadingStaggerRef = useRef(null);
@@ -68,29 +72,30 @@ export default function Contact({ navigationOverlayRef }) {
   };
 
   return (
-    <div className='bg-[#E2E1DC] h-screen overflow-hidden'>
+    <div className='bg-[#E2E1DC] inter'>
+    <div className='bg-[#E2E1DC] h-screen inter overflow-hidden'>
     <Navbar />
-    <div ref={contactRef} className=" flex relative flex-col pt-4">
+    <div ref={contactRef} className=" flex relative flex-col pt-20">
       {/* Main Content - Takes up remaining space */}
-      <div className="flex-1 flex px-4 sm:px-6 lg:px-10 pt-12 sm:pt-16 lg:pt-24 pb-8">
-        <div className="flex flex-col lg:flex-row lg:justify-between gap-8 lg:gap-12 w-full h-full">
+      <div className="flex-1 flex px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-8">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-6 lg:gap-8 w-full h-full">
           {/* Left Column */}
           <div className="flex-1 flex flex-col justify-between">
             <div className="flex-1">
-              <div className="flex sm:flex-row sm:items-center gap-2 sm:gap-2 mb-6 sm:mb-8">
-                <h1 ref={mainHeadingRef} className="text-[6vw] sm:text-4xl lg:text-5xl lg:pt-3 pt-1 font-bold text-black telegraf leading-none">
+              <div className="flex sm:flex-row sm:items-center gap-2 sm:gap-2 mb-4 sm:mb-6">
+                <h1 ref={mainHeadingRef} className="text-[6vw] sm:text-2xl md:text-3xl lg:text-4xl lg:pt-2 pt-1 font-bold text-black telegraf leading-none">
                   <span ref={mainHeadingStaggerRef} className="will-change-transform block uppercase">
-                    LEt’s get in touch 
+                    LEt's get in touch 
                   </span>
                 </h1>
               </div>
 
-              <div className="space-y-4 sm:space-y-6">
+              <div className="space-y-3 sm:space-y-4">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                   </div>
-                  <p ref={partnersParaRef} className="text-[#878787] text-sm sm:text-sm w-full sm:w-[90%] lg:w-[80%] leading-relaxed">
-                    <span ref={partnersParaStaggerRef} className="will-change-transform text-xs block">
+                  <p ref={partnersParaRef} className="text-[#878787] text-xs sm:text-xs md:text-xs lg:text-sm w-full sm:w-[90%] lg:w-[80%] leading-relaxed">
+                    <span ref={partnersParaStaggerRef} className="will-change-transform block">
                       Whether you're a Brand, Startup, agency or enterprise we're interested in ambitious ideas.
                     </span>
                   </p>
@@ -101,45 +106,45 @@ export default function Contact({ navigationOverlayRef }) {
 
           {/* Right Column - Contact Form */}
 <div className="flex-1 flex flex-col justify-center max-w-none lg:max-w-2xl">
-  <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+  <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 lg:space-y-6">
     {/* Name */}
     <div>
-      <label className="block text-xs sm:text-sm font-medium text-black mb-2 tracking-wide">
+      <label className="block text-[10px] sm:text-[11px] md:text-xs lg:text-sm font-medium text-black mb-1.5 sm:mb-2 tracking-wide">
         NAME
       </label>
       <input
         type="text"
         name="name"
         required
-        className="w-full px-4 py-3 border border-[#828282] rounded-full text-black placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 bg-[#E2E1DC]"
+        className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 lg:px-4 lg:py-3 border border-[#828282] rounded-full text-black placeholder-gray-400 text-xs sm:text-xs md:text-xs lg:text-sm focus:outline-none focus:border-gray-400 bg-[#E2E1DC]"
         placeholder="Your name"
       />
     </div>
 
     {/* Contact */}
     <div>
-      <label className="block text-xs sm:text-sm font-medium text-black mb-2 tracking-wide">
+      <label className="block text-[10px] sm:text-[11px] md:text-xs lg:text-sm font-medium text-black mb-1.5 sm:mb-2 tracking-wide">
         CONTACT
       </label>
       <input
         type="text"
         name="contact"
         required
-        className="w-full px-4 py-3 border border-[#828282] rounded-full text-black placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 bg-[#E2E1DC]"
+        className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 lg:px-4 lg:py-3 border border-[#828282] rounded-full text-black placeholder-gray-400 text-xs sm:text-xs md:text-xs lg:text-sm focus:outline-none focus:border-gray-400 bg-[#E2E1DC]"
         placeholder="Email or phone number"
       />
     </div>
 
     {/* Brief Description */}
     <div>
-      <label className="block text-xs sm:text-sm font-medium text-black mb-2 tracking-wide">
+      <label className="block text-[10px] sm:text-[11px] md:text-xs lg:text-sm font-medium text-black mb-1.5 sm:mb-2 tracking-wide">
         BRIEF DESCRIPTION
       </label>
       <textarea
         name="message"
         required
-        rows={4}
-        className="w-full px-4 py-3 border border-[#828282] rounded-2xl text-black placeholder-gray-400 text-sm focus:outline-none focus:border-gray-400 bg-[#E2E1DC] resize-none"
+        rows={8}
+        className="w-full px-3 py-2 sm:px-3.5 sm:py-2.5 lg:px-4 lg:py-3 border border-[#828282] rounded-2xl text-black placeholder-gray-400 text-xs sm:text-xs md:text-xs lg:text-sm focus:outline-none focus:border-gray-400 bg-[#E2E1DC] resize-none"
         placeholder="Tell us briefly about your project..."
       />
     </div>
@@ -147,7 +152,7 @@ export default function Contact({ navigationOverlayRef }) {
     {/* Status Message */}
     {submitStatus && (
       <div
-        className={`text-sm p-2 rounded ${
+        className={`text-[10px] sm:text-xs md:text-xs lg:text-sm p-2 rounded ${
           submitStatus.includes('successfully')
             ? 'bg-green-100 text-green-800'
             : submitStatus.includes('Failed')
@@ -163,7 +168,7 @@ export default function Contact({ navigationOverlayRef }) {
     <button
       type="submit"
       disabled={isSubmitting}
-      className={`w-full sm:w-auto font-medium py-3 px-16 text-sm rounded-full transition-all duration-200 ${
+      className={`w-full sm:w-auto font-medium py-2 px-12 sm:py-2.5 sm:px-14 lg:py-3 lg:px-16 text-[10px] sm:text-[11px] md:text-xs lg:text-sm rounded-full transition-all duration-200 ${
         isSubmitting
           ? 'bg-gray-400 cursor-not-allowed text-gray-600'
           : 'bg-[#FF6333] hover:bg-[#ff4d1a] text-white'
@@ -177,6 +182,7 @@ export default function Contact({ navigationOverlayRef }) {
         </div>
       </div>
 
+    </div>
     </div>
     <Footer />
     </div>

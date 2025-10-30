@@ -58,7 +58,7 @@ const Landing = () => {
         ScrollTrigger.create({
             trigger: containerRef.current,
             start: "top 40%",
-            end: "bottom 90%",
+            end: "top -40%",
             duration: 10,
             scrub: true,
             ease: "expo.inOut",
@@ -107,52 +107,52 @@ const Landing = () => {
     <div className="min-h-[180vh] w-full relative top-[45vh]" ref={containerRef}>
         <div className="absolute scrollElem top-[45vh] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
             <div className="w-[0.5px] h-[20px] relative bg-gray-500 line1"></div>
-            <p className="text-xs text-center font-medium font-archivo leading-[100%] uppercase text-gray-500">
+            <p className="text-[10px] sm:text-[11px] md:text-xs text-center font-medium font-archivo leading-[100%] uppercase text-gray-500">
                 Scroll
             </p>
         </div>
-      <div className="flex flex-col items-center gap-4">
-        <Image src="/assets/fyuze-dark.svg" alt="Fyuze Logo" width={150} height={10} className="w-24 h-24 sm:w-32 sm:h-32 md:w-[150px] md:h-[50px]" />
-        <p className="text-black tracking-tighter text-lg">Welcome to the future of influence</p>
+      <div className="flex flex-col items-center gap-3 sm:gap-3 md:gap-4">
+        <Image src="/assets/fyuze-dark.svg" alt="Fyuze Logo" width={150} height={10} className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-[150px] lg:h-[50px]" />
+        <p className="text-black tracking-tighter text-sm sm:text-base md:text-base lg:text-lg">Welcome to the future of influence</p>
       </div>
-      <div className="font-archivo flex items-center flex-col pt-20 sm:pt-32 md:pt-40 px-4">
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+      <div className="font-archivo flex items-center flex-col pt-16 sm:pt-20 md:pt-24 lg:pt-32 px-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">Fyuze	is	the	world&apos;s</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">Fyuze	is	the	world&apos;s</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">first	truly	AI-powered</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">first	truly	AI-powered</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">influencer	marketing</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">influencer	marketing</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">platform,	that	 scans</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">platform,	that	 scans</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">the	entire	social</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">the	entire	social</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">universe	in	real	time</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">universe	in	real	time</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">and	finds you the</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">and	finds you the</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">perfect	influencers	</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">perfect	influencers	</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">and content creators</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">and content creators</span>
                     </h1>
-                    <h1 ref={addToRefs} className="relative text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-archivo w-full max-w-[620px] text-[#aaa] h-[25px] sm:h-[35px] md:h-[40px] lg:h-[45px] mb-2 sm:mb-3 md:mb-4">
+                    <h1 ref={addToRefs} className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-archivo w-full max-w-[360px] text-[#aaa] h-[22px] sm:h-[26px] md:h-[32px] lg:h-[38px] mb-1.5 sm:mb-2 md:mb-2.5 lg:mb-3">
                         <span className="absolute whitespace-nowrap top-0 w-full overflow-hidden left-0">to work with.</span>
                         <span className="absolute whitespace-nowrap top-0 text-black w-[37%] overflow-hidden left-0">to work with.</span>
                     </h1>

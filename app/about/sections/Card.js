@@ -20,8 +20,8 @@ export default function Card({ i, title, description, src, url, color, progress,
           <Image src={url} alt={title} width={40} height={40} />
         </div>
         <div className="absolute left-10 bottom-20 flex flex-col gap-4">
-            <h2 className="text-xl tracking-tight bottom-10 text-black font-bold">{title}</h2>
-            <p className="text-lg tracking-tight bottom-10 text-black/70 w-[60%]">{description}</p>
+            <h2 className="text-lg tracking-tight bottom-10 text-black font-bold">{title}</h2>
+            <p className="text-sm tracking-tight bottom-10 text-black/70 w-[60%]">{description}</p>
         </div>
       </motion.div>
     </div>

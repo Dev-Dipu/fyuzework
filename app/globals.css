@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+body{
+  scroll-behavior: smooth;
+}
+
 /* Safari Hardware Acceleration Optimizations */
 .safari-optimized {
   transform: translateZ(0);
