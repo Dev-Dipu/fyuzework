@@ -72,6 +72,11 @@ const ChatPageContent = () => {
         console.log(params);
         setMessage(params.get("prompt") || "");
 
+        // If navigation included openDashboard param, open dashboard panel
+        if (params.get("openDashboard")) {
+            setIsDashboardOpen(true);
+        }
+
         let promptIndex = 0;
         let charIndex = 0;
         let typing = true;

@@ -431,7 +431,7 @@ export default function Navbar() {
               />
             </div>
             
-            <div onClick={() => router.push('/chat')} className="flex py-3 items-center justify-between cursor-pointer" style={{ borderBottomColor: isHomePage && isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
+            <div onClick={() => router.push('/chat?openDashboard=1')} className="flex py-3 items-center justify-between cursor-pointer" style={{ borderBottomColor: isHomePage && isDark ? '#404040' : '#e5e5e5', borderBottomWidth: '1px' }}>
               <div className="flex gap-2 items-center">
                 <Image 
                   src="/ChartPieSlice.svg" 
