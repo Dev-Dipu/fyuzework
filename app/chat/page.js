@@ -567,14 +567,14 @@ const ChatPageContent = () => {
 
                     {/* Input Area */}
                     <div
-                        className="w-4/5 mx-auto mb-6 pointer-events-auto"
+                        className="w-4/5 mx-auto mb-6 pointer-events-auto relative"
                         style={{ willChange: "opacity, transform" }}
                     >
                         <div
                             className={`absolute h-[88vh] w-full pb-22 rounded-t-4xl flex flex-col justify-end px-6 py-2.5 font-[inter] font-medium ${
                                 isDark ? "bg-[#060606]" : "bg-white"
                             } ${
-                                isFilterOpen ? "bottom-4" : "-bottom-[35vw]"
+                                isFilterOpen ? "-top-[740%]" : "-top-10"
                             } transition-all duration-300`}
                             style={{
                                 clipPath: `${
