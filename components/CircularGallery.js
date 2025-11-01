@@ -2,6 +2,8 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from "ogl";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { motion, useAnimation, useMotionValue, useSpring } from "framer-motion";
+
 
 /* ----------------- Data Array ----------------- */
 const defaultFeatures = [
@@ -716,6 +718,7 @@ class App {
 
 /* ----------------- Exported Component ----------------- */
 /* ----------------- Exported Component ----------------- */
+
 export default function CircularGalleryCardsOgl({
   items = null,
   bend = 0,
@@ -727,6 +730,14 @@ export default function CircularGalleryCardsOgl({
 }) {
   const containerRef = useRef(null);
   const appRef = useRef(null);
+  const dragCircleControls = useAnimation();
+
+  // Mouse position tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 15, mass: 0.2 });
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 15, mass: 0.2 });
 
   useEffect(() => {
     const feed = items && items.length ? items : defaultFeatures;
@@ -766,30 +777,53 @@ export default function CircularGalleryCardsOgl({
     appRef.current.onCheck();
   };
 
+  const handleMouseEnter = () => {
+    dragCircleControls.start({
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4, ease: "easeOut" }
+    });
+  };
+
+  const handleMouseLeave = () => {
+    dragCircleControls.start({
+      opacity: 0,
+      scale: 0,
+      transition: { duration: 0.3, ease: "easeIn" }
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    const rect = containerRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
+
   return (
     <div className="relative w-full h-full">
-      <div ref={containerRef} className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing scale-125" />
-      
-      {/* Navigation Buttons */}
-      <button
-        onClick={navigateLeft}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-4 transition-all duration-300 hover:scale-110 active:scale-95"
-        aria-label="Previous group"
+      {/* Main Container */}
+      <div
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onMouseMove={handleMouseMove}
+        ref={containerRef}
+        className="w-full h-full overflow-hidden cursor-pointer active:cursor-grabbing scale-125"
+      />
+
+      {/* Animated Drag Circle */}
+      <motion.div
+        style={{
+          x: springX,
+          y: springY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={dragCircleControls}
+        initial={{ opacity: 0, scale: 0 }}
+        className="h-20 w-20 rounded-full absolute -top-16 -left-42 pointer-events-none bg-white flex items-center justify-center shadow-lg"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-      </button>
-      
-      <button
-        onClick={navigateRight}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-4 transition-all duration-300 hover:scale-110 active:scale-95"
-        aria-label="Next group"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-      </button>
+        <h1 className="text-sm font-semibold select-none">Drag</h1>
+      </motion.div>
     </div>
   );
 }
