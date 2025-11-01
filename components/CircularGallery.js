@@ -85,9 +85,13 @@ function roundRect(ctx, x, y, w, h, r) {
 /* create card canvas (icon, title, desc) - returns canvas */
 function createCardCanvas({ iconSrc, title, desc, width = 800, height = 1000 }) {
   const canvas = document.createElement("canvas");
-  canvas.width = width; // high res for crispness
-  canvas.height = height;
-  const ctx = canvas.getContext("2d");
+  const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap it for safety
+canvas.width = width * dpr;
+canvas.height = height * dpr;
+
+const ctx = canvas.getContext("2d");
+ctx.scale(dpr, dpr);
+
 
   // --- REFINED STYLES AND LAYOUT TO MATCH THE IMAGE ---
 
@@ -247,12 +251,18 @@ class Media {
       iconSrc: this.cardData.icon,
       title: this.cardData.title,
       desc: this.cardData.desc,
-      width: 1560,
-      height: 1950
+      width: 2048,  // Increased from 1560
+      height: 2560  // Increased from 1950
     });
 
-    // Create texture and set image to canvas
-    this.texture = new Texture(this.gl, { generateMipmaps: true });
+    this.texture = new Texture(this.gl, {
+      generateMipmaps: true,
+      minFilter: this.gl.LINEAR_MIPMAP_LINEAR,
+      magFilter: this.gl.LINEAR,
+      wrapS: this.gl.CLAMP_TO_EDGE,
+      wrapT: this.gl.CLAMP_TO_EDGE,
+      anisotropy: 16  // Enable anisotropic filtering
+    });
     this.texture.image = canvas;
 
     // Load icon image and draw onto canvas when ready
