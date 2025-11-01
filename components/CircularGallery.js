@@ -715,6 +715,7 @@ class App {
 }
 
 /* ----------------- Exported Component ----------------- */
+/* ----------------- Exported Component ----------------- */
 export default function CircularGalleryCardsOgl({
   items = null,
   bend = 0,
@@ -725,25 +726,70 @@ export default function CircularGalleryCardsOgl({
   paraRef
 }) {
   const containerRef = useRef(null);
+  const appRef = useRef(null);
 
   useEffect(() => {
-  const feed = items && items.length ? items : defaultFeatures;
-  const app = new App(containerRef.current, { 
-    items: feed, 
-    bend, 
-    borderRadius, 
-    scrollSpeed, 
-    scrollEase, 
-    headingRef,      // ✅ forward the refs
-    paraRef          // ✅ forward the refs
-  });
+    const feed = items && items.length ? items : defaultFeatures;
+    const app = new App(containerRef.current, { 
+      items: feed, 
+      bend, 
+      borderRadius, 
+      scrollSpeed, 
+      scrollEase, 
+      headingRef,
+      paraRef
+    });
+    
+    appRef.current = app;
 
-  return () => {
-    app.destroy();
+    return () => {
+      app.destroy();
+      appRef.current = null;
+    };
+  }, [items, bend, borderRadius, scrollSpeed, scrollEase, headingRef, paraRef]);
+
+  const navigateLeft = () => {
+    if (!appRef.current || !appRef.current.medias || !appRef.current.medias[0]) return;
+    const cardWidth = appRef.current.medias[0].width;
+    const groupSize = 3;
+    const snapWidth = cardWidth * groupSize;
+    appRef.current.scroll.target -= snapWidth;
+    appRef.current.onCheck();
   };
-}, [items, bend, borderRadius, scrollSpeed, scrollEase, headingRef, paraRef]);
 
+  const navigateRight = () => {
+    if (!appRef.current || !appRef.current.medias || !appRef.current.medias[0]) return;
+    const cardWidth = appRef.current.medias[0].width;
+    const groupSize = 3;
+    const snapWidth = cardWidth * groupSize;
+    appRef.current.scroll.target += snapWidth;
+    appRef.current.onCheck();
+  };
 
-  // IMPORTANT: Ensure the parent div of this component gives it a defined width and height (e.g., h-screen w-full)
-  return <div ref={containerRef} className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing scale-125" />;
+  return (
+    <div className="relative w-full h-full">
+      <div ref={containerRef} className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing scale-125" />
+      
+      {/* Navigation Buttons */}
+      <button
+        onClick={navigateLeft}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-4 transition-all duration-300 hover:scale-110 active:scale-95"
+        aria-label="Previous group"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      
+      <button
+        onClick={navigateRight}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-4 transition-all duration-300 hover:scale-110 active:scale-95"
+        aria-label="Next group"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  );
 }
