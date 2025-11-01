@@ -143,7 +143,7 @@ export default function HeroComponent() {
                     autoDemo={true}
                     autoSpeed={0.3}
                     autoIntensity={1.5}
-                    mouseForce={15}
+                    mouseForce={5}
                     cursorSize={150}
                      />
                 </div>
