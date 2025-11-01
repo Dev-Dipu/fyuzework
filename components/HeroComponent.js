@@ -138,10 +138,17 @@ export default function HeroComponent() {
                         className="absolute top-0 left-0  w-full h-full opacity-60 pointer-events-none"
                         style={{ willChange: "opacity" }}
                     ></div>
-                    <LiquidEther />
+                    <LiquidEther
+                    colors={["#ee4f20", "#ff6b3a", "#ee4f20"]}
+                    autoDemo={true}
+                    autoSpeed={0.3}
+                    autoIntensity={1.5}
+                    mouseForce={15}
+                    cursorSize={150}
+                     />
                 </div>
                 <div
-                    className="background w-full h-full pointer-events-none absolute top-0 left-0 z-20"
+                    className="w-full h-full pointer-events-none absolute top-0 left-0 z-20"
                     style={{ willChange: "opacity" }}
                 ></div>
                 <div

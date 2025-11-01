@@ -21,9 +21,9 @@ export default function Footer() {
                     <Image 
                       height={100} 
                       width={100} 
-                      src="/assets/fyuze-dark.svg" 
+                      src="/logowhite.svg" 
                       alt="fyuze-logo"
-                      className={`w-[100px] sm:w-[120px] md:w-[130px] h-auto ${isDark ? 'invert' : ''}`}
+                      className={`w-[100px] sm:w-[120px] md:w-[130px] h-auto ${!isDark ? 'invert' : ''}`}
                     />
                     <p className='text-sm sm:text-base'>Welcome to the future of influence</p>
                     <div className='flex gap-3 sm:gap-4'>

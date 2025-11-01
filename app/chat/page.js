@@ -47,6 +47,8 @@ const ChatPageContent = () => {
 
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+    const [chatResetTrigger, setChatResetTrigger] = useState(0);
+
     const [message, setMessage] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -69,6 +71,11 @@ const ChatPageContent = () => {
     useEffect(() => {
         console.log(params);
         setMessage(params.get("prompt") || "");
+
+        // If navigation included openDashboard param, open dashboard panel
+        if (params.get("openDashboard")) {
+            setIsDashboardOpen(true);
+        }
 
         let promptIndex = 0;
         let charIndex = 0;
@@ -224,18 +231,29 @@ const ChatPageContent = () => {
                         width={80}
                         className={`${!isDark && "invert"}`}
                     />
-                    <button onClick={() => {
-                        router.push('/')
-                    }} className="text-white uppercase text-xs cursor-pointer flex items-center gap-2.5">
-                        <Image className="h-10" src={'/ArrowLeft.svg'} width={22} height={22} />
+                    <button
+                        onClick={() => {
+                            router.push('/');
+                        }}
+                        className="text-white uppercase text-xs cursor-pointer flex items-center gap-2.5"
+                    >
+                        <Image
+                            className="h-10"
+                            src={'/ArrowLeft.svg'}
+                            width={22}
+                            height={22}
+                        />
                         <span>back to home</span>
                     </button>
+
                     <button
                         onClick={() => {
                             setChatHistory([]);
                             setMessage("");
+                            // bump trigger so child ChatHistory can reset its active index
+                            setChatResetTrigger((s) => s + 1);
                         }}
-                        className="text-white uppercase text-xs tracking-tighter bg-black w-full gap-2 justify-center py-3 rounded-full flex items-center hover:bg-gray-900 transition"
+                        className="text-white uppercase text-sm tracking-tighter bg-black w-full gap-2 justify-center py-3 rounded-full flex items-center hover:bg-gray-900 transition"
                     >
                         <Image
                             src="./assets/ChatCircleText.svg"
@@ -245,8 +263,13 @@ const ChatPageContent = () => {
                         />
                         New chat
                     </button>
+
                     <div>
-                        <ChatHistorySection closeDashboard={closeDashboard} isDark={isDark} />
+                        <ChatHistorySection
+                            closeDashboard={closeDashboard}
+                            isDark={isDark}
+                            resetTrigger={chatResetTrigger}
+                        />
                     </div>
                     <div>
                         <h1

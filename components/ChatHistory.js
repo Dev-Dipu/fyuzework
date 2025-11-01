@@ -1,11 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const ChatHistorySection = ({ isDark, closeDashboard }) => {
+const ChatHistorySection = ({ isDark, closeDashboard, resetTrigger }) => {
     const [isOpen, setIsOpen] = useState(true);
     const [activeIndex, setActiveIndex] = useState(null); // Initially null, koi active nahi
+
+    // Whenever parent signals a reset (e.g., New chat clicked), clear active index
+    useEffect(() => {
+        if (typeof resetTrigger !== "undefined") {
+            setActiveIndex(null);
+        }
+    }, [resetTrigger]);
 
     const historyItems = [
         "Influencers near Lebanon",
