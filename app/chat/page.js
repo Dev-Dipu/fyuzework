@@ -250,6 +250,7 @@ const ChatPageContent = () => {
                         onClick={() => {
                             setChatHistory([]);
                             setMessage("");
+                            setIsDashboardOpen((prev) => false)
                             // bump trigger so child ChatHistory can reset its active index
                             setChatResetTrigger((s) => s + 1);
                         }}
@@ -273,7 +274,10 @@ const ChatPageContent = () => {
                     </div>
                     <div>
                         <h1
-                            onClick={() => setIsDashboardOpen((prev) => !prev)}
+                            onClick={() => {
+                                setIsDashboardOpen((prev) => !prev)
+                                setChatResetTrigger((s) => s + 1)
+                            }}
                             className={`text-[#E2E1DC] text-xs cursor-pointer hover:bg-white transition rounded-full ${
                                 isDashboardOpen && "bg-white"
                             } ${!isDark && "invert"}`}
