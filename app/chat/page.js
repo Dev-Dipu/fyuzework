@@ -402,7 +402,7 @@ const ChatPageContent = () => {
     alt="icon"
     className={`${!isDark && "invert"}`}
   />
-  <p className="text-xs mt-1.5 leading-tight">{card.text}</p>
+  <p className="text-sm mt-1.5 leading-tight">{card.text}</p>
 </div>
 
                                     ))}
