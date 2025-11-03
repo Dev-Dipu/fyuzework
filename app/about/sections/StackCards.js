@@ -95,7 +95,7 @@ export default function StackCards() {
           />
         );
       })}
-      <div className="h-[50vh]" />
+      <div className="h-[80vh]" />
     </main>
   );
 }
