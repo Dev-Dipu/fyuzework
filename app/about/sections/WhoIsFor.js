@@ -88,7 +88,7 @@ const WhoIsFor = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-32 sm:pb-36 md:pb-40 lg:pb-48 w-full relative pt-28 sm:pt-32 md:pt-36 lg:pt-44">
+    <div className="min-h-fit pb-20 w-full relative pt-28">
       <div className="flex flex-col gap-5 sm:gap-6 md:gap-7 lg:gap-8">
         <h1 ref={headingRef} className="text-center font-archivo font-semibold tracking-tight text-2xl sm:text-3xl md:text-3xl lg:text-4xl text-black">
           Who Is It For

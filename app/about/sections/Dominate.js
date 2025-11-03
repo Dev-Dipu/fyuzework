@@ -52,7 +52,7 @@ const Dominate = () => {
   }, []);
 
   return (
-    <div className='h-fit pb-42 w-full relative font-archivo'>
+    <div className='h-fit pb-28 w-full relative font-archivo'>
       <h1 
         ref={headingRef}
         className='text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold leading-tight text-center pt-24 sm:pt-28 md:pt-32 lg:pt-40 px-4 sm:px-6 md:px-10 lg:px-16'>
