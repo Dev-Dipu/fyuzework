@@ -160,14 +160,7 @@ export default function SocialPlatformsComponent() {
           ))}
         </div>
 
-        <div className="relative flex-center gap-4">
-          <div className="rounded-full py-[9px] text-xs leading-[100%] border uppercase font-medium min-w-[180px] cursor-pointer flex-center text-white bg-orange-500">
-            Browse Creators
-          </div>
-          <div className="rounded-full py-[9px] text-xs leading-[100%] border-orange-500 border uppercase font-medium text-orange-500 min-w-[180px] cursor-pointer flex-center">
-            SEE PRICING
-          </div>
-        </div>
+
       </div>
 
       <div className="w-[55%] relative h-[47vh] flex gap-7 -top-6 overflow-hidden">

@@ -262,8 +262,23 @@ export default function Navbar() {
         ></div>
         <div className="flex-between gap-10 relativ">
           <Link
+            href="/"
+            className="group relative inline-block text-sm font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
+            style={{ color: textColor }}
+          >
+            home
+            <span
+              className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
+              style={{ backgroundColor: textColor }}
+            ></span>
+          </Link>
+          <div 
+            className="relative w-[2px] h-[2px] navelm rounded-full transition-colors duration-300"
+            style={{ backgroundColor: textColor }}
+          ></div>
+          <Link
             href="/pricing"
-            className="group relative inline-block text-[10px] font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
+            className="group relative inline-block text-sm font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
             pricing
@@ -284,7 +299,7 @@ export default function Navbar() {
           >
             <div
               onClick={() => {router.push('/about')}} 
-              className="group relative inline-flex items-center gap-1 text-[10px] font-[300] leading-[100%] uppercase transition-colors duration-300 navelm cursor-pointer"
+              className="group relative inline-flex items-center gap-1 text-sm font-[300] leading-[100%] uppercase transition-colors duration-300 navelm cursor-pointer"
               style={{ color: textColor }}
             >
               about
@@ -326,7 +341,7 @@ export default function Navbar() {
             >
               <Link
                 href="/about#how-it-works"
-                className="block px-4 py-3 text-[10px] font-[400] transition-all duration-200 hover:bg-opacity-10"
+                className="block px-4 py-3 text-sm font-[400] transition-all duration-200 hover:bg-opacity-10"
                 style={{ 
                   color: isHomePage && isDark ? '#ffffff' : '#000000',
                   borderBottom: `1px solid ${isHomePage && isDark ? '#404040' : '#e5e5e5'}`
@@ -342,7 +357,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/about#who-is-it-for"
-                className="block px-4 py-3 text-[10px] font-[400] transition-all duration-200"
+                className="block px-4 py-3 text-sm font-[400] transition-all duration-200"
                 style={{ 
                   color: isHomePage && isDark ? '#ffffff' : '#000000'
                 }}
@@ -364,7 +379,7 @@ export default function Navbar() {
           
           <Link
             href="/contact"
-            className="group relative inline-block text-[10px] font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
+            className="group relative inline-block text-sm font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
             style={{ color: textColor }}
           >
             contact
@@ -417,7 +432,7 @@ export default function Navbar() {
                     className="object-cover"
                   />
                 </div>
-                <h1 className="tracking-tight text-[10px] sm:text-xs font-semibold truncate max-w-[150px]" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
+                <h1 className="tracking-tight text-sm sm:text-xs font-semibold truncate max-w-[150px]" style={{ color: isHomePage && isDark ? '#ffffff' : '#000000' }}>
                   Jenny Wilson FYUZE
                 </h1>
               </div>
