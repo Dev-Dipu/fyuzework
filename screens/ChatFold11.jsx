@@ -19,8 +19,7 @@ const FeatureCard = ({ icon, title, desc }) => {
       </div>
 
       {/* Actual Card */}
-      <div className="relative h-80 aspect-[4/5] border border-black rounded-4xl px-4 py-6 flex flex-col justify-between 
-        hover:bg-white transition duration-300 group-hover:shadow-xl">
+      <div className="relative h-80 aspect-[4/5] bg-gradient-to-r from-[#DD3305] via-[#FF8B3A] to-[#FFB347] rounded-3xl px-4 py-6 flex flex-col justify-between transition duration-300 group-hover:shadow-xl border border-transparent hover:bg-white hover:border-black">
         <Image src={icon} alt={title} width={32} height={32} className="object-contain"/>  
         <div>
           <h3 className="font-[Archivo] text-md font-semibold">{title}</h3>

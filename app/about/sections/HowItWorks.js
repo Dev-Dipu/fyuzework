@@ -89,7 +89,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-48 w-full relative pt-44">
+    <div className="min-h-fit w-full relative pt-20">
       <div className="flex flex-col gap-8">
         <h1 ref={headingRef} className="text-center font-archivo font-semibold tracking-tight text-4xl text-black">
           How it works

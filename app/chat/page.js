@@ -238,6 +238,7 @@ const ChatPageContent = () => {
                         className="text-white uppercase text-xs cursor-pointer flex items-center gap-2.5"
                     >
                         <Image
+                            alt="arrow"
                             className="h-10"
                             src={'/ArrowLeft.svg'}
                             width={22}
@@ -250,6 +251,7 @@ const ChatPageContent = () => {
                         onClick={() => {
                             setChatHistory([]);
                             setMessage("");
+                            setIsDashboardOpen((prev) => false)
                             // bump trigger so child ChatHistory can reset its active index
                             setChatResetTrigger((s) => s + 1);
                         }}
@@ -273,7 +275,10 @@ const ChatPageContent = () => {
                     </div>
                     <div>
                         <h1
-                            onClick={() => setIsDashboardOpen((prev) => !prev)}
+                            onClick={() => {
+                                setIsDashboardOpen((prev) => !prev)
+                                setChatResetTrigger((s) => s + 1)
+                            }}
                             className={`text-[#E2E1DC] text-xs cursor-pointer hover:bg-white transition rounded-full ${
                                 isDashboardOpen && "bg-white"
                             } ${!isDark && "invert"}`}
@@ -398,7 +403,7 @@ const ChatPageContent = () => {
     alt="icon"
     className={`${!isDark && "invert"}`}
   />
-  <p className="text-xs mt-1.5 leading-tight">{card.text}</p>
+  <p className="text-sm mt-1.5 leading-tight">{card.text}</p>
 </div>
 
                                     ))}
@@ -407,184 +412,148 @@ const ChatPageContent = () => {
                         </div>
                     ) : (
                         <div
-                            ref={chatContainerRef}
-                            className="flex-1 overflow-y-auto px-8 pt-6 pb-16 space-y-6 scroll-smooth w-6/7 mx-auto"
-                        >
-                            {chatHistory.map((msg, idx) => (
+    ref={chatContainerRef}
+    className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 pt-4 sm:pt-6 pb-16 sm:pb-20 space-y-4 sm:space-y-6 scroll-smooth w-full max-w-7xl mx-auto"
+>
+    {chatHistory.map((msg, idx) => (
+        <div
+            key={idx}
+            className={`flex flex-col ${
+                msg.role === "user" ? "items-end" : "items-start"
+            } w-full`}
+        >
+            {msg.role === "assistant" &&
+                msg.influencers &&
+                msg.influencers.length > 0 && (
+                    <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 mb-4 w-full">
+                        {msg.influencers.map((influ, i) => {
+                            const imageKey = `${idx}-${i}`;
+                            const currentFallbackIndex =
+                                imageErrors[imageKey] || 0;
+                            const proxiedImageUrl = getProxiedImageUrl(
+                                influ.profile_pic_url,
+                                currentFallbackIndex
+                            );
+
+                            return (
                                 <div
-                                    key={idx}
-                                    className={`flex flex-col ${
-                                        msg.role === "user"
-                                            ? "items-end"
-                                            : "items-start"
-                                    } w-full`}
+                                    key={i}
+                                    className="relative h-64 sm:h-72 md:h-80 w-full rounded-2xl sm:rounded-3xl overflow-hidden group cursor-pointer transition-transform hover:scale-105"
                                 >
-                                    {msg.role === "assistant" &&
-                                        msg.influencers &&
-                                        msg.influencers.length > 0 && (
-                                            <div className="flex flex-wrap gap-4 mb-4 w-full">
-                                                {msg.influencers.map(
-                                                    (influ, i) => {
-                                                        const imageKey = `${idx}-${i}`;
-                                                        const currentFallbackIndex =
-                                                            imageErrors[
-                                                                imageKey
-                                                            ] || 0;
-                                                        const proxiedImageUrl =
-                                                            getProxiedImageUrl(
-                                                                influ.profile_pic_url,
-                                                                currentFallbackIndex
-                                                            );
+                                    <Image
+                                        src={proxiedImageUrl}
+                                        alt={influ.full_name}
+                                        fill
+                                        className="absolute h-full w-full top-0 left-0 object-cover"
+                                        onError={(e) => {
+                                            const nextIndex =
+                                                currentFallbackIndex + 1;
+                                            if (nextIndex < 4) {
+                                                setImageErrors((prev) => ({
+                                                    ...prev,
+                                                    [imageKey]: nextIndex,
+                                                }));
+                                            }
+                                        }}
+                                    />
+                                    <div className="absolute h-full w-full top-0 left-0">
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
+                                    </div>
 
-                                                        return (
-                                                            <div
-                                                                key={i}
-                                                                className="relative h-80 w-56 rounded-3xl overflow-hidden group cursor-pointer transition-transform hover:scale-105"
-                                                            >
-                                                                <Image
-                                                                    src={
-                                                                        proxiedImageUrl
-                                                                    }
-                                                                    alt={
-                                                                        influ.full_name
-                                                                    }
-                                                                    fill
-                                                                    className="absolute h-full w-full top-0 left-0 object-cover"
-                                                                    onError={(
-                                                                        e
-                                                                    ) => {
-                                                                        const nextIndex =
-                                                                            currentFallbackIndex +
-                                                                            1;
-                                                                        if (
-                                                                            nextIndex <
-                                                                            4
-                                                                        ) {
-                                                                            setImageErrors(
-                                                                                (
-                                                                                    prev
-                                                                                ) => ({
-                                                                                    ...prev,
-                                                                                    [imageKey]:
-                                                                                        nextIndex,
-                                                                                })
-                                                                            );
-                                                                        }
-                                                                    }}
-                                                                />
-                                                                <div className="absolute h-full w-full top-0 left-0">
-                                                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
-                                                                </div>
-
-                                                                <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-2">
-                                                                    <div className="flex gap-0.5 items-center">
-                                                                        <h3 className="text-white font-bold text-[10px] leading-tight line-clamp-1">
-                                                                            {
-                                                                                influ.full_name
-                                                                            }
-                                                                        </h3>
-                                                                        {influ.is_verified && (
-                                                                            <div className="p-1.5">
-                                                                                <Image
-                                                                                    src={
-                                                                                        "/sealCheck.svg"
-                                                                                    }
-                                                                                    alt="check"
-                                                                                    width={
-                                                                                        14
-                                                                                    }
-                                                                                    height={
-                                                                                        1
-                                                                                    }
-                                                                                />
-                                                                            </div>
-                                                                        )}
-                                                                    </div>
-
-                                                                    <p className="text-gray-300 text-[9px] leading-tight line-clamp-2 mb-1">
-                                                                        {
-                                                                            influ.bio
-                                                                        }
-                                                                    </p>
-
-                                                                    <div className="flex items-center justify-between text-white text-xs">
-                                                                        <div className="flex flex-col">
-                                                                            <span className="font-semibold">
-                                                                                {formatNumber(
-                                                                                    influ.followers
-                                                                                )}
-                                                                            </span>
-                                                                            <span className="text-gray-400 text-[9px]">
-                                                                                Followers
-                                                                            </span>
-                                                                        </div>
-
-                                                                        <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                                                                            <span className="text-[9px]">
-                                                                                @
-                                                                                {
-                                                                                    influ.username
-                                                                                }
-                                                                            </span>
-                                                                            <svg
-                                                                                width="12"
-                                                                                height="12"
-                                                                                viewBox="0 0 12 12"
-                                                                                fill="none"
-                                                                                className="opacity-70"
-                                                                            >
-                                                                                <path
-                                                                                    d="M10 4L6 8L2 4"
-                                                                                    stroke="currentColor"
-                                                                                    strokeWidth="1.5"
-                                                                                    strokeLinecap="round"
-                                                                                    strokeLinejoin="round"
-                                                                                />
-                                                                            </svg>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-3xl transition-all pointer-events-none" />
-                                                            </div>
-                                                        );
-                                                    }
-                                                )}
-                                            </div>
-                                        )}
-
-                                    <div
-                                        className={`max-w-[80%] px-6 py-4 rounded-2xl ${
-                                            msg.role === "user"
-                                                ? "bg-white/10 backdrop-blur-md"
-                                                : "bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)] backdrop-blur-[500px] border border-white/10"
-                                        }`}
-                                    >
-                                        <p className="text-xs leading-relaxed whitespace-pre-wrap">
-                                            {msg.text}
-                                        </p>
-                                        {msg.influencers &&
-                                            msg.influencers.length > 0 && (
-                                                <div className="mt-4 space-y-2">
-                                                    <p className="text-[9px] text-[#C1C1C1]">
-                                                        Found{" "}
-                                                        {msg.influencers.length}{" "}
-                                                        influencers
-                                                    </p>
+                                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 flex flex-col gap-1.5 sm:gap-2">
+                                        <div className="flex gap-0.5 items-center">
+                                            <h3 className="text-white font-bold text-xs sm:text-sm leading-tight line-clamp-1">
+                                                {influ.full_name}
+                                            </h3>
+                                            {influ.is_verified && (
+                                                <div className="p-1 sm:p-1.5 flex-shrink-0">
+                                                    <Image
+                                                        src={"/sealCheck.svg"}
+                                                        alt="check"
+                                                        width={12}
+                                                        height={12}
+                                                        className="sm:w-3.5 sm:h-3.5"
+                                                    />
                                                 </div>
                                             )}
-                                    </div>
-                                </div>
-                            ))}
-                            {isLoading && (
-                                <div className="flex justify-start">
-                                    <div className="max-w-[80%] px-6 py-4 rounded-2xl bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)] backdrop-blur-[500px] border border-white/10">
-                                        <p className="text-xs">
-                                            Searching for influencers...
+                                        </div>
+
+                                        <p className="text-gray-300 text-[10px] sm:text-xs leading-tight line-clamp-2 mb-1">
+                                            {influ.bio}
                                         </p>
+
+                                        <div className="flex items-center justify-between text-white text-xs">
+                                            <div className="flex flex-col">
+                                                <span className="font-semibold text-xs sm:text-sm">
+                                                    {formatNumber(
+                                                        influ.followers
+                                                    )}
+                                                </span>
+                                                <span className="text-gray-400 text-[10px] sm:text-xs">
+                                                    Followers
+                                                </span>
+                                            </div>
+
+                                            <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
+                                                <span className="text-[10px] sm:text-xs truncate max-w-[80px] sm:max-w-none">
+                                                    @{influ.username}
+                                                </span>
+                                                <svg
+                                                    width="12"
+                                                    height="12"
+                                                    viewBox="0 0 12 12"
+                                                    fill="none"
+                                                    className="opacity-70 flex-shrink-0"
+                                                >
+                                                    <path
+                                                        d="M10 4L6 8L2 4"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.5"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-2xl sm:rounded-3xl transition-all pointer-events-none" />
                                 </div>
-                            )}
+                            );
+                        })}
+                    </div>
+                )}
+
+            <div
+                className={`max-w-full sm:max-w-[85%] md:max-w-[80%] lg:max-w-[75%] px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 rounded-xl sm:rounded-2xl ${
+                    msg.role === "user"
+                        ? "bg-white/10 backdrop-blur-md"
+                        : "bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)] backdrop-blur-[500px] border border-white/10"
+                }`}
+            >
+                <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap break-words">
+                    {msg.text}
+                </p>
+                {msg.influencers && msg.influencers.length > 0 && (
+                    <div className="mt-3 sm:mt-4 space-y-2">
+                        <p className="text-[10px] sm:text-xs text-[#C1C1C1]">
+                            Found {msg.influencers.length} influencer
+                            {msg.influencers.length !== 1 ? "s" : ""}
+                        </p>
+                    </div>
+                )}
+            </div>
+        </div>
+    ))}
+    {isLoading && (
+        <div className="flex justify-start">
+            <div className="max-w-full sm:max-w-[85%] md:max-w-[80%] lg:max-w-[75%] px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 rounded-xl sm:rounded-2xl bg-[linear-gradient(244.85deg,rgba(255,255,255,0.2)_-16.54%,rgba(255,255,255,0)_-1.98%,rgba(255,255,255,0.2)_61.94%)] backdrop-blur-[500px] border border-white/10">
+                <p className="text-xs sm:text-sm">
+                    Searching for influencers...
+                </p>
+            </div>
+        </div>
+    )}
                         </div>
                     )}
 

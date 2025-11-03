@@ -24,11 +24,8 @@ export default function Navbar() {
   const [isDarkSection, setIsDarkSection] = useState(false);
   const [logoSrc, setLogoSrc] = useState("/assets/fyuze-logo.svg");
   const [isProfileCardVisible, setIsProfileCardVisible] = useState(false);
-  const [isAboutDropdownVisible, setIsAboutDropdownVisible] = useState(false);
   const navRef = useRef();
   const profileCardRef = useRef();
-  const aboutDropdownRef = useRef();
-  const aboutContainerRef = useRef();
   const nameParam = "Jenny Wilson"
 
   useGSAP(() => {
@@ -62,36 +59,6 @@ export default function Navbar() {
       }
   }, [isProfileCardVisible]);
 
-  useGSAP(() => {
-    if (isAboutDropdownVisible) {
-        gsap.fromTo(aboutDropdownRef.current, 
-          {
-            opacity: 0,
-            display: "none"
-          },
-          {
-            opacity: 1,
-
-            display: "block",
-            duration: 0.4,
-            ease: "power2.out"
-          }
-        );
-      } else {
-        gsap.to(aboutDropdownRef.current, {
-          opacity: 0,
-          y: 20,
-          duration: 0.4,
-          ease: "power2.out",
-          onComplete: () => {
-            if (aboutDropdownRef.current) {
-              aboutDropdownRef.current.style.display = "none";
-            }
-          }
-        });
-      }
-  }, [isAboutDropdownVisible]);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -111,14 +78,6 @@ export default function Navbar() {
 
   const toggleProfileCard = () => {
     setIsProfileCardVisible(!isProfileCardVisible);
-  };
-
-  const handleAboutMouseEnter = () => {
-    setIsAboutDropdownVisible(true);
-  };
-
-  const handleAboutMouseLeave = () => {
-    setIsAboutDropdownVisible(false);
   };
 
   useEffect(() => {
