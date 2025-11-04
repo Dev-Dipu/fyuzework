@@ -54,7 +54,7 @@ function Card({ icon, title, desc, index }) {
   return (
     <div
       style={{ transform: `translateY(${offsetY}px)` }}
-      className="flex-shrink-0 w-[17vw] h-[42vh] custom-cardison rounded-3xl border-2 border-[#D1CDC4] p-5 flex flex-col justify-between transition-all duration-300"
+      className="flex-shrink-0 w-[16vw] h-[42vh] custom-cardison rounded-3xl border-2 border-[#D1CDC4] p-5 flex flex-col justify-between transition-all duration-300"
     >
       {/* Icon at top */}
       <div className="flex items-start">
@@ -201,6 +201,7 @@ export default function CircularGallery2D({
 
   const handleMouseMove = (e) => {
     if (!isDownRef.current) return;
+    e.preventDefault();
     
     const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
     const distance = (startXRef.current - x) * 1.5; // scroll speed multiplier
