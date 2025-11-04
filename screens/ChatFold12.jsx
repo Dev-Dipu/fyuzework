@@ -6,6 +6,7 @@ import React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import SwiperCarousel from "@/components/SwiperCarousel";
 
 gsap.registerPlugin(ScrollTrigger, SplitText); // Registered GSAP plugins
 
@@ -111,14 +112,7 @@ const ChatFold12 = () => {
                     }}
                 >
                     <div className="absolute inset-0">
-                        <CircularGalleryWithCards
-                            bend={0}
-                            textColor="#ffffff"
-                            borderRadius={0.05}
-                            scrollEase={0.02}
-                            headingRef={headingRef}    // <-- pass refs
-                            paraRef={paraRef}
-                        />
+                        <CircularGalleryWithCards />
                     </div>
                 </div>
             </div>
