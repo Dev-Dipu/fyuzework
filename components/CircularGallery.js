@@ -285,7 +285,7 @@ export default function CircularGallery2D({
           style={{ 
             willChange: 'transform'
           }}
-          className="flex gap-5"
+          className="flex gap-5 pr-96"
         >
           {allCards.map((card, index) => (
             <Card
