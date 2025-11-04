@@ -54,7 +54,7 @@ function Card({ icon, title, desc, index }) {
   return (
     <div
       style={{ transform: `translateY(${offsetY}px)` }}
-      className="flex-shrink-0 w-[14.5vw] h-[37vh] custom-cardison rounded-3xl border-2 border-[#D1CDC4] p-5 flex flex-col justify-between transition-all duration-300"
+      className="flex-shrink-0 w-[13.5vw] h-[42vh] custom-cardison rounded-3xl border-2 border-[#D1CDC4] p-5 flex flex-col justify-between transition-all duration-300"
     >
       {/* Icon at top */}
       <div className="flex items-start">
