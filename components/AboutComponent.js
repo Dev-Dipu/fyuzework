@@ -625,7 +625,7 @@ export default function AboutComponent() {
             <div className="text-[2.5vw] leading-[3vw] font-archivo font-[100] content-text heading z-10">
               <div className="w-[5.8vw] h-[2.8vw] relative inline-block">
                 <Image
-                  src="/assets/logo2.svg"
+                  src="/gradlogo.svg"
                   alt="fyuze"
                   fill
                   className="object-contain mt-3"
@@ -639,6 +639,7 @@ export default function AboutComponent() {
               <SparkleSvg2 restart={restartSparkle} />
               <div className="relative w-full ml-3">
                 <input
+                readOnly
                   ref={inputRef}
                   type="text"
                   placeholder=""

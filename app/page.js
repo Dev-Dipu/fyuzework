@@ -96,9 +96,7 @@ export default function Home() {
         </div>
 
         <div className="theme-bg-secondary h-[220vh]">
-          <FeaturesComponent />
-          <FeatureCards />
-          <div className="h-[40vh] flex-center">
+          <div className="h-[10vh] mt-[50vh] flex-center">
             <LogoLoop
               logos={imageLogos}
               speed={120}
@@ -112,6 +110,8 @@ export default function Home() {
               ariaLabel="Technology partners"
             />
           </div>
+          <FeaturesComponent />
+          <FeatureCards />
         </div>
 
         <div>

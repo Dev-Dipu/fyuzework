@@ -273,20 +273,16 @@ export const LogoLoop = memo(
         const itemAriaLabel = isNodeItem ? (item.ariaLabel ?? item.title) : (item.alt ?? item.title);
 
         const inner = item.href ? (
-          <a
+          <div
             className={cx(
               'inline-flex items-center no-underline rounded',
               'transition-opacity duration-200 ease-linear',
               'hover:opacity-80',
               'focus-visible:outline focus-visible:outline-current focus-visible:outline-offset-2'
             )}
-            href={item.href}
-            aria-label={itemAriaLabel || 'logo link'}
-            target="_blank"
-            rel="noreferrer noopener"
           >
             {content}
-          </a>
+          </div>
         ) : (
           content
         );
