@@ -54,11 +54,11 @@ function Card({ icon, title, desc, index }) {
   return (
     <div
       style={{ transform: `translateY(${offsetY}px)` }}
-      className="flex-shrink-0 w-68 h-[40vh] custom-cardison rounded-4xl border-2 border-[#D1CDC4] p-6 flex flex-col justify-between transition-all duration-300"
+      className="flex-shrink-0 w-64 h-[38vh] custom-cardison rounded-3xl border-2 border-[#D1CDC4] p-5 flex flex-col justify-between transition-all duration-300"
     >
       {/* Icon at top */}
       <div className="flex items-start">
-        <div className="w-8 h-8 flex items-center justify-center">
+        <div className="w-7 h-7 flex items-center justify-center">
           {icon && (
             <img 
               src={icon} 
@@ -73,11 +73,11 @@ function Card({ icon, title, desc, index }) {
       </div>
       
       {/* Text content at bottom */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-bold font-['Archivo',Arial]">
+      <div className="space-y-3">
+        <h3 className="text-base font-bold font-['Archivo',Arial] leading-tight">
           {title}
         </h3>
-        <p className="text-xs leading-relaxed">
+        <p className="text-[11px] leading-relaxed">
           {desc}
         </p>
       </div>
