@@ -303,73 +303,10 @@ export default function Navbar() {
               style={{ color: textColor }}
             >
               about
-              <svg 
-                width="10" 
-                height="10" 
-                viewBox="0 0 10 10" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-                className="transition-transform duration-300"
-                style={{ 
-                  transform: isAboutDropdownVisible ? 'rotate(180deg)' : 'rotate(0deg)'
-                }}
-              >
-                <path 
-                  d="M2.5 3.75L5 6.25L7.5 3.75" 
-                  stroke={textColor} 
-                  strokeWidth="1.5" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
               <span
                 className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
                 style={{ backgroundColor: textColor }}
               ></span>
-            </div>
-
-            {/* About Dropdown */}
-            <div 
-              ref={aboutDropdownRef}
-              className="absolute top-2 left-0 w-[180px] rounded-xl overflow-hidden"
-              style={{ 
-                opacity: 0, 
-                display: 'none',
-                backgroundColor: isHomePage && isDark ? '#1a1a1a' : '#ffffff',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)'
-              }}
-            >
-              <Link
-                href="/about#how-it-works"
-                className="block px-4 py-3 text-sm font-[400] transition-all duration-200 hover:bg-opacity-10"
-                style={{ 
-                  color: isHomePage && isDark ? '#ffffff' : '#000000',
-                  borderBottom: `1px solid ${isHomePage && isDark ? '#404040' : '#e5e5e5'}`
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = isHomePage && isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                }}
-              >
-                How it works
-              </Link>
-              <Link
-                href="/about#who-is-it-for"
-                className="block px-4 py-3 text-sm font-[400] transition-all duration-200"
-                style={{ 
-                  color: isHomePage && isDark ? '#ffffff' : '#000000'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = isHomePage && isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                }}
-              >
-                Who is it for
-              </Link>
             </div>
           </div>
           <div 
