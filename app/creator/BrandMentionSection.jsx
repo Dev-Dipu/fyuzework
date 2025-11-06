@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
 
 export default function BrandMentionSection() {
   const accounts = [
@@ -41,9 +41,9 @@ export default function BrandMentionSection() {
       <div>
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-white text-lg font-semibold">Brand Mention</h2>
-          <div className="flex items-center gap-1 text-orange-500 text-xs cursor-pointer">
-            VIEW ALL <ArrowRight size={12} />
+          <h2 className="text-white text-lg font-semibold font-archivo">Brand Mention</h2>
+          <div className="flex items-center">
+            <p className="text-xs text-[#FF6B3A] cursor-pointer">VIEW ALL</p> <ChevronRight className="text-[#FF6B3A] scale-80" />
           </div>
         </div>
 
@@ -67,11 +67,11 @@ export default function BrandMentionSection() {
         </div>
 
         {/* Mentioned Accounts */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {accounts.map((user, i) => (
             <div
               key={i}
-              className="flex items-center justify-between bg-transparent border border-[#2a2a2a] rounded-2xl px-4 py-3 hover:bg-[#1a1a1a] transition"
+              className="flex items-center justify-between bg-transparent border border-white rounded-2xl px-4 py-3"
             >
               <div className="flex items-center gap-3">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden">
@@ -84,16 +84,15 @@ export default function BrandMentionSection() {
                 </div>
                 <div>
                   <p className="text-white text-sm font-medium flex items-center gap-1">
-                    {user.username}{" "}
-                    <span className="text-gray-400 text-xs">✔</span>
+                    {user.username}
                   </p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-white">
                     {user.name} | {user.er}
                   </p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-[11px] text-gray-400">Followers</p>
+                <p className="text-[11px] text-white">Followers</p>
                 <p className="text-sm text-white font-semibold">
                   {user.followers}
                 </p>
@@ -109,11 +108,11 @@ export default function BrandMentionSection() {
           Similar Accounts
         </h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {accounts.slice(0, 4).map((user, i) => (
             <div
               key={i}
-              className="flex items-center justify-between bg-transparent border border-[#2a2a2a] rounded-2xl px-4 py-3 hover:bg-[#1a1a1a] transition"
+              className="flex items-center justify-between bg-transparent border border-white rounded-2xl px-4 py-3"
             >
               <div className="flex items-center gap-3">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden">
@@ -126,14 +125,13 @@ export default function BrandMentionSection() {
                 </div>
                 <div>
                   <p className="text-white text-sm font-medium flex items-center gap-1">
-                    {user.username}{" "}
-                    <span className="text-gray-400 text-xs">✔</span>
+                    {user.username}
                   </p>
-                  <p className="text-xs text-gray-400">{user.name}</p>
+                  <p className="text-xs text-white">{user.name}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-[11px] text-gray-400">Followers</p>
+                <p className="text-[11px] text-white">Followers</p>
                 <p className="text-sm text-white font-semibold">
                   {user.followers}
                 </p>

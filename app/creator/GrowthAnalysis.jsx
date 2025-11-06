@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 
 const followerData = [
   { date: "Jan 2018", value: 200 },
@@ -37,7 +37,7 @@ export default function GrowthAnalysis() {
   return (
     <div className="w-full p-6">
       {/* ---------- HEADER ---------- */}
-      <h2 className="text-white text-xl font-semibold mb-6">Growth Analysis</h2>
+      <h2 className="text-white text-xl font-semibold mb-6 font-archivo">Growth Analysis</h2>
 
       {/* ---------- PROFILE ---------- */}
       <div className="flex items-center gap-3 mb-6">
@@ -77,7 +77,7 @@ export default function GrowthAnalysis() {
       <div className="flex border-b border-[#222] pb-6 mb-6">
         {/* Yearly Growth */}
         <div className="pr-8 border-r w-1/3 border-[#222]">
-          <p className="text-[12px] text-white mb-1">Yearly Growth</p>
+          <p className="text-[12px] text-white mb-1 font-archivo">Yearly Growth</p>
           <p className="leading-tight font-semibold text-white mb-1">9.8%</p>
           <p className="text-[12px] text-gray-400 leading-snug">
             @phoenix followers number declined by 3.3% followers in the last
@@ -87,7 +87,7 @@ export default function GrowthAnalysis() {
 
         {/* Follower Growth */}
         <div className="pl-8 w-1/3">
-          <p className="text-[12px] text-white mb-1">Follower Growth</p>
+          <p className="text-[12px] text-white mb-1 font-archivo">Follower Growth</p>
           <p className="font-semibold text-white mb-1 leading-tight">
             Negative trend more than 12 months ago
           </p>
@@ -137,7 +137,7 @@ export default function GrowthAnalysis() {
 
       {/* ---------- FOLLOWER DYNAMICS ---------- */}
       <div className="border-t border-[#222] pt-6 mb-4">
-        <p className="text-[12px] text-white mb-1">Follower Dynamics</p>
+        <p className="text-[12px] text-white mb-1 font-archivo">Follower Dynamics</p>
         <p className="text-xl w-1/2 font-semibold text-white mb-1">
           Follow–unfollow patterns and mass following more than 12 months ago
         </p>
@@ -191,13 +191,13 @@ export default function GrowthAnalysis() {
       {/* ---------- MENTIONED BY ---------- */}
       <div>
         <div className="flex justify-between items-center mb-4">
-          <p className="text-white text-sm font-medium">Mentioned By</p>
-          <div className="flex items-center gap-1 text-orange-500 text-xs cursor-pointer">
-            VIEW ALL <ArrowRight size={12} />
+          <p className="text-white text-sm font-medium font-archivo">Mentioned By</p>
+          <div className="flex items-center">
+            <p className="text-xs text-[#FF6B3A] cursor-pointer">VIEW ALL</p> <ChevronRight className="text-[#FF6B3A] scale-80" />
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
               username: "@phoenix",
@@ -226,7 +226,7 @@ export default function GrowthAnalysis() {
           ].map((user, i) => (
             <div
               key={i}
-              className="flex items-center justify-between bg-[#1a1a1a] border border-[#2a2a2a] rounded-2xl px-4 py-3"
+              className="flex items-center justify-between border border-white rounded-2xl px-4 py-3"
             >
               <div className="flex items-center gap-3">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden">
@@ -257,11 +257,11 @@ export default function GrowthAnalysis() {
             className="opacity-80"
           />
                   </div>
-                  <p className="text-xs text-gray-400">{user.name}</p>
+                  <p className="text-xs text-white">{user.name}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-[11px] text-gray-400">Followers</p>
+                <p className="text-[11px] text-white">Followers</p>
                 <p className="text-sm text-white font-semibold">
                   {user.followers}
                 </p>

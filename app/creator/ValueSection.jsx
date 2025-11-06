@@ -4,12 +4,12 @@ import { ArrowDown } from "lucide-react";
 
 export default function ValueSection() {
   return (
-    <div className="bg-[#0f0f0f] rounded-3xl w-full p-6">
+    <div className="bg-[#0f0f0f] rounded-3xl w-full p-6 pb-2">
       {/* ---------------- HEADER ---------------- */}
-      <h2 className="text-white text-lg font-semibold mb-6">Value</h2>
+      <h2 className="text-white text-lg font-semibold mb-4 font-archivo">Value</h2>
 
       {/* ---------------- ROW 1 ---------------- */}
-      <div className="flex flex-wrap items-stretch pb-6 mb-6">
+      <div className="flex flex-wrap items-stretch pb-6">
         {/* Estimated Price (Post) */}
         <div className="flex flex-col pr-8 border-r border-[#E5E9EB]">
           <p className="text-[12px] text-white mb-1">Estimated Price</p>

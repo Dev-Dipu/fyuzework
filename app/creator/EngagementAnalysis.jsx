@@ -58,7 +58,7 @@ export default function EngagementAnalysis() {
                     alt="Instagram"
                     className="opacity-80"
                   />
-        <h2 className="text-white text-lg font-semibold">
+        <h2 className="text-white text-lg font-semibold font-archivo">
           Engagement Analysis
         </h2>
       </div>
@@ -69,21 +69,21 @@ export default function EngagementAnalysis() {
       {/* ---------------- TOP STATS ---------------- */}
       <div className="flex flex-wrap gap-8 mb-8">
         <div>
-          <p className="text-[12px] text-white">Average Likes</p>
+          <p className="text-[12px] text-white font-archivo">Average Likes</p>
           <div className="flex items-center gap-1">
             <p className="text-white font-semibold text-[16px]">917K</p>
             <ArrowDown size={12} className="text-[#F76659] mt-[2px]" />
           </div>
         </div>
         <div>
-          <p className="text-[12px] text-white">Average Comments</p>
+          <p className="text-[12px] text-white font-archivo">Average Comments</p>
           <p className="text-white font-semibold text-[16px]">318K</p>
         </div>
       </div>
 
       {/* ---------------- ENGAGEMENT RATE ---------------- */}
       <div className="border-b border-[#222] pb-8 mb-8">
-        <p className="text-[12px] text-white mb-1">Engagement Rate</p>
+        <p className="text-[12px] text-white mb-1 font-archivo">Engagement Rate</p>
         <p className="text-xl font-medium text-white mb-1">
           0.21%{" "}
           <span className="text-white">
@@ -143,10 +143,10 @@ export default function EngagementAnalysis() {
       </div>
 
       {/* ---------------- COMPARISON + HISTORY ---------------- */}
-      <div className="grid md:grid-cols-2 gap-8 pb-8 mb-8">
+      <div className="grid md:grid-cols-2 gap-8 pb-6">
         {/* ---- Engagement Rate Comparison ---- */}
         <div>
-          <p className="text-white text-sm font-medium mb-2">
+          <p className="text-white text-sm font-medium mb-2 font-archivo">
             Engagement Rate Comparison
           </p>
           <p className="text-xs text-gray-400 mb-4">
@@ -158,7 +158,7 @@ export default function EngagementAnalysis() {
               Influencer Categories
             </p>
             <span className="text-white">•</span>
-            <p className="text-xs text-gray-500">Audience Countries</p>
+            <p className="text-xs text-[#5D5D5D]">Audience Countries</p>
           </div>
 
           <div className="grid grid-cols-2 text-xs text-gray-400">
@@ -197,7 +197,7 @@ export default function EngagementAnalysis() {
 
         {/* ---- Engagement Rate History ---- */}
         <div>
-          <p className="text-white text-sm font-medium mb-3">
+          <p className="text-white text-sm font-medium mb-3 font-archivo">
             Engagement Rate History
           </p>
           <div className="w-full h-[200px]">
@@ -241,33 +241,48 @@ export default function EngagementAnalysis() {
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-6">
-            <p className="text-[12px] text-gray-400 mb-1">
-              Comment Rate{" "}
-              <span className="text-green-400 font-medium">(Good)</span>
-            </p>
-            <p className="text-[12px] text-gray-500 mb-3">
-              Good comments activity
-            </p>
+          <div className="space-y-4 text-white">
+  {/* Comment Rate */}
+  <div>
+    <p className="text-[12px] font-medium text-white">
+      Comment Rate
+    </p>
+    <p className="text-lg font-semibold leading-tight">
+      &lt;0.01%
+      <span className="ml-2 text-[12px] px-2 py-[1px] rounded-full bg-green-500/10 text-green-400 border border-green-400 font-medium">
+        Good
+      </span>
+    </p>
+    <p className="text-[12px] text-[#8F8F8F] mt-1">
+      Good comments activity
+    </p>
+  </div>
 
-            <p className="text-[12px] text-gray-400 mb-1">
-              Like – Comment Ratio{" "}
-              <span className="text-[#F76659] font-medium">Low ↓</span>
-            </p>
-            <p className="text-[12px] text-gray-500 leading-snug">
-              0.11 comments per 100 likes, similar accounts receive 1.31 comments per 100 likes.
-            </p>
-          </div>
+  {/* Like – Comment Ratio */}
+  <div>
+    <p className="text-[12px] font-medium text-white">
+      Like – Comment Ratio
+    </p>
+      <span className="text-[#F76659] font-semibold text-lg">Low ↓</span>
+    <p className="text-[12px] text-[#8F8F8F] mt-1 leading-snug">
+      0.11 comments per 100 likes, similar accounts receive
+      <span className="font-medium">1.31</span> comments per 100 likes.
+    </p>
+  </div>
+</div>
+
         </div>
       </div>
 
       {/* ---------------- LIKES SPREAD ---------------- */}
       <div>
-        <p className="text-[12px] text-white mb-1">Likes Spread</p>
-        <div className="flex items-center gap-1 text-green-400 text-[12px] mb-3">
-          <CheckCircle size={12} /> Good
-        </div>
-        <p className="text-[12px] w-1/4 text-gray-500 mb-3 leading-snug">
+        <p className="text-[13px] text-white mb-1 font-archivo">Likes Spread</p>
+        <div className="flex items-center gap-2 mb-1">
+      <span className="text-[10px] text-green-400 font-medium px-2 py-1 border border-green-500 rounded-full leading-none">
+        Good
+      </span>
+    </div>
+        <p className="text-[12px] w-1/4 text-[#8F8F8F] mb-3 leading-snug">
           Spread in likes between posts is 149%, similar accounts have 158.7%. 12 most recent posts likes/comments.
         </p>
 

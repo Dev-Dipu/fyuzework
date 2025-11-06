@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import {
   BarChart,
   Bar,
@@ -26,13 +26,13 @@ export default function AudienceSection() {
   return (
     <div className="bg-[#0f0f0f] rounded-3xl w-full p-6">
       {/* ================== AUDIENCE HEADER ================== */}
-      <h2 className="text-white text-xl font-semibold mb-6">Audience</h2>
+      <h2 className="text-white text-xl font-semibold mb-6 font-archivo">Audience</h2>
 
       {/* ================== TOP SUMMARY ROW ================== */}
       <div className="flex flex-wrap items-start border-b border-[#E5E9EB] pb-5">
   {/* -------- Quality Audience -------- */}
   <div className="flex flex-col pr-8 border-r border-[#E5E9EB]">
-    <p className="text-[12px] text-white mb-1">Quality Audience</p>
+    <p className="text-[12px] text-white mb-1 font-archivo">Quality Audience</p>
     <div className="flex items-baseline gap-1">
       <p className="text-[16px] font-semibold text-white leading-none">98%</p>
       <p className="text-[11px] text-[#8F8F8F] leading-none">628.7k</p>
@@ -41,7 +41,7 @@ export default function AudienceSection() {
 
   {/* -------- Top Country -------- */}
   <div className="flex flex-col px-8 border-r border-[#E5E9EB]">
-    <p className="text-[12px] text-white mb-1">Top Country</p>
+    <p className="text-[12px] text-white mb-1 font-archivo">Top Country</p>
     <p className="text-[16px] font-semibold text-white leading-none whitespace-nowrap">
       United States of America
     </p>
@@ -49,7 +49,7 @@ export default function AudienceSection() {
 
   {/* -------- Top Gender -------- */}
   <div className="flex flex-col px-8 border-r border-[#E5E9EB]">
-    <p className="text-[12px] text-white mb-1">Top Gender</p>
+    <p className="text-[12px] text-white mb-1 font-archivo">Top Gender</p>
     <div className="flex items-baseline gap-1">
       <p className="text-[16px] font-semibold text-white leading-none">Female</p>
       <p className="text-[11px] text-[#8F8F8F] leading-none">78%</p>
@@ -58,7 +58,7 @@ export default function AudienceSection() {
 
   {/* -------- Top Age -------- */}
   <div className="flex flex-col pl-8">
-    <p className="text-[12px] text-white mb-1">Top Age</p>
+    <p className="text-[12px] text-white mb-1 font-archivo">Top Age</p>
     <div className="flex items-baseline gap-1">
       <p className="text-[16px] font-semibold text-white leading-none">25–34</p>
       <p className="text-[11px] text-[#8F8F8F] leading-none">78%</p>
@@ -72,7 +72,7 @@ export default function AudienceSection() {
         {/* Audience Geo */}
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
-            <p className="text-white text-sm font-medium">Audience Geo</p>
+            <p className="text-white text-sm font-medium font-archivo">Audience Geo</p>
             <div className="flex items-center gap-1 text-white text-xs">
               Country <ChevronDown size={12} />
             </div>
@@ -104,7 +104,7 @@ export default function AudienceSection() {
         {/* Audience Demographics */}
         <div className="flex flex-col px-4 border-x-[1px]">
           <div className="flex justify-between items-center mb-4">
-            <p className="text-white text-sm font-medium">
+            <p className="text-white text-sm font-medium font-archivo">
               Audience Demographics
             </p>
             <div className="flex items-center gap-1 text-white text-xs">
@@ -146,7 +146,7 @@ export default function AudienceSection() {
         {/* Audience Type */}
         <div className="flex flex-col">
           <div className="flex justify-between items-center mb-4">
-            <p className="text-white text-sm font-medium">Audience Type</p>
+            <p className="text-white text-sm font-medium font-archivo">Audience Type</p>
           </div>
           <div className="space-y-3">
             {[
@@ -181,7 +181,7 @@ export default function AudienceSection() {
         ].map((stat, i) => (
           <div
             key={i}
-            className="text-xs text-gray-300 border border-white rounded-full px-3 py-[3px]"
+            className="text-xs text-[#5D5D5D] border border-white rounded-full px-3 py-[3px]"
           >
             {stat.label}:{" "}
             <span className="text-white font-medium">{stat.value}</span>
@@ -192,7 +192,7 @@ export default function AudienceSection() {
       <div className="flex flex-wrap justify-between items-stretch pb-6">
   {/* -------- Estimated Reach -------- */}
   <div className="flex flex-col pr-8 border-r border-[#D0D5DD]">
-    <p className="text-[12px] text-white mb-1">Estimated Reach</p>
+    <p className="text-[12px] text-white mb-1 font-archivo">Estimated Reach</p>
     <div className="flex items-baseline gap-2 text-white">
       <p className="text-[16px] font-semibold">17.1M–51.3M</p>
       <span className="text-[12px] text-gray-400">Post</span>
@@ -204,13 +204,13 @@ export default function AudienceSection() {
 
   {/* -------- Estimated Impressions -------- */}
   <div className="flex flex-col px-8 border-r border-[#D0D5DD]">
-    <p className="text-[12px] text-white mb-1">Estimated Impressions</p>
+    <p className="text-[12px] text-white mb-1 font-archivo">Estimated Impressions</p>
     <p className="text-[16px] font-semibold text-white">21.2M</p>
   </div>
 
   {/* -------- Audience Reachability -------- */}
   <div className="flex flex-col px-8 border-r border-[#D0D5DD] max-w-[260px]">
-    <p className="text-[12px] text-white mb-1">Audience Reachability</p>
+    <p className="text-[12px] text-white mb-1 font-archivo">Audience Reachability</p>
     <div className="flex items-center gap-2 mb-1">
       <span className="text-[11px] text-green-400 font-medium px-2 py-1 border border-green-500 rounded-full leading-none">
         Good
@@ -223,7 +223,7 @@ export default function AudienceSection() {
 
   {/* -------- Estimated Authenticity -------- */}
   <div className="flex flex-col pl-8 max-w-[260px]">
-    <p className="text-[12px] text-white mb-1">Estimated Authenticity</p>
+    <p className="text-[12px] text-white mb-1 font-archivo">Estimated Authenticity</p>
     <div className="flex items-center gap-2 mb-1">
       <span className="text-[11px] text-green-400 font-medium px-2 py-1 border border-green-500 rounded-full leading-none">
         Good
@@ -242,7 +242,7 @@ export default function AudienceSection() {
         {/* Education Level */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <p className="text-white text-sm font-medium">
+            <p className="text-white text-sm font-medium font-archivo">
               Audience Education Level
             </p>
             <div className="flex items-center gap-1 text-white text-xs">
@@ -277,30 +277,52 @@ export default function AudienceSection() {
         {/* Brand Affinity */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <p className="text-white text-sm font-medium">Brand Affinity</p>
-            <p className="text-xs text-[#FF6B3A] cursor-pointer">VIEW ALL</p>
+            <p className="text-white text-sm font-medium font-archivo">Brand Affinity</p>
+            <div className="flex items-center">
+            <p className="text-xs text-[#FF6B3A] cursor-pointer">VIEW ALL</p> <ChevronRight className="text-[#FF6B3A] scale-80" />
           </div>
-          <div className="grid grid-cols-3 gap-y-4 text-gray-500 text-sm">
-            <p>Layers</p>
-            <p>Sisyphus</p>
-            <p>Circooles</p>
-            <p>Catalog</p>
-            <p>Quotient</p>
-            <p>Layers</p>
-            <p>Sisyphus</p>
-            <p>Circooles</p>
           </div>
+          <div className="grid grid-cols-3 gap-y-12 mt-6 gap-x-6 text-gray-500 text-sm">
+  {[
+  { src: "/layers.svg", alt: "Layers", label: "Layers" },
+  { src: "/sysphus.svg", alt: "Sisyphus", label: "Sisyphus" },
+  { src: "/circooles.svg", alt: "Circooles", label: "Circooles" },
+  { src: "/catelog.svg", alt: "Catalog", label: "Catalog" },
+  { src: "/kosent.svg", alt: "Quotient", label: "Quotient" },
+  { src: "/layers.svg", alt: "Layers", label: "Layers" },
+  { src: "/sysphus.svg", alt: "Sisyphus", label: "Sisyphus" },
+  { src: "/circooles.svg", alt: "Circooles", label: "Circooles" },
+].map((logo, i) => (
+    <div
+      key={i}
+      className="flex items-center opacity-70 hover:opacity-100 transition"
+    >
+      <Image
+  src={logo.src}
+  alt={logo.alt}
+  width={100}    // ← Increase this
+  height={100}   // ← And this
+  className="object-cover invert object-center"
+  unoptimized
+/>
+
+    </div>
+  ))}
+</div>
+
         </div>
       </div>
 
       {/* ================== NOTABLE AUDIENCE ================== */}
       <div>
         <div className="flex justify-between items-center mb-4">
-          <p className="text-white text-sm font-medium">Notable Audience</p>
-          <p className="text-xs text-[#FF6B3A] cursor-pointer">VIEW ALL</p>
+          <p className="text-white text-sm font-medium font-archivo">Notable Audience</p>
+          <div className="flex items-center">
+            <p className="text-xs text-[#FF6B3A] cursor-pointer">VIEW ALL</p> <ChevronRight className="text-[#FF6B3A] scale-80" />
+          </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
               username: "@phoenix",
@@ -329,7 +351,7 @@ export default function AudienceSection() {
           ].map((user, i) => (
             <div
               key={i}
-              className="flex items-center justify-between bg-[#1a1a1a] border border-[#2a2a2a] rounded-2xl px-4 py-3"
+              className="flex items-center justify-between border border-white rounded-2xl px-4 py-3"
             >
               <div className="flex items-center gap-3">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden">
@@ -360,11 +382,11 @@ export default function AudienceSection() {
                               className="opacity-80"
                             />
                   </div>
-                  <p className="text-xs text-gray-400">{user.name}</p>
+                  <p className="text-xs text-white">{user.name}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-[11px] text-gray-400">Followers</p>
+                <p className="text-[11px] text-white">Followers</p>
                 <p className="text-sm text-white font-semibold">
                   {user.followers}
                 </p>

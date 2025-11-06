@@ -39,51 +39,13 @@ import BrandMentionSection from "./BrandMentionSection";
 // All data is inlined so this file is standalone. Requires TailwindCSS and Recharts.
 
 const Dashboard = () => {
-    // Inline mock data tuned to match the reference visuals
-    const headerStats = [
-        { label: "Audience Quality Score", value: "78" },
-        { label: "Global Rank", value: "#24" },
-        { label: "Country Rank", value: "#2" },
-        { label: "Categories", value: "Design | Music | Fitness" },
-    ];
-
-    const audienceBars = [
-        { label: "United States", value: 62 },
-        { label: "India", value: 12 },
-        { label: "Brazil", value: 8 },
-        { label: "Other", value: 18 },
-    ];
-
-    const growthArea = [
-        { date: "Jan'20", value: 200 },
-        { date: "Apr'20", value: 450 },
-        { date: "Jul'20", value: 320 },
-        { date: "Oct'20", value: 560 },
-        { date: "Jan'21", value: 700 },
-        { date: "Apr'21", value: 820 },
-        { date: "Jul'21", value: 960 },
-        { date: "Oct'21", value: 1200 },
-        { date: "Jan'22", value: 1380 },
-        { date: "Apr'22", value: 1600 },
-        { date: "Jul'22", value: 1800 },
-        { date: "Oct'22", value: 1950 },
-        { date: "Jan'23", value: 2100 },
-    ];
-
-    const engagementBars = [
-        { name: "Video", val: 45 },
-        { name: "Reels", val: 30 },
-        { name: "Images", val: 12 },
-        { name: "Stories", val: 8 },
-        { name: "Live", val: 5 },
-    ];
 
     return (
         <main className="flex-1 ml-8">
             <div className="max-w-[1100px] mx-auto">
                 <header className="flex flex-col items-start justify-between gap-6 mb-4">
                     <div>
-                        <h1 className="text-5xl font-semibold text-nowrap">
+                        <h1 className="text-5xl font-semibold font-archivo text-nowrap">
                             Creator Profile
                         </h1>
                         <p className="text-sm text-[#C5C5C5] mt-1 text-nowrap">
@@ -96,11 +58,11 @@ const Dashboard = () => {
                     {/* ----------- Header Stats Row ----------- */}
                     <div className="flex justify-between pb-6">
                         <div className="flex flex-col">
-                            <p className="text-sm text-white mb-1">
+                            <p className="text-sm text-white mb-1 font-archivo">
                                 Audience Quality Score
                             </p>
                             <div className="flex items-center gap-4"><div className="flex items-end gap-1">
-                                <span className="text-3xl font-semibold text-[#78ff78]">
+                                <span className="text-3xl font-semibold text-green-500">
                                     78
                                 </span>
                                 <span className="text-sm text-white mb-1">
@@ -113,21 +75,21 @@ const Dashboard = () => {
                         </div>
                         <div className="line h-14 w-px bg-[#E5E9EB]"></div>
                         <div className="flex flex-col">
-                            <p className="text-sm text-white mb-1">
+                            <p className="text-sm text-white mb-1 font-archivo">
                                 Global Rank
                             </p>
                             <p className="text-2xl font-semibold">#24</p>
                         </div>
                         <div className="line h-14 w-px bg-[#E5E9EB]"></div>
                         <div className="flex flex-col">
-                            <p className="text-sm text-white mb-1">
+                            <p className="text-sm text-white mb-1 font-archivo">
                                 Country Rank | Philippines
                             </p>
                             <p className="text-2xl font-semibold">#2</p>
                         </div>
                         <div className="line h-14 w-px bg-[#E5E9EB]"></div>
                         <div className="md:col-span-2 flex flex-col">
-                            <p className="text-sm text-white mb-1">Category</p>
+                            <p className="text-sm text-white mb-1 font-archivo">Category</p>
                             <p className="text-xl font-semibold">
                                 <span className="mr-2">Design</span>|
                                 <span className="mx-2">Music</span>|
@@ -200,7 +162,7 @@ const Dashboard = () => {
   <div className="flex flex-col items-start min-w-[110px] mb-3 md:mb-0">
     <div className="flex flex-col gap-1 text-orange-400 mb-1">
       <TrendingUp size={14} />
-      <p className="text-xs text-white">Engagement Rate</p>
+      <p className="text-xs text-white font-archivo">Engagement Rate</p>
     </div>
     <p className="text-[17px] font-semibold text-white leading-none">4.9%</p>
     <p className="text-[11px] text-gray-500 mt-1">Last 30 Days</p>
@@ -210,7 +172,7 @@ const Dashboard = () => {
   <div className="flex flex-col items-start min-w-[110px] mb-3 md:mb-0">
     <div className="flex flex-col gap-1 text-orange-400 mb-1">
       <Users size={14} />
-      <p className="text-xs text-white">Quality Audience</p>
+      <p className="text-xs text-white font-archivo">Quality Audience</p>
     </div>
     <p className="text-[17px] font-semibold text-white leading-none">98%</p>
     <p className="text-[11px] text-gray-500 mt-1">628.7k</p>
@@ -220,12 +182,12 @@ const Dashboard = () => {
   <div className="flex flex-col items-start min-w-[130px] mb-3 md:mb-0">
     <div className="flex gap-1 text-orange-400 mb-1 flex-col">
       <Activity size={14} />
-      <p className="text-xs text-white">Followers Growth</p>
+      <p className="text-xs text-white font-archivo">Followers Growth</p>
     </div>
 
     <div className="flex items-center gap-2">
-      <span className="text-[17px] font-semibold"><span className="text-green-400">↑</span> 98%</span>
-      <span className="text-[11px] text-green-400 font-medium bg-green-950/30 border border-green-800 rounded-full px-2 py-1 leading-none">
+      <span className="text-[17px] font-semibold"><span className="text-green-500">↑</span> 98%</span>
+      <span className="text-[11px] text-green-500 font-medium bg-green-950/30 border border-green-800 rounded-full px-2 py-1 leading-none">
         Good
       </span>
     </div>
@@ -237,22 +199,22 @@ const Dashboard = () => {
   <div className="flex flex-col items-start min-w-[120px] mb-3 md:mb-0">
     <div className="flex flex-col gap-1 text-orange-400 mb-1">
       <BarChart2 size={14} />
-      <p className="text-xs text-white">Authentic Engagement</p>
+      <p className="text-xs text-white font-archivo">Authentic Engagement</p>
     </div>
     <p className="text-[17px] font-semibold text-white leading-none">678k</p>
     <p className="text-[11px] text-gray-500 mt-1">per post</p>
   </div>
 
   {/* -------- Post Frequency -------- */}
-  <div className="flex flex-col items-start min-w-[100px] hidden">
+  <div className="flex hidden flex-col items-start min-w-[100px]">
     <div className="flex flex-col gap-1 text-orange-400 mb-1">
       <Calendar size={14} />
-      <p className="text-xs text-white">Post Frequency</p>
+      <p className="text-xs text-white font-archivo">Post Frequency</p>
     </div>
 
     <div className="flex items-center gap-2">
       <p className="text-[17px] font-semibold text-white leading-none">5</p>
-      <span className="text-[11px] text-green-400 font-medium bg-green-950/30 border border-green-800 rounded-full px-2 py-1 leading-none">
+      <span className="text-[11px] text-green-500 font-medium bg-green-950/30 border border-green-800 rounded-full px-2 py-1 leading-none">
         Good
       </span>
     </div>
@@ -473,7 +435,7 @@ export default function CreatorDashboardPage() {
             </div>
 
             {/* Dashboard area - scrollable independently */}
-            <div className="flex-1 h-full overflow-auto">
+            <div className="flex-1 h-full overflow-auto font-[inter]">
                 <Dashboard />
             </div>
         </div>
