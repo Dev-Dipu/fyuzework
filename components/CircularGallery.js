@@ -1,6 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useMotionValue, useSpring } from "framer-motion";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(SplitText);
 
 /* ----------------- Data Array ----------------- */
 const defaultFeatures = [
@@ -170,25 +174,98 @@ export default function CircularGallery2D({
     };
   }, [totalWidth]);
 
-  // Update heading/paragraph based on scroll position
-  useEffect(() => {
-    if (headingRef?.current && paraRef?.current) {
-      const groupSize = 3;
-      const snapWidth = cardWidth * groupSize;
-      const groupIndex = Math.round(Math.abs(scrollRef.current.target) / snapWidth);
-      const slideIndex = groupIndex % slideTexts.length;
-      
-      headingRef.current.textContent = slideTexts[slideIndex].heading;
-      paraRef.current.textContent = slideTexts[slideIndex].paragraph;
-    }
-  }, [currentSlide, headingRef, paraRef, cardWidth]);
-
   const onCheck = () => {
     const groupSize = 3;
     const snapWidth = cardWidth * groupSize;
     const groupIndex = Math.round(scrollRef.current.target / snapWidth);
     scrollRef.current.target = snapWidth * groupIndex;
     setCurrentSlide(Math.abs(groupIndex));
+
+    // --- Update heading/paragraph dynamically with animation ---
+    if (headingRef?.current && paraRef?.current) {
+      const slideIndex = Math.abs(groupIndex) % slideTexts.length;
+      const nextHeading = slideTexts[slideIndex].heading;
+      const nextParagraph = slideTexts[slideIndex].paragraph;
+
+      const headingEl = headingRef.current;
+      const paraEl = paraRef.current;
+
+      // Skip animation if content is the same
+      if (headingEl.textContent === nextHeading && paraEl.textContent === nextParagraph) {
+        return;
+      }
+
+      // Clear any previous SplitText instances
+      if (headingEl.split) headingEl.split.revert();
+      if (paraEl.split) paraEl.split.revert();
+
+      const tl = gsap.timeline();
+
+      // Fade & blur out existing text
+      tl.to([headingEl, paraEl], {
+        opacity: 0,
+        filter: "blur(6px)",
+        y: 10,
+        duration: 0.4,
+        ease: "power2.out",
+        onComplete: () => {
+          headingEl.textContent = nextHeading;
+          paraEl.textContent = nextParagraph;
+
+          // Split new text after content update
+          try {
+            const headingSplit = new SplitText(headingEl, { type: "words" });
+            const paraSplit = new SplitText(paraEl, { type: "lines" });
+            
+            headingEl.split = headingSplit;
+            paraEl.split = paraSplit;
+
+            // Set initial states for new split parts
+            gsap.set(headingSplit.words, {
+              opacity: 0,
+              y: 50,
+              filter: "blur(4px)",
+            });
+            gsap.set(paraSplit.lines, {
+              opacity: 0,
+              y: 40,
+              filter: "blur(4px)",
+            });
+
+            // Animate new text in with word & line staggering
+            gsap.to(headingSplit.words, {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.6,
+              ease: "power3.out",
+              stagger: 0.05,
+              delay: 0.1
+            });
+
+            gsap.to(paraSplit.lines, {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.8,
+              ease: "power3.out",
+              stagger: 0.1,
+              delay: 0.2
+            });
+          } catch (error) {
+            console.error("SplitText error:", error);
+            // Fallback: just fade in without split
+            gsap.to([headingEl, paraEl], {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.6,
+              ease: "power3.out"
+            });
+          }
+        },
+      });
+    }
   };
 
   const handleMouseDown = (e) => {
@@ -196,7 +273,6 @@ export default function CircularGallery2D({
     isDownRef.current = true;
     startXRef.current = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
     scrollPositionRef.current = scrollRef.current.current;
-  
   };
 
   const handleMouseMove = (e) => {
@@ -265,7 +341,7 @@ export default function CircularGallery2D({
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className="relative w-full h-full overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
       <div
         ref={containerRef}
         onMouseEnter={handleMouseEnter}
@@ -298,7 +374,7 @@ export default function CircularGallery2D({
           ))}
         </div>
       </div>
-
+5
       {/* Animated Drag Circle */}
       <motion.div
         style={{

@@ -123,9 +123,6 @@ export default function Home() {
         <div>
           <ChatFold12 />
         </div>
-      </section>
-
-      <section className="section theme-bg-secondary" data-text="light">
         <FAQsection />
         <Footer />
       </section>

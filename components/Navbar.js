@@ -287,7 +287,7 @@ export default function Navbar() {
               style={{ backgroundColor: textColor }}
             ></span>
           </Link>
-          <div 
+                    <div 
             className="relative w-[2px] h-[2px] navelm rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
           ></div>

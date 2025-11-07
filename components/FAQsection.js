@@ -5,10 +5,6 @@ import { useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// ✅ REMOVED - Don't register or configure at module level
-// gsap.registerPlugin(ScrollTrigger);
-// ScrollTrigger.config({ ... });
-
 export default function FAQsection() {
   const [activeTab, setActiveTab] = useState("");
   const homeContainer = useRef(null);
