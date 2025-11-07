@@ -341,7 +341,7 @@ export default function CircularGallery2D({
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="relative w-full h-full overflow-hidden">
       <div
         ref={containerRef}
         onMouseEnter={handleMouseEnter}
@@ -385,7 +385,7 @@ export default function CircularGallery2D({
         }}
         animate={dragCircleControls}
         initial={{ opacity: 0, scale: 0 }}
-        className="h-20 w-20 rounded-full absolute top-0 left-0 pointer-events-none bg-white flex items-center justify-center shadow-lg z-10"
+        className="h-20 w-20 rounded-full absolute top-0 left-0 pointer-events-none flex items-center justify-center shadow-lg z-10"
       >
         <h1 className="text-sm font-semibold select-none">Drag</h1>
       </motion.div>
