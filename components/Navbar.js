@@ -276,21 +276,6 @@ export default function Navbar() {
             className="relative w-[2px] h-[2px] navelm rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
           ></div>
-          <Link
-            href="/pricing"
-            className="group relative inline-block text-sm font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
-            style={{ color: textColor }}
-          >
-            pricing
-            <span
-              className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
-              style={{ backgroundColor: textColor }}
-            ></span>
-          </Link>
-                    <div 
-            className="relative w-[2px] h-[2px] navelm rounded-full transition-colors duration-300"
-            style={{ backgroundColor: textColor }}
-          ></div>
           <div
             ref={aboutContainerRef}
             className="relative p-1"
@@ -309,6 +294,21 @@ export default function Navbar() {
               ></span>
             </div>
           </div>
+                    <div 
+            className="relative w-[2px] h-[2px] navelm rounded-full transition-colors duration-300"
+            style={{ backgroundColor: textColor }}
+          ></div>
+          <Link
+            href="/pricing"
+            className="group relative inline-block text-sm font-[300] leading-[100%] uppercase transition-colors duration-300 navelm"
+            style={{ color: textColor }}
+          >
+            pricing
+            <span
+              className="absolute left-0 -bottom-2 h-[0.5px] w-0 transition-all duration-300 group-hover:w-full"
+              style={{ backgroundColor: textColor }}
+            ></span>
+          </Link>
           <div 
             className="relative w-[2px] h-[2px] navelm rounded-full transition-colors duration-300"
             style={{ backgroundColor: textColor }}
