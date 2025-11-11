@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import TestimonialCardsSlider from "./what-clients/page";
 
 export default function Home() {
   useLenis();
@@ -121,8 +122,12 @@ export default function Home() {
           <ChatFold11 />
         </div>
         <div>
+          {/* <TestimonialCardsSlider /> */}
           <ChatFold12 />
         </div>
+        
+      </section>
+      <section className="section relative w-full z-50 theme-bg-secondary" data-text="dark">
         <FAQsection />
         <Footer />
       </section>

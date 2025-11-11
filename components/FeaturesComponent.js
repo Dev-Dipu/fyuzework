@@ -65,7 +65,7 @@ const FeaturesComponent = () => {
 
         ScrollTrigger.create({
             trigger: containerRef.current,
-            start: "top 20%",
+            start: "top 40%",
             end: "bottom 70%",
             duration: 10,
             scrub: true,
@@ -113,7 +113,7 @@ const FeaturesComponent = () => {
 
     return (
         <div ref={containerRef} className="h-fit w-full relative py-20">
-            <div className='pt-72 w-[80%] mx-auto'>
+            <div className='pt-32 w-[80%] mx-auto'>
                 <p ref={paragraphRef} className="text-xs uppercase w-[620px] mb-4 text-[#aaa]">
                     Boost	your	Business	Using	the	Power	of	Influencer	Marketing.
                 </p>
