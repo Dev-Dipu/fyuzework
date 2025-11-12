@@ -25,6 +25,8 @@ export default function Navbar() {
   const [logoSrc, setLogoSrc] = useState("/assets/fyuze-logo.svg");
   const [isProfileCardVisible, setIsProfileCardVisible] = useState(false);
   const [isAboutDropdownVisible, setIsAboutDropdownVisible] = useState(false);
+  const [shouldHideNav, setShouldHideNav] = useState(false);
+  const [bgOpacity, setBgOpacity] = useState(0); // Track background opacity
   const navRef = useRef();
   const profileCardRef = useRef();
   const aboutDropdownRef = useRef();
@@ -92,6 +94,23 @@ export default function Navbar() {
       }
   }, [isAboutDropdownVisible]);
 
+  // Navbar hide/show animation with GSAP
+  useGSAP(() => {
+    if (shouldHideNav) {
+      gsap.to(navRef.current, {
+        y: -120,
+        duration: 0.5,
+        ease: "power2.inOut"
+      });
+    } else {
+      gsap.to(navRef.current, {
+        y: 0,
+        duration: 0.5,
+        ease: "power2.inOut"
+      });
+    }
+  }, [shouldHideNav]);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -121,12 +140,55 @@ export default function Navbar() {
     setIsAboutDropdownVisible(false);
   };
 
+  // Separate useEffect for navbar hide/show on ALL pages (except pricing)
+  useEffect(() => {
+    // Don't hide navbar on pricing page
+    const isPricingPage = pathname === '/pricing';
+    
+    if (isPricingPage) {
+      setShouldHideNav(false);
+      return;
+    }
+
+    const handleNavbarHideScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
+      
+      // Hide navbar when last 100vh remains
+      if (distanceFromBottom <= windowHeight / 2) {
+        setShouldHideNav(true);
+      } else {
+        setShouldHideNav(false);
+      }
+    };
+
+    let ticking = false;
+    const throttledNavbarHideScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleNavbarHideScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', throttledNavbarHideScroll);
+    handleNavbarHideScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', throttledNavbarHideScroll);
+  }, [pathname]); // Add pathname dependency
+
+  // Separate useEffect for color changes on home page
   useEffect(() => {
     // If not on home page, force black text and white background
     if (!isHomePage) {
       setTextColor("#000000");
       setIsDarkSection(false);
       setLogoSrc("/assets/fyuze-dark.svg");
+      setBgOpacity(1); // Always show background on other pages
       return;
     }
 
@@ -134,6 +196,19 @@ export default function Navbar() {
     const handleScroll = () => {
       const sections = document.querySelectorAll('.section');
       const scrollPosition = window.scrollY + window.innerHeight / 2;
+      
+      // Handle background opacity for first section
+      const firstSectionHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      if (scrollY < firstSectionHeight * 0.3) {
+        setBgOpacity(0);
+      } else if (scrollY < firstSectionHeight) {
+        // Fade in from 30% to 100% of first section
+        const progress = (scrollY - firstSectionHeight * 0.3) / (firstSectionHeight * 0.7);
+        setBgOpacity(Math.min(progress, 1));
+      } else {
+        setBgOpacity(1);
+      }
 
       let currentSection = null;
       let minDistance = Infinity;
@@ -201,29 +276,31 @@ export default function Navbar() {
 
   }, [])
 
-  // Determine navbar background based on route
+// Determine navbar background based on route
   const getNavbarBg = () => {
     if (!isHomePage) {
       return 'transparent'; // White background for non-home pages
     }
-    return isDark ? 'var(--theme-bg-primary)' : 'transparent';
+    return isDark ? 'transparent' : 'transparent';
   };
 
-  // Determine gradient overlay
+  // Determine gradient overlay - use state-based opacity
   const getGradientOverlay = () => {
     if (!isHomePage) {
       return {
-        background: 'linear-gradient(180deg, #ffffff 73.25%, rgba(255,255,255,0) 100%)',
-        opacity: 0
+        background: 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
+        opacity: 1
       };
     }
+    
     return {
       background: isDark 
         ? 'linear-gradient(180deg, #262626 73.25%, rgba(38,38,38,0) 100%)'
         : 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
-      opacity: isDarkSection ? 1 : 0
+      opacity: bgOpacity
     };
   };
+
 
   const gradientStyle = getGradientOverlay();
 
