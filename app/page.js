@@ -60,7 +60,7 @@ export default function Home() {
       </section>
 
       <section className="section relative w-full z-50 theme-bg-secondary" data-text="dark">
-        <div className="flex-between w-full p-10 sticky top-[86vh] z-100">
+        <div className="flex-between pointer-events-none w-full p-10 sticky top-[86vh] z-100">
           <div className="relative group">
             <button
               className="fill-button relative overflow-hidden"
@@ -122,7 +122,7 @@ export default function Home() {
           <ChatFold11 />
         </div>
         <div>
-          {/* <TestimonialCardsSlider /> */}
+          <TestimonialCardsSlider />
           <ChatFold12 />
         </div>
         
