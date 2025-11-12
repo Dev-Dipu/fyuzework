@@ -5,6 +5,11 @@ import { Mousewheel } from "swiper/modules";
 import "swiper/css";
 import Image from "next/image";
 import { GoArrowLeft } from "react-icons/go";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 /* ----------------- Testimonial Data ----------------- */
 const testimonials = [
@@ -58,13 +63,13 @@ function TestimonialCard({ quote, avatar, name, title, isActive }) {
         >
             <Image src="/Quote.svg" alt="quote" width={30} height={30} />
             <h1
-  className={`text-center font-medium px-6 text-gray-800 leading-tight transition-all duration-500 ${
-    isActive ? "text-xl sm:text-2xl pt-4" : "text-base sm:text-lg pt-3 opacity-80"
-  }`}
-  style={{ fontFamily: "Inter, sans-serif" }}
->
-  {quote}
-</h1>
+                className={`text-center font-medium px-6 text-gray-800 leading-tight transition-all duration-500 ${
+                    isActive ? "text-xl sm:text-2xl pt-4" : "text-base sm:text-lg pt-3 opacity-80"
+                }`}
+                style={{ fontFamily: "Inter, sans-serif" }}
+            >
+                {quote}
+            </h1>
 
             <div className="mx-auto py-8 flex justify-center">
                 <Image
@@ -93,6 +98,9 @@ function TestimonialCard({ quote, avatar, name, title, isActive }) {
 /* ----------------- Main Component ----------------- */
 export default function TestimonialCardsSlider() {
     const swiperRef = useRef(null);
+    const cardsRef = useRef(null);
+    const headingRef = useRef(null);
+    const containerRef = useRef(null);
     const [activeIndex, setActiveIndex] = useState(testimonials.length);
     const [progress, setProgress] = useState(0);
 
@@ -148,7 +156,50 @@ export default function TestimonialCardsSlider() {
 
         swiperRef.current = swiper;
 
-        return () => swiper.destroy();
+        // GSAP ScrollTrigger animations
+        gsap.fromTo(
+            headingRef.current,
+            {
+                y: 100,
+                opacity: 0,
+            },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1.5,
+                ease: "power3.inOut",
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 90%",
+                    toggleActions: "play none none none",
+                }
+            }
+        );
+
+        gsap.fromTo(
+            ".testimonial-card",
+            {
+                y: 200,
+                opacity: 0,
+            },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 2,
+                ease: "power3.inOut",
+                stagger: 0.1,
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 180%",
+                    toggleActions: "play none none none",
+                }
+            }
+        );
+
+        return () => {
+            swiper.destroy();
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        };
     }, []);
 
     const updateScale = (swiper) => {
@@ -202,10 +253,11 @@ export default function TestimonialCardsSlider() {
         }
       `}</style>
 
-            <div className="h-full w-full bg-[#E2E1DC] relative overflow-hidden">
+            <div ref={containerRef} className="h-full w-full bg-[#E2E1DC] relative overflow-hidden">
                 {/* Heading */}
                 <div className="w-full flex justify-center pt-16 pb-4">
                     <h1
+                        ref={headingRef}
                         className="text-2xl sm:text-5xl md:text-6xl font-bold text-center"
                         style={{ fontFamily: "Archivo, sans-serif" }}
                     >
@@ -218,7 +270,7 @@ export default function TestimonialCardsSlider() {
 
                 {/* Swiper Slider */}
                 <div className="relative w-full h-[75vh] sm:h-[70vh] md:h-[80vh] z-10 flex items-center justify-center">
-                    <div className="swiper w-full h-full flex items-center justify-center select-none">
+                    <div className="swiper w-full h-full flex items-center justify-center select-none" ref={cardsRef}>
                         <div className="swiper-wrapper">
                             {allCards.map((testimonial, index) => (
                                 <div

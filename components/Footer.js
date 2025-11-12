@@ -1,21 +1,43 @@
-import React, { useEffect } from 'react'
-import Content from './Content';
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from '@/lib/contexts/ThemeContext';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   const { isDark, toggleTheme } = useTheme();
+  const bgText = useRef(null);
+  const bgTextGrad = useRef(null);
+  const container = useRef(null);
+
+  useGSAP(() => {
+    gsap.from(bgText.current, {
+      y: 400,
+      duration: 1.5,
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top 40%',
+      }
+    });
+    gsap.to(bgTextGrad.current, {
+      opacity: 1,
+      duration: 1.5,
+      delay: 0.5,
+      scrollTrigger: {
+        trigger: container.current,
+        start: 'top 60%',
+      }
+    });
+  }, []);
   
   return (
-    <div 
-        className='relative h-auto min-h-[35vh] md:h-[35vh] bg-[]'
-        style={{clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)"}}
-    >
-        <div className='relative h-auto md:h-[calc(100vh+35vh)] md:-top-[100vh]'>
-            <div className='h-auto md:h-[35vh] p-4 sm:p-6 md:p-12 lg:p-20 md:sticky md:top-[calc(100vh-35vh)]'>
-              {/* Main Content Section */}
-              <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
+    <div ref={container} className='relative h-screen overflow-hidden w-full'>
+      <div className='min-h-[55vh] p-4 sm:p-6 md:p-12 lg:p-20 lg:pt-28 relative w-full bg-[#E2E1DC]'>
+        <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
                 {/* Logo and Social Section */}
                 <div className='space-y-3 sm:space-y-4 flex-shrink-0'>
                     <Image 
@@ -61,67 +83,48 @@ export default function Footer() {
                 {/* Links Section */}
                 <div className='flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-20 lg:gap-40'>
                     {/* Company Links */}
-                    <div className='min-w-0'>
+                    <div className='min-w-[20vw]'>
                         <h1 className='font-archivo uppercase font-medium text-xl sm:text-2xl lg:text-3xl pb-2 sm:pb-3'>
-                          The company
+                          product
                         </h1>
-                        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-6 lg:gap-8'>
-                            <Link 
-                              href="#" 
-                              className='block text-sm sm:text-base hover:underline transition'
-                            >
-                              How it works
-                            </Link>
-                            <Link 
-                              href="#" 
-                              className='block text-sm sm:text-base hover:underline transition'
-                            >
-                              Features
-                            </Link>
-                            <Link 
-                              href="#" 
-                              className='block text-sm sm:text-base hover:underline transition'
-                            >
-                              Pricing
-                            </Link>
-                            <Link 
-                              href="#" 
-                              className='block text-sm sm:text-base hover:underline transition'
-                            >
-                              Contact sales
-                            </Link>
+                        <div className='flex flex-col gap-2'>
+                            {["Sign in", "About", "How it works", "Features", "Pricing", "FAQs"].map((item, index) => (
+                              <Link 
+                                key={index} 
+                                href="#" 
+                                className='block text-sm sm:text-base hover:underline transition'
+                              >
+                                {item}
+                              </Link>
+                            ))}
                         </div>
                     </div>
 
                     {/* Contact Links */}
-                    <div className='min-w-0'>
+                    <div className='min-w-[10vw]'>
                         <h1 className='font-archivo uppercase font-medium text-xl sm:text-2xl lg:text-3xl pb-2 sm:pb-3'>
-                          contact
+                          company
                         </h1>
-                        <div className='flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-6 lg:gap-8'>
-                            <Link 
-                              href="mailto:Help@Fyuze.ai" 
-                              className='block text-sm sm:text-base hover:underline transition break-all sm:break-normal'
-                            >
-                              Help@Fyuze.ai
-                            </Link>
-                            <Link 
-                              href="tel:+915676512343" 
-                              className='block text-sm sm:text-base hover:underline transition whitespace-nowrap'
-                            >
-                              +91 56765 12343
-                            </Link>
+                        <div className='flex flex-col gap-2'>
+                            {["Contact us", "Terms of use", "Privacy policy", "Cookies settings"].map((item, index) => (
+                              <Link 
+                                key={index} 
+                                href="#" 
+                                className='block text-sm sm:text-base hover:underline transition'
+                              >
+                                {item}
+                              </Link>
+                            ))}
                         </div>
                     </div>
                 </div>
-              </div>
-              
-              {/* Footer Bottom Section */}
-              <div className='flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-zinc-300'>
+
+                
+        </div>     
+        <div className='flex absolute z-50 justify-between bottom-10 w-[92%] flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 pb-6 sm:pb-8 border-b border-zinc-300'>
                 <p className='text-xs sm:text-sm text-zinc-600'>
-                  Copyright © 2023. All rights reserved FYUZE
+                  © 2025 fyuze.ai. A UK registered company. All rights reserved
                 </p>
-                <div className='hidden sm:block h-5 w-[2px] bg-zinc-600 rounded-2xl'></div>
                 <div className='flex flex-col sm:flex-row gap-3 sm:gap-6'>
                     <Link 
                       href="#" 
@@ -136,9 +139,12 @@ export default function Footer() {
                       Privacy policy
                     </Link>
                 </div>
-              </div>
-            </div>
-        </div>
+        </div>  
+      </div>
+      <div className='pointer-events-none relative h-[45vh]'>
+        <Image ref={bgTextGrad} src="/footerGradient.svg" alt="footer-logo" width={150} height={50} className='w-[100vw] h-auto bottom-0 opacity-0 absolute'/>
+        <Image ref={bgText} src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto bottom-0 absolute left-1/2 -translate-x-1/2'/>
+      </div>
     </div>
   )
 }
