@@ -96,7 +96,7 @@ export default function Home() {
           <AboutComponent />
         </div>
 
-        <div className="theme-bg-secondary h-[150vh]">
+        <div className="theme-bg-secondary h-[190vh]">
           <div className="h-[10vh] mt-[50vh] flex-center">
             <LogoLoop
               logos={imageLogos}
