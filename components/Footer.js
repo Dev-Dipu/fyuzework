@@ -145,7 +145,7 @@ export default function Footer() {
       </div>
       <div className='pointer-events-none relative h-[45vh]'>
         <Image ref={bgTextGrad} src="/footerGradient.svg" alt="footer-logo" width={150} height={50} className='w-[100vw] h-auto bottom-0 opacity-0 absolute'/>
-        <Image ref={bgText} src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto top-6 absolute left-1/2 -translate-x-1/2'/>
+        <Image ref={bgText} src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto top-4 absolute left-1/2 -translate-x-1/2'/>
       </div>
     </div>
   )
