@@ -55,21 +55,31 @@ const testimonials = [
 function TestimonialCard({ quote, avatar, name, title, isActive }) {
     return (
         <div
-            className={`testimonial-card flex-shrink-0 bg-white border border-gray-200 rounded-[2rem] flex flex-col relative items-center justify-center py-10 transition-all duration-500 shadow-sm`}
+            className={`testimonial-card flex-shrink-0 bg-white border border-gray-200 rounded-[2rem] flex flex-col relative items-center justify-center transition-all duration-500 shadow-sm`}
             style={{
                 height: isActive ? "56vh" : "48vh",
                 width: isActive ? "340px" : "300px",
             }}
         >
-            <Image src="/Quote.svg" alt="quote" width={30} height={30} />
-            <h1
-                className={`text-center font-medium px-6 text-gray-800 leading-tight transition-all duration-500 ${
-                    isActive ? "text-xl sm:text-2xl pt-4" : "text-base sm:text-lg pt-3 opacity-80"
-                }`}
-                style={{ fontFamily: "Inter, sans-serif" }}
-            >
-                {quote}
-            </h1>
+            <Image src="/Quote.svg" alt="quote" className="transition-all duration-500" width={30} height={30} style={{ 
+                        fontFamily: "Inter, sans-serif",
+                        transform: isActive ? "scale(1)" : "scale(0.8)",
+                        opacity: isActive ? 1 : 0.8,
+                        transformOrigin: "center"
+                    }} />
+            <div style={{ width: "280px" }} className="flex items-center justify-center">
+                <h1
+                    className="text-center font-medium text-gray-800 leading-tight transition-all duration-500 text-lg sm:text-xl pt-4"
+                    style={{ 
+                        fontFamily: "Inter, sans-serif",
+                        transform: isActive ? "scale(1)" : "scale(0.8)",
+                        opacity: isActive ? 1 : 0.8,
+                        transformOrigin: "center"
+                    }}
+                >
+                    {quote}
+                </h1>
+            </div>
 
             <div className="mx-auto py-8 flex justify-center">
                 <Image
@@ -85,10 +95,26 @@ function TestimonialCard({ quote, avatar, name, title, isActive }) {
                 alt={name}
                 width={60}
                 height={60}
-                className="rounded-full"
+                className="rounded-full transition-all duration-500"
+                style={{ 
+                        fontFamily: "Inter, sans-serif",
+                        transform: isActive ? "scale(1)" : "scale(0.8)",
+                        opacity: isActive ? 1 : 0.8,
+                        transformOrigin: "center"
+                    }}
             />
-            <h1 className="text-base sm:text-lg font-semibold pt-4">{name}</h1>
-            <h1 className="text-sm sm:text-base font-medium opacity-60">
+            <h1 className="text-base sm:text-lg font-semibold pt-4 transition-all duration-500" style={{ 
+                        fontFamily: "Inter, sans-serif",
+                        transform: isActive ? "scale(1)" : "scale(0.8)",
+                        opacity: isActive ? 1 : 0.8,
+                        transformOrigin: "center"
+                    }}>{name}</h1>
+            <h1 className="text-sm sm:text-base font-medium opacity-60 transition-all duration-500" style={{ 
+                        fontFamily: "Inter, sans-serif",
+                        transform: isActive ? "scale(1)" : "scale(0.8)",
+                        opacity: isActive ? 1 : 0.8,
+                        transformOrigin: "center"
+                    }}>
                 {title}
             </h1>
         </div>
@@ -144,7 +170,8 @@ export default function TestimonialCardsSlider() {
                         setActiveIndex(target);
                         updateProgress(target);
                     } else if (this.activeIndex <= 2) {
-                        const target = setLength + (this.activeIndex % setLength);
+                        const target =
+                            setLength + (this.activeIndex % setLength);
                         this.slideTo(target, 0, false);
                         setActiveIndex(target);
                         updateProgress(target);
@@ -171,7 +198,6 @@ export default function TestimonialCardsSlider() {
                     trigger: containerRef.current,
                     start: "top 90%",
                     toggleActions: "play none none none",
-                    scrub: true,
                 }
             }
         );
@@ -192,7 +218,6 @@ export default function TestimonialCardsSlider() {
                     trigger: containerRef.current,
                     start: "top 180%",
                     toggleActions: "play none none none",
-                    scrub: true,
                 }
             }
         );
@@ -226,7 +251,7 @@ export default function TestimonialCardsSlider() {
 
     return (
         <>
-        <style>{`
+            <style>{`
         .swiper {
           width: 100%;
           height: 100%;
@@ -260,7 +285,8 @@ export default function TestimonialCardsSlider() {
                     <h1
                         ref={headingRef}
                         className="text-2xl sm:text-5xl md:text-6xl font-bold text-center"
-                        style={{ fontFamily: "Archivo, sans-serif" }}>
+                        style={{ fontFamily: "Archivo, sans-serif" }}
+                    >
                         What our clients say
                     </h1>
                 </div>
@@ -304,7 +330,7 @@ export default function TestimonialCardsSlider() {
                         </button>
 
                         {/* Scroll Track */}
-                        <div className="relative w-[200px] sm:w-[260px] h-[8px] border border-gray-400 rounded-full overflow-hidden shadow-inner scale-90">
+                        <div className="relative w-[200px] sm:w-[260px] h-[8px]  border border-gray-400 rounded-full overflow-hidden shadow-inner scale-90">
                             <div
                                 className="absolute top-0 h-full bg-[#828282] rounded-full transition-all duration-500 ease-in-out"
                                 style={{
