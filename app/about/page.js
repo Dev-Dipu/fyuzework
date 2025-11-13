@@ -6,8 +6,9 @@ import StackCards from "./sections/StackCards"
 import HowItWorks from "./sections/HowItWorks"
 import WhoIsFor from "./sections/WhoIsFor"
 import Dominate from "./sections/Dominate"
-import PricingScreen from "../pricing/page"
 import Footer from "@/components/Footer"
+import Pricing from "@/components/Pricing"
+import Navbar from "@/components/Navbar"
 
 const Page = () => {
   useLenis()
@@ -35,8 +36,11 @@ const Page = () => {
 
   return (
     <div className="w-full relative bg-[#E2E1DC] inter scroll-smooth">
+      <Navbar />
       <Landing />
-      <StackCards />
+      <section className="section theme-bg-secondary" data-text="light">
+        <StackCards />
+      </section>
       <section id="how-it-works">
         <HowItWorks />
       </section>
@@ -44,7 +48,8 @@ const Page = () => {
         <WhoIsFor />
       </section>
       <Dominate />
-      <PricingScreen />
+      <Pricing />
+      <Footer />
     </div>
   )
 }
