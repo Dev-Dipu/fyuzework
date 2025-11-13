@@ -292,7 +292,7 @@ export default function TestimonialCardsSlider() {
                 <div className="w-full flex justify-center pt-16 pb-4">
                     <h1
                         ref={headingRef}
-                        className="text-2xl sm:text-5xl md:text-6xl font-bold text-center"
+                        className="text-2xl sm:text-5xl md:text-6xl font-bold text-center translate-y-40 absolute"
                         style={{ fontFamily: "Archivo, sans-serif" }}
                     >
                         What our clients say
