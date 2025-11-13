@@ -80,7 +80,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className='h-[18vh] w-[2px] bg-[#C5C5C5]'></div>
+                <div className='h-[18vh] w-[.5px] bg-[#4f4f4f]'></div>
 
                 {/* Links Section */}
                 <div className='flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-20 lg:gap-40'>
@@ -123,7 +123,7 @@ export default function Footer() {
 
                 
         </div>     
-        <div className='flex absolute z-50 justify-between bottom-0 w-[92%] flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 pb-6 sm:pb-8 border-b border-zinc-300'>
+        <div className='flex absolute z-50 justify-between bottom-0 w-[92%] flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 pb-6 sm:pb-8 border-b border-[#4f4f4f]'>
                 <p className='text-xs sm:text-sm text-zinc-600'>
                   © 2025 fyuze.ai. A UK registered company. All rights reserved
                 </p>
