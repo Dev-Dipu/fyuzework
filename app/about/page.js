@@ -35,7 +35,7 @@ const Page = () => {
   }, [])
 
   return (
-    <div className="w-full relative bg-[#E2E1DC] inter scroll-smooth">
+    <div className="bg-[#E2E1DC]">
       <Navbar />
       <Landing />
       <section id="aboutHero" data-nav-transparent="true" className="section theme-bg-secondary" data-text="light">
