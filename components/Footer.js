@@ -21,8 +21,7 @@ export default function Footer() {
       ease: 'power2.out',
       scrollTrigger: {
         trigger: container.current,
-        start: 'top 50%',
-        scrub: true,
+        start: 'top 80%',
       }
     });
     gsap.to(bgTextGrad.current, {
@@ -31,8 +30,7 @@ export default function Footer() {
       delay: 0.5,
       scrollTrigger: {
         trigger: container.current,
-        start: 'top 50%',
-        scrub: true,
+        start: 'top 60%',
       }
     });
   }, []);
