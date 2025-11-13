@@ -182,45 +182,53 @@ export default function TestimonialCardsSlider() {
 
         swiperRef.current = swiper;
 
-        // GSAP ScrollTrigger animations
-        gsap.fromTo(
-            headingRef.current,
-            {
-                y: 100,
-                opacity: 0,
-            },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 1.5,
-                ease: "power3.inOut",
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 90%",
-                    toggleActions: "play none none none",
-                }
+         // Heading animation (no change)
+    gsap.fromTo(
+        headingRef.current,
+        { y: 100, opacity: 0 },
+        {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 85%",
+                toggleActions: "play none none none",
             }
-        );
+        }
+    );
 
-        gsap.fromTo(
-            ".testimonial-card",
-            {
-                y: 200,
-                opacity: 0,
+    // ⭐ NEW SCRUB + CENTER OUTWARD TIMELINE ⭐
+    const cardsTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 85%",
+            end: "top 20%",
+            scrub: true,              // <-- SCRUB ENABLED
+        }
+    });
+
+    cardsTimeline.fromTo(
+        ".testimonial-card",
+        {
+            y: 150,
+            opacity: 0,
+            scale: 0.8
+        },
+        {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            ease: "power3.out",
+            stagger: {
+                each: 0.15,
+                from: "center",      // ⭐ center → outward animation
             },
-            {
-                y: 0,
-                opacity: 1,
-                duration: 2,
-                ease: "power3.inOut",
-                stagger: 0.1,
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 180%",
-                    toggleActions: "play none none none",
-                }
-            }
-        );
+            duration: 1.5
+        }
+    );
+
 
         return () => {
             swiper.destroy();
@@ -284,7 +292,7 @@ export default function TestimonialCardsSlider() {
                 <div className="w-full flex justify-center pt-16 pb-4">
                     <h1
                         ref={headingRef}
-                        className="text-2xl sm:text-5xl md:text-6xl font-bold text-center"
+                        className="text-2xl sm:text-5xl md:text-6xl font-bold text-center translate-y-40 absolute"
                         style={{ fontFamily: "Archivo, sans-serif" }}
                     >
                         What our clients say
