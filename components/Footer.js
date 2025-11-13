@@ -16,11 +16,13 @@ export default function Footer() {
 
   useGSAP(() => {
     gsap.from(bgText.current, {
-      y: 400,
+      y: '50vh',
       duration: 1.5,
+      ease: 'power2.out',
       scrollTrigger: {
         trigger: container.current,
-        start: 'top 40%',
+        start: 'top 50%',
+        scrub: true,
       }
     });
     gsap.to(bgTextGrad.current, {
@@ -29,13 +31,14 @@ export default function Footer() {
       delay: 0.5,
       scrollTrigger: {
         trigger: container.current,
-        start: 'top 60%',
+        start: 'top 50%',
+        scrub: true,
       }
     });
   }, []);
   
   return (
-    <div ref={container} className='relative h-screen overflow-hidden w-full'>
+    <div ref={container} className='relative h-screen w-full'>
       <div className='min-h-[55vh] p-10 sm:p-10 md:px-12 lg:px-20 relative w-full bg-[#E2E1DC]'>
         <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
                 {/* Logo and Social Section */}
@@ -143,7 +146,7 @@ export default function Footer() {
                 </div>
         </div>  
       </div>
-      <div className='pointer-events-none relative h-[45vh]'>
+      <div className='pointer-events-none relative h-[45vh] overflow-visible'>
         <Image ref={bgTextGrad} src="/footerGradient.svg" alt="footer-logo" width={150} height={50} className='w-[100vw] h-auto bottom-0 opacity-0 absolute'/>
         <Image ref={bgText} src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto top-4 absolute left-1/2 -translate-x-1/2'/>
       </div>
