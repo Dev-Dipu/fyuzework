@@ -38,7 +38,7 @@ export default function Footer() {
   }, []);
   
   return (
-    <div ref={container} className='relative h-screen w-full'>
+    <div ref={container} className='relative h-screen overflow-hidden w-full'>
       <div className='min-h-[55vh] p-10 sm:p-10 md:px-12 lg:px-20 relative w-full bg-[#E2E1DC]'>
         <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
                 {/* Logo and Social Section */}
