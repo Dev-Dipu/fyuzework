@@ -69,7 +69,7 @@ function TestimonialCard({ quote, avatar, name, title, isActive }) {
                     }} />
             <div style={{ width: "280px" }} className="flex items-center justify-center">
                 <h1
-                    className="text-center font-medium text-gray-800 leading-tight transition-all duration-500 text-lg sm:text-xl pt-4"
+                    className={`text-center font-medium text-gray-800 leading-tight transition-all duration-500 text-lg sm:text-xl ${isActive ? "pt-4" : "pt-0"}`}
                     style={{ 
                         fontFamily: "Inter, sans-serif",
                         transform: isActive ? "scale(1)" : "scale(0.8)",
@@ -81,7 +81,7 @@ function TestimonialCard({ quote, avatar, name, title, isActive }) {
                 </h1>
             </div>
 
-            <div className="mx-auto py-8 flex justify-center">
+            <div className={`mx-auto ${isActive ? "py-8" : "py-4"} transition-all duration-500 flex justify-center`}>
                 <Image
                     src="/StarGroup.svg"
                     alt="stars"
