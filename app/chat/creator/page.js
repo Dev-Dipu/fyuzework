@@ -340,7 +340,7 @@ export default function CreatorDashboardPage() {
                         className="text-white uppercase text-sm tracking-tighter bg-black w-full gap-2 justify-center py-3 rounded-full flex items-center hover:bg-gray-900 transition"
                     >
                         <Image
-                            src="./assets/ChatCircleText.svg"
+                            src="/assets/ChatCircleText.svg"
                             height={20}
                             width={20}
                             alt="chatIcon"
@@ -371,7 +371,7 @@ export default function CreatorDashboardPage() {
                                 }`}
                             >
                                 <Image
-                                    src="./assets/dashBoard.svg"
+                                    src="/assets/dashBoard.svg"
                                     height={24}
                                     width={24}
                                     alt="dashBoard"
@@ -423,7 +423,7 @@ export default function CreatorDashboardPage() {
                             }`}
                         >
                             <Image
-                                src="./assets/logOut.svg"
+                                src="/assets/logOut.svg"
                                 height={20}
                                 width={20}
                                 alt="chatIcon"

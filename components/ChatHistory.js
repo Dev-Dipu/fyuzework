@@ -33,7 +33,7 @@ const ChatHistorySection = ({ isDark, closeDashboard, resetTrigger }) => {
                     }`}
                 >
                     <Image
-                        src="./assets/chatHistory.svg"
+                        src="/assets/chatHistory.svg"
                         height={24}
                         width={24}
                         alt="chatHistory"
