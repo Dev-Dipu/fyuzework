@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import { Trash2 } from "lucide-react";
+import Link from "next/link";
 
 const mockData = [
   {
@@ -120,7 +121,7 @@ const DashboardComponent = () => {
 
         <div className="max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-[#1E1E1E] scrollbar-track-transparent">
           {mockData.map((user, index) => (
-            <div
+            <Link href={'/chat/creator'}
               key={index}
               className="grid grid-cols-[1.8fr_0.8fr_1.2fr_1.8fr_2fr_0.8fr_0.2fr] px-6 py-4 items-center border-b border-[#6E6E6E] hover:bg-[#141414] transition"
             >
@@ -170,7 +171,7 @@ const DashboardComponent = () => {
               <div className="cursor-pointer hover:text-[#FF4500] transition">
                 <Trash2 size={16} />
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
