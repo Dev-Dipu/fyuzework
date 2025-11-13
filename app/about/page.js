@@ -38,7 +38,7 @@ const Page = () => {
     <div className="w-full relative bg-[#E2E1DC] inter scroll-smooth">
       <Navbar />
       <Landing />
-      <section className="section theme-bg-secondary" data-text="light">
+      <section id="aboutHero" data-nav-transparent="true" className="section theme-bg-secondary" data-text="light">
         <StackCards />
       </section>
       <section id="how-it-works">

@@ -19,6 +19,7 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const isHomePage = pathname === '/';
+  const isAboutPage = pathname === '/about';
   
   const [textColor, setTextColor] = useState("white");
   const [isDarkSection, setIsDarkSection] = useState(false);
@@ -176,6 +177,12 @@ export default function Navbar() {
 
   // Separate useEffect for color changes on home page
   useEffect(() => {
+    if(isAboutPage) {
+      setTextColor("#000000");
+      setLogoSrc("/assets/fyuze-dark.svg");
+      setBgOpacity(0);
+      return;
+    }
     // If not on home page, force black text and white background
     if (!isHomePage) {
       setTextColor("#000000");
@@ -253,7 +260,7 @@ export default function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener('scroll', throttledHandleScroll);
-  }, [isDark, isHomePage]);
+  }, [isDark, isHomePage, isAboutPage]);
 
   useGSAP(() => {
     const navelms = navRef.current.querySelectorAll('.navelm')
@@ -269,6 +276,30 @@ export default function Navbar() {
 
   }, [])
 
+  useEffect(() => {
+  if (!isAboutPage) return;
+
+  const targetSection = document.querySelector('[data-nav-transparent="true"]');
+  if (!targetSection) return;
+
+  const handleScroll = () => {
+    const rect = targetSection.getBoundingClientRect();
+    const inView = rect.top <= 100 && rect.bottom >= 100;
+
+    if (inView) {
+      setBgOpacity(0);  // transparent navbar
+    } else {
+      setBgOpacity(1);  // normal navbar
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [isAboutPage]);
+
+
 // Determine navbar background based on route
   const getNavbarBg = () => {
     if (!isHomePage) {
@@ -279,20 +310,28 @@ export default function Navbar() {
 
   // Determine gradient overlay - use state-based opacity
   const getGradientOverlay = () => {
-    if (!isHomePage) {
-      return {
-        background: 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
-        opacity: 1
-      };
-    }
-    
+  if (isAboutPage) {
     return {
-      background: isDark 
-        ? 'linear-gradient(180deg, #262626 73.25%, rgba(38,38,38,0) 100%)'
-        : 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
-      opacity: bgOpacity
+      background: 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
+      opacity: bgOpacity  // controlled by scroll now
     };
+  }
+
+  if (!isHomePage) {
+    return {
+      background: 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
+      opacity: 1
+    };
+  }
+
+  return {
+    background: isDark 
+      ? 'linear-gradient(180deg, #262626 73.25%, rgba(38,38,38,0) 100%)'
+      : 'linear-gradient(180deg, #E2E1DC 73.25%, rgba(226,225,220,0) 100%)',
+    opacity: bgOpacity
   };
+};
+
 
 
   const gradientStyle = getGradientOverlay();
