@@ -13,7 +13,7 @@ const PricingScreen = () => {
         <div className="bg-[#E2E1DC] inter">
             <Navbar />
             <div
-                className={`min-h-screen pt-12 font-sans transition-colors duration-300 ${
+                className={`min-h-screen pt-18 font-sans transition-colors duration-300 ${
                     isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"
                 } flex flex-col justify-center items-center px-4 pt-4`}
             >
@@ -22,7 +22,7 @@ const PricingScreen = () => {
             <h1 className={`font-archivo font-bold leading-none transition-colors duration-300 text-3xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-5xl ${isDark ? "text-white" : "text-black"}`}>Pricing</h1>
 
                 <p
-                    className={`mt-3 md:mt-4 lg:mt-5 text-xs sm:text-sm md:text-base lg:text-lg font-light w-full md:w-3/5 lg:w-2/5 text-center transition-colors duration-300 ${
+                    className={`mt-2 font-light w-full md:w-3/5 lg:w-3/5 text-center transition-colors duration-300 ${
                         isDark ? "text-gray-300" : "text-black"
                     }`}
                 >
@@ -33,7 +33,7 @@ const PricingScreen = () => {
                     </span>
                 </p>
 
-                <div className="w-full flex flex-wrap items-center justify-center gap-4 md:gap-5 lg:gap-6 mt-6 md:mt-7 lg:mt-8">
+                <div className="w-full flex flex-wrap items-center justify-center gap-4 md:gap-5 lg:gap-6 mt-4 md:mt-5 lg:mt-6">
                     {/* Starter */}
                     <div className="relative w-full md:w-[22%] group hover:cursor-pointer">
                         <div

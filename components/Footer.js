@@ -36,7 +36,7 @@ export default function Footer() {
   
   return (
     <div ref={container} className='relative h-screen overflow-hidden w-full'>
-      <div className='min-h-[60vh] p-4 sm:p-6 md:p-12 lg:p-20 relative w-full bg-[#E2E1DC]'>
+      <div className='min-h-[55vh] p-10 sm:p-10 md:px-12 lg:px-20 relative w-full bg-[#E2E1DC]'>
         <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
                 {/* Logo and Social Section */}
                 <div className='space-y-3 sm:space-y-4 flex-shrink-0'>
@@ -123,7 +123,7 @@ export default function Footer() {
 
                 
         </div>     
-        <div className='flex absolute z-50 justify-between bottom-10 w-[92%] flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 pb-6 sm:pb-8 border-b border-zinc-300'>
+        <div className='flex absolute z-50 justify-between bottom-0 w-[92%] flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 pb-6 sm:pb-8 border-b border-zinc-300'>
                 <p className='text-xs sm:text-sm text-zinc-600'>
                   © 2025 fyuze.ai. A UK registered company. All rights reserved
                 </p>
