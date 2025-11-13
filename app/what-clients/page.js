@@ -144,8 +144,7 @@ export default function TestimonialCardsSlider() {
                         setActiveIndex(target);
                         updateProgress(target);
                     } else if (this.activeIndex <= 2) {
-                        const target =
-                            setLength + (this.activeIndex % setLength);
+                        const target = setLength + (this.activeIndex % setLength);
                         this.slideTo(target, 0, false);
                         setActiveIndex(target);
                         updateProgress(target);
@@ -172,6 +171,7 @@ export default function TestimonialCardsSlider() {
                     trigger: containerRef.current,
                     start: "top 90%",
                     toggleActions: "play none none none",
+                    scrub: true,
                 }
             }
         );
@@ -192,6 +192,7 @@ export default function TestimonialCardsSlider() {
                     trigger: containerRef.current,
                     start: "top 180%",
                     toggleActions: "play none none none",
+                    scrub: true,
                 }
             }
         );
@@ -225,7 +226,7 @@ export default function TestimonialCardsSlider() {
 
     return (
         <>
-            <style>{`
+        <style>{`
         .swiper {
           width: 100%;
           height: 100%;
@@ -259,8 +260,7 @@ export default function TestimonialCardsSlider() {
                     <h1
                         ref={headingRef}
                         className="text-2xl sm:text-5xl md:text-6xl font-bold text-center"
-                        style={{ fontFamily: "Archivo, sans-serif" }}
-                    >
+                        style={{ fontFamily: "Archivo, sans-serif" }}>
                         What our clients say
                     </h1>
                 </div>
@@ -304,7 +304,7 @@ export default function TestimonialCardsSlider() {
                         </button>
 
                         {/* Scroll Track */}
-                        <div className="relative w-[200px] sm:w-[260px] h-[8px]  border border-gray-400 rounded-full overflow-hidden shadow-inner scale-90">
+                        <div className="relative w-[200px] sm:w-[260px] h-[8px] border border-gray-400 rounded-full overflow-hidden shadow-inner scale-90">
                             <div
                                 className="absolute top-0 h-full bg-[#828282] rounded-full transition-all duration-500 ease-in-out"
                                 style={{
