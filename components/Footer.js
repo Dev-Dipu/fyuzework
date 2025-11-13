@@ -36,55 +36,57 @@ export default function Footer() {
   
   return (
     <div ref={container} className='relative h-screen overflow-hidden w-full'>
-      <div className='min-h-[55vh] p-4 sm:p-6 md:p-12 lg:p-20 lg:pt-28 relative w-full bg-[#E2E1DC]'>
+      <div className='min-h-[60vh] p-4 sm:p-6 md:p-12 lg:p-20 relative w-full bg-[#E2E1DC]'>
         <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
                 {/* Logo and Social Section */}
                 <div className='space-y-3 sm:space-y-4 flex-shrink-0'>
                     <Image 
                       height={100} 
                       width={100} 
-                      src="/logowhite.svg" 
+                      src="/assets/brand.svg" 
                       alt="fyuze-logo"
-                      className={`w-[100px] sm:w-[120px] md:w-[130px] h-auto ${!isDark ? 'invert' : ''}`}
+                      className={`w-[10px] sm:w-[20px] md:w-[30px] h-auto ${!isDark ? 'invert' : ''}`}
                     />
-                    <p className='text-sm sm:text-base'>Welcome to the future of influence</p>
+                    <p className='sm:text-base'>Welcome to the future of influence</p>
                     <div className='flex gap-3 sm:gap-4'>
                         <Image 
-                          height={25} 
-                          width={25} 
+                          height={15} 
+                          width={15} 
                           src="/ig.svg" 
                           alt="instagram-logo" 
-                          className='inline-block w-[25px] sm:w-[30px] h-[25px] sm:h-[30px] cursor-pointer hover:opacity-80 transition'
+                          className='inline-block w-[20px] sm:w-[20px] h-[20px] sm:h-[20px] cursor-pointer hover:opacity-80 transition'
                         />
                         <Image 
-                          height={25} 
-                          width={25} 
+                          height={15} 
+                          width={15} 
                           src="/fb.svg" 
                           alt="facebook-logo" 
-                          className='inline-block w-[25px] sm:w-[30px] h-[25px] sm:h-[30px] cursor-pointer hover:opacity-80 transition'
+                          className='inline-block w-[20px] sm:w-[20px] h-[20px] sm:h-[20px] cursor-pointer hover:opacity-80 transition'
                         />
                         <Image 
-                          height={25} 
-                          width={25} 
+                          height={15} 
+                          width={15} 
                           src="/tk.svg" 
                           alt="tiktok-logo" 
-                          className='inline-block w-[25px] sm:w-[30px] h-[25px] sm:h-[30px] cursor-pointer hover:opacity-80 transition'
+                          className='inline-block w-[20px] sm:w-[20px] h-[20px] sm:h-[20px] cursor-pointer hover:opacity-80 transition'
                         />
                         <Image 
-                          height={25} 
-                          width={25} 
+                          height={15} 
+                          width={15} 
                           src="/ln.svg" 
                           alt="linkedin-logo" 
-                          className='inline-block w-[25px] sm:w-[30px] h-[25px] sm:h-[30px] cursor-pointer hover:opacity-80 transition'
+                          className='inline-block w-[20px] sm:w-[20px] h-[20px] sm:h-[20px] cursor-pointer hover:opacity-80 transition'
                         />
                     </div>
                 </div>
+
+                <div className='h-[18vh] w-[2px] bg-[#C5C5C5]'></div>
 
                 {/* Links Section */}
                 <div className='flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-20 lg:gap-40'>
                     {/* Company Links */}
                     <div className='min-w-[20vw]'>
-                        <h1 className='font-archivo uppercase font-medium text-xl sm:text-2xl lg:text-3xl pb-2 sm:pb-3'>
+                        <h1 className='font-archivo uppercase font-medium text-lg sm:text-xl lg:text-2xl pb-2 sm:pb-3'>
                           product
                         </h1>
                         <div className='flex flex-col gap-2'>
@@ -92,7 +94,7 @@ export default function Footer() {
                               <Link 
                                 key={index} 
                                 href="#" 
-                                className='block text-sm sm:text-base hover:underline transition'
+                                className='block text-xs hover:underline transition'
                               >
                                 {item}
                               </Link>
@@ -102,7 +104,7 @@ export default function Footer() {
 
                     {/* Contact Links */}
                     <div className='min-w-[10vw]'>
-                        <h1 className='font-archivo uppercase font-medium text-xl sm:text-2xl lg:text-3xl pb-2 sm:pb-3'>
+                        <h1 className='font-archivo uppercase font-medium text-lg sm:text-xl lg:text-2xl pb-2 sm:pb-3'>
                           company
                         </h1>
                         <div className='flex flex-col gap-2'>
@@ -110,7 +112,7 @@ export default function Footer() {
                               <Link 
                                 key={index} 
                                 href="#" 
-                                className='block text-sm sm:text-base hover:underline transition'
+                                className='block text-xs hover:underline transition'
                               >
                                 {item}
                               </Link>
@@ -143,7 +145,7 @@ export default function Footer() {
       </div>
       <div className='pointer-events-none relative h-[45vh]'>
         <Image ref={bgTextGrad} src="/footerGradient.svg" alt="footer-logo" width={150} height={50} className='w-[100vw] h-auto bottom-0 opacity-0 absolute'/>
-        <Image ref={bgText} src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto bottom-0 absolute left-1/2 -translate-x-1/2'/>
+        <Image ref={bgText} src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto top-6 absolute left-1/2 -translate-x-1/2'/>
       </div>
     </div>
   )

@@ -142,13 +142,6 @@ export default function Navbar() {
 
   // Separate useEffect for navbar hide/show on ALL pages (except pricing)
   useEffect(() => {
-    // Don't hide navbar on pricing page
-    const isPricingPage = pathname === '/pricing';
-    
-    if (isPricingPage) {
-      setShouldHideNav(false);
-      return;
-    }
 
     const handleNavbarHideScroll = () => {
       const windowHeight = window.innerHeight;
@@ -313,9 +306,9 @@ export default function Navbar() {
         backgroundColor: getNavbarBg()
       }}
     >
-      {/* Gradient overlay with opacity transition */}
+      {/* Gradient overlay with opacity transition - explicitly set z-0 */}
       <div 
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-0"
         style={{ 
           background: gradientStyle.background,
           opacity: gradientStyle.opacity,
@@ -528,7 +521,7 @@ export default function Navbar() {
         </div>
       </div>): (<button onClick={() => {
         router.push('/auth')
-      }} className="cursor-pointer px-20 navelm rounded-full py-2 duration-300 all ease-in-out" style={{
+      }} className="cursor-pointer px-20 navelm rounded-full py-2 duration-300 all ease-in-out relative z-10" style={{
         border: `1px solid ${textColor}`,
         color: textColor,
         backgroundColor: 'transparent'

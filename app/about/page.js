@@ -45,7 +45,6 @@ const Page = () => {
       </section>
       <Dominate />
       <PricingScreen />
-      <Footer />
     </div>
   )
 }

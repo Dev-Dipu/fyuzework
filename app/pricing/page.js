@@ -369,6 +369,7 @@ const PricingScreen = () => {
                     </p>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
