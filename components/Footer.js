@@ -1,15 +1,27 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from '@/lib/contexts/ThemeContext';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export default function Footer() {
   const { isDark, toggleTheme } = useTheme();
-  
+  const container = useRef(null);
+
+  // Scroll-based animation hook
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start 60%", "start 0%"]
+  });
+
+  // Transform scroll progress to animation values
+  const bgTextY = useTransform(scrollYProgress, [0, 1], ['50vh', '0vh']);
+  const bgTextGradOpacity = useTransform(scrollYProgress, [0.3, 1], [0, 1]);
+
   return (
-    <div className='relative h-screen overflow-hidden w-full bg-[#E2E1DC]'>
-      <div className='min-h-[55vh] p-10 sm:p-10 md:px-12 lg:px-20 relative w-full bg-[#E2E1DC]'>
+    <div ref={container} className='relative h-screen overflow-hidden w-full bg-[#E2E1DC]'>
+      <div className='min-h-[55vh] p-10 sm:p-10 md:px-12 lg:px-20 relative w-full'>
         <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
                 {/* Logo and Social Section */}
                 <div className='space-y-3 sm:space-y-4 flex-shrink-0'>
@@ -115,8 +127,30 @@ export default function Footer() {
         </div>  
       </div>
       <div className='pointer-events-none relative h-[45vh] overflow-visible'>
-        <Image src="/footerGradient.svg" alt="footer-logo" width={150} height={50} className='w-[100vw] h-auto bottom-0 absolute'/>
-        <Image src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto top-4 absolute left-1/2 -translate-x-1/2'/>
+        <motion.div
+          style={{ opacity: bgTextGradOpacity }}
+          className='w-[100vw] h-auto bottom-0 absolute'
+        >
+          <Image 
+            src="/footerGradient.svg" 
+            alt="footer-logo" 
+            width={150} 
+            height={50} 
+            className='w-full h-auto'
+          />
+        </motion.div>
+        <motion.div
+          style={{ y: bgTextY }}
+          className='w-[96vw] h-auto top-4 absolute left-1/2 -translate-x-1/2'
+        >
+          <Image 
+            src="/footerLogo.svg" 
+            alt="footer-logo" 
+            width={150} 
+            height={50} 
+            className='w-full h-auto'
+          />
+        </motion.div>
       </div>
     </div>
   )
