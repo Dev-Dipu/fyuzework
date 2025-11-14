@@ -27,7 +27,6 @@ const Page = () => {
         <WhoIsFor />
       </section>
       <Dominate />
-      <Pricing />
       <Footer />
     </div>
   )
