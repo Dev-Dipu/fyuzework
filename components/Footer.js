@@ -15,16 +15,24 @@ export default function Footer() {
   const container = useRef(null);
 
   useGSAP(() => {
-    gsap.from(bgText.current, {
-      y: '50vh',
+    // Initial state set karo explicitly
+    gsap.set(bgText.current, { y: '50vh' });
+    gsap.set(bgTextGrad.current, { opacity: 0 });
+
+    // First animation - bgText
+    gsap.to(bgText.current, {
+      y: 0,
       duration: 1.5,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: container.current,
         start: 'top 80%',
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
+        once: false
       }
     });
+
+    // Second animation - bgTextGrad with delay
     gsap.to(bgTextGrad.current, {
       opacity: 1,
       duration: 1.5,
@@ -32,9 +40,19 @@ export default function Footer() {
       scrollTrigger: {
         trigger: container.current,
         start: 'top 60%',
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
+        once: false
       }
     });
+  }, { scope: container, dependencies: [] });
+
+  // ScrollTrigger refresh on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
   
   return (
