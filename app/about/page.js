@@ -36,7 +36,6 @@ const Page = () => {
 
   return (
     <div className="bg-[#E2E1DC]">
-      <Navbar />
       <div className="w-full relative inter scroll-smooth">
         <Landing />
         <section className="section theme-bg-secondary" data-text="light">
@@ -51,7 +50,6 @@ const Page = () => {
         <Dominate />
         <Pricing />
       </div>
-      <Footer />
     </div>
   )
 }

@@ -11,7 +11,6 @@ const PricingScreen = () => {
     useLenis();
     return (
         <div className="bg-[#E2E1DC] inter">
-            <Navbar />
             <div
                 className={`min-h-screen pt-18 font-sans transition-colors duration-300 ${
                     isDark ? "bg-[#0D0D0D]" : "bg-[#E2E1DC]"
@@ -369,7 +368,6 @@ const PricingScreen = () => {
                     </p>
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };

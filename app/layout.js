@@ -5,6 +5,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/lib/contexts/ThemeContext";
 import SafariDetection from "@/lib/utils/safariDetection";
 import { setupSafariOptimizations } from "@/lib/utils/safariOptimizationInit";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 // Google Fonts
 const geistSans = Geist({
@@ -82,7 +84,9 @@ export default function RootLayout({ children }) {
         }}
       >
         <ThemeProvider>
+          <Navbar />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

@@ -53,8 +53,6 @@ export default function Home() {
 
   return (
     <main className="bg-[#E2E1DC] inter">
-      <Navbar />
-
       <section className="section theme-bg-secondary" data-text="light">
         <HeroComponent />
       </section>
@@ -129,7 +127,6 @@ export default function Home() {
       </section>
       <section className="section relative w-full z-50 theme-bg-secondary" data-text="dark">
         <FAQsection />
-        <Footer />
       </section>
     </main>
   );

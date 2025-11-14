@@ -98,7 +98,6 @@ export default function Contact({ navigationOverlayRef }) {
   return (
     <div className='bg-[#E2E1DC] inter'>
     <div className='bg-[#E2E1DC] h-screen inter overflow-hidden'>
-    <Navbar />
     <div ref={contactRef} className="flex relative flex-col pt-20">
       {/* Main Content - Takes up remaining space */}
       <div className="flex-1 flex px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 lg:pt-16 pb-8">
@@ -208,7 +207,6 @@ export default function Contact({ navigationOverlayRef }) {
 
     </div>
     </div>
-    <Footer />
     </div>
   );
 }

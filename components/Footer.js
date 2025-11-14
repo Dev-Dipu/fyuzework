@@ -1,60 +1,14 @@
-import React, { useEffect, useRef } from 'react'
+"use client"
+import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from '@/lib/contexts/ThemeContext';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/all';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   const { isDark, toggleTheme } = useTheme();
-  const bgText = useRef(null);
-  const bgTextGrad = useRef(null);
-  const container = useRef(null);
-
-  useGSAP(() => {
-    // Initial state set karo
-    gsap.set(bgText.current, { y: '50vh' });
-    gsap.set(bgTextGrad.current, { opacity: 0 });
-
-    // Timeline create karo for better control
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container.current,
-        start: 'top 60%',
-        end: 'top 0%',
-        scrub: 1,
-        invalidateOnRefresh: true
-      }
-    });
-
-    // Dono animations timeline me add karo
-    tl.to(bgText.current, {
-      y: 0,
-      duration: 1,
-      ease: 'power2.out'
-    })
-    .to(bgTextGrad.current, {
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.inOut'
-    }, '-=0.5'); // Overlap for smooth transition
-
-  }, { scope: container, dependencies: [] });
-
-  // ScrollTrigger refresh on mount
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
   
   return (
-    <div ref={container} className='relative h-screen overflow-hidden w-full'>
+    <div className='relative h-screen overflow-hidden w-full bg-[#E2E1DC]'>
       <div className='min-h-[55vh] p-10 sm:p-10 md:px-12 lg:px-20 relative w-full bg-[#E2E1DC]'>
         <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
                 {/* Logo and Social Section */}
@@ -139,8 +93,6 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-
-                
         </div>     
         <div className='flex absolute z-50 justify-between bottom-0 w-[92%] flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 pb-6 sm:pb-8 border-b border-[#4f4f4f]'>
                 <p className='text-xs sm:text-sm text-zinc-600'>
@@ -163,8 +115,8 @@ export default function Footer() {
         </div>  
       </div>
       <div className='pointer-events-none relative h-[45vh] overflow-visible'>
-        <Image ref={bgTextGrad} src="/footerGradient.svg" alt="footer-logo" width={150} height={50} className='w-[100vw] h-auto bottom-0 opacity-0 absolute'/>
-        <Image ref={bgText} src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto top-4 absolute left-1/2 -translate-x-1/2'/>
+        <Image src="/footerGradient.svg" alt="footer-logo" width={150} height={50} className='w-[100vw] h-auto bottom-0 absolute'/>
+        <Image src="/footerLogo.svg" alt="footer-logo" width={150} height={50} className='w-[96vw] h-auto top-4 absolute left-1/2 -translate-x-1/2'/>
       </div>
     </div>
   )
