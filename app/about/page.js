@@ -16,20 +16,18 @@ const Page = () => {
   return (
     <div className="bg-[#E2E1DC]">
       <Navbar />
-      <div className="w-full relative inter scroll-smooth">
-        <Landing />
-        <section className="section theme-bg-secondary" data-text="light">
-          <StackCards />
-        </section>
-        <section id="how-it-works">
-          <HowItWorks />
-        </section>
-        <section id="who-is-it-for">
-          <WhoIsFor />
-        </section>
-        <Dominate />
-        <Pricing />
-      </div>
+      <Landing />
+      <section id="aboutHero" data-nav-transparent="true" className="section theme-bg-secondary" data-text="light">
+        <StackCards />
+      </section>
+      <section id="how-it-works">
+        <HowItWorks />
+      </section>
+      <section id="who-is-it-for">
+        <WhoIsFor />
+      </section>
+      <Dominate />
+      <Pricing />
       <Footer />
     </div>
   )
