@@ -15,35 +15,33 @@ export default function Footer() {
   const container = useRef(null);
 
   useGSAP(() => {
-    // Initial state set karo explicitly
+    // Initial state set karo
     gsap.set(bgText.current, { y: '50vh' });
     gsap.set(bgTextGrad.current, { opacity: 0 });
 
-    // First animation - bgText
-    gsap.to(bgText.current, {
-      y: 0,
-      duration: 1.5,
-      ease: 'power2.out',
+    // Timeline create karo for better control
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container.current,
-        start: 'top 80%',
-        invalidateOnRefresh: true,
-        once: false
+        start: 'top bottom',
+        end: 'top 20%',
+        scrub: 1,
+        invalidateOnRefresh: true
       }
     });
 
-    // Second animation - bgTextGrad with delay
-    gsap.to(bgTextGrad.current, {
+    // Dono animations timeline me add karo
+    tl.to(bgText.current, {
+      y: 0,
+      duration: 1,
+      ease: 'power2.out'
+    })
+    .to(bgTextGrad.current, {
       opacity: 1,
-      duration: 1.5,
-      delay: 0.5,
-      scrollTrigger: {
-        trigger: container.current,
-        start: 'top 60%',
-        invalidateOnRefresh: true,
-        once: false
-      }
-    });
+      duration: 0.8,
+      ease: 'power2.inOut'
+    }, '-=0.5'); // Overlap for smooth transition
+
   }, { scope: container, dependencies: [] });
 
   // ScrollTrigger refresh on mount
