@@ -13,27 +13,6 @@ import Navbar from "@/components/Navbar"
 const Page = () => {
   useLenis()
 
-  useEffect(() => {
-    // Disable browser's instant jump
-    if (window.location.hash) {
-      window.scrollTo(0, 0)
-    }
-
-    // Wait a bit and then smoothly scroll
-    setTimeout(() => {
-      const hash = window.location.hash
-      if (hash) {
-        const element = document.querySelector(hash)
-        if (element) {
-          element.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          })
-        }
-      }
-    }, 300)
-  }, [])
-
   return (
     <div className="bg-[#E2E1DC]">
       <Navbar />
