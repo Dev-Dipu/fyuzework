@@ -28,7 +28,7 @@ export default function ValueSection() {
           </p>
         </div>
       </div>
-      <div className="flex flex-wrap items-stretch pb-6 mb-6">
+      <div className="flex items-stretch pb-6 mb-6">
         {/* Cost Per Engagement */}
         <div className="flex flex-col pr-8 border-r border-[#E5E9EB]">
           <p className="text-[12px] text-white mb-1">Cost Per Engagement</p>
@@ -54,7 +54,7 @@ export default function ValueSection() {
             </p>
             <ArrowDown size={12} className="text-[#F76659] mt-[2px]" />
           </div>
-          <p className="text-[11px] text-gray-500 mt-1 leading-snug">
+          <p className="text-[11px] text-wrap text-gray-500 mt-1 leading-snug">
             Estimated cost to gain the same reach through paid social ad with
             similar audience. Based on est. post price you’ll get $1.7 value for
             each $1 you pay.
