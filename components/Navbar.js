@@ -20,6 +20,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
   const isAboutPage = pathname === '/about';
+  const isChatPage = pathname.startsWith('/chat');
   
   const [textColor, setTextColor] = useState("white");
   const [isDarkSection, setIsDarkSection] = useState(false);
@@ -339,7 +340,7 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="w-full left-0 top-0 fixed p-9 flex-between inter z-100 transition-colors duration-300"
+      className={`w-full left-0 top-0 fixed p-9 flex-between inter z-100 transition-colors duration-300 ${isChatPage ? 'hidden' : ''}`}
       style={{ 
         color: textColor,
         backgroundColor: getNavbarBg()

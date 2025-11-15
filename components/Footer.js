@@ -4,9 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from '@/lib/contexts/ThemeContext';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
   const { isDark, toggleTheme } = useTheme();
+  const pathname = usePathname();
+  const isChatPage = pathname.startsWith('/chat');
   const container = useRef(null);
 
   // Scroll-based animation hook
@@ -20,7 +23,7 @@ export default function Footer() {
   const bgTextGradOpacity = useTransform(scrollYProgress, [0.3, 1], [0, 1]);
 
   return (
-    <div ref={container} className='relative h-screen overflow-hidden w-full bg-[#E2E1DC]'>
+    <div ref={container} className={`relative h-screen overflow-hidden w-full bg-[#E2E1DC] ${isChatPage ? 'hidden' : ''}`}>
       <div className='min-h-[55vh] p-10 sm:p-10 md:px-12 lg:px-20 relative w-full'>
         <div className='flex flex-col lg:flex-row justify-between gap-8 lg:gap-12 h-full'>
                 {/* Logo and Social Section */}

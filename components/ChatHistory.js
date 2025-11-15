@@ -49,6 +49,7 @@ const ChatHistorySection = ({ isDark, closeDashboard, resetTrigger }) => {
                     src={'/CaretDown.svg'}
                     height={50}
                     width={50}
+                    alt="hello"
                 />
             </button>
 

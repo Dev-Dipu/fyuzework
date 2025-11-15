@@ -176,7 +176,7 @@ export default function EngagementAnalysis() {
             ].map((cat, i) => (
               <>
                 <div
-                  key={`cat-${i}`}
+                  key={i}
                   className="flex items-center justify-between border-b border-[#222] py-2"
                 >
                   <p>{cat}</p>
