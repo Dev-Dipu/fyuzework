@@ -143,7 +143,7 @@ const Dashboard = () => {
         <p className="text-[11px] text-white/80">Followers</p>
         <p className="font-semibold text-lg text-white">628.7K</p>
       </div>
-      <div className="px-4 border-x-2">
+      <div className="px-4 border-x-[0.5px]">
         <p className="text-[11px] text-white/80">Following</p>
         <p className="font-semibold text-lg text-white">628</p>
       </div>
