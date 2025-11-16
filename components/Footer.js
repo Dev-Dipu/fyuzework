@@ -9,7 +9,11 @@ import { usePathname } from 'next/navigation';
 export default function Footer() {
   const { isDark, toggleTheme } = useTheme();
   const pathname = usePathname();
-  const isChatPage = pathname.startsWith('/chat');
+  const ChatPage = pathname.startsWith('/chat');
+  const AuthPage = pathname.startsWith('/auth');
+
+  const isChatPage = ChatPage || AuthPage;
+
   const container = useRef(null);
 
   // Scroll-based animation hook

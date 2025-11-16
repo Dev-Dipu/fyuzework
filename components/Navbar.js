@@ -20,7 +20,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
   const isAboutPage = pathname === '/about';
-  const isChatPage = pathname.startsWith('/chat');
+  const ChatPage = pathname.startsWith('/chat');
+  const AuthPage = pathname.startsWith('/auth');
+
+  const isChatPage = ChatPage || AuthPage;
   
   const [textColor, setTextColor] = useState("white");
   const [isDarkSection, setIsDarkSection] = useState(false);
