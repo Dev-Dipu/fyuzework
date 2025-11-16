@@ -34,6 +34,7 @@ import EngagementAnalysis from "./EngagementAnalysis";
 import ValueSection from "./ValueSection";
 import ContentSection from "./ContentSection";
 import BrandMentionSection from "./BrandMentionSection";
+import { useRouter } from "next/navigation";
 
 // Single-file Next.js page that renders the exact sidebar (from user) + pixel-perfect Creator Dashboard
 // All data is inlined so this file is standalone. Requires TailwindCSS and Recharts.
@@ -143,7 +144,7 @@ const Dashboard = () => {
         <p className="text-[11px] text-white/80">Followers</p>
         <p className="font-semibold text-lg text-white">628.7K</p>
       </div>
-      <div className="px-4 border-x-2">
+      <div className="px-4 border-x-[0.5px]">
         <p className="text-[11px] text-white/80">Following</p>
         <p className="font-semibold text-lg text-white">628</p>
       </div>
@@ -279,6 +280,7 @@ export default function CreatorDashboardPage() {
     const closeDashboard = () => {
         setIsDashboardOpen(false);
     };
+    const router = useRouter();
     const [isDark, setIsDark] = useState(true);
     const [isDashboardOpen, setIsDashboardOpen] = useState(true);
     const [chatHistory, setChatHistory] = useState([]);
@@ -315,7 +317,7 @@ export default function CreatorDashboardPage() {
                     />
                     <button
                         onClick={() => {
-                            router.push("/");
+                            router.replace("/chat");
                         }}
                         className="text-white uppercase text-xs cursor-pointer flex items-center gap-2.5"
                     >
