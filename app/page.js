@@ -95,7 +95,8 @@ export default function Home() {
         </div>
 
         <div className="theme-bg-secondary h-[190vh]">
-          <div className="h-[10vh] mt-[50vh] flex-center">
+          <div className="h-fit mt-[50vh] flex-center flex-col">
+            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>As featured in</h1>
             <LogoLoop
               logos={imageLogos}
               speed={120}
@@ -111,6 +112,20 @@ export default function Home() {
           </div>
           <FeaturesComponent />
           <FeatureCards />
+          <div className="h-fit mt-[20vh] flex-center flex-col">
+            <LogoLoop
+              logos={imageLogos}
+              speed={120}
+              direction="left"
+              logoHeight={28}
+              gap={40}
+              pauseOnHover
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#ffffff"
+              ariaLabel="Technology partners"
+            />
+          </div>
         </div>
 
         <div>

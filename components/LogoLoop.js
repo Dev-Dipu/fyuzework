@@ -338,7 +338,6 @@ export const LogoLoop = memo(
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>Trusted by 1,000+ teams and professionals worldwide</h1>
         {fadeOut && (
           <>
             <div
