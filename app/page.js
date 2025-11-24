@@ -25,7 +25,7 @@ export default function Home() {
 
   useEffect(() => {
     setIsMounted(true);
-    const t = setTimeout(() => window.scrollTo(0, 0), 200);
+    const t = setTimeout(() => window.scrollTo(0, 0), 0);
     return () => clearTimeout(t);
   }, []);
 
