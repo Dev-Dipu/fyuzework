@@ -17,9 +17,13 @@ export default function ScrollReset() {
       window.history.scrollRestoration = 'manual';
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const scrollToTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+
+    scrollToTop();
+    window.addEventListener('beforeunload', scrollToTop);
 
     return () => {
+      window.removeEventListener('beforeunload', scrollToTop);
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'auto';
       }
