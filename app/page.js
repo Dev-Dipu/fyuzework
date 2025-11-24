@@ -112,7 +112,7 @@ export default function Home() {
           </div>
           <FeaturesComponent />
           <FeatureCards />
-          <div className="h-fit mt-[20vh] flex-center flex-col">
+          <div className="h-fit mt-[10vh] flex-center flex-col">
             <LogoLoop
               logos={imageLogos}
               speed={120}
@@ -128,7 +128,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div>
+        <div className="theme-bg-secondary pt-[15vh] pb-[10vh]">
           <SocialPlatformsComponent />
         </div>
         <div>

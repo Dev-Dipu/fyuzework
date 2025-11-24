@@ -183,7 +183,7 @@ export default function Navbar() {
   useEffect(() => {
     if(isAboutPage) {
       setTextColor("#000000");
-      setLogoSrc("/assets/fyuze-dark.svg");
+      setLogoSrc("/fyuzeFinal.svg");
       setBgOpacity(0);
       return;
     }
@@ -191,7 +191,7 @@ export default function Navbar() {
     if (!isHomePage) {
       setTextColor("#000000");
       setIsDarkSection(false);
-      setLogoSrc("/assets/fyuze-dark.svg");
+      setLogoSrc("/fyuzeFinal.svg");
       setBgOpacity(1); // Always show background on other pages
       return;
     }
@@ -236,16 +236,16 @@ export default function Navbar() {
         if (textAttribute === 'dark') {
           setTextColor(isDark ? "#c5c5c5" : "#4f4f4f");
           setIsDarkSection(true);
-          isDark ? setLogoSrc("/assets/fyuze-logo.svg") : setLogoSrc("/assets/fyuze-dark.svg");
+          isDark ? setLogoSrc("/assets/fyuzeFinal.svg") : setLogoSrc("/fyuzeFinal.svg");
         } else {
           setTextColor(isDark ? "#fafafa" : "white");
           setIsDarkSection(false);
-          setLogoSrc("/assets/fyuze-logo.svg");
+          setLogoSrc("/assets/fyuzeFinal.svg");
         }
       } else {
         setTextColor(isDark ? "#fafafa" : "white");
         setIsDarkSection(false);
-        setLogoSrc("/assets/fyuze-logo.svg");
+        setLogoSrc("/assets/fyuzeFinal.svg");
       }
     };
 
@@ -366,7 +366,7 @@ export default function Navbar() {
             src={logoSrc}
             alt="logo"
             fill
-            className={`object-contain`}
+            className={`object-contain invert`}
           />
         </Link>
         <div 
