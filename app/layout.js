@@ -7,6 +7,7 @@ import SafariDetection from "@/lib/utils/safariDetection";
 import { setupSafariOptimizations } from "@/lib/utils/safariOptimizationInit";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollReset from "@/components/ScrollReset";
 
 // Google Fonts
 const geistSans = Geist({
@@ -84,6 +85,7 @@ export default function RootLayout({ children }) {
         }}
       >
         <ThemeProvider>
+          <ScrollReset />
           <Navbar />
           {children}
           <Footer />
