@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import TestimonialCardsSlider from "./what-clients/page";
 
 export default function Home() {
   useLenis();
@@ -51,13 +52,13 @@ export default function Home() {
   }
 
   return (
-    <main className="bg-bg-[#E2E1DC]">
+    <main className="bg-[#E2E1DC] inter">
       <section className="section theme-bg-secondary" data-text="light">
         <HeroComponent />
       </section>
 
       <section className="section relative w-full z-50 theme-bg-secondary" data-text="dark">
-        <div className="flex-between w-full p-10 sticky top-[86vh] z-100">
+        <div className="flex-between pointer-events-none w-full p-10 sticky top-[86vh] z-100">
           <div className="relative group">
             <button
               className="fill-button relative overflow-hidden"
@@ -93,10 +94,37 @@ export default function Home() {
           <AboutComponent />
         </div>
 
-        <div className="theme-bg-secondary h-[220vh]">
+        <div className="theme-bg-secondary h-[190vh]">
+          <div className="h-fit mt-[50vh] flex-center flex-col">
+            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>As featured in</h1>
+            <LogoLoop
+              logos={imageLogos}
+              speed={120}
+              direction="left"
+              logoHeight={28}
+              gap={40}
+              pauseOnHover
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#ffffff"
+              ariaLabel="Technology partners"
+            />
+          </div>
           <FeaturesComponent />
           <FeatureCards />
-          <div className="h-[40vh] flex-center">
+        </div>
+
+        <div className="theme-bg-secondary pt-[15vh] pb-[10vh]">
+          <SocialPlatformsComponent />
+        </div>
+        <div>
+          <ChatFold11 />
+        </div>
+        <div>
+          <TestimonialCardsSlider />
+          <ChatFold12 />
+          <div className="h-fit pb-[30vh] flex-center flex-col">
+            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>Trusted by</h1>
             <LogoLoop
               logos={imageLogos}
               speed={120}
@@ -111,19 +139,8 @@ export default function Home() {
             />
           </div>
         </div>
-
-        <div>
-          <SocialPlatformsComponent />
-        </div>
-        <div>
-          <ChatFold11 />
-        </div>
-        <div>
-          <ChatFold12 />
-        </div>
       </section>
-
-      <section className="section theme-bg-secondary" data-text="light">
+      <section className="section relative w-full z-50 theme-bg-secondary" data-text="dark">
         <FAQsection />
       </section>
     </main>
