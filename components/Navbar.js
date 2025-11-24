@@ -31,7 +31,9 @@ export default function Navbar() {
   const [isProfileCardVisible, setIsProfileCardVisible] = useState(false);
   const [isAboutDropdownVisible, setIsAboutDropdownVisible] = useState(false);
   const [shouldHideNav, setShouldHideNav] = useState(false);
-  const [bgOpacity, setBgOpacity] = useState(0); // Track background opacity
+  const [bgOpacity, setBgOpacity] = useState(0);
+  const [shouldInvertLogo, setShouldInvertLogo] = useState(true); // New state for logo invert
+  
   const navRef = useRef();
   const profileCardRef = useRef();
   const aboutDropdownRef = useRef();
@@ -177,15 +179,82 @@ export default function Navbar() {
     handleNavbarHideScroll(); // Initial check
 
     return () => window.removeEventListener('scroll', throttledNavbarHideScroll);
-  }, [pathname]); // Add pathname dependency
+  }, [pathname]);
+
+  // NEW: Separate useEffect for logo invert logic
+  useEffect(() => {
+    // Homepage first screen check
+    if (isHomePage) {
+      const handleHomeScroll = () => {
+        const firstScreenHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+        
+        // If we're in the first screen, don't invert
+        if (scrollY < firstScreenHeight) {
+          setShouldInvertLogo(false);
+        } else {
+          setShouldInvertLogo(true);
+        }
+      };
+
+      window.addEventListener('scroll', handleHomeScroll);
+      handleHomeScroll(); // Initial check
+      
+      return () => window.removeEventListener('scroll', handleHomeScroll);
+    }
+    
+    // About page logic: 1st+2nd screen inverted, 2.5th to 4.5th screen no invert, 5th onwards inverted again
+    if (isAboutPage) {
+      const handleAboutScroll = () => {
+        const screenHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+        
+        // 1st + 2nd screen (0-200vh): inverted
+        // 2.5th to 4.5th screen (250vh-450vh): no invert
+        // 5th screen onwards (500vh+): inverted again
+        if (scrollY < screenHeight * 2.5) {
+          setShouldInvertLogo(true);
+        } else if (scrollY >= screenHeight * 2.5 && scrollY < screenHeight * 5) {
+          setShouldInvertLogo(false);
+        } else {
+          setShouldInvertLogo(true);
+        }
+      };
+
+      window.addEventListener('scroll', handleAboutScroll);
+      handleAboutScroll(); // Initial check
+      
+      return () => window.removeEventListener('scroll', handleAboutScroll);
+    }
+    
+    // For all other pages, always invert
+    setShouldInvertLogo(true);
+  }, [isHomePage, isAboutPage]);
 
   // Separate useEffect for color changes on home page
   useEffect(() => {
     if(isAboutPage) {
-      setTextColor("#000000");
+      const handleAboutColorScroll = () => {
+        const screenHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+        
+        // 1st + 2nd screen (0-250vh): black text with background
+        // 2.5th to 4.5th screen (250vh-500vh): white text no background
+        // 5th screen onwards (500vh+): black text with background again
+        if (scrollY < screenHeight * 2.5) {
+          setTextColor("#000000");
+        } else if (scrollY >= screenHeight * 2.5 && scrollY < screenHeight * 5) {
+          setTextColor("white");
+        } else {
+          setTextColor("#000000");
+        }
+      };
+      
+      window.addEventListener('scroll', handleAboutColorScroll);
+      handleAboutColorScroll();
+      
       setLogoSrc("/fyuzeFinal.svg");
-      setBgOpacity(0);
-      return;
+      return () => window.removeEventListener('scroll', handleAboutColorScroll);
     }
     // If not on home page, force black text and white background
     if (!isHomePage) {
@@ -236,16 +305,14 @@ export default function Navbar() {
         if (textAttribute === 'dark') {
           setTextColor(isDark ? "#c5c5c5" : "#4f4f4f");
           setIsDarkSection(true);
-          isDark ? setLogoSrc("/assets/fyuzeFinal.svg") : setLogoSrc("/fyuzeFinal.svg");
+          isDark ? setLogoSrc("/fyuzeFinal.svg") : setLogoSrc("/fyuzeFinal.svg");
         } else {
           setTextColor(isDark ? "#fafafa" : "white");
-          setIsDarkSection(false);
-          setLogoSrc("/assets/fyuzeFinal.svg");
+          setIsDarkSection(false); setLogoSrc("/fyuzeFinal.svg");
         }
       } else {
         setTextColor(isDark ? "#fafafa" : "white");
-        setIsDarkSection(false);
-        setLogoSrc("/assets/fyuzeFinal.svg");
+        setIsDarkSection(false); setLogoSrc("/fyuzeFinal.svg");
       }
     };
 
@@ -283,17 +350,19 @@ export default function Navbar() {
   useEffect(() => {
   if (!isAboutPage) return;
 
-  const targetSection = document.querySelector('[data-nav-transparent="true"]');
-  if (!targetSection) return;
-
   const handleScroll = () => {
-    const rect = targetSection.getBoundingClientRect();
-    const inView = rect.top <= 100 && rect.bottom >= 100;
+    const screenHeight = window.innerHeight;
+    const scrollY = window.scrollY;
 
-    if (inView) {
-      setBgOpacity(0);  // transparent navbar
+    // 1st + 2nd screen (0-250vh): show background (opacity 1)
+    // 2.5th to 4.5th screen (250vh-500vh): no background (opacity 0)
+    // 5th screen onwards (500vh+): show background again (opacity 1)
+    if (scrollY < screenHeight * 1.5) {
+      setBgOpacity(1);
+    } else if (scrollY >= screenHeight * 1.5 && scrollY < screenHeight * 5) {
+      setBgOpacity(0);
     } else {
-      setBgOpacity(1);  // normal navbar
+      setBgOpacity(1);
     }
   };
 
@@ -366,7 +435,7 @@ export default function Navbar() {
             src={logoSrc}
             alt="logo"
             fill
-            className={`object-contain invert`}
+            className={`object-contain ${shouldInvertLogo ? 'invert' : ''}`}
           />
         </Link>
         <div 
