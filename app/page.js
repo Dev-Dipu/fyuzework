@@ -96,7 +96,7 @@ export default function Home() {
 
         <div className="theme-bg-secondary h-[190vh]">
           <div className="h-fit mt-[50vh] flex-center flex-col">
-            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>Trusted by</h1>
+            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>As featured in</h1>
             <LogoLoop
               logos={imageLogos}
               speed={120}
@@ -112,7 +112,19 @@ export default function Home() {
           </div>
           <FeaturesComponent />
           <FeatureCards />
-          <div className="h-fit mt-[10vh] flex-center flex-col">
+        </div>
+
+        <div className="theme-bg-secondary pt-[15vh] pb-[10vh]">
+          <SocialPlatformsComponent />
+        </div>
+        <div>
+          <ChatFold11 />
+        </div>
+        <div>
+          <TestimonialCardsSlider />
+          <ChatFold12 />
+          <div className="h-fit pb-[30vh] flex-center flex-col">
+            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>Trusted by</h1>
             <LogoLoop
               logos={imageLogos}
               speed={120}
@@ -127,18 +139,6 @@ export default function Home() {
             />
           </div>
         </div>
-
-        <div className="theme-bg-secondary pt-[15vh] pb-[10vh]">
-          <SocialPlatformsComponent />
-        </div>
-        <div>
-          <ChatFold11 />
-        </div>
-        <div>
-          <TestimonialCardsSlider />
-          <ChatFold12 />
-        </div>
-        
       </section>
       <section className="section relative w-full z-50 theme-bg-secondary" data-text="dark">
         <FAQsection />
