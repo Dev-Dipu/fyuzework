@@ -117,7 +117,7 @@ export default function Home() {
         <div className="theme-bg-secondary">
           <SocialPlatformsComponent />
         </div>
-        <div>
+        <div className="pb-[10vh]">
           <ChatFold11 />
         </div>
         <div>
