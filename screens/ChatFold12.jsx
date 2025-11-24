@@ -76,7 +76,7 @@ const ChatFold12 = () => {
     return (
         <div
             ref={containerRef}
-            className="h-[120vh] pt-[10vh] flex flex-col justify-center items-center gap-8"
+            className="h-[100vh] pt-[10vh] flex flex-col justify-center items-center gap-8"
         >
             {" "}
             <div className="flex justify-center gap-16">
