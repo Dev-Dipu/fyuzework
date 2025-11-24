@@ -163,7 +163,7 @@ export default function SocialPlatformsComponent() {
 
       </div>
 
-      <div className="w-[55%] relative h-[47vh] flex gap-7 -top-6 overflow-hidden">
+      <div className="w-[55%] relative h-fit flex gap-7 -top-6 overflow-hidden">
         <div className="w-full absolute top-0 h-[18vh] gradient-6 z-60" />
         <div className="w-full absolute bottom-0 h-[18vh] gradient-7 z-60" />
 
