@@ -114,7 +114,7 @@ export default function Home() {
           <FeatureCards />
         </div>
 
-        <div className="theme-bg-secondary pt-[15vh] pb-[10vh]">
+        <div className="theme-bg-secondary">
           <SocialPlatformsComponent />
         </div>
         <div>
@@ -124,7 +124,7 @@ export default function Home() {
           <TestimonialCardsSlider />
           <ChatFold12 />
           <div className="h-fit pb-[30vh] flex-center flex-col">
-            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>Trusted by</h1>
+            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>Trusted by 1,000+ teams and professionals worldwide</h1>
             <LogoLoop
               logos={imageLogos}
               speed={120}

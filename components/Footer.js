@@ -39,40 +39,40 @@ export default function Footer() {
                       alt="fyuze-logo"
                       className={`w-[10px] sm:w-[20px] md:w-[30px] h-auto ${!isDark ? 'invert' : ''}`}
                     />
-                    <p className='sm:text-base'>Welcome to the future of influence</p>
+                    <p className='text-lg'>Welcome to the future of influence</p>
                     <div className='flex gap-3 sm:gap-4'>
                         <Image 
                           height={15} 
                           width={15} 
                           src="/ig.svg" 
                           alt="instagram-logo" 
-                          className='inline-block w-[20px] sm:w-[20px] h-[20px] sm:h-[20px] cursor-pointer hover:opacity-80 transition'
+                          className='inline-block w-[20px] sm:w-[30px] h-[30px] sm:h-[30px] cursor-pointer hover:opacity-80 transition'
                         />
                         <Image 
                           height={15} 
                           width={15} 
                           src="/fb.svg" 
                           alt="facebook-logo" 
-                          className='inline-block w-[20px] sm:w-[20px] h-[20px] sm:h-[20px] cursor-pointer hover:opacity-80 transition'
+                          className='inline-block w-[20px] sm:w-[30px] h-[30px] sm:h-[30px] cursor-pointer hover:opacity-80 transition'
                         />
                         <Image 
                           height={15} 
                           width={15} 
                           src="/tk.svg" 
                           alt="tiktok-logo" 
-                          className='inline-block w-[20px] sm:w-[20px] h-[20px] sm:h-[20px] cursor-pointer hover:opacity-80 transition'
+                          className='inline-block w-[20px] sm:w-[30px] h-[30px] sm:h-[30px] cursor-pointer hover:opacity-80 transition'
                         />
                         <Image 
                           height={15} 
                           width={15} 
                           src="/ln.svg" 
                           alt="linkedin-logo" 
-                          className='inline-block w-[20px] sm:w-[20px] h-[20px] sm:h-[20px] cursor-pointer hover:opacity-80 transition'
+                          className='inline-block w-[20px] sm:w-[30px] h-[30px] sm:h-[30px] cursor-pointer hover:opacity-80 transition'
                         />
                     </div>
                 </div>
 
-                <div className='h-[18vh] w-[.5px] bg-[#4f4f4f]'></div>
+                <div className='h-[30vh] w-[.5px] bg-[#4f4f4f]'></div>
 
                 {/* Links Section */}
                 <div className='flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-20 lg:gap-40'>
@@ -86,7 +86,7 @@ export default function Footer() {
                               <Link 
                                 key={index} 
                                 href="#" 
-                                className='block text-xs hover:underline transition'
+                                className='block hover:underline transition'
                               >
                                 {item}
                               </Link>
@@ -104,7 +104,7 @@ export default function Footer() {
                               <Link 
                                 key={index} 
                                 href="#" 
-                                className='block text-xs hover:underline transition'
+                                className='block hover:underline transition'
                               >
                                 {item}
                               </Link>
