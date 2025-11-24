@@ -96,7 +96,7 @@ export default function Home() {
 
         <div className="theme-bg-secondary h-[190vh]">
           <div className="h-fit mt-[50vh] flex-center flex-col">
-            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>As featured in</h1>
+            <h1 className='font-bold text-[24px] py-10 text-[#0d0d0d] font-archivo text-center'>Trusted by</h1>
             <LogoLoop
               logos={imageLogos}
               speed={120}
