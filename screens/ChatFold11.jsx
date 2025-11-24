@@ -90,7 +90,7 @@ const ChatFold11 = () => {
 
 
   return (
-    <div ref={containerRef} className="h-[120vh] flex items-center justify-center gap-20">
+    <div ref={containerRef} className="h-[100vh] flex items-center justify-center gap-20">
       {/* Left Side */}
       <div className="w-[26%]">
         <h1 ref={headingRef} className="text-5xl font-archivo font-semibold leading-auto">
