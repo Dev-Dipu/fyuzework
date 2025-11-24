@@ -2,11 +2,6 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-
-/**
- * Resets scroll position whenever the app mounts or the route path changes.
- * Also disables the browser's automatic scroll restoration so refreshes begin at the top.
- */
 export default function ScrollReset() {
   const pathname = usePathname();
 
@@ -32,4 +27,3 @@ export default function ScrollReset() {
 
   return null;
 }
-
